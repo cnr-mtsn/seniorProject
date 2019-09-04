@@ -1,14 +1,21 @@
 # seniorProject
 Senior Project - Fall 2019
 
-Restaurant Reservation/Review System
+Federal Reserve Project
 
 Users Can {
     => createAccount()
     => login()
-    => findNearbyRestaurants()
-    => makeReservation()
-    => cancelReservation()
+    => orderFood()
+    => checkIfBusy()
+    => cancelOrder()
+    => getRecipe()
     => leaveReview()
     => editReview()
+}
+Admin Can {
+    => editMenu()
+    => addRecipes()
+    => editRecipes()
+    => seeReviews()
 }
