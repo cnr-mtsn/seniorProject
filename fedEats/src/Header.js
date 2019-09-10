@@ -27,12 +27,12 @@ function Header() {
 	};
 	const titleStyle = {
 		color: "white",
-        fontSize: "4vw",
+        fontSize: "52px",
 		textAlign: "center"
 	};
 
 	return (
-		<Container fluid>
+		<Container>
 			<Row style={headerStyle}>
                 <Col className='align-self-center'
                     xl={2} lg={2} md={2} sm={3} xs={3}
