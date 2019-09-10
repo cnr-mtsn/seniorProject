@@ -19,3 +19,8 @@ Admin Can {
     => editRecipes()
     => seeReviews()
 }
+
+To run on your device: 
+    -   "git pull" all files to local folder linked to repository
+    -   "npm install --save react bootstrap reactstrap" 
+    -   "cd fedEats" --> "cd fedeats" --> "npm start"
