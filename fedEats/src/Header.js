@@ -1,5 +1,4 @@
 import React from "react";
-import "./Header.css";
 import fedEatsLogo from "./fedEatsLogo.jpeg";
 import ckLogo from "./companyKitchenLogo.jpeg";
 import { Container, Row, Col } from "reactstrap";
@@ -7,47 +6,37 @@ import Image from "react-bootstrap/Image";
 
 function Header() {
 	const logoStyle = {
-        minHeight: "60px",
-        minWidth:  "100px",
-		maxWidth: "15vw",
+		height: '12vw',
+		width: '20vw',
         float: "left",
-        padding: '4px'
+        padding: '1vw'
 	};
 	const ckLogoStyle = {
-        minHeight: "80px",
-        minWidth:  "80px",
-		maxHeight: "10vw",
-		maxWidth: "6vw",
+        height: "13vw",
+        width:  "13vw",
         float: 'right',
-        padding: '4px'
+        padding: '1vw'
 	};
 	const headerStyle = {
         backgroundColor: "#4e267c",
-        minHeight: '70px'
+        height: '15vw'
 	};
 	const titleStyle = {
 		color: "white",
-        fontSize: "52px",
+        fontSize: "6vw",
 		textAlign: "center"
 	};
 
 	return (
-		<Container>
+		<Container fluid>
 			<Row style={headerStyle}>
-                <Col className='align-self-center'
-                    xl={2} lg={2} md={2} sm={3} xs={3}
-				>
-					<Image src={fedEatsLogo} alt='fedEats' style={logoStyle} rounded/>
+				<Col className='align-self-center' xl={2} lg={2} md={2} sm={2} xs={3}>
+					<Image src={fedEatsLogo} alt='fedEats' style={logoStyle} rounded />
 				</Col>
-				<Col
-				    xl={8} lg={8} md={8} sm={6} xs={6}
-					className='align-self-center'
-				>
-					<h1 style={titleStyle}>Deli Order Form</h1>
+				<Col xl={8} lg={8} md={8} sm={8} xs={6} className='align-self-center'>
+					<h6 style={titleStyle}>Deli Order Form</h6>
 				</Col>
-				<Col className='align-self-center'
-					xl={2} lg={2} md={2} sm={3} xs={3}					
-				>
+				<Col className='align-self-center' xl={2} lg={2} md={2} sm={2} xs={3}>
 					<img src={ckLogo} alt='CompanyKitchen' style={ckLogoStyle} />
 				</Col>
 			</Row>
