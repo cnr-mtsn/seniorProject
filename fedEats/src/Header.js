@@ -5,38 +5,38 @@ import { Container, Row, Col } from "reactstrap";
 import Image from "react-bootstrap/Image";
 
 function Header() {
-	const logoStyle = {
-		height: '12vw',
-		width: '20vw',
-        float: "left",
-        padding: '1vw'
+	const fedEatsLogoStyle = {
+		height: '7vw',
+		width: '14vw',
+		float: "left",
+		padding: '1vw'
 	};
 	const ckLogoStyle = {
-        height: "13vw",
-        width:  "13vw",
-        float: 'right',
-        padding: '1vw'
+        height: "7vw",
+        width:  "7vw",
+		float: 'right',
+		padding: '.3vw'
 	};
 	const headerStyle = {
         backgroundColor: "#4e267c",
-        height: '15vw'
+        height: '7vw'
 	};
 	const titleStyle = {
 		color: "white",
-        fontSize: "6vw",
+        fontSize: "2.5vw",
 		textAlign: "center"
 	};
 
 	return (
-		<Container fluid>
+		<Container>
 			<Row style={headerStyle}>
-				<Col className='align-self-center' xl={2} lg={2} md={2} sm={2} xs={3}>
-					<Image src={fedEatsLogo} alt='fedEats' style={logoStyle} rounded />
+				<Col className='align-self-center' xl={4} lg={4} md={4} sm={4} xs={4}>
+					<Image src={fedEatsLogo} alt='fedEats' style={fedEatsLogoStyle} rounded />
 				</Col>
-				<Col xl={8} lg={8} md={8} sm={8} xs={6} className='align-self-center'>
+				<Col xl={4} lg={4} md={4} sm={4} xs={4} className='align-self-center'>
 					<h6 style={titleStyle}>Deli Order Form</h6>
 				</Col>
-				<Col className='align-self-center' xl={2} lg={2} md={2} sm={2} xs={3}>
+				<Col className='align-self-center' xl={4} lg={4} md={4} sm={4} xs={4}>
 					<img src={ckLogo} alt='CompanyKitchen' style={ckLogoStyle} />
 				</Col>
 			</Row>

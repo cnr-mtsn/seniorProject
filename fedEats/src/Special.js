@@ -17,93 +17,93 @@ import {
 import pastrami from "./pastrami.jpeg";
 
 function Special() {
-	const specialStyle = {
+	const headerStyle = {
 		height: "4vw",
-		backgroundColor: "#978EAD",
+		backgroundColor: "#78409c",
 		color: "white",
 		textAlign: "left",
-		padding: "1px"
+		marginTop: '1vw'
 	};
-	const headerStyle = {
-		fontWeight: "400",
-		fontSize: "3vw"
+	const titleStyle = {
+		fontSize: "1.5vw",
+		padding: '1vw',
+		fontWeight: '600'
 	};
 	const specialPicStyle = {
         maxHeight: "300px",
         maxWidth: '500px',
-		height: "15vw",
-		width: "25vw",
+		height: "12vw",
+		width: "20vw",
 		paddingLeft: "1vw",
-		paddingTop: "1vw"
+		paddingTop: "1vw",
+		margin: 'auto',
+		borderRadius: '10px'
 	};
+	const ingredientstyle = {
+		fontSize: '1vw',
+		marginLeft: '10px'
+	}
 	
 
 	return (
-		<Container style={{ marginTop: "1vw" }}>
-			<Row style={specialStyle}>
+		<Container>
+			<Row style={headerStyle}>
 				<Col>
-					<h3 style={headerStyle}>Today's Special</h3>
+					<h3 style={titleStyle}>Today's Special</h3>
 				</Col>
 			</Row>
 			<Row>
-				<Col xl={6} lg={6} md={6} sm={6} xs={6}>
+				<Col xl={6} lg={6} md={6}>
 
-					<Card style={{ marginTop: "1vw", outline: "1px solid red" }}>
-						<CardImg src={pastrami} style={specialPicStyle} />
+					<Card style={{ marginTop: "1vw"}}>
+						<CardImg src={pastrami} style={specialPicStyle}/>
 						<CardBody>
-							<CardTitle style={{ fontStyle: "bold", fontSize: "3vw" }}>
+							<CardTitle style={{ fontStyle: "bold", fontSize: "1.5vw" }}>
 								N.Y. Beef & Pastrami on Rye
 							</CardTitle>
-							<CardSubtitle style={{ fontStyle: "italic", fontSize: "2vw" }}>
+							<CardSubtitle style={{ fontStyle: "italic", fontSize: "1.1vw" }}>
 								Corned beef and pastrami sandwich with Swiss and spicy brown
 								mustard on marbled rye.
 							</CardSubtitle>
-                            <Form style={{marginLeft: '3vw', marginTop: '2vw'}}>
-                                <FormGroup>
-                                    <Input type="radio" id="specialButton" style={{ height: "2vw" }} ></Input>
-                                    <label for="specialButton" style={{fontSize: '2vw'}}>Select "Special Name"</label>
-                                 </FormGroup>
-                            </Form>
-
 						</CardBody>
 					</Card>
 				</Col>
-				<Col xl={6} lg={6} md={6} sm={6} xs={6}>
-					<Form style={{ marginTop: "1vw", outline: "1px solid red" }}>
+				<Col xl={6} lg={6} md={6}>
+					<Form style={{ marginTop: "1vw"}}>
 						<FormText
 							color='muted'
 							style={{
 								textDecoration: "underline",
 								fontWeight: "bold",
-								fontSize: "2vw"
+								fontSize: "1vw"
 							}}
 						>
 							Customize the Special Below
 						</FormText>
 						<FormGroup check>
-							<Label check>
-								<Input type='radio' style={{ height: "2vw" }} />
+							<Label check style={ingredientstyle}>
+								<Input type='radio'/>
 								Spicy Brown Mustard
 							</Label>
 						</FormGroup>
 
 						<FormGroup check>
-							<Label check>
-								<Input type='radio' style={{ height: "2vw" }} />
+							<Label check style={ingredientstyle}>
+								<Input type='radio'/>
 								Swiss Cheese
 							</Label>
 						</FormGroup>
 
 						<FormGroup check>
-							<Label check>
-								<Input type='radio' style={{ height: "2vw" }} />
+							<Label check style={ingredientstyle}>
+								<Input type='radio'/>
 								Red Onions
 							</Label>
 						</FormGroup>
 
 						<FormGroup check>
-							<Label check>
-								<Input type='radio' style={{ height: "2vw" }} id='sprouts' />
+							<Label check style={ingredientstyle}>
+								<Input type='radio'/>
 								Sprouts
 							</Label>
 						</FormGroup>
@@ -113,5 +113,4 @@ function Special() {
 		</Container>
 	);
 }
-
 export default Special;
