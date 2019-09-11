@@ -37,7 +37,8 @@ function Special() {
 		paddingLeft: "1vw",
 		paddingTop: "1vw",
 		margin: 'auto',
-		borderRadius: '10px'
+		borderRadius: '10px',
+		
 	};
 	const ingredientstyle = {
 		fontSize: '1vw',
@@ -55,7 +56,7 @@ function Special() {
 			<Row>
 				<Col xl={6} lg={6} md={6}>
 
-					<Card style={{ marginTop: "1vw"}}>
+					<Card style={{ marginTop: "1vw", boxShadow: '0 4px 8px 0 grey, 0 6px 20px 0 grey'}}>
 						<CardImg src={pastrami} style={specialPicStyle}/>
 						<CardBody>
 							<CardTitle style={{ fontStyle: "bold", fontSize: "1.5vw" }}>
