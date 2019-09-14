@@ -4,7 +4,7 @@ console.log("HI YA!");
 var con = createConnection({
   host: "localhost",
   user: "root",
-  password: ""
+  password: "Cs07193."
 });
 
 con.connect(function(err) {
