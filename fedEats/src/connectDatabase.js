@@ -1,6 +1,5 @@
 import { createConnection } from 'mysql';
 
-console.log("HI YA!");
 var con = createConnection({
   host: "localhost",
   user: "root",
