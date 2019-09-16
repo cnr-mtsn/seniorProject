@@ -4,4 +4,10 @@
     color: white;
     text-align: left;
     margin-top: 1vw;
+    outline: 1px solid red;
+    margin-bottom: 1vw;
+}
+
+.title {
+    padding: 10px;
 }
