@@ -5,33 +5,21 @@ import {
 	Container,
 	Input
 } from "reactstrap";
+import './App.css';
+import Title from './Title';
 
 function Comments() {
-
-    const headerStyle = {
-		height: "4vw",
-		backgroundColor: '#78409c',
-		color: "white",
-		textAlign: "left",
-		marginTop: '1vw'
-	};
-	const titleStyle = {
-		fontSize: "1.5vw",
-		padding: '1vw',
-		fontWeight: '600'
-		
-	}
 
     return (
         <Container>
             <Row>
-                <Col style={headerStyle}>
-                    <h3 style={titleStyle}>Comments</h3>
+                <Col className="subHeader">
+					<Title name="Comments"></Title>
                 </Col>
             </Row>
 			<Row style={{marginTop: '1vw'}}>
                 <Col>
-                    <Input type="textarea"/>
+                    <Input type="textarea" placeholder="Special instructions for the chef..."/>
                 </Col>
             </Row>
         </Container>

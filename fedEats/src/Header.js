@@ -18,7 +18,6 @@ function Header() {
 		padding: '.3vw'
 	};
 	const headerStyle = {
-		background: 'rgb(153,26,203)',
 		background: 'linear-gradient(90deg, rgba(153,26,203,1) 0%, rgba(0,0,0,0.8407738095238095) 50%, rgba(153,26,203,1) 100%)',
         height: '7vw'
 	};
