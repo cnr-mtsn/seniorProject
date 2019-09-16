@@ -4,27 +4,16 @@ import {
 	Row,
 	Container,
 } from "reactstrap";
+import './App.css';
+import Title from './Title';
 
 function Pickup() {
-
-    const headerStyle = {
-		height: "4vw",
-		backgroundColor: "#78409c",
-		color: "white",
-		textAlign: "left",
-		marginTop: '1vw'
-	};
-	const titleStyle = {
-		fontSize: "1.5vw",
-		padding: '1vw',
-		fontWeight: '600'
-	}
 
     return (
         <Container>
             <Row>
-                <Col style={headerStyle}>
-                    <h3 style={titleStyle}>Select Pick-up Time</h3>
+                <Col className="subHeader">
+					<Title name="Select Pick-Up Time"></Title>
                 </Col>
             </Row>
         </Container>

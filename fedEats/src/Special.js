@@ -15,20 +15,11 @@ import {
 	FormText
 } from "reactstrap";
 import pastrami from "./pastrami.jpeg";
+import './App.css';
+import Title from './Title';
 
 function Special() {
-	const headerStyle = {
-		height: "4vw",
-		backgroundColor: "#78409c",
-		color: "white",
-		textAlign: "left",
-		marginTop: '1vw'
-	};
-	const titleStyle = {
-		fontSize: "1.5vw",
-		padding: '1vw',
-		fontWeight: '600'
-	};
+	
 	const specialPicStyle = {
         maxHeight: "300px",
         maxWidth: '500px',
@@ -48,14 +39,13 @@ function Special() {
 
 	return (
 		<Container>
-			<Row style={headerStyle}>
-				<Col>
-					<h3 style={titleStyle}>Today's Special</h3>
+			<Row >
+				<Col className="subHeader">
+					<Title name="Today's Special"></Title>
 				</Col>
 			</Row>
 			<Row>
 				<Col xl={6} lg={6} md={6}>
-
 					<Card style={{ marginTop: "1vw", boxShadow: '0 4px 8px 0 grey, 0 6px 20px 0 grey'}}>
 						<CardImg src={pastrami} style={specialPicStyle}/>
 						<CardBody>
@@ -87,21 +77,18 @@ function Special() {
 								Spicy Brown Mustard
 							</Label>
 						</FormGroup>
-
 						<FormGroup check>
 							<Label check style={ingredientstyle}>
 								<Input type='radio'/>
 								Swiss Cheese
 							</Label>
 						</FormGroup>
-
 						<FormGroup check>
 							<Label check style={ingredientstyle}>
 								<Input type='radio'/>
 								Red Onions
 							</Label>
 						</FormGroup>
-
 						<FormGroup check>
 							<Label check style={ingredientstyle}>
 								<Input type='radio'/>
