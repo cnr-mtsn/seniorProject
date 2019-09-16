@@ -1,0 +1,1 @@
+The 'fedeats' folder needs to go in your xampp/mysql/data/ folder
