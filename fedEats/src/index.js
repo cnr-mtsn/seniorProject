@@ -8,7 +8,8 @@ import Comments from './components/Comments';
 import * as serviceWorker from './serviceWorker';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
-ReactDOM.render(<Header />, document.getElementById('navbar'));
+
+ReactDOM.render(<Header cuisine="Deli Order Form"/>, document.getElementById('navbar'));
 ReactDOM.render(<Special />, document.getElementById('special'));
 ReactDOM.render(<Items />, document.getElementById('items'));
 ReactDOM.render(<Pickup />, document.getElementById('pickup'));

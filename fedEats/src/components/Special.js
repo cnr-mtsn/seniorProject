@@ -20,23 +20,6 @@ import Title from './Title';
 
 function Special() {
 	
-	const specialPicStyle = {
-        maxHeight: "300px",
-        maxWidth: '600px',
-		height: "12vw",
-		width: "20vw",
-		paddingLeft: "1vw",
-		paddingTop: "1vw",
-		margin: 'auto', 
-		borderRadius: '10px',
-		
-	};
-	const ingredientstyle = {
-		fontSize: '1vw',
-		
-	}
-	
-
 	return (
 		<Container>
 			<Row>
@@ -46,13 +29,13 @@ function Special() {
 			</Row>
 			<Row>
 				<Col xl={6} lg={6} md={6}>
-					<Card style={{ marginTop: '2vw', outline: '1px solid grey', boxShadow: '0 4px 8px 0 grey, 0 6px 20px 0 grey'}}>
-						<CardImg src={pastrami} style={specialPicStyle}/>
+					<Card className="specialCard">
+						<CardImg className="specialPic" src={pastrami}/>
 						<CardBody>
-							<CardTitle style={{ fontStyle: "bold", fontSize: "1.6vw" }}>
+							<CardTitle className="specialTitle">
 								<strong>N.Y. Beef & Pastrami on Rye</strong>
 							</CardTitle>
-							<CardSubtitle style={{ fontStyle: "italic", fontSize: "1.2vw" }}>
+							<CardSubtitle className="specialDescription">
 								Corned beef and pastrami sandwich with Swiss and spicy brown
 								mustard on marbled rye.
 							</CardSubtitle>
@@ -60,41 +43,20 @@ function Special() {
 					</Card>
 				</Col>
 				<Col xl={6} lg={6} md={6}>
-					<Form style={{marginTop: "2vw", outline:"1px solid grey", textAlign: 'left', paddingLeft: '1vw'}}>
-						<FormText
-							color='muted'
-							style={{
-								textDecoration: "underline",
-								fontWeight: "bold",
-								fontSize: "1vw"
-							}}
-						>
+					<Form className="specialCustomForm">
+
+						<FormText className="specialCustomText" color='muted'>
 							Customize the Special Below
 						</FormText>
+
 						<FormGroup check>
-							<Label check style={ingredientstyle}>
+						 	{/* create an input radio button for each item */}
+							<Label check className="specialAddon">
 								<Input type='radio'/>
 								Spicy Brown Mustard
 							</Label>
 						</FormGroup>
-						<FormGroup check>
-							<Label check style={ingredientstyle}>
-								<Input type='radio'/>
-								Swiss Cheese
-							</Label>
-						</FormGroup>
-						<FormGroup check>
-							<Label check style={ingredientstyle}>
-								<Input type='radio'/>
-								Red Onions
-							</Label>
-						</FormGroup>
-						<FormGroup check>
-							<Label check style={ingredientstyle}>
-								<Input type='radio'/>
-								Sprouts
-							</Label>
-						</FormGroup>
+						
 					</Form>
 				</Col>
 			</Row>
