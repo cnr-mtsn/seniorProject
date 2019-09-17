@@ -1,8 +1,9 @@
 import React from "react";
-import fedEatsLogo from "./fedEatsLogo.jpeg";
-import ckLogo from "./companyKitchenLogo.jpeg";
+import fedEatsLogo from '../media/fedEatsLogo.jpeg';
+import ckLogo from "../media/companyKitchenLogo.jpeg";
 import { Container, Row, Col } from "reactstrap";
 import Image from "react-bootstrap/Image";
+import '../css/header.css';
 
 function Header() {
 	const fedEatsLogoStyle = {

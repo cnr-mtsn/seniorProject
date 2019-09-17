@@ -4,7 +4,7 @@ import {
 	Row,
 	Container,
 } from "reactstrap";
-import './App.css';
+import '../css/App.css';
 import Title from './Title';
 
 function Pickup() {

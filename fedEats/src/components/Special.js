@@ -14,45 +14,45 @@ import {
 	Input,
 	FormText
 } from "reactstrap";
-import pastrami from "./pastrami.jpeg";
-import './App.css';
+import pastrami from "../media/pastrami.jpeg";
+import '../css/App.css';
 import Title from './Title';
 
 function Special() {
 	
 	const specialPicStyle = {
         maxHeight: "300px",
-        maxWidth: '500px',
+        maxWidth: '600px',
 		height: "12vw",
 		width: "20vw",
 		paddingLeft: "1vw",
 		paddingTop: "1vw",
-		margin: 'auto',
+		margin: 'auto', 
 		borderRadius: '10px',
 		
 	};
 	const ingredientstyle = {
 		fontSize: '1vw',
-		marginLeft: '10px'
+		
 	}
 	
 
 	return (
 		<Container>
-			<Row >
+			<Row>
 				<Col className="subHeader">
 					<Title name="Today's Special"></Title>
 				</Col>
 			</Row>
 			<Row>
 				<Col xl={6} lg={6} md={6}>
-					<Card style={{ marginTop: "1vw", boxShadow: '0 4px 8px 0 grey, 0 6px 20px 0 grey'}}>
+					<Card style={{ marginTop: '2vw', outline: '1px solid grey', boxShadow: '0 4px 8px 0 grey, 0 6px 20px 0 grey'}}>
 						<CardImg src={pastrami} style={specialPicStyle}/>
 						<CardBody>
-							<CardTitle style={{ fontStyle: "bold", fontSize: "1.5vw" }}>
-								N.Y. Beef & Pastrami on Rye
+							<CardTitle style={{ fontStyle: "bold", fontSize: "1.6vw" }}>
+								<strong>N.Y. Beef & Pastrami on Rye</strong>
 							</CardTitle>
-							<CardSubtitle style={{ fontStyle: "italic", fontSize: "1.1vw" }}>
+							<CardSubtitle style={{ fontStyle: "italic", fontSize: "1.2vw" }}>
 								Corned beef and pastrami sandwich with Swiss and spicy brown
 								mustard on marbled rye.
 							</CardSubtitle>
@@ -60,7 +60,7 @@ function Special() {
 					</Card>
 				</Col>
 				<Col xl={6} lg={6} md={6}>
-					<Form style={{ marginTop: "1vw"}}>
+					<Form style={{marginTop: "2vw", outline:"1px solid grey", textAlign: 'left', paddingLeft: '1vw'}}>
 						<FormText
 							color='muted'
 							style={{

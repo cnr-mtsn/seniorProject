@@ -1,13 +1,13 @@
 .subHeader {
     height: 4vw;
     background-color: #78409c;
-    color: white;
     text-align: left;
-    margin-top: 1vw;
+    margin-top: 2vw;
     outline: 1px solid red;
-    margin-bottom: 1vw;
 }
 
 .title {
-    padding: 10px;
+    color: white;
+    font-size: 2vw;
+    outline: 1px solid black;
 }
