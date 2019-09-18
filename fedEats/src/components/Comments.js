@@ -5,8 +5,8 @@ import {
 	Container,
 	Input
 } from "reactstrap";
-import './App.css';
-import Title from './Title';
+import '../css/App.css';
+import Title from '../components/Title';
 
 function Comments() {
 

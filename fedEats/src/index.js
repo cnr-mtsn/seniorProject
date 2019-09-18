@@ -1,14 +1,15 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import Header from './Header';
-import Special from './Special';
-import Items from './Items';
-import Pickup from './Pickup';
-import Comments from './Comments';
+import Header from './components/Header';
+import Special from './components/Special';
+import Items from './components/Items';
+import Pickup from './components/Pickup';
+import Comments from './components/Comments';
 import * as serviceWorker from './serviceWorker';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
-ReactDOM.render(<Header />, document.getElementById('navbar'));
+
+ReactDOM.render(<Header cuisine="Deli Order Form"/>, document.getElementById('navbar'));
 ReactDOM.render(<Special />, document.getElementById('special'));
 ReactDOM.render(<Items />, document.getElementById('items'));
 ReactDOM.render(<Pickup />, document.getElementById('pickup'));
