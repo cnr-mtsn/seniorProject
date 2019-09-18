@@ -1,1 +1,1 @@
-The 'fedeats' folder needs to go in your xampp/mysql/data/ folder
+use the fedeats.sql file to delete old database and create new one
