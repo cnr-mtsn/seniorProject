@@ -26,6 +26,13 @@ create table tortillaBase
     PRIMARY KEY(tortilla_id)
 );
 
+create table main
+(
+    main_id INT NOT NULL AUTO_INCREMENT,
+    name VARCHAR(50) NOT NULL,
+    PRIMARY KEY(main_id)
+);
+
 create table protein
 (
     protein_id INT NOT NULL AUTO_INCREMENT,
