@@ -35,10 +35,65 @@ create table main
     PRIMARY KEY(main_id)
 );
 
+create table main_sandwich
+(
+    main_sandwich_id NOT NULL AUTO_INCREMENT,
+    main_id NOT NULL,
+    sandwich_id NOT NULL,
+    PRIMARY KEY(main_sandwich_id)
+);
+
+create table main_tortilla
+(
+    main_tortilla_id NOT NULL AUTO_INCREMENT,
+    main_id NOT NULL,
+    tortilla_id NOT NULL,
+    PRIMARY KEY(main_tortilla_id)
+);
+
+create table main_protein
+(
+    main_protein_id NOT NULL AUTO_INCREMENT,
+    main_id NOT NULL,
+    protein_id NOT NULL,
+    PRIMARY KEY(main_protein_id)
+);
+
+create table main_cheese
+(
+    main_cheese_id NOT NULL AUTO_INCREMENT,
+    main_id NOT NULL,
+    cheese_id NOT NULL,
+    PRIMARY KEY(main_cheese_id)
+);
+
+create table main_veggies
+(
+    main_veggies_id NOT NULL AUTO_INCREMENT,
+    main_id NOT NULL,
+    veggies_id NOT NULL,
+    PRIMARY KEY(main_veggies_id)
+);
+
+create table main_condiments
+(
+    main_condiments_id NOT NULL AUTO_INCREMENT,
+    main_id NOT NULL,
+    condiments_id NOT NULL,
+    PRIMARY KEY(main_condiments_id)
+);
+
+create table main_extras
+(
+    main_extras_id NOT NULL AUTO_INCREMENT,
+    main_id NOT NULL,
+    extras_id NOT NULL,
+    PRIMARY KEY(main_extras_id)
+);
+
 create table protein
 (
     protein_id INT NOT NULL AUTO_INCREMENT,
-    main_id INT,
     name VARCHAR(50) NOT NULL,
     PRIMARY KEY(protein_id)
 );
@@ -46,7 +101,6 @@ create table protein
 create table cheese
 (
     cheese_id INT NOT NULL AUTO_INCREMENT,
-    main_id INT,
     name VARCHAR(50) NOT NULL,
     PRIMARY KEY(cheese_id)
 );
@@ -54,7 +108,6 @@ create table cheese
 create table veggies
 (
     veggie_id INT NOT NULL AUTO_INCREMENT,
-    main_id INT,
     name VARCHAR(50) NOT NULL,
     PRIMARY KEY(veggie_id)
 );
@@ -62,7 +115,6 @@ create table veggies
 create table condiments
 (
     condiments_id INT NOT NULL AUTO_INCREMENT,
-    main_id INT,
     name VARCHAR(50) NOT NULL,
     PRIMARY KEY(condiments_id)
 );
@@ -70,7 +122,6 @@ create table condiments
 create table extras
 (
     extras_id INT NOT NULL AUTO_INCREMENT,
-    main_id INT,
     name VARCHAR(50) NOT NULL,
     PRIMARY KEY(extras_id)
 );
