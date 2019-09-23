@@ -130,11 +130,7 @@ create table pickupTimes
 (
   	time_id INT NOT NULL AUTO_INCREMENT,
    	pickupTime VARCHAR(50) NOT NULL,
-<<<<<<< HEAD
-    avalible INT NOT NULL,
-=======
     available INT NOT NULL,
->>>>>>> 12ab55dd24f76c38eafda442f551aace8f25d3c0
     PRIMARY KEY(time_id)
 );
 

@@ -10,27 +10,22 @@ import React, {useState} from 'react';
 const Form = () => {
 
     // Using useState: << [stateName, setStateFunctionName] = useState(initialState) >> 
-    const [bread, setBread] = useState(['']); 
+    const [bread, setBread] = useState(''); 
     //state name = bread
     //setState() = setBread
     //initial state = empty array of strings
-    const [tortilla, setTortilla] = useState(['']); 
+    const [tortilla, setTortilla] = useState(''); 
     const [protein, setProtein] = useState(['']);
     const [cheese, setCheese] = useState(['']);
     const [veggies, setVeggies] = useState(['']);
     const [condiments, setCondiments] = useState(['']);
     const [extras, setExtras] = useState(['']);
-    const [pickupTime, setPickupTime] = useState(['']);
+    const [pickupTime, setPickupTime] = useState('');
 
 
     return (
         <div>
             <Form>
-                <input 
-                    type="radio"
-                    //onClick= add/delete from state array
-                >
-                 </input>
             </Form>
         </div>
     );
