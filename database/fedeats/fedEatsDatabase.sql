@@ -76,13 +76,8 @@ create table extras
 create table pickupTimes
 (
   	time_id INT NOT NULL AUTO_INCREMENT,
-<<<<<<< HEAD
    	pickupTime VARCHAR(50) NOT NULL,
     available INT NOT NULL,
-=======
-   	pickupTime DateTime NOT NULL,
-    available INT NOT NULL,
->>>>>>> 93089d333e2754808f19ac34a4ad2eed5f8f34be
     PRIMARY KEY(time_id)
 );
 
