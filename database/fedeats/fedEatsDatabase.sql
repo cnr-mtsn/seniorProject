@@ -130,7 +130,11 @@ create table pickupTimes
 (
   	time_id INT NOT NULL AUTO_INCREMENT,
    	pickupTime VARCHAR(50) NOT NULL,
+<<<<<<< HEAD
     avalible INT NOT NULL,
+=======
+    available INT NOT NULL,
+>>>>>>> 12ab55dd24f76c38eafda442f551aace8f25d3c0
     PRIMARY KEY(time_id)
 );
 
@@ -275,41 +279,41 @@ values ("Carrots");
 insert into extras(name)
 values ("Avocado");
 
-insert into pickupTimes(pickupTime, avalible)
+insert into pickupTimes(pickupTime, available)
 values("11:00", 1);
 
-insert into pickupTimes(pickupTime, avalible)
+insert into pickupTimes(pickupTime, available)
 values("11:15", 1);
 
-insert into pickupTimes(pickupTime, avalible)
+insert into pickupTimes(pickupTime, available)
 values("11:30", 1);
 
-insert into pickupTimes(pickupTime, avalible)
+insert into pickupTimes(pickupTime, available)
 values("11:45", 1);
 
-insert into pickupTimes(pickupTime, avalible)
+insert into pickupTimes(pickupTime, available)
 values("12:00", 1);
 
-insert into pickupTimes(pickupTime, avalible)
+insert into pickupTimes(pickupTime, available)
 values("12:15", 1);
 
-insert into pickupTimes(pickupTime, avalible)
+insert into pickupTimes(pickupTime, available)
 values("12:30", 1);
 
-insert into pickupTimes(pickupTime, avalible)
+insert into pickupTimes(pickupTime, available)
 values("12:45", 1);
 
-insert into pickupTimes(pickupTime, avalible)
+insert into pickupTimes(pickupTime, available)
 values("1:00", 1);
 
-insert into pickupTimes(pickupTime, avalible)
+insert into pickupTimes(pickupTime, available)
 values("1:15", 1);
 
-insert into pickupTimes(pickupTime, avalible)
+insert into pickupTimes(pickupTime, available)
 values("1:30", 1);
 
-insert into pickupTimes(pickupTime, avalible)
+insert into pickupTimes(pickupTime, available)
 values("1:45", 1);
 
-insert into pickupTimes(pickupTime, avalible)
+insert into pickupTimes(pickupTime, available)
 values("2:00", 1);
