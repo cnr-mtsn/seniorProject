@@ -32,7 +32,17 @@ create table main
     name VARCHAR(50) NOT NULL,
     image VARCHAR(50),
     description VARCHAR,
+    price DOUBLE NOT NULL,
     PRIMARY KEY(main_id)
+);
+
+CREATE TABLE orders
+(
+    order_id INT NOT NULL AUTO_INCREMENT,
+    user_id INT NOT NULL,
+    total DOUBLE NOT NULL,
+    order_date DATE,
+    PRIMARY KEY(order_id)
 );
 
 create table main_sandwich
