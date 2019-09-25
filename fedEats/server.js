@@ -26,7 +26,7 @@ function runQuery(query) {
 };
 
 //create GET route
-app.get('/expressBackend', (req, res) => {
+app.get('/getDate', (req, res) => {
   res.send( {
     express: new Date()
   });

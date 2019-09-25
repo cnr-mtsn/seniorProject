@@ -8,21 +8,23 @@ import '../css/header.css';
 class Header extends React.Component {
 
 	state = {
-		data: null
+		date: null
 	};
 	
     componentDidMount() {
         //call fetch function once component mounts
-        this.callBackendAPI().then(res => this.setState({data: res.express })).catch(err => console.log(err));
+        this.getDate().then(res => this.setState({date: res.express })).catch(err => console.log(err));
 	}
-	componentDidUpdate() {
-        //call fetch function once component mounts
-        this.callBackendAPI().then(res => this.setState({data: res.express })).catch(err => console.log(err));
-    }
+	// 	DONT USE COMPONENT_DID_UPDATE WITH THE DATE
+	// 			BECAUSE IT CONSTANTLY RE-RENDERS
+	// componentDidUpdate() {
+    //     //call fetch function once component updates
+    //     this.callBackendAPI().then(res => this.setState({data: res.express })).catch(err => console.log(err));
+    // }
 
     //fetches GET route from Express server
-    callBackendAPI = async () => {
-        const response = await fetch('/expressBackend');
+    getDate = async () => {
+        const response = await fetch('/getDate');
         const body = await response.json();
 
         if(response.status !== 200) {
@@ -44,7 +46,7 @@ class Header extends React.Component {
 
 					<Col xl={4} lg={4} md={4} sm={4} xs={4} className='align-self-center'>
 						{/* DISPLAY STATE DATA FROM EXPRESS BACKEND */}
-						<h6 className="formTitle">{this.state.data}</h6>
+						<h6 className="formTitle">{this.state.date}</h6>
 					</Col>
 
 					<Col className='align-self-center' xl={4} lg={4} md={4} sm={4} xs={4}>
