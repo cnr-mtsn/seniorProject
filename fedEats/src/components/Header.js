@@ -16,7 +16,7 @@ class Header extends React.Component {
         this.getDate().then(res => this.setState({date: res.express })).catch(err => console.log(err));
 	}
 	// 	DONT USE COMPONENT_DID_UPDATE WITH THE DATE
-	// 			BECAUSE IT CONSTANTLY RE-RENDERS
+	// 			BECAUSE IT CONSTANTLY RE-RENDERS -- lol, noted
 	// componentDidUpdate() {
     //     //call fetch function once component updates
     //     this.callBackendAPI().then(res => this.setState({data: res.express })).catch(err => console.log(err));
