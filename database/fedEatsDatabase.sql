@@ -16,6 +16,7 @@ create table sandwichBase
 (
     sandwich_id INT NOT NULL AUTO_INCREMENT,
     name VARCHAR(50) NOT NULL,
+    price DOUBLE,
     PRIMARY KEY(sandwich_id)
 );
 
@@ -23,6 +24,7 @@ create table tortillaBase
 (
     tortilla_id INT NOT NULL AUTO_INCREMENT,
     name VARCHAR(50) NOT NULL,
+    price DOUBLE,
     PRIMARY KEY(tortilla_id)
 );
 
@@ -31,7 +33,7 @@ create table main
     main_id INT NOT NULL AUTO_INCREMENT,
     name VARCHAR(50) NOT NULL,
     image VARCHAR(50),
-    description VARCHAR,
+    description VARCHAR(1000),
     price DOUBLE NOT NULL,
     PRIMARY KEY(main_id)
 );
@@ -47,57 +49,57 @@ CREATE TABLE orders
 
 create table main_sandwich
 (
-    main_sandwich_id NOT NULL AUTO_INCREMENT,
-    main_id NOT NULL,
-    sandwich_id NOT NULL,
+    main_sandwich_id INT NOT NULL AUTO_INCREMENT,
+    main_id INT NOT NULL,
+    sandwich_id INT NOT NULL,
     PRIMARY KEY(main_sandwich_id)
 );
 
 create table main_tortilla
 (
-    main_tortilla_id NOT NULL AUTO_INCREMENT,
-    main_id NOT NULL,
-    tortilla_id NOT NULL,
+    main_tortilla_id INT NOT NULL AUTO_INCREMENT,
+    main_id INT NOT NULL,
+    tortilla_id INT NOT NULL,
     PRIMARY KEY(main_tortilla_id)
 );
 
 create table main_protein
 (
-    main_protein_id NOT NULL AUTO_INCREMENT,
-    main_id NOT NULL,
-    protein_id NOT NULL,
+    main_protein_id INT NOT NULL AUTO_INCREMENT,
+    main_id INT NOT NULL,
+    protein_id INT NOT NULL,
     PRIMARY KEY(main_protein_id)
 );
 
 create table main_cheese
 (
-    main_cheese_id NOT NULL AUTO_INCREMENT,
-    main_id NOT NULL,
-    cheese_id NOT NULL,
+    main_cheese_id INT NOT NULL AUTO_INCREMENT,
+    main_id INT NOT NULL,
+    cheese_id INT NOT NULL,
     PRIMARY KEY(main_cheese_id)
 );
 
 create table main_veggies
 (
-    main_veggies_id NOT NULL AUTO_INCREMENT,
-    main_id NOT NULL,
-    veggies_id NOT NULL,
+    main_veggies_id INT NOT NULL AUTO_INCREMENT,
+    main_id INT NOT NULL,
+    veggies_id INT NOT NULL,
     PRIMARY KEY(main_veggies_id)
 );
 
 create table main_condiments
 (
-    main_condiments_id NOT NULL AUTO_INCREMENT,
-    main_id NOT NULL,
-    condiments_id NOT NULL,
+    main_condiments_id INT NOT NULL AUTO_INCREMENT,
+    main_id INT NOT NULL,
+    condiments_id INT NOT NULL,
     PRIMARY KEY(main_condiments_id)
 );
 
 create table main_extras
 (
-    main_extras_id NOT NULL AUTO_INCREMENT,
-    main_id NOT NULL,
-    extras_id NOT NULL,
+    main_extras_id INT NOT NULL AUTO_INCREMENT,
+    main_id INT NOT NULL,
+    extras_id INT NOT NULL,
     PRIMARY KEY(main_extras_id)
 );
 
@@ -105,6 +107,7 @@ create table protein
 (
     protein_id INT NOT NULL AUTO_INCREMENT,
     name VARCHAR(50) NOT NULL,
+    price DOUBLE,
     PRIMARY KEY(protein_id)
 );
 
@@ -112,6 +115,7 @@ create table cheese
 (
     cheese_id INT NOT NULL AUTO_INCREMENT,
     name VARCHAR(50) NOT NULL,
+    price DOUBLE,
     PRIMARY KEY(cheese_id)
 );
 
@@ -119,6 +123,7 @@ create table veggies
 (
     veggie_id INT NOT NULL AUTO_INCREMENT,
     name VARCHAR(50) NOT NULL,
+    price DOUBLE,
     PRIMARY KEY(veggie_id)
 );
 
@@ -126,6 +131,7 @@ create table condiments
 (
     condiments_id INT NOT NULL AUTO_INCREMENT,
     name VARCHAR(50) NOT NULL,
+    price DOUBLE,
     PRIMARY KEY(condiments_id)
 );
 
@@ -133,6 +139,7 @@ create table extras
 (
     extras_id INT NOT NULL AUTO_INCREMENT,
     name VARCHAR(50) NOT NULL,
+    price DOUBLE,
     PRIMARY KEY(extras_id)
 );
 
@@ -144,146 +151,146 @@ create table pickupTimes
     PRIMARY KEY(time_id)
 );
 
-insert into sandwichBase(name)
-values("Sourdough");
+insert into sandwichBase(name, price)
+values("Sourdough", 1.50);
 
-insert into sandwichBase(name)
-values("Wheat");
+insert into sandwichBase(name, price)
+values("Wheat", 1.50);
 
-insert into sandwichBase(name)
-values("Ciabatta");
+insert into sandwichBase(name, price)
+values("Ciabatta", 1.50);
 
-insert into sandwichBase(name)
-values("Honey Wheat");
+insert into sandwichBase(name, price)
+values("Honey Wheat", 1.50);
 
-insert into tortillaBase(name)
-values("White Flour");
+insert into tortillaBase(name, price)
+values("White Flour", 1.50);
 
-insert into tortillaBase(name)
-values("Wheat");
+insert into tortillaBase(name, price)
+values("Wheat", 1.50);
 
-insert into tortillaBase(name)
-values("Honey Wheat");
+insert into tortillaBase(name, price)
+values("Honey Wheat", 1.50);
 
-insert into tortillaBase(name)
-values("Tomato Basil");
+insert into tortillaBase(name, price)
+values("Tomato Basil", 1.50);
 
-insert into tortillaBase(name)
-values("Spinach");
+insert into tortillaBase(name, price)
+values("Spinach", 1.50);
 
-insert into protein(name)
-values("Ham");
+insert into protein(name, price)
+values("Ham", 1.00);
 
-insert into protein(name)
-values("Roast Beef");
+insert into protein(name, price)
+values("Roast Beef", 1.00);
 
-insert into protein(name)
-values("Turkey");
+insert into protein(name, price)
+values("Turkey", 1.00);
 
-insert into protein(name)
-values("Salami");
+insert into protein(name, price)
+values("Salami", 1.00);
 
-insert into protein(name)
-values("Tuna Salad");
+insert into protein(name, price)
+values("Tuna Salad", 1.00);
 
-insert into protein(name)
-values("Grilled Chicken");
+insert into protein(name, price)
+values("Grilled Chicken", 1.00);
 
-insert into protein(name)
-values("Breaded Chicken");
+insert into protein(name, price)
+values("Breaded Chicken", 1.00);
 
-insert into protein(name)
-values("Pepperoni");
+insert into protein(name, price)
+values("Pepperoni", 1.00);
 
-insert into protein(name)
-values("Chicken Salad");
+insert into protein(name, price)
+values("Chicken Salad", 1.00);
 
-insert into cheese(name)
-values("Cheddar");
+insert into cheese(name, price)
+values("Cheddar", .25);
 
-insert into cheese(name)
-values("American");
+insert into cheese(name, price)
+values("American", .25);
 
-insert into cheese(name)
-values("Swiss");
+insert into cheese(name, price)
+values("Swiss", .25);
 
-insert into cheese(name)
-values("Provolone");
+insert into cheese(name, price)
+values("Provolone", .25);
 
-insert into cheese(name)
-values("Pepper Jack");
+insert into cheese(name, price)
+values("Pepper Jack", .25);
 
-insert into cheese(name)
-values("Parmesan");
+insert into cheese(name, price)
+values("Parmesan", .25);
 
-insert into veggies(name)
-values ("Shredded Lettuce");
+insert into veggies(name, price)
+values ("Shredded Lettuce", .20);
 
-insert into veggies(name)
-values ("Leaf Lettuce");
+insert into veggies(name, price)
+values ("Leaf Lettuce", .20);
 
-insert into veggies(name)
-values ("Tomatoes");
+insert into veggies(name, price)
+values ("Tomatoes", .20);
 
-insert into veggies(name)
-values ("Red Onions");
+insert into veggies(name, price)
+values ("Red Onions", .20);
 
-insert into veggies(name)
-values ("Jalapeños");
+insert into veggies(name, price)
+values ("Jalapeños", .20);
 
-insert into veggies(name)
-values ("Mixed Peppers");
+insert into veggies(name, price)
+values ("Mixed Peppers", .20);
 
-insert into veggies(name)
-values ("Banana Peppers");
+insert into veggies(name, price)
+values ("Banana Peppers", .20);
 
-insert into veggies(name)
-values ("Mushrooms");
+insert into veggies(name, price)
+values ("Mushrooms", .20);
 
-insert into veggies(name)
-values ("Sprouts");
+insert into veggies(name, price)
+values ("Sprouts", .20);
 
-insert into veggies(name)
-values ("Cucumbers");
+insert into veggies(name, price)
+values ("Cucumbers", .20);
 
-insert into veggies(name)
-values ("Pickles");
+insert into veggies(name, price)
+values ("Pickles", .20);
 
-insert into condiments(name)
-values ("Mayonnaise");
+insert into condiments(name, price)
+values ("Mayonnaise", .15);
 
-insert into condiments(name)
-values ("Spicy Mayonnaise");
+insert into condiments(name, price)
+values ("Spicy Mayonnaise", .15);
 
-insert into condiments(name)
-values ("Ranch Dressing");
+insert into condiments(name, price)
+values ("Ranch Dressing", .15);
 
-insert into condiments(name)
-values ("Buffalo Sauce");
+insert into condiments(name, price)
+values ("Buffalo Sauce", .15);
 
-insert into condiments(name)
-values ("Sriracha");
+insert into condiments(name, price)
+values ("Sriracha", .15);
 
-insert into condiments(name)
-values ("Mustard");
+insert into condiments(name, price)
+values ("Mustard", .15);
 
-insert into condiments(name)
-values ("Honey Mustard");
+insert into condiments(name, price)
+values ("Honey Mustard", .15);
 
-insert into condiments(name)
-values ("Spicy Brown Mustard");
+insert into condiments(name, price)
+values ("Spicy Brown Mustard", .15);
 
-insert into condiments(name)
-values ("Hummus");
+insert into condiments(name, price)
+values ("Hummus", .15);
 
-insert into extras(name)
-values ("Pickle");
+insert into extras(name, price)
+values ("Pickle", .50);
 
-insert into extras(name)
-values ("Carrots");
+insert into extras(name, price)
+values ("Carrots", .50);
 
-insert into extras(name)
-values ("Avocado");
+insert into extras(name, price)
+values ("Avocado", .50);
 
 insert into pickupTimes(pickupTime, available)
 values("11:00", 1);
