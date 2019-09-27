@@ -4,15 +4,15 @@ const cors = require('cors');
 const PORT = 5000;
 const app = express();
 app.use(cors());
-const host = 'localhost';
-const user = 'cnr.mtsn';
+const host = 'www.math-cs.ucmo.edu';
+const user = 'F19fedres2';
 
 //DATABASE CONNECTION
 const db = mysql.createConnection( {
     host: host,
     user: user, 
-    password: 'd83f4eame4cumd', 
-    database: 'users'
+    password: 'F19pw$', 
+    database: 'F19fedres2'
 });
 
 db.connect((err) => {
