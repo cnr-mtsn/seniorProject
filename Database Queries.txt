@@ -1,0 +1,6 @@
+SELECT * FROM base
+SELECT * FROM cheese
+SELECT * FROM base
+SELECT * FROM veggies
+SELECT * FROM condiments
+SELECT * FROM extras
