@@ -24,19 +24,27 @@ db.connect((err) => {
 })
 
 
-//QUERIES
+/************   QUERIES   ************/
 const SELECT_ALL_CHEESES = 'SELECT * FROM cheese';
+const SELECT_ALL_CONDIMENTS = 'SELECT * FROM condiments';
+const SELECT_ALL_EXTRAS = 'SELECT * FROM extras';
+const SELECT_ALL_PROTEINS = 'SELECT * FROM protein';
+const SELECT_ALL_BREADS = 'SELECT * FROM sandwichBase';
+const SELECT_ALL_TORTILLAS = 'SELECT * FROM tortillaBase';
+const SELECT_ALL_VEGGIES = 'SELECT * FROM veggies';
 
 
 
-//GET ROUTES
 
+
+/**********   GET ROUTES   ************/
 //Home Route
 app.get('/', (req, res) => {
     res.send(`Go to /cheeses to see cheeses`);
 });
 
-//Add Cheese
+/************   CHEESE ROUTES   ************/
+//Add cheese
 app.get('/cheeses/add', (req, res) => {
     const {cheese_id, name, price} = req.query;
     const ADD_CHEESE = `INSERT INTO cheese(cheese_id, name, price) VALUES(${cheese_id}, '${name}', ${price})`;
@@ -49,11 +57,10 @@ app.get('/cheeses/add', (req, res) => {
         }
     });
 });
-
 //Delete Cheese
 app.get('/cheeses/delete', (req, res) => {
     const {cheese_id} = req.query;
-    const REMOVE_CHEESE = `DELETE FROM cheeses WHERE cheese.cheese_id=${cheese_id}`;
+    const REMOVE_CHEESE = `DELETE FROM cheese WHERE cheese.cheese_id=${cheese_id}`;
     db.query(REMOVE_CHEESE, (err, results) => {
         if(err) {
             return res.send(err);
@@ -63,14 +70,11 @@ app.get('/cheeses/delete', (req, res) => {
         }
     });
 });
-
-//Get cheese by name
-app.get('/cheeses/name', (req, res) => {
-    const {name} = req.query;
-    const CHEESE_BY_NAME = `SELECT * FROM cheeses WHERE name = '${name}'`;
-    db.query(CHEESE_BY_NAME, (err, results) => {
+//All Cheeses
+app.get('/cheeses', (req, res) => {
+    db.query(SELECT_ALL_CHEESES, (err, results) => {
         if(err) {
-            return res.send(err);
+            return res.send(err)
         }
         else {
             return res.json({
@@ -79,10 +83,36 @@ app.get('/cheeses/name', (req, res) => {
         }
     });
 });
-
-//All Cheeses
-app.get('/cheeses', (req, res) => {
-    db.query(SELECT_ALL_CHEESES, (err, results) => {
+/************   VEGGIES ROUTES   ************/
+//Add veggie
+app.get('/veggies/add', (req, res) => {
+    const {veggie_id, name, price} = req.query;
+    const ADD_VEGGIE = `INSERT INTO veggies(veggie_id, name, price) VALUES(${veggie_id}, '${name}', ${price})`;
+    db.query(ADD_VEGGIE, (err, results) => {
+        if(err) {
+            return res.send(err);
+        }
+        else {
+            return res.send(`Successfully Added Veggie    ID: ${veggie_id} Name: ${name} Price: ${price}`);
+        }
+    });
+});
+//Delete Veggie
+app.get('/veggies/delete', (req, res) => {
+    const {veggie_id} = req.query;
+    const REMOVE_VEGGIE = `DELETE FROM veggies WHERE veggies.veggie_id=${veggie_id}`;
+    db.query(REMOVE_VEGGIE, (err, results) => {
+        if(err) {
+            return res.send(err);
+        }
+        else {
+            return res.send(`Successfully Removed Veggie    ID: ${veggie_id}`);
+        }
+    });
+});
+//All Veggies
+app.get('/veggies', (req, res) => {
+    db.query(SELECT_ALL_VEGGIES, (err, results) => {
         if(err) {
             return res.send(err)
         }
@@ -97,6 +127,9 @@ app.get('/cheeses', (req, res) => {
 
 
 
+
+
+//Listen for requests on given port
 app.listen(process.env.PORT || PORT, () => {
     console.log(`Listening on port: ${PORT}`)
 });
