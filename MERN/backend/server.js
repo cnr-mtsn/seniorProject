@@ -25,7 +25,7 @@ db.connect((err) => {
 
 
 //QUERIES
-const SELECT_ALL_USERS = 'SELECT * FROM user';
+const SELECT_ALL_CHEESES = 'SELECT * FROM cheese';
 
 
 
@@ -33,42 +33,42 @@ const SELECT_ALL_USERS = 'SELECT * FROM user';
 
 //Home Route
 app.get('/', (req, res) => {
-    res.send(`Go to /users to see users`);
+    res.send(`Go to /cheeses to see cheeses`);
 });
 
-//Add User
-app.get('/users/add', (req, res) => {
-    const {firstName, lastName, email} = req.query;
-    const ADD_USER = `INSERT INTO user(firstName, lastName, email) VALUES('${firstName}', '${lastName}', '${email}')`;
-    db.query(ADD_USER, (err, results) => {
+//Add Cheese
+app.get('/cheeses/add', (req, res) => {
+    const {cheese_id, name, price} = req.query;
+    const ADD_CHEESE = `INSERT INTO cheese(cheese_id, name, price) VALUES(${cheese_id}, '${name}', ${price})`;
+    db.query(ADD_CHEESE, (err, results) => {
         if(err) {
             return res.send(err);
         }
         else {
-            return res.send(`Successfully Added User    First Name: ${firstName} LastName: ${lastName} Email: ${email}`);
+            return res.send(`Successfully Added Cheese    ID: ${cheese_id} Name: ${name} Price: ${price}`);
         }
     });
 });
 
-//Delete User
-app.get('/users/delete', (req, res) => {
-    const {email} = req.query;
-    const REMOVE_USER = `DELETE FROM user WHERE user.email='${email}'`;
-    db.query(REMOVE_USER, (err, results) => {
+//Delete Cheese
+app.get('/cheeses/delete', (req, res) => {
+    const {cheese_id} = req.query;
+    const REMOVE_CHEESE = `DELETE FROM cheeses WHERE cheese.cheese_id=${cheese_id}`;
+    db.query(REMOVE_CHEESE, (err, results) => {
         if(err) {
             return res.send(err);
         }
         else {
-            return res.send(`Successfully Removed User    Email: ${email}`);
+            return res.send(`Successfully Removed Cheese    ID: ${cheese_id}`);
         }
     });
 });
 
-//Get user by lastName
-app.get('/users/firstName', (req, res) => {
-    const {firstName} = req.query;
-    const USER_BY_FIRST = `SELECT * FROM user WHERE firstName = '${firstName}'`;
-    db.query(USER_BY_FIRST, (err, results) => {
+//Get cheese by name
+app.get('/cheeses/name', (req, res) => {
+    const {name} = req.query;
+    const CHEESE_BY_NAME = `SELECT * FROM cheeses WHERE name = '${name}'`;
+    db.query(CHEESE_BY_NAME, (err, results) => {
         if(err) {
             return res.send(err);
         }
@@ -80,9 +80,9 @@ app.get('/users/firstName', (req, res) => {
     });
 });
 
-//All Users
-app.get('/users', (req, res) => {
-    db.query(SELECT_ALL_USERS, (err, results) => {
+//All Cheeses
+app.get('/cheeses', (req, res) => {
+    db.query(SELECT_ALL_CHEESES, (err, results) => {
         if(err) {
             return res.send(err)
         }

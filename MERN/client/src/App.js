@@ -3,59 +3,54 @@ import './App.css';
 class App extends React.Component {
 
   state = {
-    users: [], 
-    newUser: {
-      firstName: 'First Name', 
-      lastName: 'Last Name', 
-      email: 'Email'
+    cheeses: [], 
+    newCheese: {
+      cheese_id: null, 
+      name: '', 
+      price: null
     }, 
-    currentUser: {
-      firstName: '', 
-      lastName: '',
-      email: ''
-    }, 
-    userToRemove: {
-      email: ''
+    cheeseToRemove: {
+      cheese_id: null
     }
   };
 
   componentDidMount() {
-     this.interval = setInterval(() => this.getUsers(), 3000);
+     this.interval = setInterval(() => this.getCheeses(), 3000);
   }
   componentWillUnmount() {
     clearInterval(this.interval);
   }
-  getUsers = () => {
-    fetch('http://localhost:5000/users')
+  getCheeses = () => {
+    fetch('http://localhost:5000/cheeses')
     .then(response => response.json())
-    .then(response => this.setState({ users: response.data}))
+    .then(response => this.setState({ cheeses : response.data}))
     .catch(err => console.error(err))
   };
 
-  addUser = async () => {
-    const { newUser } = this.state;
-    fetch(`http://localhost:5000/users/add?firstName=${newUser.firstName}&lastName=${newUser.lastName}&email=${newUser.email}`)
-    .then(this.getUsers)
+  addCheese = async () => {
+    const { newCheese } = this.state;
+    fetch(`http://localhost:5000/cheeses/add?cheese_id=${newCheese.cheese_id}&name=${newCheese.name}&price=${newCheese.price}`)
+    .then(this.getCheeses)
     .then()
     .catch(err => console.error(err))
   };
 
-  deleteUser = async () => {
-    const { userToRemove } = this.state; 
-    fetch(`http://localhost:5000/users/delete?email=${userToRemove.email}`)
-    .then(this.getUsers)
-    .then(console.log(`removed: ${userToRemove}`))
+  deleteCheese = async () => {
+    const { cheeseToRemove } = this.state; 
+    fetch(`http://localhost:5000/cheeses/delete?cheese_id=${cheeseToRemove.cheese_id}`)
+    .then(this.getCheeses)
+    .then(console.log(`removed: ${cheeseToRemove}`))
     .catch(err => console.error(err))
   };
   
-  renderUser = (user) => {
-    const {userToRemove} = this.state;
+  renderCheese = (cheese) => {
+    const {cheeseToRemove} = this.state;
     return (
-    <div key={user.email}>
-      <span>User: {user.lastName}, {user.firstName} - {user.email}</span>
+    <div key={cheese.email}>
+      <span>Cheese: {cheese.cheese_id}, {cheese.name} -  ${cheese.price}</span>
       <button onClick={(e) =>  { 
-        this.setState({userToRemove:{...userToRemove, email: user.email}});
-        this.deleteUser();
+        this.setState({cheeseToRemove:{...cheeseToRemove, cheese_id: cheese.cheese_id}});
+        this.deleteCheese();
       }}>delete</button>
       </div>
     );
@@ -63,7 +58,7 @@ class App extends React.Component {
 
 
   render() {  
-    const {users, newUser} = this.state;
+    const {cheeses, newCheese} = this.state;
     return (
       <div className="App">
         <header>
@@ -74,14 +69,14 @@ class App extends React.Component {
             <strong>MERN - MySQL, Express, React, Node</strong>
           </p>
         </header>
-          {users.map(this.renderUser)}
+          {cheeses.map(this.renderCheese)}
         <div>
-          <input ref={(input) => { this.textInput = input; }} placeholder={newUser.firstName} onChange={e => this.setState({newUser: {...newUser, firstName: e.target.value}})}/>
-          <input placeholder={newUser.lastName} onChange={e => this.setState({newUser: {...newUser, lastName: e.target.value}})}/>
-          <input placeholder={newUser.email} onChange={e => this.setState({newUser: {...newUser, email: e.target.value}})}/>
+          <input placeholder="ID" onChange={e => this.setState({newCheese: {...newCheese, cheese_id: e.target.value}})}/>
+          <input placeholder="Name" onChange={e => this.setState({newCheese: {...newCheese, name: e.target.value}})}/>
+          <input placeholder="Price" onChange={e => this.setState({newCheese: {...newCheese, price: e.target.value}})}/>
           <button onClick={() => {
-               this.addUser()
-          }}>Add User</button>
+               this.addCheese()
+          }}>Add Cheese</button>
         </div>
       </div>
     );
