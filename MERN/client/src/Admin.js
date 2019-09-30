@@ -4,22 +4,23 @@ import {Col, Row, Container} from 'reactstrap';
 import './App.css';
 class Admin extends React.Component {
   constructor(props) {
-    super();
+    super(props);
+    this.state = {
+      category: props.category,
+      items: [], 
+      newItem: {
+        name: '', 
+        price: null
+      }, 
+      itemToRemove: {
+        name: null
+      }
+    };
   }
-  state = {
-    items: [], 
-    newItem: {
-      item_id: null, 
-      name: '', 
-      price: null
-    }, 
-    itemToRemove: {
-      item_id: null
-    }
-  };
+  
 
   componentDidMount() {
-     this.interval = setInterval(() => this.getItems(), 3000);
+     this.getItems();
   }
 
   componentWillUnmount() {
@@ -28,22 +29,22 @@ class Admin extends React.Component {
 
 
   //ITEMS
-  getItems = () => {
-    fetch(`http://localhost:5000/${this.props.category}`)
+  getItems = async () => {
+    fetch(`http://localhost:5000/${this.state.category}`)
     .then(response => response.json())
     .then(response => this.setState({ items : response.data}))
     .catch(err => console.error(err))
   };
   addItem = async () => {
     const { newItem } = this.state;
-    fetch(`http://localhost:5000/${this.props.category}/add?name=${newItem.name}&price=${newItem.price}`)
+    fetch(`http://localhost:5000/${this.state.category}/add?name=${newItem.name}&price=${newItem.price}`)
     .then(this.getItems)
     .then()
     .catch(err => console.error(err))
   };
   deleteItem = async () => {
     const { itemToRemove } = this.state; 
-    fetch(`http://localhost:5000/${this.props.category}/delete?name=${itemToRemove.name}`)
+    fetch(`http://localhost:5000/${this.state.category}/delete?name=${itemToRemove.name}`)
     .then(this.getItems)
     .then(console.log(`removed: ${itemToRemove}`))
     .catch(err => console.error(err))
@@ -52,7 +53,7 @@ class Admin extends React.Component {
     const {itemToRemove} = this.state;
     return (
     <div key={item.name}>
-      <span>${this.props.category}: {item.name} -  ${item.price.toFixed(2)}</span>
+      <span>Item: {item.name} -  ${item.price.toFixed(2)}</span>
       <button onClick={(e) =>  { 
         this.setState({itemToRemove:{...itemToRemove, name: item.name}});
         this.deleteItem();
@@ -61,32 +62,31 @@ class Admin extends React.Component {
     );
   };
   
-
-
   render() {  
     const {items, newItem} = this.state;
+    const category = this.state.category;
     return (
+
       <div className="App">
+
         <header>
-          <p>
-           Edit <code>src/App.js</code> and save to reload.
-          </p>
-          <p>
             <strong>MERN - MySQL, Express, React, Node</strong>
-          </p>
         </header>
 
-        <div style={{border: '1px solid black'}} className='container'>
-          <h4>{this.props.category}</h4>
+        <div className='container'>
+          <h4>{category.charAt(0).toUpperCase() + category.substring(1)}</h4>
           {items.map(this.renderItem)}
         </div>
+
         <div>
+          <br></br>
           <input placeholder="Name" onChange={e => this.setState({newItem: {...newItem, name: e.target.value}})}/>
           <input placeholder="Price" onChange={e => this.setState({newItem: {...newItem, price: e.target.value}})}/>
           <button onClick={() => {
                this.addItem()
-          }}>Add ${this.props.category}</button>
+          }}>Add {category.charAt(0).toUpperCase() + category.substring(1)}</button>
         </div>
+
       </div>
     );
   }

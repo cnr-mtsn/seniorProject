@@ -45,33 +45,33 @@ app.get('/', (req, res) => {
 
 /************   CHEESE ROUTES   ************/
 //Add cheese
-app.get('/cheeses/add', (req, res) => {
-    const {cheese_id, name, price} = req.query;
-    const ADD_CHEESE = `INSERT INTO cheese(cheese_id, name, price) VALUES(${cheese_id}, '${name}', ${price})`;
+app.get('/cheese/add', (req, res) => {
+    const {name, price} = req.query;
+    const ADD_CHEESE = `INSERT INTO cheese(name, price) VALUES('${name}', ${price})`;
     db.query(ADD_CHEESE, (err, results) => {
         if(err) {
             return res.send(err);
         }
         else {
-            return res.send(`Successfully Added Cheese    ID: ${cheese_id} Name: ${name} Price: ${price}`);
+            return res.send(`Successfully Added Cheese    Name: ${name} Price: ${price}`);
         }
     });
 });
 //Delete Cheese
-app.get('/cheeses/delete', (req, res) => {
-    const {cheese_id} = req.query;
-    const REMOVE_CHEESE = `DELETE FROM cheese WHERE cheese.cheese_id=${cheese_id}`;
+app.get('/cheese/delete', (req, res) => {
+    const {name} = req.query;
+    const REMOVE_CHEESE = `DELETE FROM cheese WHERE cheese.name=${name}`;
     db.query(REMOVE_CHEESE, (err, results) => {
         if(err) {
             return res.send(err);
         }
         else {
-            return res.send(`Successfully Removed Cheese    ID: ${cheese_id}`);
+            return res.send(`Successfully Removed Cheese    Name: ${name}`);
         }
     });
 });
 //All Cheeses
-app.get('/cheeses', (req, res) => {
+app.get('/cheese', (req, res) => {
     db.query(SELECT_ALL_CHEESES, (err, results) => {
         if(err) {
             return res.send(err)
@@ -85,33 +85,33 @@ app.get('/cheeses', (req, res) => {
 });
 /************   VEGGIES ROUTES   ************/
 //Add veggie
-app.get('/veggies/add', (req, res) => {
-    const {veggie_id, name, price} = req.query;
-    const ADD_VEGGIE = `INSERT INTO veggies(veggie_id, name, price) VALUES(${veggie_id}, '${name}', ${price})`;
+app.get('/veggie/add', (req, res) => {
+    const {name, price} = req.query;
+    const ADD_VEGGIE = `INSERT INTO veggies(name, price) VALUES('${name}', ${price})`;
     db.query(ADD_VEGGIE, (err, results) => {
         if(err) {
             return res.send(err);
         }
         else {
-            return res.send(`Successfully Added Veggie    ID: ${veggie_id} Name: ${name} Price: ${price}`);
+            return res.send(`Successfully Added Veggie    Name: ${name} Price: ${price}`);
         }
     });
 });
 //Delete Veggie
-app.get('/veggies/delete', (req, res) => {
-    const {veggie_id} = req.query;
-    const REMOVE_VEGGIE = `DELETE FROM veggies WHERE veggies.veggie_id=${veggie_id}`;
+app.get('/veggie/delete', (req, res) => {
+    const {name} = req.query;
+    const REMOVE_VEGGIE = `DELETE FROM veggies WHERE veggies.name=${name}`;
     db.query(REMOVE_VEGGIE, (err, results) => {
         if(err) {
             return res.send(err);
         }
         else {
-            return res.send(`Successfully Removed Veggie    ID: ${veggie_id}`);
+            return res.send(`Successfully Removed Veggie    Name: ${name}`);
         }
     });
 });
 //All Veggies
-app.get('/veggies', (req, res) => {
+app.get('/veggie', (req, res) => {
     db.query(SELECT_ALL_VEGGIES, (err, results) => {
         if(err) {
             return res.send(err)
