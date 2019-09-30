@@ -40,11 +40,67 @@ create table main
 
 CREATE TABLE orders
 (
-    order_id INT NOT NULL AUTO_INCREMENT,
+    orders_id INT NOT NULL AUTO_INCREMENT,
     user_id INT NOT NULL,
     total DOUBLE NOT NULL,
     order_date DATE,
     PRIMARY KEY(order_id)
+);
+
+create table orders_sandwich
+(
+    orders_sandwich_id INT NOT NULL AUTO_INCREMENT,
+    orders_id INT NOT NULL,
+    sandwich_id INT NOT NULL,
+    PRIMARY KEY(orders_sandwich_id)
+);
+
+create table orders_tortilla
+(
+    orders_tortilla_id INT NOT NULL AUTO_INCREMENT,
+    orders_id INT NOT NULL,
+    tortilla_id INT NOT NULL,
+    PRIMARY KEY(orders_tortilla_id)
+);
+
+create table orders_protein
+(
+    orders_protein_id INT NOT NULL AUTO_INCREMENT,
+    orders_id INT NOT NULL,
+    protein_id INT NOT NULL,
+    PRIMARY KEY(orders_protein_id)
+);
+
+create table orders_cheese
+(
+    orders_cheese_id INT NOT NULL AUTO_INCREMENT,
+    orders_id INT NOT NULL,
+    cheese_id INT NOT NULL,
+    PRIMARY KEY(orders_cheese_id)
+);
+
+create table orders_veggies
+(
+    orders_veggies_id INT NOT NULL AUTO_INCREMENT,
+    orders_id INT NOT NULL,
+    veggies_id INT NOT NULL,
+    PRIMARY KEY(orders_veggies_id)
+);
+
+create table orders_condiments
+(
+    orders_condiments_id INT NOT NULL AUTO_INCREMENT,
+    orders_id INT NOT NULL,
+    condiments_id INT NOT NULL,
+    PRIMARY KEY(orders_condiments_id)
+);
+
+create table orders_extras
+(
+    orders_extras_id INT NOT NULL AUTO_INCREMENT,
+    orders_id INT NOT NULL,
+    extras_id INT NOT NULL,
+    PRIMARY KEY(orders_extras_id)
 );
 
 create table main_sandwich
