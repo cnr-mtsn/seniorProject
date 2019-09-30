@@ -83,6 +83,7 @@ class Admin extends React.Component {
   componentDidMount() {
      this.interval = setInterval(() => this.getIngredients(), 3000);
   }
+
   componentWillUnmount() {
     clearInterval(this.interval);
   }
@@ -91,6 +92,7 @@ class Admin extends React.Component {
     this.getCheeses(); 
     this.getVeggies();
   }
+
   //CHEESES
   getCheeses = () => {
     fetch('http://localhost:5000/cheeses')
@@ -116,7 +118,7 @@ class Admin extends React.Component {
     const {cheeseToRemove} = this.state;
     return (
     <div key={cheese.cheese_id}>
-      <span>Cheese: {cheese.cheese_id}, {cheese.name} -  ${cheese.price.toFixed(2)}</span>
+      <span>Cheese: {cheese.name} -  ${cheese.price.toFixed(2)}</span>
       <button onClick={(e) =>  { 
         this.setState({cheeseToRemove:{...cheeseToRemove, cheese_id: cheese.cheese_id}});
         this.deleteCheese();
@@ -124,39 +126,7 @@ class Admin extends React.Component {
       </div>
     );
   };
-  //VEGGIES 
-  getVeggies = () => {
-    fetch('http://localhost:5000/veggies')
-    .then(response => response.json())
-    .then(response => this.setState({ veggies : response.data}))
-    .catch(err => console.error(err))
-  };
-  addVeggie = async () => {
-    const { newVeggie } = this.state;
-    fetch(`http://localhost:5000/veggies/add?veggie_id=${newVeggie.veggie_id}&name=${newVeggie.name}&price=${newVeggie.price}`)
-    .then(this.getVeggies)
-    .then()
-    .catch(err => console.error(err))
-  };
-  deleteVeggie = async () => {
-    const { veggieToRemove } = this.state; 
-    fetch(`http://localhost:5000/veggies/delete?veggie_id=${veggieToRemove.veggie_id}`)
-    .then(this.getVeggies)
-    .then(console.log(`removed: ${veggieToRemove}`))
-    .catch(err => console.error(err))
-  };
-  renderVeggie = (veggies) => {
-    const {veggieToRemove} = this.state;
-    return (
-    <div key={veggies.veggie_id}>
-      <span>Veggie: {veggies.veggie_id}, {veggies.name} -  ${veggies.price.toFixed(2)}</span>
-      <button onClick={(e) =>  { 
-        this.setState({veggieToRemove:{...veggieToRemove, veggie_id: veggies.veggie_id}});
-        this.deleteVeggie();
-      }}>delete</button>
-      </div>
-    );
-  };
+  
 
 
   render() {  
