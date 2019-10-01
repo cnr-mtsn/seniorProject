@@ -1,11 +1,11 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-import Admin from './Admin';
+import 'bootstrap/dist/css/bootstrap.css';
+import {Admin} from './Admin';
 import * as serviceWorker from './serviceWorker';
 
-ReactDOM.render(<Admin category="cheese"/>, document.getElementById('root'));
-ReactDOM.render(<Admin category="veggie"/>, document.getElementById('root2'));
+ReactDOM.render(<Admin/>, document.getElementById('root'));
 
 // If you want your app to work offline and load faster, you can change
 // unregister() to register() below. Note this comes with some pitfalls.

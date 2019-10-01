@@ -1,95 +1,32 @@
-import React from 'react';
-import {Col, Row, Container} from 'reactstrap';
-
+import React from 'react'
 import './App.css';
-class Admin extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      category: props.category,
-      items: [], 
-      newItem: {
-        name: '', 
-        price: null
-      }, 
-      itemToRemove: {
-        name: null
-      }
-    };
-  }
-  
-
-  componentDidMount() {
-     this.getItems();
-  }
-
-  componentWillUnmount() {
-    clearInterval(this.interval);
-  }
+import Items from './Items';
+import Header from './Header';
+import { 
+    Row,
+    Col, 
+    Container,
+} from 'reactstrap';
 
 
-  //ITEMS
-  getItems = async () => {
-    fetch(`http://localhost:5000/${this.state.category}`)
-    .then(response => response.json())
-    .then(response => this.setState({ items : response.data}))
-    .catch(err => console.error(err))
-  };
-  addItem = async () => {
-    const { newItem } = this.state;
-    fetch(`http://localhost:5000/${this.state.category}/add?name=${newItem.name}&price=${newItem.price}`)
-    .then(this.getItems)
-    .then()
-    .catch(err => console.error(err))
-  };
-  deleteItem = async () => {
-    const { itemToRemove } = this.state; 
-    fetch(`http://localhost:5000/${this.state.category}/delete?name=${itemToRemove.name}`)
-    .then(this.getItems)
-    .then(console.log(`removed: ${itemToRemove}`))
-    .catch(err => console.error(err))
-  };
-  renderItem = (item) => {
-    const {itemToRemove} = this.state;
-    return (
-    <div key={item.name}>
-      <span>Item: {item.name} -  ${item.price.toFixed(2)}</span>
-      <button onClick={(e) =>  { 
-        this.setState({itemToRemove:{...itemToRemove, name: item.name}});
-        this.deleteItem();
-      }}>delete</button>
-      </div>
-    );
-  };
-  
-  render() {  
-    const {items, newItem} = this.state;
-    const category = this.state.category;
-    return (
 
-      <div className="App">
+export class Admin extends React.Component {
+    
+    constructor(props) {
+        super();
+    }
 
-        <header>
-            <strong>MERN - MySQL, Express, React, Node</strong>
-        </header>
+    render() {
 
-        <div className='container'>
-          <h4>{category.charAt(0).toUpperCase() + category.substring(1)}</h4>
-          {items.map(this.renderItem)}
-        </div>
-
-        <div>
-          <br></br>
-          <input placeholder="Name" onChange={e => this.setState({newItem: {...newItem, name: e.target.value}})}/>
-          <input placeholder="Price" onChange={e => this.setState({newItem: {...newItem, price: e.target.value}})}/>
-          <button onClick={() => {
-               this.addItem()
-          }}>Add {category.charAt(0).toUpperCase() + category.substring(1)}</button>
-        </div>
-
-      </div>
-    );
-  }
+     
+        return (
+            <Container className="App">
+                <Header title="Fed Eats Admin"></Header>
+                <Items category="cheese"/>
+            </Container>
+        );
+    }
 }
 
 export default Admin;
+

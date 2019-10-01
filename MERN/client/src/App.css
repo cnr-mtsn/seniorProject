@@ -1,22 +1,60 @@
 .App {
+  background-color: rgb(78, 78, 78);
+}
+
+.items {
+  background-color: white;
+  margin-top: 6vh;
+  padding: 2vw;
+}
+.close {
+  color: red;
+}
+.deleteButton {
+  outline: 1px solid blue;
+}
+
+.itemTable thead tr th {
+  font-size: 2vh;
+  font-family: -apple-system;
+}
+.itemTable tbody tr td {
+  font-size: 2vh;
+  vertical-align: middle;
+}
+.manageItemHeader {
+  text-align: left;
+  color: #1B1B1B;
+}
+
+/***** HEADER *****/
+.mainHeader {
+  background: #1B1B1B;
+      height: 10vh;
+
+}
+.fedEatsLogo {
+  height: 8vh;
+  width: 16vh;
+  float: left;
+}
+.ckLogo {
+  height: 9vh;
+  width:  9vh;
+  float: right;
+}
+.formTitle {
+  color: white;
+  font-size: 4vh;
   text-align: center;
 }
+/***** HEADER *****/
 
-.App-logo {
-  height: 40vmin;
+
+/***** ADMIN *****/
+.adminSelectCategory {
+  
 }
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
-}
-
-.App-link {
-  color: #09d3ac;
+.adminSelectCategory li{
+  list-style: none;
 }

@@ -40,7 +40,7 @@ const SELECT_ALL_VEGGIES = 'SELECT * FROM veggies';
 /**********   GET ROUTES   ************/
 //Home Route
 app.get('/', (req, res) => {
-    res.send(`Go to /cheeses to see cheeses`);
+    res.send(`Go to /cheese to see cheeses`);
 });
 
 /************   CHEESE ROUTES   ************/
@@ -60,7 +60,7 @@ app.get('/cheese/add', (req, res) => {
 //Delete Cheese
 app.get('/cheese/delete', (req, res) => {
     const {name} = req.query;
-    const REMOVE_CHEESE = `DELETE FROM cheese WHERE cheese.name=${name}`;
+    const REMOVE_CHEESE = `DELETE FROM cheese WHERE name='${name}'`;
     db.query(REMOVE_CHEESE, (err, results) => {
         if(err) {
             return res.send(err);
