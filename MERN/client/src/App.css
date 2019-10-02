@@ -16,7 +16,7 @@
 
 .itemTable thead tr th {
   font-size: 2vh;
-  font-family: -apple-system;
+  font-family: Georgia;
 }
 .itemTable tbody tr td {
   font-size: 2vh;
@@ -57,4 +57,7 @@
 }
 .adminSelectCategory li{
   list-style: none;
+}
+.addItemInput {
+  margin-top: 5vh;
 }

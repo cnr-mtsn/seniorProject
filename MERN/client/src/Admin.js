@@ -3,8 +3,6 @@ import './App.css';
 import Items from './Items';
 import Header from './Header';
 import { 
-    Row,
-    Col, 
     Container,
 } from 'reactstrap';
 

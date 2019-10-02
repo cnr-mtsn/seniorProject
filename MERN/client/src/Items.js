@@ -63,7 +63,7 @@ export class Items extends React.Component {
     return (
     <tr key={item.name}>
       <td>{item.name}</td>
-      <td>${item.price}</td>
+      <td>${item.price.toFixed(2)}</td>
       <td className="d-flex">
         <Button type="button" className="close" aria-label="Close" onClick={(e) => { 
           this.setState({itemToRemove:{...itemToRemove, name: item.name}});
@@ -96,16 +96,16 @@ export class Items extends React.Component {
     );
 
     const selectCategory = (
-      <div className="adminSelectCategory bg-light">
+      <ul className="adminSelectCategory bg-light list-group">
         <span className="text-muted">Choose a Category</span>
-        <li value='bread' onClick={this.handleCategorySelection.bind(this, 'bread')}>Bread</li>
-        <li value='tortilla' onClick={this.handleCategorySelection.bind(this, 'tortilla')}>Tortillas</li>
-        <li value='protein' onClick={this.handleCategorySelection.bind(this, 'protein')}>Protein</li>
-        <li value='cheese' onClick={this.handleCategorySelection.bind(this, 'cheese')}>Cheese</li>
-        <li value='veggie' onClick={this.handleCategorySelection.bind(this, 'veggie')}>Veggies</li>
-        <li value='condiment' onClick={this.handleCategorySelection.bind(this, 'condiment')}>Condiments</li>
-        <li value='extra' onClick={this.handleCategorySelection.bind(this, 'extra')}>Extras</li>
-      </div>
+        <li className="list-group-item list-group-item-action" value='bread' onClick={this.handleCategorySelection.bind(this, 'bread')}>Bread</li>
+        <li className="list-group-item list-group-item-action" value='tortilla' onClick={this.handleCategorySelection.bind(this, 'tortilla')}>Tortillas</li>
+        <li className="list-group-item list-group-item-action" value='protein' onClick={this.handleCategorySelection.bind(this, 'protein')}>Protein</li>
+        <li className="list-group-item list-group-item-action" value='cheese' onClick={this.handleCategorySelection.bind(this, 'cheese')}>Cheese</li>
+        <li className="list-group-item list-group-item-action" value='veggie' onClick={this.handleCategorySelection.bind(this, 'veggie')}>Veggies</li>
+        <li className="list-group-item list-group-item-action" value='condiment' onClick={this.handleCategorySelection.bind(this, 'condiment')}>Condiments</li>
+        <li className="list-group-item list-group-item-action" value='extra' onClick={this.handleCategorySelection.bind(this, 'extra')}>Extras</li>
+      </ul>
   )
 
     return ( 
@@ -128,19 +128,19 @@ export class Items extends React.Component {
           
         </Row>
         
-        <div>
-          <Row>
-            <Col></Col>
-            <Col xl={8} lg={8}>
-              <InputGroup>
-                {nameInput}
-                {priceInput}
-                {addItemButton}
-              </InputGroup>
-            </Col>
-            <Col></Col>
-          </Row>
-        </div>
+      
+        <Row>
+          <Col></Col>
+          <Col xl={8} lg={8}>
+            <InputGroup className="addItemInput">
+              {nameInput}
+              {priceInput}
+              {addItemButton}
+            </InputGroup>
+          </Col>
+          <Col></Col>
+        </Row>
+      
 
       </Container>
     );
