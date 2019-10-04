@@ -31,6 +31,7 @@ export class Items extends React.Component {
      this.getItems();
   }
 
+
   componentWillUnmount() {
     clearInterval(this.interval);
   }
@@ -47,14 +48,14 @@ export class Items extends React.Component {
     const { newItem } = this.state;
     fetch(`http://localhost:5000/${this.state.category}/add?name=${newItem.name}&price=${newItem.price}`)
     .then(this.getItems)
-    .then()
+    .then(this.setState({newItem: { name: null, price: null}}))
     .catch(err => console.error(err))
   };
-  deleteItem = async () => {
+  deleteItem = async (name) => {
     const { itemToRemove } = this.state; 
-    fetch(`http://localhost:5000/${this.state.category}/delete?name=${itemToRemove.name}`)
+    fetch(`http://localhost:5000/${this.state.category}/delete?name=${name}`)
     .then(this.getItems)
-    .then(console.log(`removed: ${itemToRemove}`))
+    .then(console.log(`removed: ${name}`))
     .catch(err => console.error(err))
   };
   renderItem = (item) => {
@@ -67,7 +68,7 @@ export class Items extends React.Component {
       <td className="d-flex">
         <Button type="button" className="close" aria-label="Close" onClick={(e) => { 
           this.setState({itemToRemove:{...itemToRemove, name: item.name}});
-          this.deleteItem();
+          this.deleteItem(item.name);
         }}>
           <span aria-hidden="true">&times;</span>
         </Button>
@@ -79,6 +80,10 @@ export class Items extends React.Component {
     this.setState({category: selection}); 
     this.getItems();
   }
+  handleAddClick = () => {
+    this.addItem();
+
+  }
   
   render() {  
     const {items, newItem, category} = this.state;
@@ -87,9 +92,7 @@ export class Items extends React.Component {
     const priceInput = <Input placeholder="Price" onChange={e => this.setState({newItem: {...newItem, price: e.target.value}})}/>;
     const addItemButton = ( 
       <InputGroupAddon addonType="append">
-        <Button block outline color="success" onClick={() => {
-          this.addItem()
-        }}
+        <Button block outline color="success" onClick={this.handleAddClick}
         >Add {categoryCap}
         </Button>
       </InputGroupAddon>
