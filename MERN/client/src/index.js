@@ -3,7 +3,6 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import 'bootstrap/dist/css/bootstrap.css';
 import Admin from './Admin';
-import OrderForm from './Form';
 import * as serviceWorker from './serviceWorker';
 
 ReactDOM.render(<Admin/>, document.getElementById('root'));

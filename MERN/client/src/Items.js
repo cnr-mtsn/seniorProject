@@ -8,23 +8,26 @@ import { Table,
         InputGroupAddon, 
         Container
         } from 'reactstrap';
-
 import './App.css';
+
 function Items(props) {
 
   const [category, setCategory] = useState(props.category);
   const [items, setItems] = useState([]);
+  // const [newPrice, setNewPrice] = useState();
+  // const [newName, setNewName] = useState();
+  // const [itemToChange, setItemToChange] = useState( {
+  //   name: '', 
+  //   price: null
+  // })
   const [newItem, setNewItem] = useState( {
     name: '', 
     price: null
   });
-  const [removeItem, setRemoveItem] = useState( {
-    name: ''
-  });
 
   
   useEffect(() => {
-    getItems()
+    getItems();
   }, [])
 
 
@@ -49,18 +52,26 @@ function Items(props) {
   };
 
   const renderItem = (item) => {
-    const fixedPrice = item.price.toFixed(2);
+    const fixedPrice ='$' + item.price.toFixed(2);
     return (
     <tr key={item.name}>
-      <td>{item.name}</td>
-      <td>${fixedPrice}</td>
-      <td className="d-flex">
-        <Button type="button" className="close" aria-label="Close" onClick={(e) => { 
-          setRemoveItem( { name: item.name});
-          deleteItem(item.name);
-        }}>
-          <span aria-hidden="true">&times;</span>
-        </Button>
+      <td>
+        <Input placeholder={item.name} ></Input>
+      </td>
+      <td>
+        <Input placeholder={fixedPrice} className="manageItemPrice"></Input>
+      </td>
+      <td>
+        <InputGroupAddon addonType="append">
+          {/* IMPLEMENT UPDATE ITEM ONCLICK() */}
+          <Button block outline color="primary" type="button" className="manageItemButton manageItemPrice">Update</Button>
+        </InputGroupAddon>
+      </td>
+      <td>
+        <InputGroupAddon addonType="append">
+          <Button block outline color="danger" type="button" className="manageItemButton manageItemPrice" onClick={(e) => { deleteItem(item.name)}}>Delete
+          </Button>
+        </InputGroupAddon>
       </td>
     </tr>
     );
@@ -70,22 +81,24 @@ function Items(props) {
     fetch(`http://localhost:5000/${selection}`)
     .then(response => response.json())
     .then(response => setItems(response.data))
+    .then(setCategory(selection))
     .then(console.log("selected"))
   }
   const handleAddClick = () => {
     addItem();
   }
-  
  
     const categoryCap = category.charAt(0).toUpperCase() + category.substring(1);
     const nameInput = <Input placeholder="Name" onChange={e => setNewItem({
       name: e.target.value,
       price: null
     })}/>;
+  
     const priceInput = <Input placeholder="Price" onChange={e => setNewItem({
       name: newItem.name,
       price: e.target.value
     })}/>;
+
     const addItemButton = ( 
       <InputGroupAddon addonType="append">
         <Button block outline color="success" onClick={handleAddClick}
@@ -97,7 +110,7 @@ function Items(props) {
     
     const selectCategory = (
       <ul className="adminSelectCategory bg-light list-group">
-        <span className="text-muted">Choose a Category</span>
+        <span className="text-muted">Choose a Category...</span>
         <li className="list-group-item list-group-item-action" value='bread' onClick={handleCategorySelection.bind(this, 'bread')}>Bread</li>
         <li className="list-group-item list-group-item-action" value='tortilla' onClick={handleCategorySelection.bind(this, 'tortilla')}>Tortillas</li>
         <li className="list-group-item list-group-item-action" value='protein' onClick={handleCategorySelection.bind(this, 'protein')}>Protein</li>
@@ -121,7 +134,7 @@ function Items(props) {
                 </tr>
               </thead>
               <tbody>
-                {items.map(renderItem)}
+                  {items.map(renderItem)}
               </tbody>
             </Table>
           </Col>
