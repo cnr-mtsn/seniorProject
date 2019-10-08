@@ -2,28 +2,18 @@ import React from 'react'
 import './App.css';
 import Items from './Items';
 import Header from './Header';
-import { 
-    Container,
-} from 'reactstrap';
+import { Container } from 'reactstrap';
 
 
 
-export class Admin extends React.Component {
-    
-    constructor(props) {
-        super();
-    }
+function Admin(props) {
 
-    render() {
-
-     
         return (
             <Container className="App">
                 <Header title="Fed Eats Admin"></Header>
                 <Items category="cheese"/>
             </Container>
         );
-    }
 }
 
 export default Admin;

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Table, 
         Button, 
         Input, 
@@ -10,65 +10,54 @@ import { Table,
         } from 'reactstrap';
 
 import './App.css';
-export class Items extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      category: props.category,
-      items: [], 
-      newItem: {
-        name: '', 
-        price: null
-      }, 
-      itemToRemove: {
-        name: null
-      }
-    };
-  }
+function Items(props) {
+
+  const [category, setCategory] = useState(props.category);
+  const [items, setItems] = useState([]);
+  const [newItem, setNewItem] = useState( {
+    name: '', 
+    price: null
+  });
+  const [removeItem, setRemoveItem] = useState( {
+    name: ''
+  });
+
   
-
-  componentDidMount() {
-     this.getItems();
-  }
-
-
-  componentWillUnmount() {
-    clearInterval(this.interval);
-  }
+  useEffect(() => {
+    getItems()
+  }, [])
 
 
   //ITEMS
-  getItems = async () => {
-    fetch(`http://localhost:5000/${this.state.category}`)
+  const getItems = async () => {
+    fetch(`http://localhost:5000/${category}`)
     .then(response => response.json())
-    .then(response => this.setState({ items : response.data}))
+    .then(response => setItems(response.data))
     .catch(err => console.error(err))
   };
-  addItem = async () => {
-    const { newItem } = this.state;
-    fetch(`http://localhost:5000/${this.state.category}/add?name=${newItem.name}&price=${newItem.price}`)
-    .then(this.getItems)
-    .then(this.setState({newItem: { name: null, price: null}}))
+  const addItem = async () => {
+    fetch(`http://localhost:5000/${category}/add?name=${newItem.name}&price=${newItem.price}`)
+    .then(getItems)
+    .then(setNewItem({name: null, price: null}))
     .catch(err => console.error(err))
   };
-  deleteItem = async (name) => {
-    const { itemToRemove } = this.state; 
-    fetch(`http://localhost:5000/${this.state.category}/delete?name=${name}`)
-    .then(this.getItems)
+  const deleteItem = async (name) => {
+    fetch(`http://localhost:5000/${category}/delete?name=${name}`)
+    .then(getItems)
     .then(console.log(`removed: ${name}`))
     .catch(err => console.error(err))
   };
-  renderItem = (item) => {
-    const {itemToRemove} = this.state;
 
+  const renderItem = (item) => {
+    const fixedPrice = item.price.toFixed(2);
     return (
     <tr key={item.name}>
       <td>{item.name}</td>
-      <td>${item.price.toFixed(2)}</td>
+      <td>${fixedPrice}</td>
       <td className="d-flex">
         <Button type="button" className="close" aria-label="Close" onClick={(e) => { 
-          this.setState({itemToRemove:{...itemToRemove, name: item.name}});
-          this.deleteItem(item.name);
+          setRemoveItem( { name: item.name});
+          deleteItem(item.name);
         }}>
           <span aria-hidden="true">&times;</span>
         </Button>
@@ -76,38 +65,46 @@ export class Items extends React.Component {
     </tr>
     );
   };
-  handleCategorySelection = (selection) => {
-    this.setState({category: selection}); 
-    this.getItems();
-  }
-  handleAddClick = () => {
-    this.addItem();
 
+  const handleCategorySelection = (selection) => {
+    fetch(`http://localhost:5000/${selection}`)
+    .then(response => response.json())
+    .then(response => setItems(response.data))
+    .then(console.log("selected"))
+  }
+  const handleAddClick = () => {
+    addItem();
   }
   
-  render() {  
-    const {items, newItem, category} = this.state;
+ 
     const categoryCap = category.charAt(0).toUpperCase() + category.substring(1);
-    const nameInput = <Input placeholder="Name" onChange={e => this.setState({newItem: {...newItem, name: e.target.value}})}/>;
-    const priceInput = <Input placeholder="Price" onChange={e => this.setState({newItem: {...newItem, price: e.target.value}})}/>;
+    const nameInput = <Input placeholder="Name" onChange={e => setNewItem({
+      name: e.target.value,
+      price: null
+    })}/>;
+    const priceInput = <Input placeholder="Price" onChange={e => setNewItem({
+      name: newItem.name,
+      price: e.target.value
+    })}/>;
     const addItemButton = ( 
       <InputGroupAddon addonType="append">
-        <Button block outline color="success" onClick={this.handleAddClick}
+        <Button block outline color="success" onClick={handleAddClick}
         >Add {categoryCap}
         </Button>
       </InputGroupAddon>
     );
 
+    
     const selectCategory = (
       <ul className="adminSelectCategory bg-light list-group">
         <span className="text-muted">Choose a Category</span>
-        <li className="list-group-item list-group-item-action" value='bread' onClick={this.handleCategorySelection.bind(this, 'bread')}>Bread</li>
-        <li className="list-group-item list-group-item-action" value='tortilla' onClick={this.handleCategorySelection.bind(this, 'tortilla')}>Tortillas</li>
-        <li className="list-group-item list-group-item-action" value='protein' onClick={this.handleCategorySelection.bind(this, 'protein')}>Protein</li>
-        <li className="list-group-item list-group-item-action" value='cheese' onClick={this.handleCategorySelection.bind(this, 'cheese')}>Cheese</li>
-        <li className="list-group-item list-group-item-action" value='veggie' onClick={this.handleCategorySelection.bind(this, 'veggie')}>Veggies</li>
-        <li className="list-group-item list-group-item-action" value='condiment' onClick={this.handleCategorySelection.bind(this, 'condiment')}>Condiments</li>
-        <li className="list-group-item list-group-item-action" value='extra' onClick={this.handleCategorySelection.bind(this, 'extra')}>Extras</li>
+        <li className="list-group-item list-group-item-action" value='bread' onClick={handleCategorySelection.bind(this, 'bread')}>Bread</li>
+        <li className="list-group-item list-group-item-action" value='tortilla' onClick={handleCategorySelection.bind(this, 'tortilla')}>Tortillas</li>
+        <li className="list-group-item list-group-item-action" value='protein' onClick={handleCategorySelection.bind(this, 'protein')}>Protein</li>
+        <li className="list-group-item list-group-item-action" value='cheese' onClick={handleCategorySelection.bind(this, 'cheese')}>Cheese</li>
+        <li className="list-group-item list-group-item-action" value='veggie' onClick={handleCategorySelection.bind(this, 'veggie')}>Veggies</li>
+        <li className="list-group-item list-group-item-action" value='condiment' onClick={handleCategorySelection.bind(this, 'condiment')}>Condiments</li>
+        <li className="list-group-item list-group-item-action" value='extra' onClick={handleCategorySelection.bind(this, 'extra')}>Extras</li>
       </ul>
   )
 
@@ -124,11 +121,10 @@ export class Items extends React.Component {
                 </tr>
               </thead>
               <tbody>
-                {items.map(this.renderItem)}
+                {items.map(renderItem)}
               </tbody>
             </Table>
           </Col>
-          
         </Row>
         
       
@@ -147,7 +143,6 @@ export class Items extends React.Component {
 
       </Container>
     );
-  }
 }
 
 export default Items;

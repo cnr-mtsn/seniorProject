@@ -4,15 +4,10 @@ import ckLogo from "./media/companyKitchenLogo.jpeg";
 import { Container, Row, Col } from "reactstrap";
 import Image from "react-bootstrap/Image";
 
-class Header extends React.Component {
+function Header(props) {
 
-	constructor(props) {
-		super();
-	}
-	
-	render() {
 		const logo1 = <Image className= "fedEatsLogo" src={fedEatsLogo} alt='fedEats' rounded />;
-		const title = <h6 className="formTitle">{this.props.title}</h6>;
+		const title = <h6 className="formTitle">{props.title}</h6>;
 		const logo2 = <Image className="ckLogo" src={ckLogo} alt='CompanyKitchen' />;
 
 		return (
@@ -24,7 +19,7 @@ class Header extends React.Component {
 				</Row>
 			</Container>
 		);
-	}
+
 }
 
 export default Header;
