@@ -32,6 +32,7 @@ const SELECT_ALL_PROTEINS = 'SELECT * FROM proteins';
 const SELECT_ALL_BREADS = 'SELECT * FROM sandwichBase';
 const SELECT_ALL_TORTILLAS = 'SELECT * FROM tortillaBase';
 const SELECT_ALL_VEGGIES = 'SELECT * FROM veggies';
+const SELECT_USER_PASSWORDS = 'SELECT user_id, pass FROM users';
 
 
 
@@ -316,6 +317,19 @@ app.get('/tortilla/delete', (req, res) => {
 app.get('/tortilla', (req, res) => {
     db.query(SELECT_ALL_TORTILLAS, (err, results) => {
         if(err) {
+            return res.send(err)
+        }
+        else {
+            return res.json({
+                data: results
+            })
+        }
+    });
+});
+
+app.get('/userPassword', (req, res) => {
+    db.query(SELECT_USER_PASSWORDS, (err, results) => {
+        if (err) { 
             return res.send(err)
         }
         else {
