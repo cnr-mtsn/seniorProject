@@ -24,6 +24,10 @@ function Items(props) {
     name: '', 
     price: null
   });
+  const [itemToChange, setItemToChange] = useState( {
+    name: '', 
+    price: null
+  });
 
   
   useEffect(() => {
@@ -51,15 +55,38 @@ function Items(props) {
     .catch(err => console.error(err))
   };
 
+  const handleNameChange = (e) => {
+    setItemToChange( {
+      name: e.target.placeholder,
+      price: itemToChange.price
+    });
+
+    setNewItem( {
+      name: e.target.value,
+      price: newItem.price
+    })
+  };
+
+  const handlePriceChange = (e) => {
+    setItemToChange( {
+      name: itemToChange.name,
+     price: e.target.placeholder
+    });
+
+  setNewItem( {
+      name: newItem.name,
+      price: e.target.value
+    });
+  };
+
   const renderItem = (item) => {
     const fixedPrice ='$' + item.price.toFixed(2);
     return (
     <tr key={item.name}>
       <td>
-        <Input placeholder={item.name} ></Input>
-      </td>
+        <Input placeholder={item.name} onChange={handleNameChange} className="manageItemPrice"></Input></td>
       <td>
-        <Input placeholder={fixedPrice} className="manageItemPrice"></Input>
+        <Input placeholder={fixedPrice} onChange={handlePriceChange} className="manageItemPrice"></Input>
       </td>
       <td>
         <InputGroupAddon addonType="append">
