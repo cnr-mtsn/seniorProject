@@ -32,7 +32,7 @@ const SELECT_ALL_PROTEINS = 'SELECT * FROM proteins';
 const SELECT_ALL_BREADS = 'SELECT * FROM sandwichBase';
 const SELECT_ALL_TORTILLAS = 'SELECT * FROM tortillaBase';
 const SELECT_ALL_VEGGIES = 'SELECT * FROM veggies';
-const SELECT_USER_PASSWORDS = 'SELECT user_id FROM users WHERE name = 'name' AND email = 'email' AND pass = AES_ENCRYPT('pass', UNHEX(SHA2(CONCAT('$pass', salt), 512)))';
+// const SELECT_USER_PASSWORDS = `SELECT user_id FROM users WHERE name = '${name}' AND email = '${email}' AND pass = AES_ENCRYPT('${pass}', UNHEX(SHA2(CONCAT('${pass}', salt), 512)))`;
 
 
 
@@ -84,6 +84,8 @@ app.get('/cheese', (req, res) => {
         }
     });
 });
+//Update Cheese
+
         /************   VEGGIES ROUTES   ************/
 //Add veggie
 app.get('/veggie/add', (req, res) => {
