@@ -32,7 +32,7 @@ const SELECT_ALL_PROTEINS = 'SELECT * FROM proteins';
 const SELECT_ALL_BREADS = 'SELECT * FROM sandwichBase';
 const SELECT_ALL_TORTILLAS = 'SELECT * FROM tortillaBase';
 const SELECT_ALL_VEGGIES = 'SELECT * FROM veggies';
-const SELECT_USER_PASSWORDS = 'SELECT user_id, pass FROM users';
+const SELECT_USER_PASSWORDS = 'SELECT user_id FROM users WHERE name = 'name' AND email = 'email' AND pass = AES_ENCRYPT('pass', UNHEX(SHA2(CONCAT('$pass', salt), 512)))';
 
 
 
