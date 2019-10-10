@@ -61,3 +61,24 @@
 .addItemInput {
   margin-top: 5vh;
 }
+
+/****** NavigationBar ******/
+
+.navLinks {
+  width: 100%;
+  display: inline-flex;
+  justify-content: space-between;
+  align-items: center;
+  list-style: none;
+}
+.navLinks li {
+  margin-left: 2vw;
+}
+
+.navLinks li h3 {
+  color:white;
+  font-size: 3vh;
+}
+
+
+
