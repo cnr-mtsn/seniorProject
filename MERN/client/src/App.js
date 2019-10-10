@@ -3,7 +3,6 @@ import './App.css';
 import Admin from './Admin';
 import OrderForm from './OrderForm';
 import Home from './Home';
-import Header from './Header';
 import { Container } from 'reactstrap';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 
@@ -13,8 +12,7 @@ function App(props) {
 
         return (
             <Router>
-                <Container className="App">
-                    <Header title="FedEats"/>
+                <Container fluid className="App">
                     <Switch>
                         <Route path="/admin" component={Admin}/>
                         <Route path="/orderForm" component={OrderForm}/>

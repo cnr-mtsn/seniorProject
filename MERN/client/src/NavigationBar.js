@@ -8,8 +8,8 @@ function NavigationBar(props) {
 
     return (
         <div>
-            <Navbar color="dark" light expand="md">
-                <NavbarBrand style={{color:'white'}}>{props.page}</NavbarBrand>
+            <Navbar className="navigationBar" expand="md">
+                <NavbarBrand style={{color:'black'}}>{props.page}</NavbarBrand>
                 <Nav className="ml-auto" navbar>
                     <ul className="navLinks">
                         <li>

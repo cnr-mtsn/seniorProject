@@ -1,11 +1,13 @@
 .App {
-  background-color: rgb(78, 78, 78);
+  background-image: url(./media/background.png);
+  background-size: cover;
+  background-attachment: fixed;
 }
 
 .items {
   background-color: white;
-  margin-top: 6vh;
-  padding: 2vw;
+  margin-top: 1vh;
+  padding: 3vh;
 }
 
 .manageItemButton {
@@ -31,8 +33,9 @@
 
 /***** HEADER *****/
 .mainHeader {
-  background: #1B1B1B;
+  background: lightgrey;
       height: 10vh;
+      opacity:.8;
 
 }
 .fedEatsLogo {
@@ -46,7 +49,7 @@
   float: right;
 }
 .formTitle {
-  color: white;
+  color: black;
   font-size: 4vh;
   text-align: center;
 }
@@ -64,20 +67,34 @@
 
 /****** NavigationBar ******/
 
-.navLinks {
+nav {
   width: 100%;
-  display: inline-flex;
-  justify-content: space-between;
   align-items: center;
   list-style: none;
+  background-color:lightgrey;
+  opacity:.8;
 }
 .navLinks li {
-  margin-left: 2vw;
+  display: inline-flex;
+  justify-content: space-evenly;
+  width:10vw;
 }
 
 .navLinks li h3 {
-  color:white;
+  color:black;
   font-size: 3vh;
+}
+.navigationBar {
+  margin-top:1vh;
+}
+
+/****** Specials ******/
+.specialImage {
+  height: 50vh;
+}
+.specialDetails {
+  background-color: black;
+  opacity: .65;
 }
 
 

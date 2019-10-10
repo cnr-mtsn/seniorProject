@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Table, Button, Input, Row, Col, InputGroup, InputGroupAddon, Container } from 'reactstrap';
+import { Jumbotron, Table, Button, Input, Row, Col, InputGroup, InputGroupAddon, Container } from 'reactstrap';
 import './App.css';
 
 function AdminItems(props) {
@@ -109,6 +109,7 @@ function AdminItems(props) {
   /************ END FUNCTIONS ************/
   /************ HTML ELEMENTS ************/
     const categoryCap = category.charAt(0).toUpperCase() + category.substring(1);
+    const tableHeader = (categoryCap != '' ? 'Manage ' + categoryCap + 's': 'Select Category to Manage');
     const nameInput = <Input placeholder="Name" onChange={e => setNewItem({
       name: e.target.value,
       price: null
@@ -146,7 +147,7 @@ function AdminItems(props) {
             <Table className="itemTable bg-light" striped>
               <thead>
                 <tr className="manageItemHeader">
-                  <th>Manage {categoryCap}s</th>
+                  <th>{tableHeader}</th>
                 </tr>
               </thead>
               <tbody>
