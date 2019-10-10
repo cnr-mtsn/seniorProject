@@ -6,11 +6,10 @@ import './App.css';
 
 function NavigationBar(props) {
 
-
     return (
         <div>
             <Navbar color="dark" light expand="md">
-                <NavbarBrand style={{color:'white'}}>Navigation Bar</NavbarBrand>
+                <NavbarBrand style={{color:'white'}}>{props.page}</NavbarBrand>
                 <Nav className="ml-auto" navbar>
                     <ul className="navLinks">
                         <li>
