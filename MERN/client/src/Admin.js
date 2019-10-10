@@ -16,15 +16,16 @@ function Admin(props) {
                 </Col>
             </Row>
             <Row>
-                <Col>
-                    <NavigationBar page="Admin"/>
-                </Col>
+                <Col></Col>
+                <Col><NavigationBar page="Admin"/></Col>
+                <Col></Col>
             </Row>
             <Row>
                 <Col>
-                    <Jumbotron style={{height:'auto', marginTop:'1vh', backgroundColor:'transparent'}}>
-                        <AdminItems category=""/>
-                    </Jumbotron>
+                <Jumbotron style={{backgroundColor:'rgb(54, 46, 60)', height:'100vh', opacity:'.8', marginTop:'2vh'}}>
+                    <h4 className="jumbotronTitle">Admin</h4>
+                    <AdminItems category=""/>
+                </Jumbotron>
                 </Col>
             </Row>
         </Container>

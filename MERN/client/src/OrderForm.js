@@ -14,14 +14,14 @@ function OrderForm() {
                 </Col>
             </Row>
             <Row>
-                <Col>
-                    <NavigationBar page="Order Form"/>
-                </Col>
+                <Col></Col>
+                <Col><NavigationBar/></Col>
+                <Col></Col>
             </Row>
             <Row>
                 <Col>
-                    <Jumbotron style={{height:'100vh', opacity:'.8', marginTop:'2vh'}}>
-                        <h1>Order Form</h1>
+                    <Jumbotron style={{backgroundColor:'rgb(54, 46, 60)', height:'100vh', opacity:'.8', marginTop:'2vh'}}>
+                        <h4 className="jumbotronTitle">Order Form</h4>
                     </Jumbotron>
                 </Col>
             </Row>

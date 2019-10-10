@@ -1,36 +1,24 @@
 import React from 'react';
-import { Navbar, NavbarBrand, Nav } from 'reactstrap';
+import { Button, ButtonGroup } from 'reactstrap';
 import { Link } from 'react-router-dom';
 import './App.css';
 
 
-function NavigationBar(props) {
+function NavigationBar() {
+    const buttonLabelStyle = {
+        color:'white'
+    };
 
+    const homeLink = <Link to="/home"><span style={buttonLabelStyle}>Home</span></Link>;
+    const orderFormLink = <Link to="/orderForm"><span style={buttonLabelStyle}>Order Form</span></Link>;
+    const adminLink = <Link to="/admin"><span style={buttonLabelStyle}>Admin</span></Link>;
+   
     return (
-        <div>
-            <Navbar className="navigationBar" expand="md">
-                <NavbarBrand style={{color:'black'}}>{props.page}</NavbarBrand>
-                <Nav className="ml-auto" navbar>
-                    <ul className="navLinks">
-                        <li>
-                            <Link to="/home">
-                                <h3>Home</h3>
-                            </Link>
-                        </li>
-                        <li>
-                            <Link to="/orderForm">
-                                <h3>Order Form</h3>
-                            </Link>
-                        </li>
-                        <li>
-                            <Link to="/admin">
-                                <h3>Admin</h3>
-                            </Link>
-                        </li>
-                    </ul>
-                </Nav>
-            </Navbar>
-        </div>
+        <ButtonGroup className="navigationBar">
+            <Button style={{outline:'1px solid white'}} color="secondary">{homeLink}</Button>
+            <Button style={{outline:'1px solid white'}} color="secondary">{orderFormLink}</Button>
+            <Button style={{outline:'1px solid white'}} color="secondary">{adminLink}</Button>
+        </ButtonGroup>
     );
 }
 

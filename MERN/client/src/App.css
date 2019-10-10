@@ -5,8 +5,8 @@
 }
 
 .items {
-  background-color: white;
-  margin-top: 1vh;
+  background-color: rgb(181, 186, 154);
+  margin-top: 2vh;
   padding: 3vh;
 }
 
@@ -33,7 +33,7 @@
 
 /***** HEADER *****/
 .mainHeader {
-  background: lightgrey;
+  background: rgb(54, 46, 60);
       height: 10vh;
       opacity:.8;
 
@@ -49,7 +49,7 @@
   float: right;
 }
 .formTitle {
-  color: black;
+  color: white;
   font-size: 4vh;
   text-align: center;
 }
@@ -66,27 +66,11 @@
 }
 
 /****** NavigationBar ******/
-
-nav {
-  width: 100%;
-  align-items: center;
-  list-style: none;
-  background-color:lightgrey;
-  opacity:.8;
-}
-.navLinks li {
-  display: inline-flex;
-  justify-content: space-evenly;
-  width:10vw;
-}
-
-.navLinks li h3 {
-  color:black;
-  font-size: 3vh;
-}
 .navigationBar {
-  margin-top:1vh;
+  display:flex;
+  margin-top:2vh;
 }
+
 
 /****** Specials ******/
 .specialImage {
@@ -95,6 +79,10 @@ nav {
 .specialDetails {
   background-color: black;
   opacity: .65;
+}
+
+.jumbotronTitle {
+  color:white;
 }
 
 

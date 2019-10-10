@@ -15,18 +15,19 @@ function Home() {
                 </Col>
             </Row>
             <Row>
-                <Col>
-                    <NavigationBar page="Home"/>
-                </Col>
+                <Col></Col>
+                <Col><NavigationBar page="Home"/></Col>
+                <Col></Col>
             </Row>
             <Row>
                 <Col>
                     <Jumbotron style={ { 
+                        backgroundColor:'rgb(54, 46, 60)',
                         height:'auto', 
                         opacity:'.9', 
                         marginTop:'2vh'} 
                         }>
-                        <h2>Specials</h2>
+                        <h4 className="jumbotronTitle">Specials</h4>
                         <Specials/>
                     </Jumbotron>
                 </Col>
