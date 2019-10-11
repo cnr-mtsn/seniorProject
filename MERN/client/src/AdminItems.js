@@ -12,12 +12,12 @@ function AdminItems(props) {
   //name && price of item to add/update
   const [newItem, setNewItem] = useState( {
     name: '', 
-    price: null
+    price: 0
   });
   //name && price of item being updated
   const [itemToChange, setItemToChange] = useState( {
     name: '', 
-    price: null
+    price: 0
   });
 
   useEffect(() => {
