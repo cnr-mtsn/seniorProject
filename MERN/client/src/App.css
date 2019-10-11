@@ -75,6 +75,7 @@
 /****** Specials ******/
 .specialImage {
   height: 50vh;
+  width: auto;
 }
 .specialDetails {
   background-color: black;

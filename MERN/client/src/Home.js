@@ -23,8 +23,7 @@ function Home() {
                 <Col>
                     <Jumbotron style={ { 
                         backgroundColor:'rgb(54, 46, 60)',
-                        height:'auto', 
-                        opacity:'.9', 
+                        height:'auto',
                         marginTop:'2vh'} 
                         }>
                         <h4 className="jumbotronTitle">Specials</h4>
