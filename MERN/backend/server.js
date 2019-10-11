@@ -71,6 +71,19 @@ app.get('/cheese/delete', (req, res) => {
         }
     });
 });
+//Update Cheese
+app.get('/cheese/update', (req, res) => {
+    const {name, newName, newPrice} = req.query;
+    const UPDATE_CHEESE = `UPDATE cheese SET name='${newName}', price=${newPrice} WHERE name='${name}'`;
+    db.query(UPDATE_CHEESE, (err, results) => {
+        if(err) {
+            return res.send(err);
+        }
+        else {
+            return res.send(`Successfully Updated ${name} to ${newName}`);
+        }
+    });
+});
 //All Cheeses
 app.get('/cheese', (req, res) => {
     db.query(SELECT_ALL_CHEESES, (err, results) => {

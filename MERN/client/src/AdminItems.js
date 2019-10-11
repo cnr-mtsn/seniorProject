@@ -40,6 +40,12 @@ function AdminItems(props) {
     .then(setNewItem({name: null, price: null}))
     .catch(err => console.error(err))
   };
+  //update item in current category to newItem.[name || price]
+  const updateItem = async () => {
+    fetch(`http://localhost:5000/${category}/update?name=${itemToChange.name}&newName=${newItem.name}&newPrice=${newItem.price}`)
+    .then(getItems)
+    .catch(err => console.err(err))
+  };
   //delete item of current category with name == item.name
   const deleteItem = async (name) => {
     fetch(`http://localhost:5000/${category}/delete?name=${name}`)
@@ -79,6 +85,9 @@ function AdminItems(props) {
   const handleAddClick = () => {
     addItem();
   }
+  const handleUpdateClick = () => {
+    updateItem();
+  }
   //render items as table of editable input boxes with buttons for updating/deleting data
   const renderItem = (item) => {
     //convert price in database to string preceded by $ and fixed to 2 decimals
@@ -93,8 +102,7 @@ function AdminItems(props) {
       </td>
       <td>
         <InputGroupAddon addonType="append">
-          {/* IMPLEMENT UPDATE ITEM ONCLICK() */}
-          <Button block outline color="primary" type="button" className="manageItemButton manageItemPrice">Update</Button>
+          <Button block outline color="primary" type="button" onClick={handleUpdateClick}className="manageItemButton manageItemPrice">Update</Button>
         </InputGroupAddon>
       </td>
       <td>
