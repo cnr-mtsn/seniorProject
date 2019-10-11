@@ -25,8 +25,8 @@ function Login(props) {
                 <Col>
                 <Jumbotron style={{backgroundColor:'rgb(54, 46, 60)', height:'100vh', opacity:'.8', marginTop:'2vh'}}>
                     <h4 className="jumbotronTitle">Login</h4>
-                    <h5 style={{color:'white'}}>Username: <input></input></h5>
-                    <h5 style={{color:'white'}}>Password: <input></input></h5>
+                    <h5 style={{color:'white'}}>Username: <input name='username'></input></h5>
+                    <h5 style={{color:'white'}}>Password: <input name='password'></input></h5>
                     <Button style={{outline:'1px solid white'}} color="secondary">{homeLink}</Button>
                     <Button style={{outline:'1px solid white'}} color="secondary">{adminLink}</Button>
                 </Jumbotron>
