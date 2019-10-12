@@ -5,19 +5,18 @@ import './App.css';
 
 
 function NavigationBar() {
-    const buttonLabelStyle = {
-        color:'white'
-    };
 
-    const homeLink = <Link to="/home"><span style={buttonLabelStyle}>Home</span></Link>;
-    const orderFormLink = <Link to="/orderForm"><span style={buttonLabelStyle}>Order Form</span></Link>;
-    const adminLink = <Link to="/admin"><span style={buttonLabelStyle}>Admin</span></Link>;
+    const homeLink = <Link to="/home"> <Button style={{outline:'1px solid white'}} color="secondary">Home</Button></Link>;
+    const loginLink = <Link to="/login"><Button style={{outline:'1px solid white'}} color="secondary">Login</Button></Link>;
+    const orderFormLink = <Link to="/orderForm"><Button style={{outline:'1px solid white'}} color="secondary">Order Form</Button></Link>;
+    const adminLink = <Link to="/admin"><Button style={{outline:'1px solid white'}} color="secondary">Admin</Button></Link>;
    
     return (
         <ButtonGroup className="navigationBar">
-            <Button style={{outline:'1px solid white'}} color="secondary">{homeLink}</Button>
-            <Button style={{outline:'1px solid white'}} color="secondary">{orderFormLink}</Button>
-            <Button style={{outline:'1px solid white'}} color="secondary">{adminLink}</Button>
+            {homeLink}
+            {loginLink}
+            {adminLink}
+            {orderFormLink}
         </ButtonGroup>
     );
 }

@@ -1,18 +1,11 @@
 import React from 'react';
 import Header from './Header';
-import { Button, ButtonGroup, Input } from 'reactstrap';
-import { Link } from 'react-router-dom';
+import NavigationBar from './NavigationBar';
 import { Jumbotron, Container, Row, Col } from 'reactstrap';
 import './App.css';
 
 
 function Login(props) {
-    const buttonLabelStyle = {
-        color:'white'
-    };
-
-    const homeLink = <Link to="/home"><span style={buttonLabelStyle}>Home</span></Link>;
-    const adminLink = <Link to="/admin"><span style={buttonLabelStyle}>Admin</span></Link>;
 
     return (
         <Container>
@@ -22,13 +15,18 @@ function Login(props) {
                 </Col>
             </Row>
             <Row>
+                <Col></Col>
+                <Col>
+                    <NavigationBar/>
+                </Col>
+                <Col></Col>
+            </Row>
+            <Row>
                 <Col>
                 <Jumbotron style={{backgroundColor:'rgb(54, 46, 60)', height:'100vh', opacity:'.8', marginTop:'2vh'}}>
                     <h4 className="jumbotronTitle">Login</h4>
                     <h5 style={{color:'white'}}>Username: <input name='username'></input></h5>
                     <h5 style={{color:'white'}}>Password: <input name='password'></input></h5>
-                    <Button style={{outline:'1px solid white'}} color="secondary">{homeLink}</Button>
-                    <Button style={{outline:'1px solid white'}} color="secondary">{adminLink}</Button>
                 </Jumbotron>
                 </Col>
             </Row>

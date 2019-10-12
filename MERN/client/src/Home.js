@@ -16,7 +16,7 @@ function Home() {
             </Row>
             <Row>
                 <Col></Col>
-                <Col><NavigationBar page="Home"/></Col>
+                <Col><NavigationBar/></Col>
                 <Col></Col>
             </Row>
             <Row>

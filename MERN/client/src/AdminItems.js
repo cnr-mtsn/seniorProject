@@ -21,7 +21,7 @@ function AdminItems(props) {
   });
 
   useEffect(() => {
-    getItems();
+    getItems(); //eslint-disable-next-line
   }, [])
 /************ END STATE MANAGEMENT ************/
 

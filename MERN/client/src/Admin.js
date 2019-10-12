@@ -17,7 +17,7 @@ function Admin(props) {
             </Row>
             <Row>
                 <Col></Col>
-                <Col><NavigationBar page="Admin"/></Col>
+                <Col><NavigationBar/></Col>
                 <Col></Col>
             </Row>
             <Row>
