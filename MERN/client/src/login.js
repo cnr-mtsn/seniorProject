@@ -1,7 +1,7 @@
 import React from 'react';
 import Header from './Header';
 import NavigationBar from './NavigationBar';
-import { Button, Input, Jumbotron, Container, Row, Col } from 'reactstrap';
+import { Button, Input, Container, Row, Col } from 'reactstrap';
 import './App.css';
 
 //Login function
@@ -22,21 +22,24 @@ function Login(props) {
                 <Col></Col>
             </Row>
             <Row>
-                <Col>
-                <Jumbotron style={{backgroundColor:'rgb(54, 46, 60)', height:"auto", opacity:'1', marginTop:'2vh'}}>
-                    <h4 className="jumbotronTitle">Login</h4>
-                    <table>
+                <Col style={{paddingLeft:'33%', paddingRight:'33%', height:'200vh'}}>
+                <Container style={{backgroundColor:'rgb(54, 46, 60)', height:'40vh', opacity:'1', marginTop:'4vh'}}>
+                <br></br>
+                <h4 className="jumbotronTitle" style={{textAlign:'center'}}>Login</h4>
+                    <table style={{margin:'auto', paddingRight:'25%', paddingLeft:'25%', paddingBottom:'10%', paddingTop:'10%'}}>
                         <tr>
                             <td><Input name='username' type="text" placeholder="User ID" style={{width:"auto"}}></Input></td>
                         </tr>
+                        <br></br>
                         <tr>
                             <td><Input name='password' type="text" placeholder="Password" style={{width:"auto"}}></Input></td>
                         </tr>
+                        <br></br>
                         <tr>
                             <td><Button block outline color="secondary" type="submit" style={{width:"auto"}} onClick={Login}>Login</Button></td>
                         </tr>
                     </table>
-                </Jumbotron>
+                </Container>
                 </Col>
             </Row>
         </Container>
