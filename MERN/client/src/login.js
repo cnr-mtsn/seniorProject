@@ -4,7 +4,7 @@ import NavigationBar from './NavigationBar';
 import { Jumbotron, Container, Row, Col } from 'reactstrap';
 import './App.css';
 
-
+//Login function
 function Login(props) {
 
     return (
