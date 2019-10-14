@@ -1,7 +1,7 @@
 import React from 'react';
 import Header from './Header';
 import NavigationBar from './NavigationBar';
-import { Jumbotron, Container, Row, Col } from 'reactstrap';
+import { Button, Input, Jumbotron, Container, Row, Col } from 'reactstrap';
 import './App.css';
 
 
@@ -23,16 +23,25 @@ function Login(props) {
             </Row>
             <Row>
                 <Col>
-                <Jumbotron style={{backgroundColor:'rgb(54, 46, 60)', height:'100vh', opacity:'.8', marginTop:'2vh'}}>
+                <Jumbotron style={{backgroundColor:'rgb(54, 46, 60)', height:'100vh', opacity:'1', marginTop:'2vh'}}>
                     <h4 className="jumbotronTitle">Login</h4>
-                    <h5 style={{color:'white'}}>Username: <input name='username'></input></h5>
-                    <h5 style={{color:'white'}}>Password: <input name='password'></input></h5>
+                    <table>
+                        <tr>
+                            <td><Input name='username' type="text" placeholder="User ID" style={{width:"auto"}}></Input></td>
+                        </tr>
+                        <tr>
+                            <td><Input name='password' type="text" placeholder="Password" style={{width:"auto"}}></Input></td>
+                        </tr>
+                        <tr>
+                            <td><Button block outline color="secondary" type="submit" style={{width:"auto"}} onClick={Login}>Login</Button></td>
+                        </tr>
+                    </table>
                 </Jumbotron>
                 </Col>
             </Row>
         </Container>
 
     );
-}
+};
 
 export default Login;
