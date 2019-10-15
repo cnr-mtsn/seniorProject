@@ -6,7 +6,7 @@ import frenchDip from './media/frenchDip.png';
 import './App.css';
 
 
-function Specials(props) {
+function SpecialsSlideshow(props) {
 
     return (
         <Carousel>
@@ -48,4 +48,4 @@ function Specials(props) {
     );
 }
 
-export default Specials;
+export default SpecialsSlideshow;

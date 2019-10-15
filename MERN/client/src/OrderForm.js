@@ -3,6 +3,7 @@ import NavigationBar from './NavigationBar';
 import './App.css';
 import Header from './Header';
 import { Jumbotron, Container, Row, Col } from 'reactstrap';
+import DailySpecial from './DailySpecial';
 
 function OrderForm() {
 
@@ -20,8 +21,9 @@ function OrderForm() {
             </Row>
             <Row>
                 <Col>
-                    <Jumbotron style={{backgroundColor:'rgb(54, 46, 60)', height:'100vh', marginTop:'2vh'}}>
+                    <Jumbotron style={{backgroundColor:'grey', height:'100vh', marginTop:'2vh'}}>
                         <h4 className="jumbotronTitle">Order Form</h4>
+                        <DailySpecial/>
                     </Jumbotron>
                 </Col>
             </Row>

@@ -49,9 +49,13 @@
   float: right;
 }
 .formTitle {
-  color: white;
+  color: black;
   font-size: 4vh;
-  text-align: center;
+  text-align: left;
+  /* border: none; */
+}
+.outlineBlack {
+  outline: 1px solid black;
 }
 /***** HEADER *****/
 

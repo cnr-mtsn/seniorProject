@@ -1,7 +1,7 @@
 import React from 'react';
 import NavigationBar from './NavigationBar';
 import Header from './Header';
-import Specials from './Specials';
+import SpecialsSlideshow from './SpecialsSlideshow';
 
 import { Jumbotron, Container, Row, Col } from 'reactstrap';
 
@@ -27,7 +27,7 @@ function Home() {
                         marginTop:'2vh'} 
                         }>
                         <h4 className="jumbotronTitle">Specials</h4>
-                        <Specials/>
+                        <SpecialsSlideshow/>
                     </Jumbotron>
                 </Col>
             </Row>
