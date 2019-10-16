@@ -1,23 +1,23 @@
 import React from 'react';
-import { Button, ButtonGroup } from 'reactstrap';
+import { Button, Row, Col } from 'reactstrap';
 import { Link } from 'react-router-dom';
 import './App.css';
 
 
 function NavigationBar() {
 
-    const homeLink = <Link to="/home"> <Button style={{outline:'1px solid white'}} color="secondary">Home</Button></Link>;
-    const loginLink = <Link to="/login"><Button style={{outline:'1px solid white'}} color="secondary">Login</Button></Link>;
-    const orderFormLink = <Link to="/orderForm"><Button style={{outline:'1px solid white'}} color="secondary">Order Form</Button></Link>;
-    const adminLink = <Link to="/admin"><Button style={{outline:'1px solid white'}} color="secondary">Admin</Button></Link>;
+    const homeLink = <Link to="/home"> <Button className="purpleButton">Home</Button></Link>;
+    const loginLink = <Link to="/login"><Button className="purpleButton">Login</Button></Link>;
+    const orderFormLink = <Link to="/orderForm"><Button className="purpleButton">Order Form</Button></Link>;
+    const adminLink = <Link to="/admin"><Button className="purpleButton">Admin</Button></Link>;
    
     return (
-        <ButtonGroup className="navigationBar">
-            {homeLink}
-            {loginLink}
-            {adminLink}
-            {orderFormLink}
-        </ButtonGroup>
+        <Row style={{marginTop:'2vh'}}>
+            <Col>{homeLink}</Col>
+            <Col>{loginLink}</Col>
+            <Col>{adminLink}</Col>
+            <Col>{orderFormLink}</Col>
+        </Row>
     );
 }
 

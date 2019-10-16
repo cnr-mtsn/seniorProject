@@ -20,10 +20,9 @@ function Admin(props) {
             </Row>
             <Row>
                 <Col>
-                <Jumbotron style={{backgroundColor:'rgb(54, 46, 60)', height:'100vh', marginTop:'2vh'}}>
-                    <h4 className="jumbotronTitle">Admin</h4>
-                    <AdminItems category=""/>
-                </Jumbotron>
+                    <Jumbotron className="myJumbotron">
+                        <AdminItems category=""/>
+                    </Jumbotron>
                 </Col>
             </Row>
         </Container>

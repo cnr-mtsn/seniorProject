@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Table, Button, Input, Row, Col, InputGroup, InputGroupAddon, Container } from 'reactstrap';
+import { Table, Button, Input, Row, Col, InputGroup, InputGroupAddon } from 'reactstrap';
 import './App.css';
 
 function AdminItems(props) {
@@ -92,7 +92,6 @@ function AdminItems(props) {
   const renderItem = (item) => {
     //convert price in database to string preceded by $ and fixed to 2 decimals
     const fixedPrice ='$' + item.price.toFixed(2);
-    
     return (
     <tr key={item.name}>
       <td>
@@ -128,7 +127,7 @@ function AdminItems(props) {
     })}/>;
     const addItemButton = ( 
       <InputGroupAddon addonType="append">
-        <Button block outline color="success" onClick={handleAddClick}
+        <Button block className="purpleButton" style={{outline:'none'}} onClick={handleAddClick}
         >Add {categoryCap}
         </Button>
       </InputGroupAddon>
@@ -148,9 +147,9 @@ function AdminItems(props) {
     /************ END HTML ELEMENTS ************/
     /************ DATA TO RENDER VIA COMPONENT ************/
     return ( 
-      <Container className="items">
+      <div className="items">
         <Row>
-          <Col xl={3} lg={3}>{selectCategory}</Col>
+          <Col lg={3}>{selectCategory}</Col>
           <Col>
             <Table className="itemTable bg-light" striped>
               <thead>
@@ -167,7 +166,7 @@ function AdminItems(props) {
   
         <Row>
           <Col></Col>
-          <Col xl={8} lg={8}>
+          <Col lg={8}>
             <InputGroup className="addItemInput">
               {nameInput}
               {priceInput}
@@ -176,7 +175,7 @@ function AdminItems(props) {
           </Col>
           <Col></Col>
         </Row>
-      </Container>
+      </div>
     );
 }
 

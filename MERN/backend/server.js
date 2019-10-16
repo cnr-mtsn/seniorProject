@@ -32,6 +32,7 @@ const SELECT_ALL_PROTEINS = 'SELECT * FROM proteins';
 const SELECT_ALL_BREADS = 'SELECT * FROM sandwichBase';
 const SELECT_ALL_TORTILLAS = 'SELECT * FROM tortillaBase';
 const SELECT_ALL_VEGGIES = 'SELECT * FROM veggies';
+const SELECT_ALL_TIMES = 'SELECT * FROM pickupTimes';
 // const SELECT_USER_PASSWORDS = `SELECT user_id FROM users WHERE name = '${name}' AND email = '${email}' AND pass = AES_ENCRYPT('${pass}', UNHEX(SHA2(CONCAT('${pass}', salt), 512)))`;
 
 
@@ -341,6 +342,19 @@ app.get('/tortilla', (req, res) => {
         }
     });
 });
+//All Pickup Times
+app.get('/pickupTimes', (req, res) => {
+    db.query(SELECT_ALL_TIMES, (err, results) => {
+        if(err) {
+            return res.send(err)
+        }
+        else {
+            return res.json({
+                data: results
+            })
+        }
+    });
+});
 
 app.get('/userPassword', (req, res) => {
     db.query(SELECT_USER_PASSWORDS, (err, results) => {
@@ -354,10 +368,6 @@ app.get('/userPassword', (req, res) => {
         }
     });
 });
-
-
-
-
 
 
 //Listen for requests on given port

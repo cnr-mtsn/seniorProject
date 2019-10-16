@@ -2,14 +2,34 @@
   background-image: url(./media/background.png);
   background-size: cover;
   background-attachment: fixed;
+  min-height: 100vh;
 }
 
 .items {
-  background-color: rgb(181, 186, 154);
-  margin-top: 2vh;
-  padding: 3vh;
+  padding: 2vh;
 }
-
+.myJumbotron {
+  /* background-image: url('./media/darkPurpleBackground.png'); */
+  background-color:transparent; 
+  margin-top: 2vh;
+  padding: 4vh;
+}
+.loginJumbo {
+  margin-top: 15vh;
+  padding: 4vh;
+  background-color: transparent;
+}
+.orderForm {
+  background-color:white;
+  margin-top: 2vh;
+  padding:4vh;
+}
+.orderItems {
+  background-color:white;
+}
+.clear {
+  background-color: transparent;
+}
 .manageItemButton {
   font-size: 1.8vh;
 }
@@ -33,10 +53,8 @@
 
 /***** HEADER *****/
 .mainHeader {
-  background: rgb(54, 46, 60);
+  background-image: url('./media/darkPurpleBackground.png');
   height: 10vh;
-  opacity:.8;
-
 }
 .fedEatsLogo {
   height: 8vh;
@@ -49,19 +67,33 @@
   float: right;
 }
 .formTitle {
-  color: black;
+  color: white;
   font-size: 4vh;
   text-align: left;
-  background-color:  rgb(54, 46, 60);
+  background-image: url('./media/purpleBackground.png');
   padding:1vh;
-  /* border: none; */
+}
+.mainHeaderText {
+  color: white;
+  font-size: 4vh;
+  text-align: center;
+  padding:1vh;
 }
 .outlineBlack {
   outline: 1px solid black;
 }
+
+.white {
+  color: white;
+}
+
 /***** HEADER *****/
 
 /***** LOGIN *****/
+.loginHeader {
+  text-align: center;
+  color: white;
+}
 
 /***** ADMIN *****/
 
@@ -74,10 +106,13 @@
 
 /****** NavigationBar ******/
 .navigationBar {
-  display:flex;
   margin-top:2vh;
 }
-
+.purpleButton {
+  outline:1px solid white;
+  background-image: url('./media/purpleBackground.png');
+  width: 100%;
+}
 
 /****** Specials ******/
 .specialImage {

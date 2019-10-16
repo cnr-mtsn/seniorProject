@@ -21,7 +21,6 @@ function OrderItem(props) {
     
     const renderOptions = (option) => {
         const optionCap = option.name.charAt(0).toUpperCase() + option.name.substring(1);
-        const fixedPrice ='$' + option.price.toFixed(2);
         return (
             <li className="orderItem">
                 <Label check>
@@ -34,7 +33,7 @@ function OrderItem(props) {
     return ( 
         <div>
             <ItemHeader title={itemCapPlural}/>
-            <ul>
+            <ul className="orderItems">
                 {options.map(renderOptions)}
             </ul>
         </div>

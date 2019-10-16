@@ -30,7 +30,7 @@ function PickupTimes() {
     return (
         <div>
             <ItemHeader title="Pickup Times"/>
-            <ul>
+            <ul className="orderItems">
                 {times.map(renderTimes)}
             </ul>
 

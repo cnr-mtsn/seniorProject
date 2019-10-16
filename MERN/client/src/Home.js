@@ -19,12 +19,7 @@ function Home() {
             </Row>
             <Row>
                 <Col>
-                    <Jumbotron style={ { 
-                        backgroundColor:'rgb(54, 46, 60)',
-                        height:'auto',
-                        marginTop:'2vh'} 
-                        }>
-                        <h4 className="jumbotronTitle">Specials</h4>
+                    <Jumbotron className="myJumbotron">
                         <SpecialsSlideshow/>
                     </Jumbotron>
                 </Col>
