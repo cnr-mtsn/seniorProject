@@ -34,8 +34,8 @@
 /***** HEADER *****/
 .mainHeader {
   background: rgb(54, 46, 60);
-      height: 10vh;
-      opacity:.8;
+  height: 10vh;
+  opacity:.8;
 
 }
 .fedEatsLogo {
@@ -52,6 +52,8 @@
   color: black;
   font-size: 4vh;
   text-align: left;
+  background-color:  rgb(54, 46, 60);
+  padding:1vh;
   /* border: none; */
 }
 .outlineBlack {
@@ -87,8 +89,9 @@
   opacity: .65;
 }
 
-.jumbotronTitle {
-  color:white;
+/****** ORDER FORM ******/
+.orderItem {
+  list-style: none;
 }
 
 
