@@ -15,11 +15,9 @@ function Login(props) {
                 </Col>
             </Row>
             <Row>
-                <Col></Col>
                 <Col>
                     <NavigationBar/>
                 </Col>
-                <Col></Col>
             </Row>
             <Row>
                 <Col style={{paddingLeft:'33%', paddingRight:'33%', height:'200vh'}}>

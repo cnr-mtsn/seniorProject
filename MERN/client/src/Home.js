@@ -15,9 +15,7 @@ function Home() {
                 </Col>
             </Row>
             <Row>
-                <Col></Col>
                 <Col><NavigationBar/></Col>
-                <Col></Col>
             </Row>
             <Row>
                 <Col>
