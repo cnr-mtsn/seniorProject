@@ -25,13 +25,14 @@ function NavigationBar() {
 			<Button className='purpleButton'>Admin</Button>
 		</Link>
 	);
+	
 
 	return (
 		<Row style={{ marginTop: "2vh" }}>
-			<Col>{homeLink}</Col>
-			<Col>{loginLink}</Col>
-			<Col>{adminLink}</Col>
-			<Col>{orderFormLink}</Col>
+			<Col sm={3}>{homeLink}</Col>
+			<Col sm={3}>{loginLink}</Col>
+			<Col sm={3}>{adminLink}</Col>
+			<Col sm={3}>{orderFormLink}</Col>
 		</Row>
 	);
 }
