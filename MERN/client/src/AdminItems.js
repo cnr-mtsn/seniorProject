@@ -127,7 +127,7 @@ function AdminItems(props) {
     })}/>;
     const addItemButton = ( 
       <InputGroupAddon addonType="append">
-        <Button block className="purpleButton" style={{outline:'none'}} onClick={handleAddClick}
+        <Button block className="purpleButton" style={{outline:'none', width:'150px'}} onClick={handleAddClick}
         >Add {categoryCap}
         </Button>
       </InputGroupAddon>
