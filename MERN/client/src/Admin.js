@@ -12,7 +12,7 @@ function Admin(props) {
         <Container>
             <Row>
                 <Col>
-                    <Header title="Fed Eats Admin"/>
+                    <Header title="Admin"/>
                 </Col>
             </Row>
             <Row>

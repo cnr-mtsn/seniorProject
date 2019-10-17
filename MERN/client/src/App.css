@@ -26,6 +26,7 @@
 }
 .orderItems {
   background-color:white;
+  
 }
 .clear {
   background-color: transparent;
@@ -54,16 +55,18 @@
 /***** HEADER *****/
 .mainHeader {
   background-image: url('./media/darkPurpleBackground.png');
-  height: 10vh;
+  height: 8vh;
 }
 .fedEatsLogo {
-  height: 8vh;
-  width: 16vh;
+  margin-top:1vh;
+  height: 5.5vh;
+  width: auto;
   float: left;
 }
 .ckLogo {
-  height: 9vh;
-  width:  9vh;
+  margin-top:.5vh;
+  height: 6.5vh;
+  width:  auto;
   float: right;
 }
 .formTitle {
@@ -75,9 +78,9 @@
 }
 .mainHeaderText {
   color: white;
-  font-size: 4vh;
+  font-size: 3vh;
   text-align: center;
-  padding:1vh;
+  margin-top:2vh;
 }
 .outlineBlack {
   outline: 1px solid black;
@@ -116,12 +119,20 @@
 
 /****** Specials ******/
 .specialImage {
-  height: 50vh;
-  width: auto;
+  height: 40vw;
+  border-radius: 8px;
 }
 .specialDetails {
   background-color: black;
   opacity: .65;
+  height:10vh;
+
+}
+.specialDetails h3 {
+  font-size: 2vh;
+}
+.specialDetails p {
+  font-size: 1vh;
 }
 
 /****** ORDER FORM ******/

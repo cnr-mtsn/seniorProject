@@ -10,7 +10,7 @@ function Home() {
 		<Container>
 			<Row>
 				<Col>
-					<Header title='Fed Eats Home' />
+					<Header title='Home' />
 				</Col>
 			</Row>
 			<Row>

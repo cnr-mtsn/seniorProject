@@ -19,7 +19,7 @@ function Login(props) {
 		<Container>
 			<Row>
 				<Col>
-					<Header title='Fed Eats Login' />
+					<Header title='Login' />
 				</Col>
 			</Row>
 			<Row>

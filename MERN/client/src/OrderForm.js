@@ -13,7 +13,7 @@ function OrderForm() {
 		<Container>
 			<Row>
 				<Col>
-					<Header title='Fed Eats Order Form' />
+					<Header title='Order Form' />
 				</Col>
 			</Row>
 			<Row>
