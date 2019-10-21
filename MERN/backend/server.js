@@ -36,13 +36,10 @@ const SELECT_ALL_TIMES = 'SELECT * FROM pickupTimes';
 // const SELECT_USER_PASSWORDS = `SELECT user_id FROM users WHERE name = '${name}' AND email = '${email}' AND pass = AES_ENCRYPT('${pass}', UNHEX(SHA2(CONCAT('${pass}', salt), 512)))`;
 
 
-
-
-
                     /**********   GET ROUTES   ************/
 //Home Route
 app.get('/', (req, res) => {
-    res.send(`Go to /cheese to see cheeses`);
+    res.send(`Home`);
 });
 
         /************   CHEESE ROUTES   ************/
@@ -72,19 +69,6 @@ app.get('/cheese/delete', (req, res) => {
         }
     });
 });
-//Update Cheese
-app.get('/cheese/update', (req, res) => {
-    const {name, newName, newPrice} = req.query;
-    const UPDATE_CHEESE = `UPDATE cheese SET name='${newName}', price=${newPrice} WHERE name='${name}'`;
-    db.query(UPDATE_CHEESE, (err, results) => {
-        if(err) {
-            return res.send(err);
-        }
-        else {
-            return res.send(`Successfully Updated ${name} to ${newName}`);
-        }
-    });
-});
 //All Cheeses
 app.get('/cheese', (req, res) => {
     db.query(SELECT_ALL_CHEESES, (err, results) => {
@@ -99,6 +83,19 @@ app.get('/cheese', (req, res) => {
     });
 });
 //Update Cheese
+app.get('/cheese/update', (req, res) => {
+    const {name, newName, newPrice} = req.query;
+    const UPDATE_CHEESE = `UPDATE cheese SET name='${newName}', price=${newPrice} WHERE name='${name}'`;
+    db.query(UPDATE_CHEESE, (err, results) => {
+        if(err) {
+            return res.send(err);
+        }
+        else {
+            return res.send(`Successfully Updated ${name} to ${newName}`);
+        }
+    });
+});
+
 
         /************   VEGGIES ROUTES   ************/
 //Add veggie
@@ -137,6 +134,19 @@ app.get('/veggie', (req, res) => {
             return res.json({
                 data: results
             })
+        }
+    });
+});
+//Update Veggie
+app.get('/veggie/update', (req, res) => {
+    const {name, newName, newPrice} = req.query;
+    const UPDATE_VEGGIE = `UPDATE veggies SET name='${newName}', price=${newPrice} WHERE name='${name}'`;
+    db.query(UPDATE_VEGGIE, (err, results) => {
+        if(err) {
+            return res.send(err);
+        }
+        else {
+            return res.send(`Successfully Updated ${name} to ${newName}`);
         }
     });
 });
@@ -181,6 +191,18 @@ app.get('/bread', (req, res) => {
     });
 });
 //Update Bread
+app.get('/bread/update', (req, res) => {
+    const {name, newName, newPrice} = req.query;
+    const UPDATE_BREAD = `UPDATE sandwichBase SET name='${newName}', price=${newPrice} WHERE name='${name}'`;
+    db.query(UPDATE_BREAD, (err, results) => {
+        if(err) {
+            return res.send(err);
+        }
+        else {
+            return res.send(`Successfully Updated ${name} to ${newName}`);
+        }
+    });
+});
 
         /************   PROTEIN ROUTES   ************/
 //Add protein
@@ -219,6 +241,19 @@ app.get('/protein', (req, res) => {
             return res.json({
                 data: results
             })
+        }
+    });
+});
+//Update Protein
+app.get('/protein/update', (req, res) => {
+    const {name, newName, newPrice} = req.query;
+    const UPDATE_PROTEIN = `UPDATE proteins SET name='${newName}', price=${newPrice} WHERE name='${name}'`;
+    db.query(UPDATE_PROTEIN, (err, results) => {
+        if(err) {
+            return res.send(err);
+        }
+        else {
+            return res.send(`Successfully Updated ${name} to ${newName}`);
         }
     });
 });
@@ -262,6 +297,19 @@ app.get('/condiment', (req, res) => {
         }
     });
 });
+//Update Condiment
+app.get('/condiment/update', (req, res) => {
+    const {name, newName, newPrice} = req.query;
+    const UPDATE_CONDIMENT = `UPDATE condiments SET name='${newName}', price=${newPrice} WHERE name='${name}'`;
+    db.query(UPDATE_CONDIMENT, (err, results) => {
+        if(err) {
+            return res.send(err);
+        }
+        else {
+            return res.send(`Successfully Updated ${name} to ${newName}`);
+        }
+    });
+});
         /************   EXTRAS ROUTES   ************/
 //Add extra
 app.get('/extra/add', (req, res) => {
@@ -299,6 +347,19 @@ app.get('/extra', (req, res) => {
             return res.json({
                 data: results
             })
+        }
+    });
+});
+//Update Extra
+app.get('/extra/update', (req, res) => {
+    const {name, newName, newPrice} = req.query;
+    const UPDATE_EXTRA = `UPDATE extras SET name='${newName}', price=${newPrice} WHERE name='${name}'`;
+    db.query(UPDATE_EXTRA, (err, results) => {
+        if(err) {
+            return res.send(err);
+        }
+        else {
+            return res.send(`Successfully Updated ${name} to ${newName}`);
         }
     });
 });
@@ -342,6 +403,20 @@ app.get('/tortilla', (req, res) => {
         }
     });
 });
+//Update Tortilla
+app.get('/tortilla/update', (req, res) => {
+    const {name, newName, newPrice} = req.query;
+    const UPDATE_TORTILLA = `UPDATE tortillaBase SET name='${newName}', price=${newPrice} WHERE name='${name}'`;
+    db.query(UPDATE_TORTILLA, (err, results) => {
+        if(err) {
+            return res.send(err);
+        }
+        else {
+            return res.send(`Successfully Updated ${name} to ${newName}`);
+        }
+    });
+});
+
 //All Pickup Times
 app.get('/pickupTimes', (req, res) => {
     db.query(SELECT_ALL_TIMES, (err, results) => {
@@ -356,6 +431,7 @@ app.get('/pickupTimes', (req, res) => {
     });
 });
 
+        /************   USER ROUTES    ************/
 app.get('/userPassword', (req, res) => {
     db.query(SELECT_USER_PASSWORDS, (err, results) => {
         if (err) { 
