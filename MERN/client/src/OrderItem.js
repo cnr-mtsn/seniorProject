@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from "react";
 import ItemHeader from "./ItemHeader";
-import { Input, Label } from "reactstrap";
+import { Input, Label, FormGroup } from "reactstrap";
 import "./App.css";
 
 function OrderItem(props) {
 	const [options, setOptions] = useState([]);
+	
 	useEffect(() => {
 		getOptions(); //eslint-disable-next-line
 	}, []);
@@ -20,22 +21,20 @@ function OrderItem(props) {
 	};
 
 	const renderOptions = option => {
-		const optionCap =
-			option.name.charAt(0).toUpperCase() + option.name.substring(1);
+		const optionCap = option.name.charAt(0).toUpperCase() + option.name.substring(1);
+
 		return (
 			<li className='orderItem'>
-				<Label check>
-					<Input type='checkbox' key={option.name} />
-					<span>{optionCap}</span>
-				</Label>
+				<Input type={(props.inputType ? props.inputType : 'checkbox')} key={option.name} name={props.item} />
+				<span>{optionCap}</span>
 			</li>
 		);
 	};
 	return (
-		<div>
+		<FormGroup>
 			<ItemHeader title={itemCapPlural} />
 			<ul className='orderItems'>{options.map(renderOptions)}</ul>
-		</div>
+		</FormGroup>
 	);
 }
 

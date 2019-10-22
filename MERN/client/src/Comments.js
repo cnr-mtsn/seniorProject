@@ -5,7 +5,6 @@ import ItemHeader from "./ItemHeader";
 function Comments() {
 	return (
 		<div>
-			<ItemHeader title='Comments' />
 			<Input
 				type='textarea'
 				placeholder='Special instructions for the kitchen...'

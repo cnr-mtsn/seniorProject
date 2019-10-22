@@ -18,18 +18,17 @@ function PickupTimes() {
 	const renderTimes = time => {
 		const pickupTime = time.pickupTime;
 		return (
-			<li className='orderItem'>
-				<Label check>
-					<Input type='checkbox' key={pickupTime} />
-					<span>{pickupTime}</span>
-				</Label>
-			</li>
+			<option key={time.time_id}>{time.pickupTime}</option>
 		);
 	};
 	return (
 		<div>
-			<ItemHeader title='Pickup Times' />
-			<ul className='orderItems'>{times.map(renderTimes)}</ul>
+			<Label check>
+					<Input type='select'>
+						{times.map(renderTimes)}
+						<option disabled selected>Pickup Time</option>
+					</Input>
+			</Label>
 		</div>
 	);
 }

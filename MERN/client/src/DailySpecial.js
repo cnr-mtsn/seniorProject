@@ -41,7 +41,7 @@ function DailySpecial() {
 							</li>
 							<li className='orderItem'>
 								<Label check>
-									<Input type='checkbox' />
+									<Input type='checkbox' label="Hot Peppers"/>
 									<span>Hot Peppers</span>
 								</Label>
 							</li>
