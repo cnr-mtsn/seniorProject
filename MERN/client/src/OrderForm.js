@@ -7,8 +7,7 @@ import Comments from "./Comments";
 import { 
 	Card, 
 	CardBody, 
-	CardTitle, 
-	CardText, 
+	CardTitle,  
 	CardSubtitle,
 	Button, 
 	Jumbotron, 
@@ -24,6 +23,7 @@ function OrderForm() {
 	const [items, setItems] = useState([]);
 	const [order, setOrder] = useState([]);
 	const [category, setCategory] = useState('');
+	const [total, setTotal] = useState(0);
 
 	const handleCategorySelection = (selection) => {
 		fetch(`http://localhost:5000/${selection}`)
@@ -62,6 +62,7 @@ function OrderForm() {
 		const fixedPrice = '$' + item.price.toFixed(2);
 		const handleItemClick = () => {
 			setOrder(order.concat(item));
+			setTotal(total + item.price);
 		}
 		return (
 			<tr key={item.name}>
@@ -82,7 +83,7 @@ function OrderForm() {
 	const renderOrder = (orderItem) => {
 		const fixedPrice = '$' + orderItem.price.toFixed(2);
 		return (
-			<li>{orderItem.name} - {fixedPrice}</li>
+			<li key={orderItem.name}>{orderItem.name} - {fixedPrice}</li>
 		);
 	};
 	
@@ -117,12 +118,10 @@ function OrderForm() {
 									<Card style={{minHeight:'50vh'}}>
 										<CardBody>
 											<CardTitle>Order Details</CardTitle>
-											<CardText>
 												<ul>
 													{order.map(renderOrder)}
 												</ul>
-											</CardText>
-											<CardSubtitle>Total: </CardSubtitle>
+											<CardSubtitle>Total: {total}</CardSubtitle>
 											<PickupTimes/>
 											<Comments/>
 										</CardBody>

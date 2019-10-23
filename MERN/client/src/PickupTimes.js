@@ -25,7 +25,7 @@ function PickupTimes() {
 			<Label check>
 					<Input type='select'>
 						{times.map(renderTimes)}
-						<option disabled selected>Pickup Time</option>
+						<option disabled defaultValue="Pickup Time"></option>
 					</Input>
 			</Label>
 		</div>
