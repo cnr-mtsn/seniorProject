@@ -2,7 +2,6 @@ import React, {useState} from "react";
 import NavigationBar from "./NavigationBar";
 import "./App.css";
 import Header from "./Header";
-import OrderItem from "./OrderItem";
 import PickupTimes from "./PickupTimes";
 import Comments from "./Comments";
 import { 
@@ -18,8 +17,7 @@ import {
 	Col, 
 	Form, 
 	Table, 
-	Input } from "reactstrap";
-import DailySpecial from "./DailySpecial";
+} from "reactstrap";
 
 function OrderForm() {
 
@@ -50,7 +48,7 @@ function OrderForm() {
 	const categoryCap = category.charAt(0).toUpperCase() + category.substring(1);
 	var tableHeader;
 	if(categoryCap !== '') {
-		if((categoryCap == 'Protein') || (categoryCap == 'Bread') || (categoryCap == 'Tortilla') || (categoryCap == 'Cheese')) {
+		if((categoryCap === 'Protein') || (categoryCap === 'Bread') || (categoryCap === 'Tortilla') || (categoryCap === 'Cheese')) {
 			tableHeader = 'Select ' + categoryCap;
 		}
 		else {

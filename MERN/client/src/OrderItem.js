@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import ItemHeader from "./ItemHeader";
-import { Input, Label, FormGroup } from "reactstrap";
+import { Input, FormGroup } from "reactstrap";
 import "./App.css";
 
 function OrderItem(props) {

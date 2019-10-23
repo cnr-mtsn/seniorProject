@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import { Input, Label } from "reactstrap";
-import ItemHeader from "./ItemHeader";
 
 function PickupTimes() {
 	const [times, setTimes] = useState([]);
@@ -16,7 +15,7 @@ function PickupTimes() {
 	};
 
 	const renderTimes = time => {
-		const pickupTime = time.pickupTime;
+		
 		return (
 			<option key={time.time_id}>{time.pickupTime}</option>
 		);

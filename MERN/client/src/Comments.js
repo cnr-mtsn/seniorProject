@@ -1,6 +1,5 @@
 import React from "react";
 import { Input } from "reactstrap";
-import ItemHeader from "./ItemHeader";
 
 function Comments() {
 	return (
