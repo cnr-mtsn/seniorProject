@@ -1,9 +1,8 @@
-import React, {useState} from "react";
+import React, {useState, useEffect} from "react";
+import { Input } from 'reactstrap';
 import NavigationBar from "./NavigationBar";
 import "./App.css";
 import Header from "./Header";
-import PickupTimes from "./PickupTimes";
-import Comments from "./Comments";
 import { 
 	Card, 
 	CardBody, 
@@ -24,6 +23,13 @@ function OrderForm() {
 	const [order, setOrder] = useState([]);
 	const [category, setCategory] = useState('');
 	const [total, setTotal] = useState(0);
+	const [times, setTimes] = useState([]);
+	const [pickupTime, setPickupTime] = useState();
+	const [comments, setComments] = useState();
+
+	useEffect(() => {
+		getTimes(); //eslint-disable-next-line
+	}, []);
 
 	const handleCategorySelection = (selection) => {
 		fetch(`http://localhost:5000/${selection}`)
@@ -31,6 +37,28 @@ function OrderForm() {
 		.then(response => setItems(response.data))
 		.then(setCategory(selection))
 		.then(console.log("selected"))
+	};
+	const handleCommentsInput = (e) => {
+		setComments(e.target.value);
+	}
+
+	const handleTimeSelection = (e) => {
+		setPickupTime(e.target.value);
+	}
+
+	const handleOrderSubmit = () => {
+		console.log("order submitted")
+		order.map((item) => console.log(item.name));
+		console.log(pickupTime);
+		console.log(comments);
+		console.log("$" + total.toFixed(2));
+	}
+
+	const getTimes = async () => {
+		fetch(`http://localhost:5000/pickupTimes`)
+			.then(response => response.json())
+			.then(response => setTimes(response.data))
+			.catch(err => console.error(err));
 	};
 
 	const selectCategory = (
@@ -57,6 +85,7 @@ function OrderForm() {
 	} else {
 		tableHeader = 'Select a category to begin your order...';
 	}
+	const submitButtonText = (order.length < 1 ? 'Build Order' : 'Submit Order');
 	
 	const renderItem = (item) => {
 		const fixedPrice = '$' + item.price.toFixed(2);
@@ -78,22 +107,29 @@ function OrderForm() {
 			</tr>
 		)
 	}
-
-
 	const renderOrder = (orderItem) => {
 		const fixedPrice = '$' + orderItem.price.toFixed(2);
 		return (
 			<li key={orderItem.name}>{orderItem.name} - {fixedPrice}</li>
 		);
 	};
-	
+	const renderTimes = time => {
+		
+		return (
+			<option key={time.time_id}>{time.pickupTime}</option>
+		);
+	};
 	return (
 		<Container>
 			<Row>
-				<Col><Header title='Order Form' /></Col>
+				<Col>
+					<Header title='Order Form' />
+				</Col>
 			</Row>
 			<Row>
-				<Col><NavigationBar /></Col>
+				<Col>
+					<NavigationBar />
+				</Col>
 			</Row>
 			<Row>
 				<Col>
@@ -102,32 +138,39 @@ function OrderForm() {
 							<Row>
 								<Col lg={2}>{selectCategory}</Col>
 								<Col>
-									<Table className="itemTable bg-light" striped>
+									<Table className='itemTable bg-light' striped>
 										<thead>
-											<tr className="manageItemHeader">
+											<tr className='manageItemHeader'>
 												<th>{tableHeader}</th>
 											</tr>
 										</thead>
-										<tbody>
-											{items.map(renderItem)}
-										</tbody>
+										<tbody>{items.map(renderItem)}</tbody>
 									</Table>
 								</Col>
 
 								<Col>
-									<Card style={{minHeight:'50vh'}}>
+									<Card style={{ minHeight: "50vh" }}>
 										<CardBody>
 											<CardTitle>Order Details</CardTitle>
-												<ul>
-													{order.map(renderOrder)}
-												</ul>
-											<CardSubtitle>Total: {total}</CardSubtitle>
-											<PickupTimes/>
-											<Comments/>
+											<ul>{order.map(renderOrder)}</ul>
+											<CardSubtitle>Total: ${total.toFixed(2)}</CardSubtitle>
+											<Input type='select' onChange={handleTimeSelection}>
+												{times.map(renderTimes)}
+												<option disabled defaultValue='Pickup Time'></option>
+											</Input>
+											<Input
+												type='textarea'
+												placeholder='Special instructions for the kitchen...'
+												onChange={handleCommentsInput}
+											/>
 										</CardBody>
+										<Button 
+											type="button"
+											className="purpleButton"
+											onClick={handleOrderSubmit}
+										>{submitButtonText}</Button>
 									</Card>
 								</Col>
-
 							</Row>
 						</Form>
 					</Jumbotron>
