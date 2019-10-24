@@ -141,22 +141,20 @@ function OrderForm() {
 				<td style={{fontSize:'3vh', textAlign:'left'}}>
 					{item.name}
 				</td>
-				<td>
+				<td style={{fontSize:'3vh', textAlign:'left'}}>
 					{fixedPrice}
 				</td>
 				<td>
 					<Button outline color="primary" onClick={handleItemClick} style={{width:'100%'}}>Add</Button>
 				</td>
-				<td>
-					<Button outline color="danger" onClick={handleItemClick} style={{width:'100%'}}>Remove</Button>
-				</td>
+			
 			</tr>
 		)
 	}
 	const renderOrder = (orderItem) => {
 		const fixedPrice = '$' + orderItem.price.toFixed(2);
 		return (
-			<li key={orderItem.name}>{orderItem.name} - {fixedPrice}</li>
+			<li style={{listStyle:'none'}} key={orderItem.name}>{orderItem.name} - {fixedPrice}</li>
 		);
 	};
 	const renderTimes = time => {
@@ -184,9 +182,11 @@ function OrderForm() {
 							<Row>
 								<Col>
 									{tableCategorySelect}
-									<Table className='itemTable bg-light' striped>
-										<tbody>{items.map(renderItem)}</tbody>
-									</Table>
+									<div style={{height:'300px', overflow:'auto'}}>
+										<Table className='itemTable bg-light' striped>
+											<tbody>{items.map(renderItem)}</tbody>
+										</Table>
+									</div>
 								</Col>
 
 								<Col>
