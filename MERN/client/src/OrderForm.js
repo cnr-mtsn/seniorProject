@@ -1,5 +1,4 @@
 import React, {useState, useEffect} from "react";
-import { Input } from 'reactstrap';
 import NavigationBar from "./NavigationBar";
 import "./App.css";
 import Header from "./Header";
@@ -14,7 +13,13 @@ import {
 	Row, 
 	Col, 
 	Form, 
-	Table, 
+	Table,
+	Input,
+	ButtonGroup, 
+	ButtonDropdown, 
+	DropdownItem,
+	DropdownMenu,
+	DropdownToggle
 } from "reactstrap";
 
 function OrderForm() {
@@ -26,17 +31,21 @@ function OrderForm() {
 	const [times, setTimes] = useState([]);
 	const [pickupTime, setPickupTime] = useState();
 	const [comments, setComments] = useState();
+	const [dropdownOpen, setOpen] = useState(false);
+	
 
 	useEffect(() => {
 		getTimes(); 
 	});
+
+	const toggleDropdown = () => setOpen(!dropdownOpen);
 
 	const handleCategorySelection = (selection) => {
 		fetch(`http://localhost:5000/${selection}`)
 		.then(response => response.json())
 		.then(response => setItems(response.data))
 		.then(setCategory(selection))
-		.then(console.log("selected"))
+		.then(console.log("selected " + selection))
 	};
 	const handleCommentsInput = (e) => {
 		setComments(e.target.value);
@@ -45,14 +54,23 @@ function OrderForm() {
 	const handleTimeSelection = (e) => {
 		setPickupTime(e.target.value);
 	}
-
-	const handleOrderSubmit = () => {
-		console.log("order submitted")
-		order.map((item) => console.log(item.name));
-		console.log(pickupTime);
-		console.log(comments);
-		console.log("$" + total.toFixed(2));
+	
+	const handleClearOrderClick = () => {
+		setOrder([]);
+		setTotal(0);
 	}
+	const handleOrderSubmit = () => {
+		if(order.length < 2) {
+			console.log("Create Order First");
+		} else {
+			console.log("order submitted")
+			order.map((item) => console.log(item.name));
+			console.log(pickupTime);
+			console.log(comments);
+			console.log("$" + total.toFixed(2));
+		}
+	}
+
 
 	const getTimes = async () => {
 		fetch(`http://localhost:5000/pickupTimes`)
@@ -61,60 +79,54 @@ function OrderForm() {
 			.catch(err => console.error(err));
 	};
 
-	const categoryCap = category.charAt(0).toUpperCase() + category.substring(1);
-
 	var tableCategorySelect = (
-		<th>
-			<td style={{outline:'2px solid black'}}>
-				<span 
-					value='bread' 
-					onClick={handleCategorySelection.bind(this, 'bread')}
-					>Bread
-				</span>
-			</td>
-			<td>
-				<span 
-					value='tortilla' 
-					onClick={handleCategorySelection.bind(this, 'tortilla')}
-					>Tortillas
-				</span>
-			</td>
-			<td>
-				<span 
+		<div>
+			<ButtonGroup>
+				<ButtonDropdown isOpen={dropdownOpen} toggle={toggleDropdown}>
+					<DropdownToggle caret>
+						Base
+					</DropdownToggle>
+					<DropdownMenu>
+						<DropdownItem header>Select One</DropdownItem>
+						<DropdownItem 
+							value='bread' 
+							onClick={handleCategorySelection.bind(this, 'bread')}
+						>Bread
+						</DropdownItem>
+						<DropdownItem
+							value='tortilla' 
+							onClick={handleCategorySelection.bind(this, 'tortilla')}
+						>Tortillas
+						</DropdownItem>
+					</DropdownMenu>
+				</ButtonDropdown> 
+				<Button 
 					value='protein' 
 					onClick={handleCategorySelection.bind(this, 'protein')}
 					>Protein
-				</span>
-			</td>
-			<td>
-				<span 
+				</Button>
+				<Button 
 					value='cheese' 
 					onClick={handleCategorySelection.bind(this, 'cheese')}
 					>Cheese
-				</span>
-			</td>
-			<td>
-				<span 
+				</Button>
+				<Button 
 					value='veggie' 
 					onClick={handleCategorySelection.bind(this, 'veggie')}
 					>Veggies
-				</span>
-			</td>
-			<td>
-				<span 
+				</Button>
+				<Button 
 					value='condiment' 
 					onClick={handleCategorySelection.bind(this, 'condiment')}
 					>Condiments
-				</span>
-			</td>
-			<td>
-				<span 
+				</Button>
+				<Button 
 					value='extra' 
 					onClick={handleCategorySelection.bind(this, 'extra')}
 					>Extras
-				</span>
-			</td>
-		</th>
+				</Button>
+			</ButtonGroup>
+		</div>
 	)
 	const submitButtonText = (order.length < 1 ? 'Build Order' : 'Submit Order');
 	
@@ -125,15 +137,18 @@ function OrderForm() {
 			setTotal(total + item.price);
 		}
 		return (
-			<tr key={item.name}>
-				<td>
+			<tr key={item.name} style={{backgroundColor:'#EBDFB5'}}>
+				<td style={{fontSize:'3vh', textAlign:'left'}}>
 					{item.name}
 				</td>
 				<td>
 					{fixedPrice}
 				</td>
 				<td>
-					<Button outline color="secondary" onClick={handleItemClick}>Add</Button>
+					<Button outline color="primary" onClick={handleItemClick} style={{width:'100%'}}>Add</Button>
+				</td>
+				<td>
+					<Button outline color="danger" onClick={handleItemClick} style={{width:'100%'}}>Remove</Button>
 				</td>
 			</tr>
 		)
@@ -168,12 +183,8 @@ function OrderForm() {
 						<Form>
 							<Row>
 								<Col>
+									{tableCategorySelect}
 									<Table className='itemTable bg-light' striped>
-										<thead>
-											<tr className='manageItemHeader'>
-												{tableCategorySelect}
-											</tr>
-										</thead>
 										<tbody>{items.map(renderItem)}</tbody>
 									</Table>
 								</Col>
@@ -194,9 +205,16 @@ function OrderForm() {
 												onChange={handleCommentsInput}
 											/>
 										</CardBody>
+										<Button
+											type="button"
+											outline
+											color="danger"
+											onClick={handleClearOrderClick}
+											>Clear Order</Button>
 										<Button 
 											type="button"
-											className="purpleButton"
+											outline
+											color="primary"
 											onClick={handleOrderSubmit}
 										>{submitButtonText}</Button>
 									</Card>
