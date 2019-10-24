@@ -28,8 +28,8 @@ function OrderForm() {
 	const [comments, setComments] = useState();
 
 	useEffect(() => {
-		getTimes(); //eslint-disable-next-line
-	}, []);
+		getTimes(); 
+	});
 
 	const handleCategorySelection = (selection) => {
 		fetch(`http://localhost:5000/${selection}`)
@@ -61,30 +61,61 @@ function OrderForm() {
 			.catch(err => console.error(err));
 	};
 
-	const selectCategory = (
-		<ul className="adminSelectCategory list-group">
-		  <li className="list-group-item list-group-item-action" value='bread' onClick={handleCategorySelection.bind(this, 'bread')}>Bread</li>
-		  <li className="list-group-item list-group-item-action" value='tortilla' onClick={handleCategorySelection.bind(this, 'tortilla')}>Tortillas</li>
-		  <li className="list-group-item list-group-item-action" value='protein' onClick={handleCategorySelection.bind(this, 'protein')}>Protein</li>
-		  <li className="list-group-item list-group-item-action" value='cheese' onClick={handleCategorySelection.bind(this, 'cheese')}>Cheese</li>
-		  <li className="list-group-item list-group-item-action" value='veggie' onClick={handleCategorySelection.bind(this, 'veggie')}>Veggies</li>
-		  <li className="list-group-item list-group-item-action" value='condiment' onClick={handleCategorySelection.bind(this, 'condiment')}>Condiments</li>
-		  <li className="list-group-item list-group-item-action" value='extra' onClick={handleCategorySelection.bind(this, 'extra')}>Extras</li>
-		</ul>
-	  );
-	 
 	const categoryCap = category.charAt(0).toUpperCase() + category.substring(1);
-	var tableHeader;
-	if(categoryCap !== '') {
-		if((categoryCap === 'Protein') || (categoryCap === 'Bread') || (categoryCap === 'Tortilla') || (categoryCap === 'Cheese')) {
-			tableHeader = 'Select ' + categoryCap;
-		}
-		else {
-			tableHeader = 'Select ' + categoryCap + 's';
-		}	
-	} else {
-		tableHeader = 'Select a category to begin your order...';
-	}
+
+	var tableCategorySelect = (
+		<th>
+			<td style={{outline:'2px solid black'}}>
+				<span 
+					value='bread' 
+					onClick={handleCategorySelection.bind(this, 'bread')}
+					>Bread
+				</span>
+			</td>
+			<td>
+				<span 
+					value='tortilla' 
+					onClick={handleCategorySelection.bind(this, 'tortilla')}
+					>Tortillas
+				</span>
+			</td>
+			<td>
+				<span 
+					value='protein' 
+					onClick={handleCategorySelection.bind(this, 'protein')}
+					>Protein
+				</span>
+			</td>
+			<td>
+				<span 
+					value='cheese' 
+					onClick={handleCategorySelection.bind(this, 'cheese')}
+					>Cheese
+				</span>
+			</td>
+			<td>
+				<span 
+					value='veggie' 
+					onClick={handleCategorySelection.bind(this, 'veggie')}
+					>Veggies
+				</span>
+			</td>
+			<td>
+				<span 
+					value='condiment' 
+					onClick={handleCategorySelection.bind(this, 'condiment')}
+					>Condiments
+				</span>
+			</td>
+			<td>
+				<span 
+					value='extra' 
+					onClick={handleCategorySelection.bind(this, 'extra')}
+					>Extras
+				</span>
+			</td>
+		</th>
+	)
 	const submitButtonText = (order.length < 1 ? 'Build Order' : 'Submit Order');
 	
 	const renderItem = (item) => {
@@ -136,12 +167,11 @@ function OrderForm() {
 					<Jumbotron className='myJumbotron'>
 						<Form>
 							<Row>
-								<Col lg={2}>{selectCategory}</Col>
 								<Col>
 									<Table className='itemTable bg-light' striped>
 										<thead>
 											<tr className='manageItemHeader'>
-												<th>{tableHeader}</th>
+												{tableCategorySelect}
 											</tr>
 										</thead>
 										<tbody>{items.map(renderItem)}</tbody>
@@ -149,7 +179,7 @@ function OrderForm() {
 								</Col>
 
 								<Col>
-									<Card style={{ minHeight: "50vh" }}>
+									<Card style={{ minHeight: "500px" }}>
 										<CardBody>
 											<CardTitle>Order Details</CardTitle>
 											<ul>{order.map(renderOrder)}</ul>
