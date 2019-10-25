@@ -150,10 +150,10 @@ function OrderForm() {
 		};
 		return (
 			<tr key={item.name}>
-				<td style={{fontSize:'3vh', textAlign:'left'}}>
+				<td style={{fontSize:'2vh', textAlign:'left'}}>
 					{item.name}
 				</td>
-				<td style={{fontSize:'3vh', textAlign:'left'}}>
+				<td style={{fontSize:'2vh', textAlign:'left'}}>
 					{fixedPrice}
 				</td>
 				<td>
@@ -206,7 +206,7 @@ function OrderForm() {
 							<Row>
 								<Col>
 									{tableCategorySelect}
-									<div style={{maxHeight:'480px', overflow:'auto'}}>
+									<div style={{maxHeight:'500px', overflow:'auto', borderRadius:''}}>
 										<Table className='itemTable bg-dark' style={{color:'white'}} striped>
 											<tbody>{items.map(renderItem)}</tbody>
 										</Table>
@@ -223,7 +223,7 @@ function OrderForm() {
 											</Table>
 											</div>
 										</CardBody>
-										<CardSubtitle>Total: ${total.toFixed(2)}</CardSubtitle>
+										<CardSubtitle><h5>Total: ${total.toFixed(2)}</h5></CardSubtitle>
 											<br></br>
 											<Input type='select' onChange={handleTimeSelection}>
 												{times.map(renderTimes)}
