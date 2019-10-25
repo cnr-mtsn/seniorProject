@@ -2,6 +2,7 @@ import React, {useState, useEffect} from "react";
 import NavigationBar from "./NavigationBar";
 import "./App.css";
 import Header from "./Header";
+import { FaPlus, FaTimes } from "react-icons/fa";
 import { 
 	Card, 
 	CardBody, 
@@ -37,7 +38,6 @@ function OrderForm() {
 	useEffect(() => {
 		getTimes(); 
 	});
-
 	const toggleDropdown = () => setOpen(!dropdownOpen);
 
 	const handleCategorySelection = (selection) => {
@@ -45,7 +45,7 @@ function OrderForm() {
 		.then(response => response.json())
 		.then(response => setItems(response.data))
 		.then(setCategory(selection))
-		.then(console.log("selected " + selection))
+		.then(console.log("selected " + category))
 	};
 	const handleCommentsInput = (e) => {
 		setComments(e.target.value);
@@ -55,10 +55,17 @@ function OrderForm() {
 		setPickupTime(e.target.value);
 	}
 	
+	const deleteOrderItem = (item) => {
+		console.log(`deleted ${item.name}`);
+	}
+	const addOrderItem = (item) => {
+		console.log(`added ${item.name}`);
+	}
 	const handleClearOrderClick = () => {
 		setOrder([]);
 		setTotal(0);
 	}
+
 	const handleOrderSubmit = () => {
 		if(order.length < 2) {
 			console.log("Create Order First");
@@ -71,7 +78,6 @@ function OrderForm() {
 		}
 	}
 
-
 	const getTimes = async () => {
 		fetch(`http://localhost:5000/pickupTimes`)
 			.then(response => response.json())
@@ -79,10 +85,10 @@ function OrderForm() {
 			.catch(err => console.error(err));
 	};
 
-	var tableCategorySelect = (
+	const tableCategorySelect = (
 		<div>
 			<ButtonGroup>
-				<ButtonDropdown isOpen={dropdownOpen} toggle={toggleDropdown}>
+				<ButtonDropdown className="darkGrey white" isOpen={dropdownOpen} toggle={toggleDropdown}>
 					<DropdownToggle caret>
 						Base
 					</DropdownToggle>
@@ -101,29 +107,34 @@ function OrderForm() {
 					</DropdownMenu>
 				</ButtonDropdown> 
 				<Button 
+				 	className="darkGrey white"
 					value='protein' 
 					onClick={handleCategorySelection.bind(this, 'protein')}
-					>Protein
+				>Protein
 				</Button>
 				<Button 
+					className="darkGrey white"
 					value='cheese' 
 					onClick={handleCategorySelection.bind(this, 'cheese')}
-					>Cheese
+				>Cheese
 				</Button>
 				<Button 
+					className="darkGrey white"
 					value='veggie' 
 					onClick={handleCategorySelection.bind(this, 'veggie')}
-					>Veggies
+				>Veggies
 				</Button>
 				<Button 
+					className="darkGrey white"
 					value='condiment' 
 					onClick={handleCategorySelection.bind(this, 'condiment')}
-					>Condiments
+				>Condiments
 				</Button>
 				<Button 
+					className="darkGrey white"
 					value='extra' 
 					onClick={handleCategorySelection.bind(this, 'extra')}
-					>Extras
+				>Extras
 				</Button>
 			</ButtonGroup>
 		</div>
@@ -132,12 +143,13 @@ function OrderForm() {
 	
 	const renderItem = (item) => {
 		const fixedPrice = '$' + item.price.toFixed(2);
-		const handleItemClick = () => {
+		const buttonId = `add${item.name}`;
+		const handleItemClick = (buttonId, disabled) => {
 			setOrder(order.concat(item));
 			setTotal(total + item.price);
-		}
+		};
 		return (
-			<tr key={item.name} style={{backgroundColor:'#EBDFB5'}}>
+			<tr key={item.name}>
 				<td style={{fontSize:'3vh', textAlign:'left'}}>
 					{item.name}
 				</td>
@@ -145,7 +157,14 @@ function OrderForm() {
 					{fixedPrice}
 				</td>
 				<td>
-					<Button outline color="primary" onClick={handleItemClick} style={{width:'100%'}}>Add</Button>
+					<Button 
+						outline 
+						id={buttonId}
+						color="primary" 
+						onClick={handleItemClick} 
+						style={{width:'100%'}}
+					><FaPlus/>
+					</Button>
 				</td>
 			
 			</tr>
@@ -154,7 +173,12 @@ function OrderForm() {
 	const renderOrder = (orderItem) => {
 		const fixedPrice = '$' + orderItem.price.toFixed(2);
 		return (
-			<li style={{listStyle:'none'}} key={orderItem.name}>{orderItem.name} - {fixedPrice}</li>
+			<tr key={orderItem.name}>
+				<td>{orderItem.name}</td>
+				<td>{fixedPrice}</td>
+				<td><Button outline color="danger" style={{width:'100%'}} onClick={deleteOrderItem}><FaTimes/></Button></td>
+				<td><Button outline color="info" style={{width:'100%'}} onClick={addOrderItem}><FaPlus/></Button></td>
+			</tr>
 		);
 	};
 	const renderTimes = time => {
@@ -182,29 +206,36 @@ function OrderForm() {
 							<Row>
 								<Col>
 									{tableCategorySelect}
-									<div style={{height:'300px', overflow:'auto'}}>
-										<Table className='itemTable bg-light' striped>
+									<div style={{maxHeight:'480px', overflow:'auto'}}>
+										<Table className='itemTable bg-dark' style={{color:'white'}} striped>
 											<tbody>{items.map(renderItem)}</tbody>
 										</Table>
 									</div>
 								</Col>
 
 								<Col>
-									<Card style={{ minHeight: "500px" }}>
+									<Card style={{ minHeight: "500px", backgroundColor:'#3D4246', color:'white' }}>
+										<CardTitle style={{height:'20px', textAlign:'center', fontSize:'3vh'}}>Order Details</CardTitle>
 										<CardBody>
-											<CardTitle>Order Details</CardTitle>
-											<ul>{order.map(renderOrder)}</ul>
-											<CardSubtitle>Total: ${total.toFixed(2)}</CardSubtitle>
+											<div style={{overflow:'auto', height:'300px'}}>
+											<Table className="itemTable bg-dark" style={{backgroundColor:'grey', opacity:'.85', color:'white'}} striped>
+											<tbody>{order.map(renderOrder)}</tbody>
+											</Table>
+											</div>
+										</CardBody>
+										<CardSubtitle>Total: ${total.toFixed(2)}</CardSubtitle>
+											<br></br>
 											<Input type='select' onChange={handleTimeSelection}>
 												{times.map(renderTimes)}
 												<option disabled defaultValue='Pickup Time'></option>
 											</Input>
+											<br></br>
 											<Input
 												type='textarea'
 												placeholder='Special instructions for the kitchen...'
 												onChange={handleCommentsInput}
 											/>
-										</CardBody>
+											<br></br>
 										<Button
 											type="button"
 											outline
