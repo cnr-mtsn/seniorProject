@@ -139,9 +139,38 @@
 }
 
 /****** ORDER FORM ******/
-.orderItem {
-  list-style: none;
+.orderItemsButton {
+  width: 100%;
 }
+.orderItemsDiv {
+  max-height: 500px;
+  overflow: scroll;
+  border-radius: 5%;
+}
+.orderITem {
+  font-size: 2vh;
+  text-align: left;
+}
+.orderDetailsCard {
+  min-height:500px;
+  background-color:#3D4246;
+  color:white;
+}
+.orderDetailsTitle {
+  height:20px;
+  text-align: center;
+  font-size:3vh;
+}
+.orderDetailsBodyDiv {
+  overflow: scroll;
+  height:300px;
+}
+.orderDetailsTable {
+  background-color: grey;
+  opacity: 0.85;
+  color: white;
+}
+
 
 
 

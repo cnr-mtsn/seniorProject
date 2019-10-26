@@ -56,10 +56,33 @@ function OrderForm() {
 	}
 	
 	const deleteOrderItem = (item) => {
-		console.log(`deleted ${item.name}`);
+		/* if(order contains item.name) {
+				delete first instance of item
+			}
+		*/
+		for(var orderItem in order) {
+			if(item === orderItem) {
+				var index = order.indexOf(orderItem);
+				console.log(`order[${index}]: ${order[index]}`);
+				setOrder(order.splice(index, 1));
+				console.log(order[index]);
+				console.log(`deleted ${item.name}`);
+			}
+		}
 	}
 	const addOrderItem = (item) => {
-		console.log(`added ${item.name}`);
+		/*
+		if(order contains item.name) {
+			update/display multiplier badge
+			total += item.price
+		}
+		*/
+		for(var orderItem in order) {
+			if(item === orderItem) {
+				setTotal(total + item.price);
+				console.log(`added extra ${item.name}`);
+			}
+		}
 	}
 	const handleClearOrderClick = () => {
 		setOrder([]);
@@ -150,10 +173,10 @@ function OrderForm() {
 		};
 		return (
 			<tr key={item.name}>
-				<td style={{fontSize:'2vh', textAlign:'left'}}>
+				<td className="orderItem">
 					{item.name}
 				</td>
-				<td style={{fontSize:'2vh', textAlign:'left'}}>
+				<td className="orderItem">
 					{fixedPrice}
 				</td>
 				<td>
@@ -162,7 +185,7 @@ function OrderForm() {
 						id={buttonId}
 						color="primary" 
 						onClick={handleItemClick} 
-						style={{width:'100%'}}
+						className="orderItemsButton"
 					><FaPlus/>
 					</Button>
 				</td>
@@ -176,8 +199,8 @@ function OrderForm() {
 			<tr key={orderItem.name}>
 				<td>{orderItem.name}</td>
 				<td>{fixedPrice}</td>
-				<td><Button outline color="danger" style={{width:'100%'}} onClick={deleteOrderItem}><FaTimes/></Button></td>
-				<td><Button outline color="info" style={{width:'100%'}} onClick={addOrderItem}><FaPlus/></Button></td>
+				<td><Button className="orderItemsButton" outline color="danger" onClick={deleteOrderItem}><FaTimes/></Button></td>
+				<td><Button className="orderItemsButton" outline color="info" onClick={addOrderItem}><FaPlus/></Button></td>
 			</tr>
 		);
 	};
@@ -206,19 +229,19 @@ function OrderForm() {
 							<Row>
 								<Col>
 									{tableCategorySelect}
-									<div style={{maxHeight:'500px', overflow:'auto', borderRadius:''}}>
-										<Table className='itemTable bg-dark' style={{color:'white'}} striped>
+									<div className="orderItemsDiv">
+										<Table className='itemTable bg-dark white' striped>
 											<tbody>{items.map(renderItem)}</tbody>
 										</Table>
 									</div>
 								</Col>
 
 								<Col>
-									<Card style={{ minHeight: "500px", backgroundColor:'#3D4246', color:'white' }}>
-										<CardTitle style={{height:'20px', textAlign:'center', fontSize:'3vh'}}>Order Details</CardTitle>
+									<Card className="orderDetailsCard">
+										<CardTitle className="orderDetailsTitle">Order Details</CardTitle>
 										<CardBody>
-											<div style={{overflow:'auto', height:'300px'}}>
-											<Table className="itemTable bg-dark" style={{backgroundColor:'grey', opacity:'.85', color:'white'}} striped>
+											<div className="orderDetailsBodyDiv">
+											<Table className="itemTable orderDetailsTable bg-dark"  striped>
 											<tbody>{order.map(renderOrder)}</tbody>
 											</Table>
 											</div>
