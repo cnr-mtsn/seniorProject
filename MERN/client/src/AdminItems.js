@@ -132,17 +132,20 @@ function AdminItems(props) {
         </Button>
       </InputGroupAddon>
     );
+  
     const selectCategory = (
-      <ul className="adminSelectCategory bg-light list-group">
-        <span className="text-muted">Choose a Category...</span>
-        <li className="list-group-item list-group-item-action" value='bread' onClick={handleCategorySelection.bind(this, 'bread')}>Bread</li>
-        <li className="list-group-item list-group-item-action" value='tortilla' onClick={handleCategorySelection.bind(this, 'tortilla')}>Tortillas</li>
-        <li className="list-group-item list-group-item-action" value='protein' onClick={handleCategorySelection.bind(this, 'protein')}>Protein</li>
-        <li className="list-group-item list-group-item-action" value='cheese' onClick={handleCategorySelection.bind(this, 'cheese')}>Cheese</li>
-        <li className="list-group-item list-group-item-action" value='veggie' onClick={handleCategorySelection.bind(this, 'veggie')}>Veggies</li>
-        <li className="list-group-item list-group-item-action" value='condiment' onClick={handleCategorySelection.bind(this, 'condiment')}>Condiments</li>
-        <li className="list-group-item list-group-item-action" value='extra' onClick={handleCategorySelection.bind(this, 'extra')}>Extras</li>
-      </ul>
+      <div className="adminSelectCategory">
+        <ul className="bg-dark list-group">
+          <span className="text-muted darkGrey white">Choose a Category...</span>
+          <li className="list-group-item list-group-item-action" value='bread' onClick={handleCategorySelection.bind(this, 'bread')}>Bread</li>
+          <li className="list-group-item list-group-item-action" value='tortilla' onClick={handleCategorySelection.bind(this, 'tortilla')}>Tortillas</li>
+          <li className="list-group-item list-group-item-action" value='protein' onClick={handleCategorySelection.bind(this, 'protein')}>Protein</li>
+          <li className="list-group-item list-group-item-action" value='cheese' onClick={handleCategorySelection.bind(this, 'cheese')}>Cheese</li>
+          <li className="list-group-item list-group-item-action" value='veggie' onClick={handleCategorySelection.bind(this, 'veggie')}>Veggies</li>
+          <li className="list-group-item list-group-item-action" value='condiment' onClick={handleCategorySelection.bind(this, 'condiment')}>Condiments</li>
+          <li className="list-group-item list-group-item-action" value='extra' onClick={handleCategorySelection.bind(this, 'extra')}>Extras</li>
+        </ul>
+      </div>
     );
     /************ END HTML ELEMENTS ************/
     /************ DATA TO RENDER VIA COMPONENT ************/
@@ -151,16 +154,18 @@ function AdminItems(props) {
         <Row>
           <Col lg={3}>{selectCategory}</Col>
           <Col>
-            <Table className="itemTable bg-light" striped>
-              <thead>
-                <tr className="manageItemHeader">
-                  <th>{tableHeader}</th>
-                </tr>
-              </thead>
-              <tbody>
-                  {items.map(renderItem)}
-              </tbody>
-            </Table>
+            <div className="adminTable">
+              <Table className="itemTable orderDetailsTable bg-dark" striped>
+                <thead>
+                  <tr className="manageItemHeader">
+                    <th className="white">{tableHeader}</th>
+                  </tr>
+                </thead>
+                <tbody>
+                    {items.map(renderItem)}
+                </tbody>
+              </Table>
+            </div>
           </Col>
         </Row>
   

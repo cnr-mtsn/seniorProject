@@ -103,9 +103,16 @@
 
 /***** ADMIN *****/
 
-.adminSelectCategory li{
+.adminSelectCategory ul li {
   list-style: none;
+  background-color:#3D4246;
+  color: white;
+} 
+.adminTable {
+  overflow:scroll;
+  max-height:410px;
 }
+
 .addItemInput {
   margin-top: 5vh;
 }
