@@ -26,11 +26,12 @@
 }
 .orderItems {
   background-color:white;
-  
 }
+
 .clear {
   background-color: transparent;
 }
+
 .manageItemButton {
   font-size: 1.8vh;
 }
@@ -152,7 +153,6 @@
 .orderItemsDiv {
   max-height: 500px;
   overflow: scroll;
-  border-radius: 5%;
 }
 .orderITem {
   font-size: 2vh;
