@@ -445,6 +445,24 @@ app.get('/userPassword', (req, res) => {
     });
 });
 
+/************ ORDERS ************/
+//Add order
+app.get('/newOrder', (req, res) => {
+    const {userId, total} = req.query;
+
+    const ADD_ORDER = `INSERT INTO orders(user_id, total) VALUES(${userId}, ${total})`;
+    db.query(ADD_ORDER, (err, results) => {
+        if(err) {
+            return res.send(err);
+        }
+        else {
+            return res.json({
+                data:results
+            })
+        }
+    });
+});
+
 
 //Listen for requests on given port
 app.listen(process.env.PORT || PORT, () => {

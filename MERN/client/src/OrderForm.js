@@ -33,11 +33,12 @@ function OrderForm() {
 	const [pickupTime, setPickupTime] = useState();
 	const [comments, setComments] = useState();
 	const [dropdownOpen, setOpen] = useState(false);
+	const [userId, setUserId] = useState();
 	
 
 	useEffect(() => {
 		getTimes(); 
-	});
+	}, []);
 	const toggleDropdown = () => setOpen(!dropdownOpen);
 
 	const handleCategorySelection = (selection) => {
@@ -53,6 +54,9 @@ function OrderForm() {
 
 	const handleTimeSelection = (e) => {
 		setPickupTime(e.target.value);
+	}
+	const handleUserIdInput = (e) => {
+		setUserId(e.target.value);
 	}
 	
 	const deleteOrderItem = (item) => {
@@ -93,13 +97,15 @@ function OrderForm() {
 		if(order.length < 2) {
 			console.log("Create Order First");
 		} else {
-			console.log("order submitted")
-			order.map((item) => console.log(item.name));
-			console.log(pickupTime);
-			console.log(comments);
-			console.log("$" + total.toFixed(2));
+			submitOrder();
 		}
 	}
+	const submitOrder = async () => {
+		fetch(`http://localhost:5000/newOrder?userId=${userId}&total=${total}`)
+		.then(setOrder([]))
+		.then(setTotal(0))
+		.catch(err => console.log(err))
+	};
 
 	const getTimes = async () => {
 		fetch(`http://localhost:5000/pickupTimes`)
@@ -205,11 +211,14 @@ function OrderForm() {
 		);
 	};
 	const renderTimes = time => {
-		
 		return (
 			<option key={time.time_id}>{time.pickupTime}</option>
 		);
 	};
+
+
+
+
 	return (
 		<Container>
 			<Row>
@@ -247,6 +256,11 @@ function OrderForm() {
 											</div>
 										</CardBody>
 										<CardSubtitle><h5>Total: ${total.toFixed(2)}</h5></CardSubtitle>
+											<Input
+												placeholder="User ID"
+												onChange={handleUserIdInput}
+											>
+											</Input>
 											<br></br>
 											<Input type='select' onChange={handleTimeSelection}>
 												{times.map(renderTimes)}
