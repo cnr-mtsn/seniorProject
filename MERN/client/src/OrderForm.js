@@ -59,35 +59,6 @@ function OrderForm() {
 		setUserId(e.target.value);
 	}
 	
-	const deleteOrderItem = (item) => {
-		/* if(order contains item.name) {
-				delete first instance of item
-			}
-		*/
-		for(var orderItem in order) {
-			if(item === orderItem) {
-				var index = order.indexOf(orderItem);
-				console.log(`order[${index}]: ${order[index]}`);
-				setOrder(order.splice(index, 1));
-				console.log(order[index]);
-				console.log(`deleted ${item.name}`);
-			}
-		}
-	}
-	const addOrderItem = (item) => {
-		/*
-		if(order contains item.name) {
-			update/display multiplier badge
-			total += item.price
-		}
-		*/
-		for(var orderItem in order) {
-			if(item === orderItem) {
-				setTotal(total + item.price);
-				console.log(`added extra ${item.name}`);
-			}
-		}
-	}
 	const handleClearOrderClick = () => {
 		setOrder([]);
 		setTotal(0);
@@ -201,6 +172,12 @@ function OrderForm() {
 	}
 	const renderOrder = (orderItem) => {
 		const fixedPrice = '$' + orderItem.price.toFixed(2);
+		const deleteOrderItem = () => {
+			console.log(`removed ${orderItem.name}`);
+		}
+		const addOrderItem = () => {
+			console.log(`added ${orderItem.name}`);
+		}
 		return (
 			<tr key={orderItem.name}>
 				<td>{orderItem.name}</td>
