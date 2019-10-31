@@ -1,7 +1,7 @@
 import React, {useState} from "react";
 import fedEatsLogo from "./media/fedEatsLogo.jpeg";
 import ckLogo from "./media/companyKitchenLogo.jpeg";
-import { Container, Row, Col, Navbar, NavbarBrand, NavbarToggler, Collapse, Nav, NavItem } from "reactstrap";
+import { Navbar, NavbarBrand, NavbarToggler, Collapse, Nav, NavItem } from "reactstrap";
 import Image from "react-bootstrap/Image";
 import { Link } from "react-router-dom";
 
@@ -14,7 +14,7 @@ function Header(props) {
 	const toggleNavbar = () => setCollapsed(!collapsed);
 
 	const homeLink = <Link to='/home'><span>Home</span></Link>;
-	const loginLink = <Link to='/login'><span>Login</span></Link>;
+	// const loginLink = <Link to='/login'><span>Login</span></Link>;
 	const orderFormLink = <Link to='/orderForm'><span>Order Form</span></Link>;
 	const adminLink = <Link to='/admin'><span>Admin</span></Link>;
 

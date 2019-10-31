@@ -15,6 +15,10 @@ import {
 	Form, 
 	Table,
 	Input,
+	Modal, 
+	ModalBody, 
+	ModalHeader, 
+	ModalFooter,
 	ButtonGroup, 
 	ButtonDropdown, 
 	DropdownItem,
@@ -29,16 +33,17 @@ function OrderForm() {
 	const [category, setCategory] = useState('');
 	const [total, setTotal] = useState(0);
 	const [times, setTimes] = useState([]);
-	const [pickupTime, setPickupTime] = useState();
+	const [pickupTime, setPickupTime] = useState(); 
 	const [comments, setComments] = useState();
 	const [dropdownOpen, setOpen] = useState(false);
 	const [userId, setUserId] = useState();
-	
+	const [modal, setModal] = useState(false);
 
 	useEffect(() => {
 		getTimes(); 
 	}, []);
 	const toggleDropdown = () => setOpen(!dropdownOpen);
+	const toggleModal = () => setModal(!modal);
 
 	const handleCategorySelection = (selection) => {
 		fetch(`http://localhost:5000/${selection}`)
@@ -49,10 +54,12 @@ function OrderForm() {
 	};
 	const handleCommentsInput = (e) => {
 		setComments(e.target.value);
+		console.log(comments);
 	}
 
 	const handleTimeSelection = (e) => {
 		setPickupTime(e.target.value);
+		console.log(pickupTime);
 	}
 	const handleUserIdInput = (e) => {
 		setUserId(e.target.value);
@@ -288,7 +295,7 @@ function OrderForm() {
 							type="button"
 							outline
 							color="primary"
-							onClick={handleOrderSubmit}
+							onClick={toggleModal}
 							style={{width:'40%', margin:'auto'}}
 							>{submitButtonText}
 						</Button>
@@ -297,6 +304,11 @@ function OrderForm() {
 					</Jumbotron>
 				</Col>
 			</Row>
+			<Modal isOpen={modal} toggle={toggleModal}>
+				<ModalHeader toggle={toggleModal}>Order Confirmation</ModalHeader>
+				<ModalBody>username, id, order number, pickup time, total</ModalBody>
+				<ModalFooter>items in order, comments, place order button</ModalFooter>
+			</Modal>
 		</Container>
 	);
 }

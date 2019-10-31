@@ -138,7 +138,7 @@ function AdminItems(props) {
   /************ END FUNCTIONS ************/
   /************ HTML ELEMENTS ************/
     const categoryCap = category.charAt(0).toUpperCase() + category.substring(1);
-    const tableHeader = (categoryCap !== '' ? 'Manage ' + categoryCap + 's': 'Select Category');
+ 
     const nameInput = <Input placeholder="Name" onChange={e => setNewItem({
       name: e.target.value,
       price: null
