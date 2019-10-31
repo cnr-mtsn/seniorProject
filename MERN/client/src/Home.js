@@ -1,5 +1,4 @@
 import React from "react";
-import NavigationBar from "./NavigationBar";
 import Header from "./Header";
 import SpecialsSlideshow from "./SpecialsSlideshow";
 
@@ -7,23 +6,20 @@ import { Jumbotron, Container, Row, Col } from "reactstrap";
 
 function Home() {
 	return (
-		<Container>
+		<Container fluid>
 			<Row>
 				<Col>
 					<Header title='Home' />
 				</Col>
 			</Row>
 			<Row>
-				<Col>
-					<NavigationBar />
-				</Col>
-			</Row>
-			<Row>
-				<Col>
+				<Col></Col>
+				<Col lg={8}>
 					<Jumbotron className='myJumbotron'>
 						<SpecialsSlideshow />
 					</Jumbotron>
 				</Col>
+				<Col></Col>
 			</Row>
 		</Container>
 	);

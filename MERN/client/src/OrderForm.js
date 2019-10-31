@@ -1,5 +1,4 @@
 import React, {useState, useEffect} from "react";
-import NavigationBar from "./NavigationBar";
 import "./App.css";
 import Header from "./Header";
 import { FaPlus, FaTimes } from "react-icons/fa";
@@ -88,21 +87,23 @@ function OrderForm() {
 	const tableCategorySelect = (
 		<div>
 			<ButtonGroup>
-				<ButtonDropdown className="darkGrey white" isOpen={dropdownOpen} toggle={toggleDropdown}>
+				<ButtonDropdown isOpen={dropdownOpen} toggle={toggleDropdown}>
 					<DropdownToggle caret>
 						Base
 					</DropdownToggle>
-					<DropdownMenu>
-						<DropdownItem header>Select One</DropdownItem>
+					<DropdownMenu className="darkGrey">
+						<DropdownItem  className="baseDropdown"header>Select One</DropdownItem>
 						<DropdownItem 
+						 	className="baseDropdown"
 							value='bread' 
 							onClick={handleCategorySelection.bind(this, 'bread')}
-						>Bread
+						><span>Bread</span>
 						</DropdownItem>
 						<DropdownItem
+						 	className="baseDropdown"
 							value='tortilla' 
 							onClick={handleCategorySelection.bind(this, 'tortilla')}
-						>Tortillas
+						><span>Tortillas</span>
 						</DropdownItem>
 					</DropdownMenu>
 				</ButtonDropdown> 
@@ -156,6 +157,9 @@ function OrderForm() {
 				<td className="orderItem">
 					{fixedPrice}
 				</td>
+				<td className="orderItem">
+					{item.health_points}
+				</td>
 				<td>
 					<Button 
 						outline 
@@ -172,7 +176,7 @@ function OrderForm() {
 	}
 	const renderOrder = (orderItem) => {
 		const fixedPrice = '$' + orderItem.price.toFixed(2);
-		const deleteOrderItem = () => {
+const deleteOrderItem = () => { 		
 			console.log(`removed ${orderItem.name}`);
 		}
 		const addOrderItem = () => {
@@ -197,15 +201,10 @@ function OrderForm() {
 
 
 	return (
-		<Container>
+		<Container fluid>
 			<Row>
 				<Col>
-					<Header title='Order Form' />
-				</Col>
-			</Row>
-			<Row>
-				<Col>
-					<NavigationBar />
+					<Header title='Fed Eats Deli Order Form' />
 				</Col>
 			</Row>
 			<Row>
@@ -215,57 +214,61 @@ function OrderForm() {
 							<Row>
 								<Col>
 									{tableCategorySelect}
+								</Col>
+								<Col>
 									<div className="orderItemsDiv">
 										<Table className='itemTable bg-dark white' striped>
 											<tbody>{items.map(renderItem)}</tbody>
 										</Table>
 									</div>
 								</Col>
-
-								<Col>
-									<Card className="orderDetailsCard">
-										<CardTitle className="orderDetailsTitle">Order Details</CardTitle>
-										<CardBody>
-											<div className="orderDetailsBodyDiv">
-											<Table className="itemTable orderDetailsTable bg-dark"  striped>
-											<tbody>{order.map(renderOrder)}</tbody>
-											</Table>
-											</div>
-										</CardBody>
-										<CardSubtitle><h5>Total: ${total.toFixed(2)}</h5></CardSubtitle>
-											<Input
-												placeholder="User ID"
-												onChange={handleUserIdInput}
-											>
-											</Input>
-											<br></br>
-											<Input type='select' onChange={handleTimeSelection}>
-												{times.map(renderTimes)}
-												<option disabled defaultValue='Pickup Time'></option>
-											</Input>
-											<br></br>
-											<Input
-												type='textarea'
-												placeholder='Special instructions for the kitchen...'
-												onChange={handleCommentsInput}
-											/>
-											<br></br>
-										<Button
-											type="button"
-											outline
-											color="danger"
-											onClick={handleClearOrderClick}
-											>Clear Order</Button>
-										<Button 
-											type="button"
-											outline
-											color="primary"
-											onClick={handleOrderSubmit}
-										>{submitButtonText}</Button>
-									</Card>
-								</Col>
 							</Row>
 						</Form>
+					</Jumbotron>
+				</Col>
+				<Col lg={1}></Col>
+				<Col>
+				<Jumbotron className="myJumbotron">
+					<Card className="orderDetailsCard">
+						<CardTitle className="orderDetailsTitle">Order Details</CardTitle>
+						<CardBody>
+							<div className="orderDetailsBodyDiv">
+							<Table className="itemTable orderDetailsTable bg-dark"  striped>
+							<tbody>{order.map(renderOrder)}</tbody>
+							</Table>
+							</div>
+						</CardBody>
+						<CardSubtitle><h5>Total: ${total.toFixed(2)}</h5></CardSubtitle>
+							<Input
+								placeholder="User ID"
+								onChange={handleUserIdInput}
+							>
+							</Input>
+							<br></br>
+							<Input type='select' onChange={handleTimeSelection}>
+								{times.map(renderTimes)}
+								<option disabled defaultValue='Pickup Time'></option>
+							</Input>
+							<br></br>
+							<Input
+								type='textarea'
+								placeholder='Special instructions for the kitchen...'
+								onChange={handleCommentsInput}
+							/>
+							<br></br>
+						<Button
+							type="button"
+							outline
+							color="danger"
+							onClick={handleClearOrderClick}
+							>Clear Order</Button>
+						<Button 
+							type="button"
+							outline
+							color="primary"
+							onClick={handleOrderSubmit}
+						>{submitButtonText}</Button>
+					</Card>
 					</Jumbotron>
 				</Col>
 			</Row>

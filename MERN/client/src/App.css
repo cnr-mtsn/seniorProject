@@ -1,5 +1,5 @@
 .App {
-  background-image: url(./media/background.png);
+  background-image: url(./media/tomatoes.jpg);
   background-size: cover;
   background-attachment: fixed;
   min-height: 100vh;
@@ -17,7 +17,6 @@
 .loginJumbo {
   margin-top: 15vh;
   padding: 4vh;
-  background-color: transparent;
 }
 .orderForm {
   background-color:white;
@@ -50,23 +49,23 @@
 }
 .manageItemHeader {
   text-align: left;
-  color: #1B1B1B;
+  color: white;
 }
 
 /***** HEADER *****/
 .mainHeader {
   background-image: url('./media/darkPurpleBackground.png');
-  height: 8vh;
+  height: 10vh;
 }
 .fedEatsLogo {
   margin-top:1vh;
-  height: 5.5vh;
+  height: 8vh;
   width: auto;
   float: left;
 }
 .ckLogo {
   margin-top:.5vh;
-  height: 6.5vh;
+  height: 10vh;
   width:  auto;
   float: right;
 }
@@ -79,12 +78,11 @@
 }
 .mainHeaderText {
   color: white;
-  font-size: 3vh;
+  font-size: 4.5vh;
+  font-family: 'Courgette', cursive;
   text-align: center;
   margin-top:2vh;
-}
-.outlineBlack {
-  outline: 1px solid black;
+  margin-bottom:2vh;
 }
 
 .white {
@@ -112,10 +110,11 @@
 .adminTable {
   overflow:scroll;
   max-height:410px;
+  padding:10px;
 }
-
 .addItemInput {
   margin-top: 5vh;
+  padding:10px;
 }
 
 /****** NavigationBar ******/
@@ -148,7 +147,15 @@
 
 /****** ORDER FORM ******/
 .orderItemsButton {
-  width: 100%;
+  width: 50%;
+  border:none;
+  color:white;
+}
+.baseDropdown span {
+  color:white;
+}
+.baseDropdown {
+  background-color:#3D4246;
 }
 .orderItemsDiv {
   max-height: 500px;
@@ -159,7 +166,7 @@
   text-align: left;
 }
 .orderDetailsCard {
-  min-height:500px;
+  min-height:400px;
   background-color:#3D4246;
   color:white;
 }
@@ -170,14 +177,17 @@
 }
 .orderDetailsBodyDiv {
   overflow: scroll;
-  height:300px;
+  height:250px;
 }
 .orderDetailsTable {
-  background-color: grey;
-  opacity: 0.85;
+  background-color: #3D4246;
   color: white;
 }
-
-
+.navList {
+  text-align:right;
+}
+.navList span {
+  color:white;
+}
 
 

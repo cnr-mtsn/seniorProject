@@ -1,6 +1,5 @@
 import React from "react";
 import Header from "./Header";
-import NavigationBar from "./NavigationBar";
 import {
 	Button,
 	Input,
@@ -16,20 +15,15 @@ import "./App.css";
 //Login function
 function Login(props) {
 	return (
-		<Container>
+		<Container fluid>
 			<Row>
 				<Col>
 					<Header title='Login' />
 				</Col>
 			</Row>
 			<Row>
-				<Col>
-					<NavigationBar />
-				</Col>
-			</Row>
-			<Row>
 				<Col></Col>
-				<Col xs={4}>
+				<Col xs={3}>
 					<Jumbotron className='loginJumbo'>
 						<Form>
 							<FormGroup>

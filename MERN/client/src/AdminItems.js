@@ -12,12 +12,14 @@ function AdminItems(props) {
   //name && price of item to add/update
   const [newItem, setNewItem] = useState( {
     name: '', 
-    price: 0
+    price: 0, 
+    healthPoints: 0
   });
   //name && price of item being updated
   const [itemToChange, setItemToChange] = useState( {
     name: '', 
-    price: 0
+    price: 0, 
+    healthPoints: 0
   });
 
   useEffect(() => {
@@ -57,23 +59,40 @@ function AdminItems(props) {
   const handleNameChange = (e) => {
     setItemToChange( {
       name: e.target.placeholder,
-      price: itemToChange.price
+      price: itemToChange.price, 
+      healthPoints: itemToChange.healthPoints
     });
     setNewItem( {
       name: e.target.value,
-      price: newItem.price
+      price: newItem.price, 
+      healthPoints: newItem.healthPoints
     })
   };
   //set price of ItemToChange&&NewItem when input box edited
   const handlePriceChange = (e) => {
     setItemToChange( {
       name: itemToChange.name,
-     price: e.target.placeholder
+     price: e.target.placeholder, 
+     healthPoints: itemToChange.healthPoints
     });
     setNewItem( {
       name: newItem.name,
-      price: e.target.value
+      price: e.target.value, 
+      healthPoints: itemToChange.healthPoints
     });
+  };
+  //set healthPoints of ItemToChange && NewItem when input box edited
+  const handleHealthPointsChange = (e) => {
+    setItemToChange({
+      name: itemToChange.name,
+      price: itemToChange.price,
+      healthPoints: e.target.placeholder
+    });
+    setNewItem({
+      name: newItem.name,
+      price: newItem.price,
+      healthPoints: e.target.value
+    })
   };
   const handleCategorySelection = (selection) => {
     fetch(`http://localhost:5000/${selection}`)
@@ -100,6 +119,9 @@ function AdminItems(props) {
         <Input placeholder={fixedPrice} onChange={handlePriceChange} className="manageItemPrice"></Input>
       </td>
       <td>
+        <Input placeholder={item.health_points} onChange={handleHealthPointsChange} className="manageItemPrice"></Input>
+      </td>
+      <td>
         <InputGroupAddon addonType="append">
           <Button block outline color="primary" type="button" onClick={handleUpdateClick}className="manageItemButton manageItemPrice">Update</Button>
         </InputGroupAddon>
@@ -116,7 +138,7 @@ function AdminItems(props) {
   /************ END FUNCTIONS ************/
   /************ HTML ELEMENTS ************/
     const categoryCap = category.charAt(0).toUpperCase() + category.substring(1);
-    const tableHeader = (categoryCap !== '' ? 'Manage ' + categoryCap + 's': 'Select Category to Manage');
+    const tableHeader = (categoryCap !== '' ? 'Manage ' + categoryCap + 's': 'Select Category');
     const nameInput = <Input placeholder="Name" onChange={e => setNewItem({
       name: e.target.value,
       price: null
@@ -124,6 +146,11 @@ function AdminItems(props) {
     const priceInput = <Input placeholder="Price" onChange={e => setNewItem({
       name: newItem.name,
       price: e.target.value
+    })}/>;
+    const healthPointsInput = <Input placeholder="Health Points" onChange={e => setNewItem({
+      name: newItem.name,
+      price: newItem.price,
+      healthPoints: e.target.value
     })}/>;
     const addItemButton = ( 
       <InputGroupAddon addonType="append">
@@ -152,33 +179,35 @@ function AdminItems(props) {
     return ( 
       <div className="items">
         <Row>
-          <Col lg={3}>{selectCategory}</Col>
+          <Col lg={2}>{selectCategory}</Col>
+          <Col lg={1}></Col>
           <Col>
             <div className="adminTable">
               <Table className="itemTable orderDetailsTable bg-dark" striped>
                 <thead>
                   <tr className="manageItemHeader">
-                    <th className="white">{tableHeader}</th>
+                    <td>Name</td>
+                    <td>Price</td>
+                    <td>Health Points</td>
                   </tr>
                 </thead>
                 <tbody>
-                    {items.map(renderItem)}
+                  {items.map(renderItem)}
                 </tbody>
               </Table>
             </div>
           </Col>
         </Row>
-  
         <Row>
-          <Col></Col>
-          <Col lg={8}>
+          <Col lg={3}></Col>
+          <Col>
             <InputGroup className="addItemInput">
               {nameInput}
               {priceInput}
+              {healthPointsInput}
               {addItemButton}
             </InputGroup>
           </Col>
-          <Col></Col>
         </Row>
       </div>
     );
