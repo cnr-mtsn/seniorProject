@@ -9,7 +9,7 @@ function Home() {
 		<Container fluid>
 			<Row>
 				<Col>
-					<Header title='Home' />
+					<Header title='Fed Eats Home' />
 				</Col>
 			</Row>
 			<Row>

@@ -1,5 +1,5 @@
 .App {
-  background-image: url(./media/tomatoes.jpg);
+  background-image: url(./media/background.jpg);
   background-size: cover;
   background-attachment: fixed;
   min-height: 100vh;
@@ -79,7 +79,7 @@
 .mainHeaderText {
   color: white;
   font-size: 4.5vh;
-  font-family: 'Courgette', cursive;
+  font-family: 'Mate SC', serif;
   text-align: center;
   margin-top:2vh;
   margin-bottom:2vh;
@@ -89,7 +89,7 @@
   color: white;
 }
 .darkGrey {
-  background-color: #3D4246;
+  background-color: rgb(31, 33, 51);
 }
 
 /***** HEADER *****/
@@ -104,7 +104,7 @@
 
 .adminSelectCategory ul li {
   list-style: none;
-  background-color:#3D4246;
+  background-color: rgb(31, 33, 51);
   color: white;
 } 
 .adminTable {
@@ -114,7 +114,7 @@
 }
 .addItemInput {
   margin-top: 5vh;
-  padding:10px;
+  padding: 10px;
 }
 
 /****** NavigationBar ******/
@@ -155,19 +155,22 @@
   color:white;
 }
 .baseDropdown {
-  background-color:#3D4246;
+  background-color: rgb(31, 33, 51);
 }
 .orderItemsDiv {
   max-height: 500px;
   overflow: scroll;
 }
-.orderITem {
+.orderItem {
   font-size: 2vh;
   text-align: left;
 }
+.orderTotal {
+  margin-left:3.2vw;
+}
 .orderDetailsCard {
   min-height:400px;
-  background-color:#3D4246;
+  background-color: rgb(31, 33, 51);
   color:white;
 }
 .orderDetailsTitle {
@@ -179,8 +182,8 @@
   overflow: scroll;
   height:250px;
 }
-.orderDetailsTable {
-  background-color: #3D4246;
+.itemDetailsTable {
+  background-color:  rgb(31, 33, 51);
   color: white;
 }
 .navList {
@@ -188,6 +191,8 @@
 }
 .navList span {
   color:white;
+  font-size: 2.5vh;
+  font-family: 'Mate SC', serif;
 }
 
 

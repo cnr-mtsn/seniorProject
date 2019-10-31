@@ -176,7 +176,7 @@ function OrderForm() {
 	}
 	const renderOrder = (orderItem) => {
 		const fixedPrice = '$' + orderItem.price.toFixed(2);
-const deleteOrderItem = () => { 		
+		const deleteOrderItem = () => { 		
 			console.log(`removed ${orderItem.name}`);
 		}
 		const addOrderItem = () => {
@@ -187,7 +187,7 @@ const deleteOrderItem = () => {
 				<td>{orderItem.name}</td>
 				<td>{fixedPrice}</td>
 				<td><Button className="orderItemsButton" outline color="danger" onClick={deleteOrderItem}><FaTimes/></Button></td>
-				<td><Button className="orderItemsButton" outline color="info" onClick={addOrderItem}><FaPlus/></Button></td>
+				<td><Button className="orderItemsButton" outline color="primary" onClick={addOrderItem}><FaPlus/></Button></td>
 			</tr>
 		);
 	};
@@ -234,40 +234,65 @@ const deleteOrderItem = () => {
 						<CardBody>
 							<div className="orderDetailsBodyDiv">
 							<Table className="itemTable orderDetailsTable bg-dark"  striped>
-							<tbody>{order.map(renderOrder)}</tbody>
+							<tbody className="white">{order.map(renderOrder)}</tbody>
 							</Table>
 							</div>
 						</CardBody>
-						<CardSubtitle><h5>Total: ${total.toFixed(2)}</h5></CardSubtitle>
-							<Input
+						<CardSubtitle>
+							<Row>
+								<Col lg={10}>
+									<h5 className="orderTotal">Total: ${total.toFixed(2)}</h5>
+								</Col>
+							</Row>
+						</CardSubtitle>
+						<Row>
+							<Col lg={1}></Col>
+							<Col lg={4}>
+								<Input
 								placeholder="User ID"
 								onChange={handleUserIdInput}
-							>
-							</Input>
-							<br></br>
-							<Input type='select' onChange={handleTimeSelection}>
+								>
+								</Input>
+							</Col>
+							<Col lg={2}></Col>
+							<Col lg={4}>
+								<Input type='select' onChange={handleTimeSelection}>
 								{times.map(renderTimes)}
 								<option disabled defaultValue='Pickup Time'></option>
-							</Input>
-							<br></br>
-							<Input
-								type='textarea'
-								placeholder='Special instructions for the kitchen...'
-								onChange={handleCommentsInput}
-							/>
-							<br></br>
+								</Input>
+							</Col>
+							<Col lg={1}></Col>
+						</Row>
+						<br></br>
+						<Row>
+							<Col></Col>
+							<Col lg={10}>
+								<Input
+									type='textarea'
+									placeholder='Special instructions for the kitchen...'
+									onChange={handleCommentsInput}
+								/>
+							</Col>
+							<Col></Col>
+						</Row>
+						<br></br>
 						<Button
 							type="button"
 							outline
 							color="danger"
 							onClick={handleClearOrderClick}
-							>Clear Order</Button>
+							style={{width:'40%', margin:'auto'}}
+							>Clear Order
+						</Button>
 						<Button 
 							type="button"
 							outline
 							color="primary"
 							onClick={handleOrderSubmit}
-						>{submitButtonText}</Button>
+							style={{width:'40%', margin:'auto'}}
+							>{submitButtonText}
+						</Button>
+						<br></br>
 					</Card>
 					</Jumbotron>
 				</Col>

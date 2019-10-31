@@ -11,7 +11,7 @@ function Admin(props) {
         <Container fluid>
             <Row>
                 <Col>
-                    <Header title="Admin"/>
+                    <Header title="Fed Eats Admin"/>
                 </Col>
             </Row>
             <Row>

@@ -183,12 +183,14 @@ function AdminItems(props) {
           <Col lg={1}></Col>
           <Col>
             <div className="adminTable">
-              <Table className="itemTable orderDetailsTable bg-dark" striped>
+              <Table className="itemTable itemDetailsTable bg-dark" striped>
                 <thead>
                   <tr className="manageItemHeader">
                     <td>Name</td>
                     <td>Price</td>
                     <td>Health Points</td>
+                    <td></td>
+                    <td></td>
                   </tr>
                 </thead>
                 <tbody>
