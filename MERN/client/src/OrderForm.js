@@ -33,6 +33,7 @@ function OrderForm(props) {
 	const [order, setOrder] = useState([]);
 	const [category, setCategory] = useState('');
 	const [total, setTotal] = useState(0);
+	const [healthPoints, setHealthPoints] = useState(0);
 	const [times, setTimes] = useState([]);
 	const [pickupTime, setPickupTime] = useState(); 
 	const [comments, setComments] = useState();
@@ -76,6 +77,7 @@ function OrderForm(props) {
 	
 	const handleClearOrderClick = () => {
 		setOrder([]);
+		setHealthPoints(0);
 		setTotal(0);
 	}
 
@@ -99,7 +101,7 @@ function OrderForm(props) {
 		<div>
 			<ButtonGroup>
 				<ButtonDropdown isOpen={dropdownOpen} toggle={toggleDropdown}>
-					<DropdownToggle caret>
+					<DropdownToggle className="darkGrey" caret>
 						Base
 					</DropdownToggle>
 					<DropdownMenu className="darkGrey">
@@ -157,8 +159,21 @@ function OrderForm(props) {
 		const fixedPrice = '$' + item.price.toFixed(2);
 		const buttonId = `add${item.name}`;
 		const handleItemClick = (buttonId, disabled) => {
-			setOrder(order.concat(item));
-			setTotal(total + item.price);
+			let found = false;
+			for (let i = 0; i < order.length; i++) {
+				if (order[i] === item) {
+					found = true;
+					
+				}
+			}
+			if (found === true) {
+				setTotal(total + item.price);
+			} 
+			else if (found === false) {
+				setOrder(order.concat(item));
+				setTotal(total + item.price);
+			}
+			setHealthPoints(healthPoints + item.health_points);
 		};
 		return (
 			<tr key={item.name}>
@@ -195,8 +210,8 @@ function OrderForm(props) {
 		}
 		return (
 			<tr key={orderItem.name}>
-				<td>{orderItem.name}</td>
-				<td>{fixedPrice}</td>
+				<td><span className="orderDetails">{orderItem.name}</span></td>
+				<td><span className="orderDetails">{fixedPrice}</span></td>
 				<td><Button className="orderItemsButton" outline color="danger" onClick={deleteOrderItem}><FaTimes/></Button></td>
 				<td><Button className="orderItemsButton" outline color="primary" onClick={addOrderItem}><FaPlus/></Button></td>
 			</tr>
@@ -209,7 +224,7 @@ function OrderForm(props) {
 	};
 
 	const renderConfirmItems = item => {
-		return <li>{item.name}</li>;
+		return <li key={item.name}>{item.name}</li>;
 	}
 	const handlePlaceOrderClick = () => {
 		toggleConfirmed();
@@ -235,6 +250,9 @@ function OrderForm(props) {
 																	<h6>Pickup Time: {pickupTime}</h6>
 																	<h6>Total: ${total.toFixed(2)}</h6>
 																</div>));
+	const avgHP = (healthPoints / order.length) || 0;
+	const orderDetailsHeader = (order.length < 1 ? 'Select a category to begin' : 'Order Details');
+
 	return (
 		<Container fluid>
 			<Row>
@@ -268,7 +286,7 @@ function OrderForm(props) {
 				<Col>
 				<Jumbotron className="myJumbotron">
 					<Card className="orderDetailsCard">
-						<CardTitle className="orderDetailsTitle">Order Details</CardTitle>
+						<CardTitle className="orderDetailsTitle">{orderDetailsHeader}</CardTitle>
 						<CardBody>
 							<div className="orderDetailsBodyDiv">
 							<Table className="itemTable orderDetailsTable bg-dark"  striped>
@@ -282,6 +300,7 @@ function OrderForm(props) {
 							<Row>
 								<Col lg={10}>
 									<h5 className="orderTotal">Total: ${total.toFixed(2)}</h5>
+									<h5 className="orderTotal">Avg HP: {avgHP.toFixed(1)}</h5>
 								</Col>
 							</Row>
 						</CardSubtitle>

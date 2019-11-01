@@ -149,7 +149,6 @@
 
 /****** ORDER FORM ******/
 .orderItemsButton {
-  width: 70%;
   border:none;
   color:white;
   text-align: center;
@@ -172,9 +171,12 @@
   margin-left:3.2vw;
 }
 .orderDetailsCard {
-  min-height:400px;
+  min-height:300px;
   background-color: rgb(31, 33, 51);
   color:white;
+}
+.orderDetails {
+  font-size:1.5vh;
 }
 .orderDetailsTitle {
   height:20px;
