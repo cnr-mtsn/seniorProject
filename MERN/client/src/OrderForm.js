@@ -289,6 +289,7 @@ function OrderForm(props) {
 							<Col lg={1}></Col>
 							<Col lg={4}>
 								<Input
+								required
 								placeholder="User ID"
 								onChange={handleUserIdInput}
 								>

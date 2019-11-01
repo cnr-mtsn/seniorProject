@@ -129,20 +129,22 @@
 
 /****** Specials ******/
 .specialImage {
-  height: 30vw;
+  height: 35vh;
   border-radius: 8px;
 }
 .specialDetails {
   background-color: black;
-  opacity: .65;
+  opacity: .75;
   height:10vh;
+  margin-bottom: 3vh;
+  width:auto;
 
 }
 .specialDetails h3 {
-  font-size: 2vh;
+  font-size: 1.8vh;
 }
 .specialDetails p {
-  font-size: 1vh;
+  font-size: 1.3vh;
 }
 
 /****** ORDER FORM ******/
@@ -199,6 +201,7 @@
 .orderModal {
   list-style: square;
 }
+
 
 
 
