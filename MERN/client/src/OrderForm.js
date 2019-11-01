@@ -41,6 +41,7 @@ function OrderForm(props) {
 	const [modal, setModal] = useState(false);
 	const [thanks, setThanks] = useState(false);
 	const [routing, setRouting] = useState(false);
+	const [confirmed, setConfirmed] = useState(false);
 
 	useEffect(() => {
 		getTimes(); 
@@ -50,6 +51,7 @@ function OrderForm(props) {
 	const toggleModal = () => setModal(!modal);
 	const toggleThanks = () => setThanks(!thanks);
 	const toggleRouting = () => setRouting(!routing);
+	const toggleConfirmed = () => setConfirmed(!confirmed);
 	
 
 	const handleCategorySelection = (selection) => {
@@ -101,7 +103,7 @@ function OrderForm(props) {
 						Base
 					</DropdownToggle>
 					<DropdownMenu className="darkGrey">
-						<DropdownItem  className="baseDropdown"header>Select One</DropdownItem>
+						<DropdownItem  className="baseDropdown"header>Choose One</DropdownItem>
 						<DropdownItem 
 						 	className="baseDropdown"
 							value='bread' 
@@ -158,7 +160,6 @@ function OrderForm(props) {
 			setOrder(order.concat(item));
 			setTotal(total + item.price);
 		};
-	
 		return (
 			<tr key={item.name}>
 				<td className="orderItem">
@@ -211,22 +212,29 @@ function OrderForm(props) {
 		return <li>{item.name}</li>;
 	}
 	const handlePlaceOrderClick = () => {
-		toggleModal();
+		toggleConfirmed();
+		setTimeout(toggleModal, 300);
 		setOrder([]);
 		setUserId(null);
 		setTotal(0);
 		setComments(null);
-		setTimeout(toggleThanks, 1000);
+		setTimeout(toggleThanks, 300);
 	}
 	const handleThanksClick = () => {
 		toggleRouting();
-		setTimeout(routeHome, 1000);
+		setTimeout(routeHome, 800);
 	}
 	const routeHome = () => {
 		props.history.push('/home');
 	}
 	const thanksBody = ( routing ? <Spinner color="dark"/> : <p>Thanks for skipping the line and placing your order online!</p> );
-
+	const tableBody = ( category === '' ? null : (<tr><td>Name</td><td>Price</td><td>HP</td><td></td></tr>));
+	const confirmBody = ( confirmed ? <Spinner color="dark"/> : (<div>
+																	<ul style={{marginLeft:'0'}}>{order.map(renderConfirmItems)}</ul>	
+																	<h6>User ID: {userId}</h6>
+																	<h6>Pickup Time: {pickupTime}</h6>
+																	<h6>Total: ${total.toFixed(2)}</h6>
+																</div>));
 	return (
 		<Container fluid>
 			<Row>
@@ -245,7 +253,10 @@ function OrderForm(props) {
 								<Col>
 									<div className="orderItemsDiv">
 										<Table className='itemTable bg-dark white' striped>
-											<tbody>{items.map(renderItem)}</tbody>
+											<tbody>
+												{tableBody}
+												{items.map(renderItem)}
+											</tbody>
 										</Table>
 									</div>
 								</Col>
@@ -261,7 +272,9 @@ function OrderForm(props) {
 						<CardBody>
 							<div className="orderDetailsBodyDiv">
 							<Table className="itemTable orderDetailsTable bg-dark"  striped>
-							<tbody className="white">{order.map(renderOrder)}</tbody>
+							<tbody className="white">
+								{order.map(renderOrder)}
+							</tbody>
 							</Table>
 							</div>
 						</CardBody>
@@ -327,10 +340,7 @@ function OrderForm(props) {
 			<Modal className="orderModal" isOpen={modal} toggle={toggleModal}>
 				<ModalHeader toggle={toggleModal}>Order Confirmation</ModalHeader>
 				<ModalBody>
-					<ul style={{marginLeft:'0'}}>{order.map(renderConfirmItems)}</ul>	
-					<h6>User ID: {userId}</h6>
-					<h6>Pickup Time: {pickupTime}</h6>
-					<h6>Total: ${total.toFixed(2)}</h6>
+					{confirmBody}
 				</ModalBody>
 				<ModalFooter>
 					<Button color="primary" onClick={handlePlaceOrderClick}>Place Order</Button>
