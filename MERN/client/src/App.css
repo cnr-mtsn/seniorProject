@@ -177,6 +177,7 @@
   height:20px;
   text-align: center;
   font-size:3vh;
+  margin-top:2vh;
 }
 .orderDetailsBodyDiv {
   overflow: scroll;
@@ -194,5 +195,9 @@
   font-size: 2.5vh;
   font-family: 'Mate SC', serif;
 }
+.orderModal {
+  list-style: square;
+}
+
 
 

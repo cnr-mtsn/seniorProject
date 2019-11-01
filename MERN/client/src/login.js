@@ -1,19 +1,20 @@
-import React from "react";
+import React, { useState } from "react";
 import Header from "./Header";
-import {
-	Button,
-	Input,
-	Container,
-	Row,
-	Col,
-	Jumbotron,
-	Form,
-	FormGroup
-} from "reactstrap";
+import { Button, Input, Container, Row, Col, Jumbotron, Form, FormGroup } from "reactstrap";
 import "./App.css";
 
 //Login function
 function Login(props) {
+
+	const [userId, setUserId] = useState();
+	const [password, setPassword] = useState();
+
+	const handleUserIdInput = (e) => {
+		setUserId(e.target.value);
+	}
+	const handlePasswordInput = (e) => {
+		setPassword(e.target.value);
+	}
 	return (
 		<Container fluid>
 			<Row>
@@ -27,24 +28,12 @@ function Login(props) {
 					<Jumbotron className='loginJumbo'>
 						<Form>
 							<FormGroup>
-								<Input
-									name='username'
-									type='text'
-									placeholder='User ID'></Input>
+								<Input name='username' type='text' onChange={handleUserIdInput} placeholder='User ID'></Input>
 							</FormGroup>
 							<FormGroup>
-								<Input
-									name='password'
-									type='text'
-									placeholder='Password'></Input>
+								<Input	name='password' type='text' onChange={handlePasswordInput} placeholder='Password'></Input>
 							</FormGroup>
-							<Button
-								block
-								className='purpleButton'
-								type='submit'
-								onClick={Login}>
-								Login
-							</Button>
+							<Button block className='purpleButton' type='submit'>Login</Button>
 						</Form>
 					</Jumbotron>
 				</Col>

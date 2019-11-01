@@ -26,7 +26,7 @@ import {
 	DropdownToggle
 } from "reactstrap";
 
-function OrderForm() {
+function OrderForm(props) {
 
 	const [items, setItems] = useState([]);
 	const [order, setOrder] = useState([]);
@@ -38,12 +38,14 @@ function OrderForm() {
 	const [dropdownOpen, setOpen] = useState(false);
 	const [userId, setUserId] = useState();
 	const [modal, setModal] = useState(false);
+	const [thanks, setThanks] = useState(false);
 
 	useEffect(() => {
 		getTimes(); 
 	}, []);
 	const toggleDropdown = () => setOpen(!dropdownOpen);
 	const toggleModal = () => setModal(!modal);
+	const toggleThanks = () => setThanks(!thanks);
 
 	const handleCategorySelection = (selection) => {
 		fetch(`http://localhost:5000/${selection}`)
@@ -90,6 +92,8 @@ function OrderForm() {
 			.then(response => setTimes(response.data))
 			.catch(err => console.error(err));
 	};
+	
+
 
 	const tableCategorySelect = (
 		<div>
@@ -204,7 +208,21 @@ function OrderForm() {
 		);
 	};
 
-
+	const renderConfirmItems = item => {
+		return <li>{item.name}</li>;
+	}
+	const handlePlaceOrderClick = () => {
+		toggleModal();
+		setOrder([]);
+		setPickupTime();
+		setTotal();
+		setUserId();
+		setComments();
+		setInterval(toggleThanks, 1000);
+	}
+	const handleThanksClick = () => {
+		props.history.push('/home');
+	}
 
 
 	return (
@@ -304,10 +322,24 @@ function OrderForm() {
 					</Jumbotron>
 				</Col>
 			</Row>
-			<Modal isOpen={modal} toggle={toggleModal}>
+			<Modal className="orderModal" isOpen={modal} toggle={toggleModal}>
 				<ModalHeader toggle={toggleModal}>Order Confirmation</ModalHeader>
-				<ModalBody>username, id, order number, pickup time, total</ModalBody>
-				<ModalFooter>items in order, comments, place order button</ModalFooter>
+				<ModalBody>
+					<ul style={{marginLeft:'0'}}>{order.map(renderConfirmItems)}</ul>	
+					<h4>User ID: {userId}</h4>
+					<h4>Pickup Time: {pickupTime}</h4>
+					<h4>Total: ${total.toFixed(2)}</h4>
+				</ModalBody>
+				<ModalFooter>
+					<Button color="primary" onClick={handlePlaceOrderClick}>Place Order</Button>
+				</ModalFooter>
+			</Modal>
+			<Modal className="orderModal" isOpen={thanks} toggle={toggleThanks}>
+				<ModalHeader toggle={toggleThanks}>Thank You!</ModalHeader>
+				<ModalBody>Thanks for skipping the line and placing your order online!</ModalBody>
+				<ModalFooter>
+					<Button color="primary" onClick={handleThanksClick}>Close</Button>
+				</ModalFooter>
 			</Modal>
 		</Container>
 	);

@@ -41,6 +41,21 @@ const SELECT_ALL_TIMES = 'SELECT * FROM pickupTimes';
 app.get('/', (req, res) => {
     res.send(`Home`);
 });
+//Login User
+app.get('/user/login', (req, res) => {
+    const {user} = req.query;
+    const FIND_USER = `SELECT * FROM users WHERE user_id = ${user}`;
+    db.query(FIND_USER, (err, results) => {
+        if(err) {
+            return res.send(err);
+        }
+        else {
+            return res.json({
+                data: results
+            })
+        }
+    });
+});
 
         /************   CHEESE ROUTES   ************/
 //Add cheese
