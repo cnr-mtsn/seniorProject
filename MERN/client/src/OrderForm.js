@@ -23,7 +23,8 @@ import {
 	ButtonDropdown, 
 	DropdownItem,
 	DropdownMenu,
-	DropdownToggle
+	DropdownToggle,
+	Spinner
 } from "reactstrap";
 
 function OrderForm(props) {
@@ -39,13 +40,17 @@ function OrderForm(props) {
 	const [userId, setUserId] = useState();
 	const [modal, setModal] = useState(false);
 	const [thanks, setThanks] = useState(false);
+	const [routing, setRouting] = useState(false);
 
 	useEffect(() => {
 		getTimes(); 
 	}, []);
+
 	const toggleDropdown = () => setOpen(!dropdownOpen);
 	const toggleModal = () => setModal(!modal);
 	const toggleThanks = () => setThanks(!thanks);
+	const toggleRouting = () => setRouting(!routing);
+	
 
 	const handleCategorySelection = (selection) => {
 		fetch(`http://localhost:5000/${selection}`)
@@ -72,19 +77,12 @@ function OrderForm(props) {
 		setTotal(0);
 	}
 
-	const handleOrderSubmit = () => {
-		if(order.length < 2) {
-			console.log("Create Order First");
-		} else {
-			submitOrder();
-		}
-	}
-	const submitOrder = async () => {
-		fetch(`http://localhost:5000/newOrder?userId=${userId}&total=${total}`)
-		.then(setOrder([]))
-		.then(setTotal(0))
-		.catch(err => console.log(err))
-	};
+	// const submitOrder = async () => {
+	// 	fetch(`http://localhost:5000/newOrder?userId=${userId}&total=${total}`)
+	// 	.then(setOrder([]))
+	// 	.then(setTotal(0))
+	// 	.catch(err => console.log(err))
+	// };
 
 	const getTimes = async () => {
 		fetch(`http://localhost:5000/pickupTimes`)
@@ -160,6 +158,7 @@ function OrderForm(props) {
 			setOrder(order.concat(item));
 			setTotal(total + item.price);
 		};
+	
 		return (
 			<tr key={item.name}>
 				<td className="orderItem">
@@ -214,16 +213,19 @@ function OrderForm(props) {
 	const handlePlaceOrderClick = () => {
 		toggleModal();
 		setOrder([]);
-		setPickupTime();
-		setTotal();
-		setUserId();
-		setComments();
-		setInterval(toggleThanks, 1000);
+		setUserId(null);
+		setTotal(0);
+		setComments(null);
+		setTimeout(toggleThanks, 1000);
 	}
 	const handleThanksClick = () => {
+		toggleRouting();
+		setTimeout(routeHome, 1000);
+	}
+	const routeHome = () => {
 		props.history.push('/home');
 	}
-
+	const thanksBody = ( routing ? <Spinner color="dark"/> : <p>Thanks for skipping the line and placing your order online!</p> );
 
 	return (
 		<Container fluid>
@@ -326,9 +328,9 @@ function OrderForm(props) {
 				<ModalHeader toggle={toggleModal}>Order Confirmation</ModalHeader>
 				<ModalBody>
 					<ul style={{marginLeft:'0'}}>{order.map(renderConfirmItems)}</ul>	
-					<h4>User ID: {userId}</h4>
-					<h4>Pickup Time: {pickupTime}</h4>
-					<h4>Total: ${total.toFixed(2)}</h4>
+					<h6>User ID: {userId}</h6>
+					<h6>Pickup Time: {pickupTime}</h6>
+					<h6>Total: ${total.toFixed(2)}</h6>
 				</ModalBody>
 				<ModalFooter>
 					<Button color="primary" onClick={handlePlaceOrderClick}>Place Order</Button>
@@ -336,9 +338,9 @@ function OrderForm(props) {
 			</Modal>
 			<Modal className="orderModal" isOpen={thanks} toggle={toggleThanks}>
 				<ModalHeader toggle={toggleThanks}>Thank You!</ModalHeader>
-				<ModalBody>Thanks for skipping the line and placing your order online!</ModalBody>
+				<ModalBody>{thanksBody}</ModalBody>
 				<ModalFooter>
-					<Button color="primary" onClick={handleThanksClick}>Close</Button>
+					<Button color="primary" value="Close" onClick={handleThanksClick}>Close</Button>
 				</ModalFooter>
 			</Modal>
 		</Container>
