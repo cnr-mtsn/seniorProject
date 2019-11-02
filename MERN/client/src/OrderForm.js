@@ -358,13 +358,15 @@ function OrderForm(props) {
 				</Col>
 			</Row>
 			<Modal className="orderModal" isOpen={modal} toggle={toggleModal}>
-				<ModalHeader toggle={toggleModal}>Order Confirmation</ModalHeader>
-				<ModalBody>
-					{confirmBody}
-				</ModalBody>
-				<ModalFooter>
-					<Button color="primary" onClick={handlePlaceOrderClick}>Place Order</Button>
-				</ModalFooter>
+				<div className="modalDark">
+					<ModalHeader toggle={toggleModal}>Order Confirmation</ModalHeader>
+					<ModalBody>
+						{confirmBody}
+					</ModalBody>
+					<ModalFooter>
+						<Button color="primary" onClick={handlePlaceOrderClick}>Place Order</Button>
+					</ModalFooter>
+				</div>
 			</Modal>
 			<Modal className="orderModal" isOpen={thanks} toggle={toggleThanks}>
 				<ModalHeader toggle={toggleThanks}>Thank You!</ModalHeader>
