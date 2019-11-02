@@ -369,11 +369,13 @@ function OrderForm(props) {
 				</div>
 			</Modal>
 			<Modal className="orderModal" isOpen={thanks} toggle={toggleThanks}>
-				<ModalHeader toggle={toggleThanks}>Thank You!</ModalHeader>
-				<ModalBody>{thanksBody}</ModalBody>
-				<ModalFooter>
-					<Button color="primary" value="Close" onClick={handleThanksClick}>Close</Button>
-				</ModalFooter>
+				<div className="modalDark">
+					<ModalHeader toggle={toggleThanks}>Thank You!</ModalHeader>
+					<ModalBody>{thanksBody}</ModalBody>
+					<ModalFooter>
+						<Button color="primary" value="Close" onClick={handleThanksClick}>Close</Button>
+					</ModalFooter>
+				</div>
 			</Modal>
 		</Container>
 	);

@@ -204,7 +204,7 @@
   list-style: square;
 }
 .modalDark {
-  background-color:darkslategrey;
+  background-color:rgb(31, 33, 51);
   color:white;
 }
 
