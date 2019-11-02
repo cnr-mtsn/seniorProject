@@ -129,27 +129,29 @@
 
 /****** Specials ******/
 .specialImage {
-  height: 30vw;
+  height: 35vh;
   border-radius: 8px;
 }
 .specialDetails {
   background-color: black;
-  opacity: .65;
+  opacity: .75;
   height:10vh;
+  margin-bottom: 3vh;
+  width:auto;
 
 }
 .specialDetails h3 {
-  font-size: 2vh;
+  font-size: 1.8vh;
 }
 .specialDetails p {
-  font-size: 1vh;
+  font-size: 1.3vh;
 }
 
 /****** ORDER FORM ******/
 .orderItemsButton {
-  width: 50%;
   border:none;
   color:white;
+  text-align: center;
 }
 .baseDropdown span {
   color:white;
@@ -169,9 +171,12 @@
   margin-left:3.2vw;
 }
 .orderDetailsCard {
-  min-height:400px;
+  min-height:300px;
   background-color: rgb(31, 33, 51);
   color:white;
+}
+.orderDetails {
+  font-size:1.5vh;
 }
 .orderDetailsTitle {
   height:20px;
@@ -197,6 +202,10 @@
 }
 .orderModal {
   list-style: square;
+}
+.modalDark {
+  background-color:rgb(31, 33, 51);
+  color:white;
 }
 
 

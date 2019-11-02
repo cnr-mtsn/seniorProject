@@ -8,6 +8,8 @@ function Login(props) {
 
 	const [userId, setUserId] = useState();
 	const [password, setPassword] = useState();
+	console.log(userId);
+	console.log(password);
 
 	const handleUserIdInput = (e) => {
 		setUserId(e.target.value);

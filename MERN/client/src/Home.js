@@ -14,7 +14,7 @@ function Home() {
 			</Row>
 			<Row>
 				<Col></Col>
-				<Col lg={8}>
+				<Col lg={6}>
 					<Jumbotron className='myJumbotron'>
 						<SpecialsSlideshow />
 					</Jumbotron>
