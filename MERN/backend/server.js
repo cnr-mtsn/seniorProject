@@ -99,8 +99,8 @@ app.get('/cheese', (req, res) => {
 });
 //Update Cheese
 app.get('/cheese/update', (req, res) => {
-    const {name, newName, newPrice} = req.query;
-    const UPDATE_CHEESE = `UPDATE cheese SET name='${newName}', price=${newPrice} WHERE name='${name}'`;
+    const {name, newName, newPrice, newHP} = req.query;
+    const UPDATE_CHEESE = `UPDATE cheese SET name='${newName}', price=${newPrice}, health_points=${newHP} WHERE name='${name}'`;
     db.query(UPDATE_CHEESE, (err, results) => {
         if(err) {
             return res.send(err);
@@ -154,8 +154,8 @@ app.get('/veggie', (req, res) => {
 });
 //Update Veggie
 app.get('/veggie/update', (req, res) => {
-    const {name, newName, newPrice} = req.query;
-    const UPDATE_VEGGIE = `UPDATE veggies SET name='${newName}', price=${newPrice} WHERE name='${name}'`;
+    const {name, newName, newPrice, newHP} = req.query;
+    const UPDATE_VEGGIE = `UPDATE veggies SET name='${newName}', price=${newPrice}, health_points=${newHP} WHERE name='${name}'`;
     db.query(UPDATE_VEGGIE, (err, results) => {
         if(err) {
             return res.send(err);
@@ -207,8 +207,8 @@ app.get('/bread', (req, res) => {
 });
 //Update Bread
 app.get('/bread/update', (req, res) => {
-    const {name, newName, newPrice} = req.query;
-    const UPDATE_BREAD = `UPDATE sandwichBase SET name='${newName}', price=${newPrice} WHERE name='${name}'`;
+    const {name, newName, newPrice, newHP} = req.query;
+    const UPDATE_BREAD = `UPDATE sandwichBase SET name='${newName}', price=${newPrice}, health_points=${newHP} WHERE name='${name}'`;
     db.query(UPDATE_BREAD, (err, results) => {
         if(err) {
             return res.send(err);
@@ -261,8 +261,8 @@ app.get('/protein', (req, res) => {
 });
 //Update Protein
 app.get('/protein/update', (req, res) => {
-    const {name, newName, newPrice} = req.query;
-    const UPDATE_PROTEIN = `UPDATE proteins SET name='${newName}', price=${newPrice} WHERE name='${name}'`;
+    const {name, newName, newPrice, newHP} = req.query;
+    const UPDATE_PROTEIN = `UPDATE proteins SET name='${newName}', price=${newPrice}, health_points=${newHP} WHERE name='${name}'`;
     db.query(UPDATE_PROTEIN, (err, results) => {
         if(err) {
             return res.send(err);
@@ -314,8 +314,8 @@ app.get('/condiment', (req, res) => {
 });
 //Update Condiment
 app.get('/condiment/update', (req, res) => {
-    const {name, newName, newPrice} = req.query;
-    const UPDATE_CONDIMENT = `UPDATE condiments SET name='${newName}', price=${newPrice} WHERE name='${name}'`;
+    const {name, newName, newPrice, newHP} = req.query;
+    const UPDATE_CONDIMENT = `UPDATE condiments SET name='${newName}', price=${newPrice}, health_points=${newHP} WHERE name='${name}'`;
     db.query(UPDATE_CONDIMENT, (err, results) => {
         if(err) {
             return res.send(err);
@@ -367,8 +367,8 @@ app.get('/extra', (req, res) => {
 });
 //Update Extra
 app.get('/extra/update', (req, res) => {
-    const {name, newName, newPrice} = req.query;
-    const UPDATE_EXTRA = `UPDATE extras SET name='${newName}', price=${newPrice} WHERE name='${name}'`;
+    const {name, newName, newPrice, newHP} = req.query;
+    const UPDATE_EXTRA = `UPDATE extras SET name='${newName}', price=${newPrice}, health_points=${newHP} WHERE name='${name}'`;
     db.query(UPDATE_EXTRA, (err, results) => {
         if(err) {
             return res.send(err);
@@ -420,8 +420,8 @@ app.get('/tortilla', (req, res) => {
 });
 //Update Tortilla
 app.get('/tortilla/update', (req, res) => {
-    const {name, newName, newPrice} = req.query;
-    const UPDATE_TORTILLA = `UPDATE tortillaBase SET name='${newName}', price=${newPrice} WHERE name='${name}'`;
+    const {name, newName, newPrice, newHP} = req.query;
+    const UPDATE_TORTILLA = `UPDATE tortillaBase SET name='${newName}', price=${newPrice}, health_points=${newHP} WHERE name='${name}'`;
     db.query(UPDATE_TORTILLA, (err, results) => {
         if(err) {
             return res.send(err);

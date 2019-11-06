@@ -37,14 +37,14 @@ function AdminItems(props) {
   };
   //add item to current category with name && price == newItem{name, price}
   const addItem = async () => {
-    fetch(`http://localhost:5000/${category}/add?name=${newItem.name}&price=${newItem.price}`)
+    fetch(`http://localhost:5000/${category}/add?name=${newItem.name}&price=${newItem.price}&healthPoints=${newItem.healthPoints}`)
     .then(getItems)
-    .then(setNewItem({name: null, price: null}))
+    .then(setNewItem({name: null, price: null, healthPoints: null}))
     .catch(err => console.error(err))
   };
   //update item in current category to newItem.[name || price]
   const updateItem = async () => {
-    fetch(`http://localhost:5000/${category}/update?name=${itemToChange.name}&newName=${newItem.name}&newPrice=${newItem.price}`)
+    fetch(`http://localhost:5000/${category}/update?name=${itemToChange.name}&newName=${newItem.name}&newPrice=${newItem.price}&newHP=${newItem.healthPoints}`)
     .then(getItems)
     .catch(err => console.err(err))
   };
