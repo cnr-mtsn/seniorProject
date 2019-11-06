@@ -60,8 +60,8 @@ app.get('/user/login', (req, res) => {
         /************   CHEESE ROUTES   ************/
 //Add cheese
 app.get('/cheese/add', (req, res) => {
-    const {name, price} = req.query;
-    const ADD_CHEESE = `INSERT INTO cheese(name, price) VALUES('${name}', ${price})`;
+    const {name, price, healthPoints} = req.query;
+    const ADD_CHEESE = `INSERT INTO cheese(name, price, health_points) VALUES('${name}', ${price}, ${healthPoints})`;
     db.query(ADD_CHEESE, (err, results) => {
         if(err) {
             return res.send(err);
@@ -115,8 +115,8 @@ app.get('/cheese/update', (req, res) => {
         /************   VEGGIES ROUTES   ************/
 //Add veggie
 app.get('/veggie/add', (req, res) => {
-    const {name, price} = req.query;
-    const ADD_VEGGIE = `INSERT INTO veggies(name, price) VALUES('${name}', ${price})`;
+    const {name, price, healthPoints} = req.query;
+    const ADD_VEGGIE = `INSERT INTO veggies(name, price, health_points) VALUES('${name}', ${price}, ${healthPoints})`;
     db.query(ADD_VEGGIE, (err, results) => {
         if(err) {
             return res.send(err);
@@ -168,8 +168,8 @@ app.get('/veggie/update', (req, res) => {
         /************   BREADS ROUTES   ************/
 //Add bread
 app.get('/bread/add', (req, res) => {
-    const {name, price} = req.query;
-    const ADD_BREAD = `INSERT INTO sandwichBase(name, price) VALUES('${name}', ${price})`;
+    const {name, price, healthPoints} = req.query;
+    const ADD_BREAD = `INSERT INTO sandwichBase(name, price, health_points) VALUES('${name}', ${price}, ${healthPoints})`;
     db.query(ADD_BREAD, (err, results) => {
         if(err) {
             return res.send(err);
@@ -222,8 +222,8 @@ app.get('/bread/update', (req, res) => {
         /************   PROTEIN ROUTES   ************/
 //Add protein
 app.get('/protein/add', (req, res) => {
-    const {name, price} = req.query;
-    const ADD_PROTEIN = `INSERT INTO proteins(name, price) VALUES('${name}', ${price})`;
+    const {name, price, healthPoints} = req.query;
+    const ADD_PROTEIN = `INSERT INTO proteins(name, price) VALUES('${name}', ${price}, ${healthPoints})`;
     db.query(ADD_PROTEIN, (err, results) => {
         if(err) {
             return res.send(err);
@@ -275,8 +275,8 @@ app.get('/protein/update', (req, res) => {
         /************   CONDIMENTS ROUTES   ************/
 //Add condiment
 app.get('/condiment/add', (req, res) => {
-    const {name, price} = req.query;
-    const ADD_CONDIMENT = `INSERT INTO condiments(name, price) VALUES('${name}', ${price})`;
+    const {name, price, healthPoints} = req.query;
+    const ADD_CONDIMENT = `INSERT INTO condiments(name, price, health_points) VALUES('${name}', ${price}, ${healthPoints})`;
     db.query(ADD_CONDIMENT, (err, results) => {
         if(err) {
             return res.send(err);
@@ -328,8 +328,8 @@ app.get('/condiment/update', (req, res) => {
         /************   EXTRAS ROUTES   ************/
 //Add extra
 app.get('/extra/add', (req, res) => {
-    const {name, price} = req.query;
-    const ADD_EXTRA = `INSERT INTO extras(name, price) VALUES('${name}', ${price})`;
+    const {name, price, healthPoints} = req.query;
+    const ADD_EXTRA = `INSERT INTO extras(name, price, health_points) VALUES('${name}', ${price}, ${healthPoints})`;
     db.query(ADD_EXTRA, (err, results) => {
         if(err) {
             return res.send(err);
@@ -381,8 +381,8 @@ app.get('/extra/update', (req, res) => {
         /************   TORTILLAS ROUTES   ************/
 //Add tortilla
 app.get('/tortilla/add', (req, res) => {
-    const {name, price} = req.query;
-    const ADD_TORTILLA = `INSERT INTO tortillaBase(name, price) VALUES('${name}', ${price})`;
+    const {name, price, healthPoints} = req.query;
+    const ADD_TORTILLA = `INSERT INTO tortillaBase(name, price, health_points) VALUES('${name}', ${price}, ${healthPoints})`;
     db.query(ADD_TORTILLA, (err, results) => {
         if(err) {
             return res.send(err);
@@ -477,7 +477,6 @@ app.get('/newOrder', (req, res) => {
         }
     });
 });
-
 
 //Listen for requests on given port
 app.listen(process.env.PORT || PORT, () => {

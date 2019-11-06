@@ -94,8 +94,6 @@ function OrderForm(props) {
 			.then(response => setTimes(response.data))
 			.catch(err => console.error(err));
 	};
-	
-
 
 	const tableCategorySelect = (
 		<div>
@@ -163,7 +161,6 @@ function OrderForm(props) {
 			for (let i = 0; i < order.length; i++) {
 				if (order[i] === item) {
 					found = true;
-					
 				}
 			}
 			if (found === true) {
