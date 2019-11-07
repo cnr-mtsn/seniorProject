@@ -1,0 +1,61 @@
+1. 
+	  Name: Spanish Roast Beef Sandwich
+	    ID: 1
+	  Desc: 1/2lb of thinly sliced roast beef and 
+              provolone cheese atop marinated artichoke hearts, 
+              red pepper and onion - served in a pressed focaccia. 
+	 Price: 3.75
+	    HP: 2
+	  Ingr: 
+		veggies: red pepper, onion, artichoke hearts, 
+		  jalapeño stuffed olives
+		bread: focaccia
+		protein: roast beef
+           Cheese: provolone
+
+2.
+	Name: Jamaican Jerk Shrimp Wrap 
+	  ID: 2
+	Desc: 1/4lb medium sautéed jerk shrimp mixed with cajun-style rice, topped with green onions, Monterey Jack cheese, mild salsa, lettuce, and a drizzle of ranch dressing. 
+     Price: 3.75
+	  HP: 3
+	Ingr: 
+		veggies: green onions, lettuce
+		protein: Shrimp
+		cheese: monterey jack
+		tortilla: wheat
+		condiments: mild salsa, ranch dressing
+		extras: cajun-style rice
+		
+
+3.
+	Name: Chicken Bacon Ranch Wrap
+	  ID: 3
+	Desc: Grilled chicken breast, smoked bacon, cheddar cheese, tomatoes, onion, and ranch dressing wrapped in a flour tortilla and grilled to golden perfection!
+     Price: 3.75
+	  HP: 2
+	Ingr: 
+			veggies: green onions, lettuce, diced tomatoes
+			protein: grilled chicken, bacon
+			cheese: cheddar
+			tortilla: white flour
+			condiments: ranch dressing
+			extras: 
+
+
+4.
+	Name: Southwest Grilled Chicken Wrap
+	  ID: 4
+	Desc: Grilled chicken breast, black beans, pepper jack cheese, pico de gallo, corn and lettuce - wrapped in a cayenne pepper tortilla. 
+     Price: 3.75
+	  HP: 5
+	Ingr: 
+			veggies: diced tomatoes, white corn, lettuce
+			protein: grilled chicken
+			cheese: pepper jack
+			tortilla: cayenne
+			condiments: mild salsa
+			extras: black beans, 
+
+grilled chicken, black beans, diced tomatoes, white corn,
+		mild salsa, romaine lettuce, pepper jack cheese
