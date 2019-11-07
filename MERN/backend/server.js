@@ -223,7 +223,7 @@ app.get('/bread/update', (req, res) => {
 //Add protein
 app.get('/protein/add', (req, res) => {
     const {name, price, healthPoints} = req.query;
-    const ADD_PROTEIN = `INSERT INTO proteins(name, price) VALUES('${name}', ${price}, ${healthPoints})`;
+    const ADD_PROTEIN = `INSERT INTO proteins(name, price, health_points) VALUES('${name}', ${price}, ${healthPoints})`;
     db.query(ADD_PROTEIN, (err, results) => {
         if(err) {
             return res.send(err);
