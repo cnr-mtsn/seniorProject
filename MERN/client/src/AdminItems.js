@@ -1,6 +1,14 @@
-import React, { useState, useEffect } from 'react';
-import { Table, Button, Input, Row, Col, InputGroup, InputGroupAddon } from 'reactstrap';
-import './App.css';
+import React, { useState, useEffect } from "react";
+import {
+	Table,
+	Button,
+	Input,
+	Row,
+	Col,
+	InputGroup,
+	InputGroupAddon
+} from "reactstrap";
+import "./App.css";
 
 function AdminItems(props) {
 
@@ -24,7 +32,7 @@ function AdminItems(props) {
 
   useEffect(() => {
     getItems(); //eslint-disable-next-line
-  }, [])
+  }, []);
 /************ END STATE MANAGEMENT ************/
 
   /************ FUNCTIONS ************/
