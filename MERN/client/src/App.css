@@ -1,5 +1,6 @@
 .App {
-  background-image: url(./media/background.jpg);
+  /* background-image: url(./media/background.jpg); */
+  background-color: rgb(230, 220, 242);
   background-size: cover;
   background-attachment: fixed;
   min-height: 100vh;
@@ -55,7 +56,6 @@
 /***** HEADER *****/
 .mainHeader {
   background-image: url('./media/darkPurpleBackground.png');
-  height: 10vh;
 }
 .fedEatsLogo {
   margin-top:1vh;

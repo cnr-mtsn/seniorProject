@@ -19,8 +19,7 @@ function Header(props) {
 	const adminLink = <Link to='/admin'><span>Admin</span></Link>;
 
 	return (
-	
-		<div>
+		<div className="mainHeader">
 			<Navbar color="faded" dark>
 				<NavbarBrand className="mr-auto">{logo1}</NavbarBrand>
 				<NavbarBrand>{title}</NavbarBrand>
