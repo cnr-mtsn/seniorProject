@@ -478,6 +478,22 @@ app.get('/newOrder', (req, res) => {
     });
 });
 
+app.get('/orderId', (req, res) => {
+    const {userId, total} = req.query;
+
+    const GET_ORDER = `SELECT order_id FROM orders WHERE user_id = ${userId} AND total = ${total} AND order_date = NOW())`;
+    db.query(GET_ORDER, (err, results) => {
+        if(err) {
+            return res.send(err);
+        }
+        else {
+            return res.json({
+                data:results
+            })
+        }
+    });
+});
+
 
 //Listen for requests on given port
 app.listen(process.env.PORT || PORT, () => {
