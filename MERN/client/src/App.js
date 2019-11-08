@@ -4,6 +4,7 @@ import Admin from "./Admin";
 import OrderForm from "./OrderForm";
 import Home from "./Home";
 import Login from "./login";
+ import Profile from "./Profile";
 import { Container } from "reactstrap";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
@@ -16,6 +17,7 @@ function App(props) {
 					<Route path='/orderForm' component={OrderForm} />
 					<Route path='/home' component={Home} />
 					<Route path='/login' component={Login} />
+					<Route path='/profile' component={Profile} />
 					<Route path='/' exact component={Home} />
 				</Switch>
 			</Container>
