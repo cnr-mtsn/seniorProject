@@ -170,8 +170,8 @@ function AdminItems(props) {
   
     const selectCategory = (
       <div className="adminSelectCategory">
-        <ul className="bg-dark list-group">
-          <span className="text-muted darkGrey white">Choose a Category...</span>
+        <ul className="bg-light list-group">
+          <span className="text-muted">Choose a Category...</span>
           <li className="list-group-item list-group-item-action" value='bread' onClick={handleCategorySelection.bind(this, 'bread')}>Bread</li>
           <li className="list-group-item list-group-item-action" value='tortilla' onClick={handleCategorySelection.bind(this, 'tortilla')}>Tortillas</li>
           <li className="list-group-item list-group-item-action" value='protein' onClick={handleCategorySelection.bind(this, 'protein')}>Protein</li>
@@ -182,6 +182,23 @@ function AdminItems(props) {
         </ul>
       </div>
     );
+    const addItemInputGroup = category ? (
+			<InputGroup className='addItemInput'>
+				{nameInput}
+				{priceInput}
+				{healthPointsInput}
+				{addItemButton}
+			</InputGroup>
+		) : null;
+		const tableHeader = category ? (
+			<tr className='manageItemHeader'>
+				<td>Name</td>
+				<td>Price</td>
+				<td>Health Points</td>
+				<td></td>
+				<td></td>
+			</tr>
+		) : null;
     /************ END HTML ELEMENTS ************/
     /************ DATA TO RENDER VIA COMPONENT ************/
     return ( 
@@ -191,15 +208,9 @@ function AdminItems(props) {
           <Col lg={1}></Col>
           <Col>
             <div className="adminTable">
-              <Table className="itemTable itemDetailsTable bg-dark" striped>
+              <Table className="itemTable itemDetailsTable bg-light">
                 <thead>
-                  <tr className="manageItemHeader">
-                    <td>Name</td>
-                    <td>Price</td>
-                    <td>Health Points</td>
-                    <td></td>
-                    <td></td>
-                  </tr>
+                  {tableHeader}
                 </thead>
                 <tbody>
                   {items.map(renderItem)}
@@ -211,12 +222,7 @@ function AdminItems(props) {
         <Row>
           <Col lg={3}></Col>
           <Col>
-            <InputGroup className="addItemInput">
-              {nameInput}
-              {priceInput}
-              {healthPointsInput}
-              {addItemButton}
-            </InputGroup>
+            {addItemInputGroup}
           </Col>
         </Row>
       </div>

@@ -37,27 +37,27 @@ const AdminSpecials = () => {
    const renderCards = (special) => {
        const fixedPrice = `$${special.price.toFixed(2)}`;
         return (
-					<div key={special.main_id} style={{ height: "200" }}>
-						<Card>
-							<CardImg top width='100%' src={pastrami} alt={special.name} />
-							<CardBody>
-								<CardTitle style={{ fontSize: "32px" }}>
-									{special.name}
-								</CardTitle>
-								<CardSubtitle style={{ fontSize: "24px" }}>
-									{fixedPrice}
-								</CardSubtitle>
-								<CardText style={{ fontSize: "20px" }}>
-									{special.description}
-								</CardText>
-								<CardText
-									style={{ color: "blue", textDecoration: "underline" }}>
-									<span onClick={openModal}>edit</span>
-								</CardText>
-							</CardBody>
-						</Card>
-					</div>
-				);
+			<div key={special.main_id} style={{height: "200"}}>
+				<Card>
+					<CardImg top width='100%' src={pastrami} alt={special.name} />
+					<CardBody>
+						<CardTitle style={{ fontSize: "32px" }}>
+							{special.name}
+						</CardTitle>
+						<CardSubtitle style={{ fontSize: "24px" }}>
+							{fixedPrice}
+						</CardSubtitle>
+						<CardText style={{ fontSize: "20px" }}>
+							{special.description}
+						</CardText>
+						<CardText
+							style={{ color: "blue", textDecoration: "underline" }}>
+							<span onClick={openModal}>edit</span>
+						</CardText>
+					</CardBody>
+				</Card>
+			</div>
+		);
    };
        
     return (
@@ -74,8 +74,8 @@ const AdminSpecials = () => {
 						outsideChevron={true}
 						activeItemIndex={activeIndex}
 						requestToChangeActive={value => setActiveIndex(value)}
-						rightChevron={">>"}
-						leftChevron={"<<"}>
+						rightChevron={">"}
+						leftChevron={"<"}>
 						{specials.map(renderCards)}
 					</ItemsCarousel>
 				</div>

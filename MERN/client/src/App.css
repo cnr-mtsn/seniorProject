@@ -50,7 +50,6 @@
 }
 .manageItemHeader {
   text-align: left;
-  color: white;
 }
 
 /***** HEADER *****/
@@ -104,8 +103,6 @@
 
 .adminSelectCategory ul li {
   list-style: none;
-  background-color: rgb(31, 33, 51);
-  color: white;
 } 
 .adminTable {
   overflow:scroll;
@@ -190,7 +187,6 @@
 }
 .itemDetailsTable {
   background-color:  rgb(31, 33, 51);
-  color: white;
 }
 .navList {
   text-align:right;
