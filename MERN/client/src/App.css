@@ -169,8 +169,6 @@
 }
 .orderDetailsCard {
   min-height:300px;
-  background-color: rgb(31, 33, 51);
-  color:white;
 }
 .orderDetails {
   font-size:1.5vh;

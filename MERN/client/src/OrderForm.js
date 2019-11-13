@@ -99,10 +99,10 @@ function OrderForm(props) {
 		<div>
 			<ButtonGroup>
 				<ButtonDropdown isOpen={dropdownOpen} toggle={toggleDropdown}>
-					<DropdownToggle className="darkGrey" caret>
+					<DropdownToggle caret>
 						Base
 					</DropdownToggle>
-					<DropdownMenu className="darkGrey">
+					<DropdownMenu>
 						<DropdownItem  className="baseDropdown"header>Choose One</DropdownItem>
 						<DropdownItem 
 						 	className="baseDropdown"
@@ -119,31 +119,26 @@ function OrderForm(props) {
 					</DropdownMenu>
 				</ButtonDropdown> 
 				<Button 
-				 	className="darkGrey white"
 					value='protein' 
 					onClick={handleCategorySelection.bind(this, 'protein')}
 				>Protein
 				</Button>
 				<Button 
-					className="darkGrey white"
 					value='cheese' 
 					onClick={handleCategorySelection.bind(this, 'cheese')}
 				>Cheese
 				</Button>
 				<Button 
-					className="darkGrey white"
 					value='veggie' 
 					onClick={handleCategorySelection.bind(this, 'veggie')}
 				>Veggies
 				</Button>
 				<Button 
-					className="darkGrey white"
 					value='condiment' 
 					onClick={handleCategorySelection.bind(this, 'condiment')}
 				>Condiments
 				</Button>
 				<Button 
-					className="darkGrey white"
 					value='extra' 
 					onClick={handleCategorySelection.bind(this, 'extra')}
 				>Extras
@@ -267,7 +262,7 @@ function OrderForm(props) {
 								</Col>
 								<Col>
 									<div className="orderItemsDiv">
-										<Table className='itemTable bg-dark white' striped>
+										<Table className='itemTable' striped>
 											<tbody>
 												{tableBody}
 												{items.map(renderItem)}
@@ -286,8 +281,8 @@ function OrderForm(props) {
 						<CardTitle className="orderDetailsTitle">{orderDetailsHeader}</CardTitle>
 						<CardBody>
 							<div className="orderDetailsBodyDiv">
-							<Table className="itemTable orderDetailsTable bg-dark"  striped>
-							<tbody className="white">
+							<Table className="itemTable"  striped>
+							<tbody>
 								{order.map(renderOrder)}
 							</tbody>
 							</Table>
@@ -355,7 +350,7 @@ function OrderForm(props) {
 				</Col>
 			</Row>
 			<Modal className="orderModal" isOpen={modal} toggle={toggleModal}>
-				<div className="modalDark">
+				<div>
 					<ModalHeader toggle={toggleModal}>Order Confirmation</ModalHeader>
 					<ModalBody>
 						{confirmBody}
@@ -366,7 +361,7 @@ function OrderForm(props) {
 				</div>
 			</Modal>
 			<Modal className="orderModal" isOpen={thanks} toggle={toggleThanks}>
-				<div className="modalDark">
+				<div>
 					<ModalHeader toggle={toggleThanks}>Thank You!</ModalHeader>
 					<ModalBody>{thanksBody}</ModalBody>
 					<ModalFooter>

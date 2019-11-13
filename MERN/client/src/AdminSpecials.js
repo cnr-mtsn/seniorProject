@@ -19,6 +19,10 @@ import {
 } from "reactstrap";
 import ItemsCarousel from "react-items-carousel";
 import pastrami from "./media/pastrami.png";
+import shrimpWrap from './media/shrimpWrap.png';
+import chickenBR from './media/chickenBaconRanch.png';
+import roastBeef from './media/roastBeef.png';
+import southwestCW from './media/southwestChickenWrap.png';
 import "./App.css";
 
 const AdminSpecials = () => {
@@ -71,7 +75,7 @@ const AdminSpecials = () => {
 
       <div key={special.main_id} style={{ height: "200" }}>
         <Card>
-          <CardImg top width="100%" src={pastrami} alt={special.name} />
+          <CardImg top width="100%" src={shrimpWrap} alt={special.name} />
           <CardBody>
             <CardTitle style={{ fontSize: "32px" }}>{special.name}</CardTitle>
             <CardSubtitle style={{ fontSize: "24px" }}>
