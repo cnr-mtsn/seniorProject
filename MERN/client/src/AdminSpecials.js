@@ -19,6 +19,7 @@ import {
   ModalBody,
   ModalFooter
 } from "reactstrap";
+
 import ItemsCarousel from "react-items-carousel";
 import pastrami from "./media/pastrami.png";
 import chickenBaconRanch from "./media/chickenBaconRanch.png";
