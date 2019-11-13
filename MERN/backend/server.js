@@ -297,6 +297,14 @@ app.get('/specials/delete', (req, res) => {
         err ? res.send(err) : res.send(`Successfully Removed ${name}`);
     });
 });
+//UPDATE Special
+app.get('/specials/update', (req, res) => {
+    const {name, newName, price, healthPoints, description} = req.query;
+    const UPDATE_SPECIAL = `UPDATE main SET name='${newName}', price=${price}, health_points=${healthPoints}, description='${description}' WHERE name='${name}'`;
+    db.query(UPDATE_SPECIAL, (err, results) => {
+        err ? res.send(err) : res.send(`Successfully updated ${name} to ${newName}`);
+    });
+});
 
 /************   USER ROUTES    ************/
 app.get('/userPassword', (req, res) => {
