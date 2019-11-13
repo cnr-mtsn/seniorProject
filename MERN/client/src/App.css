@@ -144,6 +144,11 @@
   font-size: 1.3vh;
 }
 
+.specialUpdateAddon {
+  width: 80px;
+  background-color:rgb(red, green, rgb(126, 78, 240));
+}
+
 /****** ORDER FORM ******/
 .orderItemsButton {
   border:none;

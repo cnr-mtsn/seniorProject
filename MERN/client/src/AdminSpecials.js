@@ -3,6 +3,8 @@ import {
   Row,
   Col,
   Input,
+  InputGroup,
+  InputGroupAddon,
   Label,
   Card,
   CardTitle,
@@ -19,12 +21,15 @@ import {
 } from "reactstrap";
 import ItemsCarousel from "react-items-carousel";
 import pastrami from "./media/pastrami.png";
+import chickenBaconRanch from "./media/chickenBaconRanch.png";
+import shrimpWrap from "./media/shrimpWrap.png";
+import southwestWrap from "./media/southwestChickenWrap.png";
+import roastBeef from "./media/roastBeef.png";
 import "./App.css";
 
 const AdminSpecials = () => {
   const [specials, setSpecials] = useState([]);
   const [activeIndex, setActiveIndex] = useState(0);
-  const [updateSpecialModal, setUpdateSpecialModal] = useState(false);
   const [newName, setNewName] = useState();
   const [newHP, setNewHP] = useState();
   const [newPrice, setNewPrice] = useState();
@@ -41,7 +46,6 @@ const AdminSpecials = () => {
       .catch(err => console.error(err));
   };
 
-  const toggleSpecialModal = () => setUpdateSpecialModal(!updateSpecialModal);
 
   const clearNewItem = () => {
 	  setNewName();
@@ -51,6 +55,7 @@ const AdminSpecials = () => {
   }
 
   const renderCards = (special) => {
+	
 	const fixedPrice = `$${special.price.toFixed(2)}`;
 
 	const updateSpecial = async () => {
@@ -62,105 +67,97 @@ const AdminSpecials = () => {
 
 	const handleSpecialUpdate = () => {
 		updateSpecial();
-		toggleSpecialModal();
 		console.log(`edited ${special.name}`);
 		clearNewItem();
 	};
 
     return (
-
       <div key={special.main_id} style={{ height: "200" }}>
         <Card>
-          <CardImg top width="100%" src={pastrami} alt={special.name} />
+          <CardImg top width="100%" src={chickenBaconRanch} alt={special.name} />
           <CardBody>
-            <CardTitle style={{ fontSize: "32px" }}>{special.name}</CardTitle>
-            <CardSubtitle style={{ fontSize: "24px" }}>
-              {fixedPrice}
-            </CardSubtitle>
-            <CardText style={{ marginTop: "1vh", fontSize: "20px" }}>
-              {special.description}
-            </CardText>
-            <CardText>Health Points: {special.health_points}</CardText>
+            <Row>
+              <Col>
+                <InputGroup>
+                  <InputGroupAddon
+                    className="specialUpdateAddon"
+                    type="prepend"
+                  >
+                    Name
+                  </InputGroupAddon>
+                  <Input
+                    name="special.name"
+                    placeholder={special.name}
+                    onChange={e => {
+                      setNewName(e.target.value);
+                    }}
+                  ></Input>
+                </InputGroup>
+              </Col>
+            </Row>
+            <br></br>
+            <Row>
+              <Col>
+                <InputGroup>
+                  <InputGroupAddon
+                    className="specialUpdateAddon"
+                    type="prepend"
+                  >
+                    Price
+                  </InputGroupAddon>
+                  <Input
+                    name="specialPrice"
+                    placeholder={fixedPrice}
+                    onChange={e => {
+                      setNewPrice(e.target.value);
+                    }}
+                  ></Input>
+                </InputGroup>
+              </Col>
+              <Col>
+                <InputGroup>
+                  <InputGroupAddon
+                    className="specialUpdateAddon"
+                    type="prepend"
+                  >
+                    H.P.
+                  </InputGroupAddon>
+                  <Input
+                    name="specialHP"
+                    placeholder={special.health_points}
+                    onChange={e => {
+                      setNewHP(e.target.value);
+                    }}
+                  ></Input>
+                </InputGroup>
+              </Col>
+            </Row>
+			<br></br>
+            <Row>
+              <Col>
+                <Input
+                  style={{ marginTop: "-8px" }}
+                  type="textarea"
+                  overflow="hidden"
+                  name="specialDesc"
+                  placeholder={special.description}
+                  onChange={e => {
+                    setNewDesc(e.target.value);
+                  }}
+                >{special.description}</Input>
+              </Col>
+            </Row>
           </CardBody>
           <CardFooter>
-            <span
-              style={{ fontSize: "20px", color: "blue", cursor: "pointer" }}
-              onClick={toggleSpecialModal}
+            <Button
+              color="primary"
+              value="Update"
+              onClick={handleSpecialUpdate}
             >
-              edit
-            </span>
+              Apply Changes
+            </Button>
           </CardFooter>
         </Card>
-        <Modal
-          className="orderModal"
-          isOpen={updateSpecialModal}
-          toggle={toggleSpecialModal}
-        >
-          <div className="modalDark">
-            <ModalHeader toggle={toggleSpecialModal}>Update Item</ModalHeader>
-            <ModalBody>
-              <div>
-                <Row>
-                  <Col>
-                    <Label for="special.name">Name</Label>
-                    <Input
-                      name="special.name"
-                      placeholder={special.name}
-                      onChange={e => {
-                        setNewName(e.target.value);
-                      }}
-                    ></Input>
-                  </Col>
-                </Row>
-                <Row>
-                  <Col>
-                    <Label for="specialPrice">Price</Label>
-                    <Input
-                      name="specialPrice"
-                      placeholder={fixedPrice}
-                      onChange={e => {
-                        setNewPrice(e.target.value);
-                      }}
-                    ></Input>
-                  </Col>
-                  <Col>
-                    <Label for="specialHP">H.P.</Label>
-                    <Input
-                      name="specialHP"
-                      placeholder={special.health_points}
-                      onChange={e => {
-                        setNewHP(e.target.value);
-                      }}
-                    ></Input>
-                  </Col>
-                </Row>
-                <Row>
-                  <Col>
-                    <Label for="specialDesc">Description</Label>
-                    <Input
-                      type="textarea"
-                      overflow="hidden"
-                      name="specialDesc"
-                      placeholder={special.description}
-                      onChange={e => {
-                        setNewDesc(e.target.value);
-                      }}
-                    ></Input>
-                  </Col>
-                </Row>
-              </div>
-            </ModalBody>
-            <ModalFooter>
-              <Button
-                color="primary"
-                value="Update"
-                onClick={handleSpecialUpdate}
-              >
-                Apply Changes
-              </Button>
-            </ModalFooter>
-          </div>
-        </Modal>
       </div>
     );
   };
