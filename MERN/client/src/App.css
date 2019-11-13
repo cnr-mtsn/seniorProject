@@ -208,5 +208,30 @@
   color:white;
 }
 
+/****** PROFILE ******/
+.profileSelectCard {
+  min-height: 150px;
+  min-width: 500px;
+  background-color: rgb(31, 33, 51);
+  color:white;
+}
 
+.profileSelectTitle {
+  height:20px;
+  text-align: center;
+  font-size:3vh;
+  margin-top:2vh;
+}
+.profileViewCard {
+  min-height: 150px;
+  min-width: 500px;
+  background-color: rgb(31, 33, 51);
+  color:white;
+}
 
+.profileViewTitle {
+  height:20px;
+  text-align: center;
+  font-size:3vh;
+  margin-top:2vh;
+}
