@@ -318,6 +318,20 @@ app.get('/userPassword', (req, res) => {
     });
 });
 
+app.get('/userStats', (req, res) => {
+    const {userID} = req.query;
+    const SELECT_USER_STATS = `
+        SELECT
+            name,
+            total_spent,
+            total_health_points
+        FROM users 
+        WHERE user_id = '${userID}'`;
+    db.query(SELECT_USER_STATS, (err, results) => {
+        err ? res.send(err) : res.json({ data: results })
+    });
+});
+
 /************ ORDERS ************/
 //Add order
 app.get('/newOrder', (req, res) => {

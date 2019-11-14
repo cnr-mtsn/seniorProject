@@ -16,6 +16,7 @@ function Header(props) {
 	const homeLink = <Link to='/home'><span>Home</span></Link>;
 	// const loginLink = <Link to='/login'><span>Login</span></Link>;
 	const orderFormLink = <Link to='/orderForm'><span>Order Form</span></Link>;
+	const profileLink = <Link to='/profile'><span>View Profile</span></Link>;
 	const adminLink = <Link to='/admin'><span>Admin</span></Link>;
 
 	return (
@@ -30,6 +31,7 @@ function Header(props) {
 						<NavItem className="navList">{homeLink}</NavItem>
 						{/* <NavItem className="navList">{loginLink}</NavItem> */}
 						<NavItem className="navList">{orderFormLink}</NavItem>
+						<NavItem className="navList">{profileLink}</NavItem>
 						<NavItem className="navList">{adminLink}</NavItem>
 					</Nav>
 				</Collapse>
