@@ -5,34 +5,19 @@ import {
   Input,
   InputGroup,
   InputGroupAddon,
-  Label,
   Card,
-  CardTitle,
-  CardSubtitle,
   CardBody,
   CardImg,
-  CardText,
   CardFooter,
   Button,
-  Modal,
-  ModalHeader,
-  ModalBody,
-  ModalFooter
 } from "reactstrap";
 
 import ItemsCarousel from "react-items-carousel";
-import pastrami from "./media/pastrami.png";
-<<<<<<< HEAD
-import shrimpWrap from './media/shrimpWrap.png';
-import chickenBR from './media/chickenBaconRanch.png';
-import roastBeef from './media/roastBeef.png';
-import southwestCW from './media/southwestChickenWrap.png';
-=======
-import chickenBaconRanch from "./media/chickenBaconRanch.png";
+// import pastrami from "./media/pastrami.png";
+// import chickenBaconRanch from "./media/chickenBaconRanch.png";
+// import southwestWrap from "./media/southwestChickenWrap.png";
+// import roastBeef from "./media/roastBeef.png";
 import shrimpWrap from "./media/shrimpWrap.png";
-import southwestWrap from "./media/southwestChickenWrap.png";
-import roastBeef from "./media/roastBeef.png";
->>>>>>> adminSpecialsNoModal
 import "./App.css";
 
 const AdminSpecials = () => {
@@ -82,11 +67,7 @@ const AdminSpecials = () => {
     return (
       <div key={special.main_id} style={{ height: "200" }}>
         <Card>
-<<<<<<< HEAD
           <CardImg top width="100%" src={shrimpWrap} alt={special.name} />
-=======
-          <CardImg top width="100%" src={chickenBaconRanch} alt={special.name} />
->>>>>>> adminSpecialsNoModal
           <CardBody>
             <Row>
               <Col>

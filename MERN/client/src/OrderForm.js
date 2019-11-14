@@ -103,11 +103,7 @@ function OrderForm(props) {
 						Base
 					</DropdownToggle>
 					<DropdownMenu>
-<<<<<<< HEAD
-						<DropdownItem  className="baseDropdown"header>Choose One</DropdownItem>
-=======
 						<DropdownItem header>Choose One</DropdownItem>
->>>>>>> adminSpecialsNoModal
 						<DropdownItem 
 							value='bread' 
 							onClick={handleCategorySelection.bind(this, 'bread')}
