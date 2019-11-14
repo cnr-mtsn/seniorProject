@@ -7,8 +7,8 @@ import { Button, Jumbotron, Container, Row, Col } from 'reactstrap';
 
 function Admin(props) {
 
-    const [category, setCategory] = useState('');
-
+	const [category, setCategory] = useState('specials');
+	
     const handleCategoryClick = () => {
         category === 'ingredients' ? setCategory('specials') : setCategory('ingredients');
     }
@@ -23,8 +23,11 @@ function Admin(props) {
 				</Row>
 				<Row>
 					<Col>
-						<div style={{marginLeft:'1vw', width:'150px'}}>
-							<Button style={{width:'100%'}} color='secondary' onClick={handleCategoryClick}>
+						<div style={{ marginLeft: "1vw", width: "150px" }}>
+							<Button
+								style={{ width: "100%" }}
+								color='secondary'
+								onClick={handleCategoryClick}>
 								{buttonText}
 							</Button>
 						</div>

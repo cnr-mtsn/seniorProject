@@ -1,9 +1,14 @@
 const express = require('express');
 const mysql = require('mysql');
 const cors = require('cors');
+const bodyParser = require('body-parser');
 const PORT = 5000;
 const app = express();
 app.use(cors());
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({extended: false}));
+var Users = require('./routes/Users');
+app.use('/users', Users);
 const host = 'www.math-cs.ucmo.edu';
 const user = 'F19fedres2';
 
@@ -295,6 +300,14 @@ app.get('/specials/delete', (req, res) => {
     const REMOVE_SPECIAL = `DELETE FROM main WHERE name='${name}'`;
     db.query(REMOVE_SPECIAL, (err, results) => {
         err ? res.send(err) : res.send(`Successfully Removed ${name}`);
+    });
+});
+//UPDATE Special
+app.get('/specials/update', (req, res) => {
+    const {name, newName, price, healthPoints, description} = req.query;
+    const UPDATE_SPECIAL = `UPDATE main SET name='${newName}', price=${price}, health_points=${healthPoints}, description='${description}' WHERE name='${name}'`;
+    db.query(UPDATE_SPECIAL, (err, results) => {
+        err ? res.send(err) : res.send(`Successfully updated ${name} to ${newName}`);
     });
 });
 
