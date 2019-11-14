@@ -1,14 +1,9 @@
 const express = require('express');
 const mysql = require('mysql');
 const cors = require('cors');
-const bodyParser = require('body-parser');
 const PORT = 5000;
 const app = express();
 app.use(cors());
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({extended: false}));
-var Users = require('./routes/Users');
-app.use('/users', Users);
 const host = 'www.math-cs.ucmo.edu';
 const user = 'F19fedres2';
 
