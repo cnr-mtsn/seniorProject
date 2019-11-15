@@ -31,7 +31,7 @@ function OrderForm(props) {
 
 	const [items, setItems] = useState([]);
 	const [order, setOrder] = useState([]);
-	const [orderId, setOrderId] = useState([]);
+	const [orderId, setOrderId] = useState();
 	const [cheese, setCheese] = useState([]);
 	const [condiment, setCondiment] = useState([]);
 	const [extra, setExtra] = useState([]);
@@ -39,6 +39,13 @@ function OrderForm(props) {
 	const [sandwich, setSandwich] = useState([]);
 	const [tortilla, setTortilla] = useState([]);
 	const [veggie, setVeggie] = useState([]);
+	const [cheeseId, setCheeseId] = useState();
+	const [condimentId, setCondimentId] = useState();
+	const [extraId, setExtraId] = useState();
+	const [proteinId, setProteinId] = useState();
+	const [sandwichId, setSandwichId] = useState();
+	const [tortillaId, setTortillaId] = useState();
+	const [veggieId, setVeggieId] = useState();
 	const [category, setCategory] = useState('');
 	const [total, setTotal] = useState(0);
 	const [healthPoints, setHealthPoints] = useState(0);
@@ -90,62 +97,69 @@ function OrderForm(props) {
 	}
 
 	const getCheese = async () => {
-		fetch(`http://localhost:5000/cheese`)
+		await fetch(`http://localhost:5000/cheese`)
 		.then(response => response.json())
 		.then(response => setCheese(response.data))
 		.catch(err => console.error(err))
 	};
 
 	const getCondiment = async () => {
-		fetch(`http://localhost:5000/condiment`)
+		await fetch(`http://localhost:5000/condiment`)
 		.then(response => response.json())
 		.then(response => setCondiment(response.data))
 		.catch(err => console.error(err))
 	};
 
 	const getExtra = async () => {
-		fetch(`http://localhost:5000/extra`)
+		await fetch(`http://localhost:5000/extra`)
 		.then(response => response.json())
 		.then(response => setExtra(response.data))
 		.catch(err => console.error(err))
 	};
 
 	const getProtein = async () => {
-		fetch(`http://localhost:5000/protein`)
+		await fetch(`http://localhost:5000/protein`)
 		.then(response => response.json())
 		.then(response => setProtein(response.data))
 		.catch(err => console.error(err))
 	};
 
 	const getSandwich = async () => {
-		fetch(`http://localhost:5000/bread`)
+		await fetch(`http://localhost:5000/bread`)
 		.then(response => response.json())
 		.then(response => setSandwich(response.data))
 		.catch(err => console.error(err))
 	};
 
 	const getTortilla = async () => {
-		fetch(`http://localhost:5000/tortilla`)
+		await fetch(`http://localhost:5000/tortilla`)
 		.then(response => response.json())
 		.then(response => setTortilla(response.data))
 		.catch(err => console.error(err))
 	};
 
 	const getVeggie = async () => {
-		fetch(`http://localhost:5000/veggie`)
+		await fetch(`http://localhost:5000/veggie`)
 		.then(response => response.json())
 		.then(response => setVeggie(response.data))
 		.catch(err => console.error(err))
 	};
 
-	const insertOrderItems = () => {
+	const insertOrderItems = async () => {
 		var i = 0;
+		var x = 0;
 		for(i; i<order.length; i++)
 		{
-
-			if(order[i].name == )
-			{
-
+			for(x; x<cheese.length; x++) {
+				if(order[i].name == cheese[x].name)
+				{
+					await fetch(`http://localhost:5000/getCheese?cheeseName=${order[i].name}`)
+					.then(response => response.json())
+					.then(response => setCheeseId(response.data))
+					.catch(err => console.log(err))
+					.then(fetch(`http://localhost:5000/addCheese?cheeseID=${cheeseId}&orderID=${orderId}`))
+					.catch(err => console.log(err))
+				}
 			}
 		}
 	}
@@ -159,8 +173,14 @@ function OrderForm(props) {
 	}
 
 	const submitOrder = async () => {
-		fetch(`http://localhost:5000/newOrder?userId=${userId}&total=${total}`)
+		await fetch(`http://localhost:5000/newOrder?userId=${userId}&total=${total}`)
 		.then(getCheese())
+		.then(getCondiment())
+		.then(getExtra())
+		.then(getProtein())
+		.then(getSandwich()) 
+		.then(getTortilla())
+		.then(getVeggie())
 		.then(getOrderId())
 	 	.then(setOrder([]))
 	 	.then(setTotal(0))

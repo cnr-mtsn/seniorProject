@@ -494,6 +494,38 @@ app.get('/orderId', (req, res) => {
     });
 });
 
+app.get('/addCheese', (req, res) => {
+    const {cheeseID, orderID} = req.query;
+
+    const ADD_CHEESE = `INSERT INTO orders_cheese(order_id, cheese_id) VALUES(${orderID}, ${cheeseID})`;
+    db.query(ADD_ORDER, (err, results) => {
+        if(err) {
+            return res.send(err);
+        }
+        else {
+            return res.json({
+                data:results
+            })
+        }
+    });
+});
+
+app.get('/getCheese', (req, res) => {
+    const {cheeseName} = req.query;
+
+    const GET_ORDER = `SELECT cheese_id FROM cheese WHERE name = ${cheeseName}`;
+    db.query(GET_ORDER, (err, results) => {
+        if(err) {
+            return res.send(err);
+        }
+        else {
+            return res.json({
+                data:results
+            })
+        }
+    });
+});
+
 
 //Listen for requests on given port
 app.listen(process.env.PORT || PORT, () => {
