@@ -1,10 +1,10 @@
 import React from "react";
 import "./App.css";
-import Admin from "./Admin";
-import OrderForm from "./OrderForm";
-import Home from "./Home";
-import Login from "./login";
- import Profile from "./Profile";
+import Admin from "./components/Admin";
+import OrderForm from "./components/OrderForm";
+import Home from "./components/Home";
+import Login from "./components/login";
+ import Profile from "./components/Profile";
 import { Container } from "reactstrap";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 

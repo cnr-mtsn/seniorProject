@@ -2,10 +2,15 @@ const express = require('express');
 const mysql = require('mysql');
 const cors = require('cors');
 const PORT = 5000;
+const bodyParser = require('body-parser');
 const app = express();
 app.use(cors());
 const host = 'www.math-cs.ucmo.edu';
 const user = 'F19fedres2';
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({extended: false}));
+var Users = require('./routes/Users');
+app.use('/users', Users);
 
 //DATABASE CONNECTION
 const db = mysql.createConnection( {
@@ -18,6 +23,11 @@ const db = mysql.createConnection( {
 db.connect((err) => {
     err ? console.log(`ERROR: ${err}`) : console.log(`Connected to MySQL: { host: ${host}, user: ${user}`);
 })
+
+//Listen for requests on given port
+app.listen(process.env.PORT || PORT, () => {
+    console.log(`Listening on port: ${PORT}`)
+});
 
 
 /************   QUERIES   ************/
@@ -337,7 +347,3 @@ app.get('/newOrder', (req, res) => {
     });
 });
 
-//Listen for requests on given port
-app.listen(process.env.PORT || PORT, () => {
-    console.log(`Listening on port: ${PORT}`)
-});
