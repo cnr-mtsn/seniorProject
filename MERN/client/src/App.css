@@ -56,6 +56,20 @@
 .mainHeader {
   background-image: url('./media/darkPurpleBackground.png');
 }
+.header {
+  grid-area: hd;
+}
+.slideshow {
+  grid-area: sld;
+}
+.wrapper {
+  display: grid;
+  grid-template-columns: repeat(8, 1fr);
+  grid-auto-rows: minmax(100px, auto);
+  grid-template-areas: 
+    'hd hd hd hd hd hd hd hd'
+    '... ... sld sld sld sld ... ...';
+}
 .fedEatsLogo {
   margin-top:1vh;
   height: 8vh;

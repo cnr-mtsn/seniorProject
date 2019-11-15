@@ -4,13 +4,15 @@ const cors = require('cors');
 const PORT = 5000;
 const bodyParser = require('body-parser');
 const app = express();
-app.use(cors());
 const host = 'www.math-cs.ucmo.edu';
 const user = 'F19fedres2';
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({extended: false}));
-var Users = require('./routes/Users');
-app.use('/users', Users);
+var Users = require("./routes/Users");
+
+app.use(cors());
+// app.use(bodyParser.json());
+// app.use(bodyParser.urlencoded({extended: false}));
+// app.use('/users', Users);
+
 
 //DATABASE CONNECTION
 const db = mysql.createConnection( {
@@ -29,7 +31,6 @@ app.listen(process.env.PORT || PORT, () => {
     console.log(`Listening on port: ${PORT}`)
 });
 
-
 /************   QUERIES   ************/
 const SELECT_ALL_CHEESES = 'SELECT * FROM cheese';
 const SELECT_ALL_CONDIMENTS = 'SELECT * FROM condiments';
@@ -43,7 +44,7 @@ const SELECT_ALL_SPECIALS = 'SELECT * FROM main ORDER BY main_id';
 // const SELECT_USER_PASSWORDS = `SELECT user_id FROM users WHERE name = '${name}' AND email = '${email}' AND pass = AES_ENCRYPT('${pass}', UNHEX(SHA2(CONCAT('${pass}', salt), 512)))`;
 
 
-                    /**********   GET ROUTES   ************/
+/**********   GET ROUTES   ************/
 //Home Route
 app.get('/', (req, res) => {
     res.send(`Home`);
@@ -57,7 +58,7 @@ app.get('/user/login', (req, res) => {
     });
 });
 
-        /************   CHEESE ROUTES   ************/
+/************   CHEESE ROUTES   ************/
 //Add cheese
 app.get('/cheese/add', (req, res) => {
     const {name, price, healthPoints} = req.query;
@@ -90,7 +91,7 @@ app.get('/cheese/update', (req, res) => {
 });
 
 
-        /************   VEGGIES ROUTES   ************/
+/************   VEGGIES ROUTES   ************/
 //Add veggie
 app.get('/veggie/add', (req, res) => {
     const {name, price, healthPoints} = req.query;
@@ -121,7 +122,8 @@ app.get('/veggie/update', (req, res) => {
         err ? res.send(err) : res.send(`Successfully Updated ${name} to ${newName}`);
     });
 });
-        /************   BREADS ROUTES   ************/
+
+/************   BREADS ROUTES   ************/
 //Add bread
 app.get('/bread/add', (req, res) => {
     const {name, price, healthPoints} = req.query;
@@ -153,7 +155,7 @@ app.get('/bread/update', (req, res) => {
     });
 });
 
-        /************   PROTEIN ROUTES   ************/
+/************   PROTEIN ROUTES   ************/
 //Add protein
 app.get('/protein/add', (req, res) => {
     const {name, price, healthPoints} = req.query;
@@ -184,7 +186,8 @@ app.get('/protein/update', (req, res) => {
         err ? res.send(err) : res.send(`Successfully Updated ${name} to ${newName}`);
     });
 });
-        /************   CONDIMENTS ROUTES   ************/
+
+/************   CONDIMENTS ROUTES   ************/
 //Add condiment
 app.get('/condiment/add', (req, res) => {
     const {name, price, healthPoints} = req.query;
@@ -215,7 +218,8 @@ app.get('/condiment/update', (req, res) => {
         err ? res.send(err) : res.send(`Successfully Updated ${name} to ${newName}`);
     });
 });
-        /************   EXTRAS ROUTES   ************/
+
+/************   EXTRAS ROUTES   ************/
 //Add extra
 app.get('/extra/add', (req, res) => {
     const {name, price, healthPoints} = req.query;
@@ -246,7 +250,8 @@ app.get('/extra/update', (req, res) => {
         err ? res.send(err) : res.send(`Successfully Updated ${name} to ${newName}`);
     });
 });
-        /************   TORTILLAS ROUTES   ************/
+
+/************   TORTILLAS ROUTES   ************/
 //Add tortilla
 app.get('/tortilla/add', (req, res) => {
     const {name, price, healthPoints} = req.query;
@@ -284,7 +289,8 @@ app.get('/pickupTimes', (req, res) => {
         err ? res.send(err) : res.json({ data: results });
     });
 });
-/************ SPECIALS ROUTES ************/
+
+/**** SPECIALS ROUTES ************/
 //All Deli Specials
 app.get('/specials', (req, res) => {
     db.query(SELECT_ALL_SPECIALS, (err, results) => {
@@ -317,11 +323,11 @@ app.get('/specials/update', (req, res) => {
 });
 
 /************   USER ROUTES    ************/
-app.get('/userPassword', (req, res) => {
-    db.query(SELECT_USER_PASSWORDS, (err, results) => {
-        err ? res.send(err) : res.json({ data: results });
-    });
-});
+// app.get('/userPassword', (req, res) => {
+//     db.query(SELECT_USER_PASSWORDS, (err, results) => {  //This really shouldn't be a thing, for security's sake. 
+//         err ? res.send(err) : res.json({ data: results });
+//     });
+// });
 
 app.get('/userStats', (req, res) => {
     const {userID} = req.query;

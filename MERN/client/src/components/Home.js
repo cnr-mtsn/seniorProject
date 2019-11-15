@@ -2,26 +2,22 @@ import React from "react";
 import Header from "../components/Header";
 import SpecialsSlideshow from "../components/SpecialsSlideshow";
 
-import { Jumbotron, Container, Row, Col } from "reactstrap";
+import { Jumbotron } from "reactstrap";
 
 function Home() {
+
+
 	return (
-		<Container fluid>
-			<Row>
-				<Col>
-					<Header title='Fed Eats Home' />
-				</Col>
-			</Row>
-			<Row>
-				<Col></Col>
-				<Col lg={6}>
-					<Jumbotron className='myJumbotron'>
-						<SpecialsSlideshow />
-					</Jumbotron>
-				</Col>
-				<Col></Col>
-			</Row>
-		</Container>
+		<div className='wrapper'>
+			<div className="header">
+				<Header title='Fed Eats Home' />
+			</div>
+			<div className="slideshow">
+				<Jumbotron className='myJumbotron'>
+					<SpecialsSlideshow />
+				</Jumbotron>
+			</div>
+		</div>
 	);
 }
 
