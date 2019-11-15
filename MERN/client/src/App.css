@@ -56,13 +56,13 @@
 .mainHeader {
   background-image: url('./media/darkPurpleBackground.png');
 }
-.header {
+.homeHeader {
   grid-area: hd;
 }
-.slideshow {
+.homeSlideshow {
   grid-area: sld;
 }
-.wrapper {
+.homeWrapper {
   display: grid;
   grid-template-columns: repeat(8, 1fr);
   grid-auto-rows: minmax(100px, auto);
@@ -243,4 +243,21 @@
   text-align: center;
   font-size:3vh;
   margin-top:2vh;
+}
+
+.loginWrapper {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  grid-auto-rows: minmax(100px, auto);
+  grid-template-areas: 
+    'hd hd hd hd hd hd'
+    '... ... main main ... ...'
+  ;
+
+}
+.loginHeader {
+  grid-area: hd;
+}
+.loginJumbo {
+  grid-area: main
 }

@@ -8,11 +8,11 @@ function Home() {
 
 
 	return (
-		<div className='wrapper'>
-			<div className="header">
+		<div className='homeWrapper'>
+			<div className="homeHeader">
 				<Header title='Fed Eats Home' />
 			</div>
-			<div className="slideshow">
+			<div className="homeSlideshow">
 				<Jumbotron className='myJumbotron'>
 					<SpecialsSlideshow />
 				</Jumbotron>

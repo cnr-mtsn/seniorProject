@@ -45,20 +45,20 @@ function AdminItems(props) {
   };
   //add item to current category with name && price == newItem{name, price}
   const addItem = async () => {
-    fetch(`http://localhost:5000/${category}/add?name=${newItem.name}&price=${newItem.price}&healthPoints=${newItem.healthPoints}`)
+    await fetch(`http://localhost:5000/${category}/add?name=${newItem.name}&price=${newItem.price}&healthPoints=${newItem.healthPoints}`)
     .then(getItems)
     .then(setNewItem({name: null, price: null, healthPoints: null}))
     .catch(err => console.error(err))
   };
   //update item in current category to newItem.[name || price]
   const updateItem = async () => {
-    fetch(`http://localhost:5000/${category}/update?name=${itemToChange.name}&newName=${newItem.name}&newPrice=${newItem.price}&newHP=${newItem.healthPoints}`)
+    await fetch(`http://localhost:5000/${category}/update?name=${itemToChange.name}&newName=${newItem.name}&newPrice=${newItem.price}&newHP=${newItem.healthPoints}`)
     .then(getItems)
     .catch(err => console.err(err))
   };
   //delete item of current category with name == item.name
   const deleteItem = async (name) => {
-    fetch(`http://localhost:5000/${category}/delete?name=${name}`)
+    await fetch(`http://localhost:5000/${category}/delete?name=${name}`)
     .then(getItems)
     .then(console.log(`removed: ${name}`))
     .catch(err => console.error(err))
@@ -102,8 +102,8 @@ function AdminItems(props) {
       healthPoints: e.target.value
     })
   };
-  const handleCategorySelection = (selection) => {
-    fetch(`http://localhost:5000/${selection}`)
+  const handleCategorySelection = async (selection) => {
+    await fetch(`http://localhost:5000/${selection}`)
     .then(response => response.json())
     .then(response => setItems(response.data))
     .then(setCategory(selection))
