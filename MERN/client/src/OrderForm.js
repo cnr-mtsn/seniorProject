@@ -34,8 +34,8 @@ function OrderForm(props) {
 	const [orderId, setOrderId] = useState([]);
 	const [cheese, setCheese] = useState([]);
 	const [condiment, setCondiment] = useState([]);
-	const [extra, setExtras] = useState([]);
-	const [protein, setProteins] = useState([]);
+	const [extra, setExtra] = useState([]);
+	const [protein, setProtein] = useState([]);
 	const [sandwich, setSandwich] = useState([]);
 	const [tortilla, setTortilla] = useState([]);
 	const [veggie, setVeggie] = useState([]);
@@ -89,6 +89,55 @@ function OrderForm(props) {
 		setTotal(0);
 	}
 
+	const getCheese = async () => {
+		fetch(`http://localhost:5000/cheese`)
+		.then(response => response.json())
+		.then(response => setCheese(response.data))
+		.catch(err => console.error(err))
+	};
+
+	const getCondiment = async () => {
+		fetch(`http://localhost:5000/condiment`)
+		.then(response => response.json())
+		.then(response => setCondiment(response.data))
+		.catch(err => console.error(err))
+	};
+
+	const getExtra = async () => {
+		fetch(`http://localhost:5000/extra`)
+		.then(response => response.json())
+		.then(response => setExtra(response.data))
+		.catch(err => console.error(err))
+	};
+
+	const getProtein = async () => {
+		fetch(`http://localhost:5000/protein`)
+		.then(response => response.json())
+		.then(response => setProtein(response.data))
+		.catch(err => console.error(err))
+	};
+
+	const getSandwich = async () => {
+		fetch(`http://localhost:5000/bread`)
+		.then(response => response.json())
+		.then(response => setSandwich(response.data))
+		.catch(err => console.error(err))
+	};
+
+	const getTortilla = async () => {
+		fetch(`http://localhost:5000/tortilla`)
+		.then(response => response.json())
+		.then(response => setTortilla(response.data))
+		.catch(err => console.error(err))
+	};
+
+	const getVeggie = async () => {
+		fetch(`http://localhost:5000/veggie`)
+		.then(response => response.json())
+		.then(response => setVeggie(response.data))
+		.catch(err => console.error(err))
+	};
+
 	const insertOrderItems = () => {
 		var i = 0;
 		for(i; i<order.length; i++)
@@ -111,6 +160,7 @@ function OrderForm(props) {
 
 	const submitOrder = async () => {
 		fetch(`http://localhost:5000/newOrder?userId=${userId}&total=${total}`)
+		.then(getCheese())
 		.then(getOrderId())
 	 	.then(setOrder([]))
 	 	.then(setTotal(0))
