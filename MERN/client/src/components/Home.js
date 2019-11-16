@@ -9,6 +9,7 @@ function Home() {
 
 	return (
 		<div className='homeWrapper'>
+
 			<div className="homeHeader">
 				<Header title='Fed Eats Home' />
 			</div>
@@ -17,6 +18,7 @@ function Home() {
 					<SpecialsSlideshow />
 				</Jumbotron>
 			</div>
+			
 		</div>
 	);
 }

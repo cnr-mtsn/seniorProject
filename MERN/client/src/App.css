@@ -191,11 +191,57 @@ manageItemButton {
 }
 .orderForm {
   grid-area: main;
-  outline: 2px solid red;
+  border: 2px solid red;
+  border-radius: 15px;
 }
 .orderFormDetails {
   grid-area: deets;
-  outline: 2px solid blue;
+  border: 2px solid blue;
+  border-radius: 15px;
+}
+.orderDetailsInner {
+  display:grid;
+  grid-template-columns: 1fr;
+  grid-template-areas:
+    'hd'
+    'itm'
+    'ftr'
+  ;
+}
+
+.orderDetailsTitle {
+  grid-area: hd;
+}
+.renderOrderItemsDiv {
+  grid-area: itm;
+  height: 300px;
+  overflow:scroll;
+  outline: 1px dotted purple;
+}
+.orderDetailsFooter {
+  grid-area: ftr;
+}
+.detailsFooterWrapper {
+  display:grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+  max-height:5px;
+  grid-template-areas: 
+  'ttl ttl ttl ttl ttl'
+  '... ... ... ... ...'
+    '... clr... cfrm ...'
+    ;
+}
+.detailsClearButton {
+  grid-area: clr;
+}
+.detailsConfirmButton {
+  grid-area: cfrm;
+}
+.detailsTotal {
+  grid-area: ttl;
+}
+.detailsButton {
+  width: 80px;
 }
 .formWrapper {
   display: grid;
@@ -212,11 +258,103 @@ manageItemButton {
 }
 .selectCategory {
   grid-area: sc;
+  width:100%;
 }
+
 .actualForm {
   grid-area: form;
   overflow:scroll;
   height: 400px;
 }
+.selectCategoryWrapper {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  grid-template-areas:
+  'brd trt ptn chs veg cdmt xtr'
+}
+.selectBreadButton {
+  text-align:left;
+  grid-area: brd;
+  cursor: pointer;
+  background-color:grey;
+}
+.selectTortillaButton {
+  text-align:left;
+  grid-area: trt;
+  cursor: pointer;
+   background-color:grey;
+}
+.selectProteinButton {
+  text-align:left;
+  grid-area: ptn;
+  cursor: pointer;
+   background-color:grey;
+}
+.selectCheeseButton {
+  text-align:left;
+  grid-area: chs;
+  cursor: pointer;
+   background-color:grey;
+}
+.selectVeggieButton {
+  text-align:left;
+  grid-area: veg;
+  cursor: pointer;
+   background-color:grey;
+}
+.selectCondimentButton {
+  text-align:center;
+  grid-area: cdmt;
+  cursor: pointer;
+   background-color:grey;
+}
+.selectExtraButton {
+  text-align:right;
+  grid-area: xtr;
+  cursor: pointer;
+   background-color:grey;
+}
 
+.renderItemWrapper {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr 1fr;
+  grid-template-areas: 
+  'nm nm prc hp btn'
+  ;
+  padding: 10px;
+}
+.actualForm > div:nth-child(odd) {
+  background-color:grey;
+}
+
+.renderItemName {
+  grid-area: nm;
+}
+.renderItemPrice {
+  grid-area: prc;
+}
+.renderItemHP {
+  grid-area: hp;
+}
+.renderItemAddButton {
+  grid-area: btn;
+}
+
+.orderDetailsWrapper {
+  display:grid;
+  grid-template-columns: 2fr 1fr 1fr;
+  grid-template-areas: 
+  'nm nm prc hp'
+  ;
+  padding: 10px;
+}
+.detailsName {
+  grid-area: nm;
+}
+.detailsPrice {
+  grid-area: prc;
+}
+.detailsHP {
+  grid-area: hp;
+}
 /* ORDER FORM */

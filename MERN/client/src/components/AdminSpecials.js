@@ -74,7 +74,7 @@ const AdminSpecials = () => {
                 <InputGroup>
                   <InputGroupAddon
                     className="specialUpdateAddon"
-                    type="prepend"
+                    addonType="prepend"
                   >
                     Name
                   </InputGroupAddon>
@@ -94,7 +94,7 @@ const AdminSpecials = () => {
                 <InputGroup>
                   <InputGroupAddon
                     className="specialUpdateAddon"
-                    type="prepend"
+                    addonType="prepend"
                   >
                     Price
                   </InputGroupAddon>
@@ -111,7 +111,7 @@ const AdminSpecials = () => {
                 <InputGroup>
                   <InputGroupAddon
                     className="specialUpdateAddon"
-                    type="prepend"
+                    addonType="prepend"
                   >
                     H.P.
                   </InputGroupAddon>
