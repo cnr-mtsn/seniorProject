@@ -5,12 +5,11 @@ import {
 	Card,
 	CardTitle,
 	Input,
-	Jumbotron, 
 	Container, 
 	Row, 
 	Col 
 } from 'reactstrap';
-import { FaUserSecret, FaCoins } from 'react-icons/fa';
+import { FaCoins } from 'react-icons/fa';
 
 
 function Profile(props) {
@@ -88,7 +87,7 @@ function ProfileView(userStats) {
 				</Col>
 				<Col lg={5}>
 					<Col>Total Spent:</Col>
-					<Col>${userStats[0]["total_spent"]}</Col>
+					<Col><FaCoins/> ${userStats[0]["total_spent"]}</Col>
 				</Col>
 			</Row>
 			<br></br>

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import "../App.css";
 import Header from "../components/Header";
-import { FaPlus, FaTimes } from "react-icons/fa";
+import { FaPlus } from "react-icons/fa";
 import {
 	Button,
 	Input,
@@ -17,11 +17,11 @@ function OrderForm(props) {
 	const [order, setOrder] = useState([]);
 	const [category, setCategory] = useState("");
 	const [total, setTotal] = useState(0);
+	const [duplicates, setDuplicates] = useState(0);
 	const [healthPoints, setHealthPoints] = useState(0);
 	const [times, setTimes] = useState([]);
 	const [pickupTime, setPickupTime] = useState();
 	const [comments, setComments] = useState();
-	const [dropdownOpen, setOpen] = useState(false);
 	const [userId, setUserId] = useState();
 	const [modal, setModal] = useState(false);
 	const [thanks, setThanks] = useState(false);
@@ -32,7 +32,6 @@ function OrderForm(props) {
 		getTimes();
 	}, []);
 
-	const toggleDropdown = () => setOpen(!dropdownOpen);
 	const toggleModal = () => setModal(!modal);
 	const toggleThanks = () => setThanks(!thanks);
 	const toggleRouting = () => setRouting(!routing);
@@ -79,8 +78,8 @@ function OrderForm(props) {
 	};
 
 	const submitdivText = order.length < 1 ? "Build" : "Submit";
-
 	const renderItem = item => {
+		
 		const fixedPrice = "$" + item.price.toFixed(2);
 		const divId = `add${item.name}`;
 		const handleItemClick = (divId, disabled) => {
@@ -92,6 +91,7 @@ function OrderForm(props) {
 			}
 			if (found === true) {
 				setTotal(total + item.price);
+				setDuplicates(duplicates+1);
 			} else if (found === false) {
 				setOrder(order.concat(item));
 				setTotal(total + item.price);
@@ -172,10 +172,13 @@ function OrderForm(props) {
 			<h6>Total: ${total.toFixed(2)}</h6>
 		</div>
 	);
-	const avgHP = healthPoints / order.length || 0;
+	const avgHP = healthPoints / (order.length + duplicates) || 0;
+	console.log(healthPoints);
+	console.log(order.length);
+	console.log(duplicates);
 	const orderDetailsHeader =
 		order.length < 1 ? "Select a category to begin..." : "Order Details";
-
+	console.log(userId);
 	return (
 		<div className='orderFormWrapper'>
 			<div className='orderFormHeader'>
@@ -300,6 +303,7 @@ function OrderForm(props) {
 			</div>
 		</div>
 	);
+	
 }
 
 export default OrderForm;
