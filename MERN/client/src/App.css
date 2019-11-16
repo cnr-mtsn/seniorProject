@@ -6,40 +6,14 @@
   min-height: 100vh;
 }
 
-.items {
-  padding: 2vh;
-}
-.myJumbotron {
-  /* background-image: url('./media/darkPurpleBackground.png'); */
-  background-color:transparent; 
-  margin-top: 2vh;
-  padding: 4vh;
-}
-.loginJumbo {
-  margin-top: 15vh;
-  padding: 4vh;
-}
-.orderForm {
-  background-color:white;
-  margin-top: 2vh;
-  padding:4vh;
-}
-.orderItems {
-  background-color:white;
-}
-
-.clear {
-  background-color: transparent;
-}
-
-.manageItemButton {
+/* ADMIN */
+manageItemButton {
   font-size: 1.8vh;
 }
 .manageItemPrice {
   width: 100%;
   height: 5vh;
 }
-
 .itemTable thead tr th {
   font-size: 2vh;
   font-family: Georgia;
@@ -51,11 +25,11 @@
 .manageItemHeader {
   text-align: left;
 }
+/* ADMIN */
 
-/***** HEADER *****/
-.mainHeader {
-  background-image: url('./media/darkPurpleBackground.png');
-}
+
+
+/* HOME */
 .homeHeader {
   grid-area: hd;
 }
@@ -70,51 +44,35 @@
     'hd hd hd hd hd hd hd hd'
     '... ... sld sld sld sld ... ...';
 }
+/* HOME */
+
+
+
+/* HEADER */
+.mainHeader {
+  background-image: url('./media/darkPurpleBackground.png');
+}
 .fedEatsLogo {
-  margin-top:1vh;
   height: 8vh;
   width: auto;
   float: left;
-}
-.ckLogo {
-  margin-top:.5vh;
-  height: 10vh;
-  width:  auto;
-  float: right;
-}
-.formTitle {
-  color: white;
-  font-size: 4vh;
-  text-align: left;
-  background-image: url('./media/purpleBackground.png');
-  padding:1vh;
 }
 .mainHeaderText {
   color: white;
   font-size: 4.5vh;
   font-family: 'Mate SC', serif;
   text-align: center;
-  margin-top:2vh;
-  margin-bottom:2vh;
 }
-
-.white {
-  color: white;
+.ckLogo {
+  height: 10vh;
+  width:  auto;
+  float: right;
 }
-.darkGrey {
-  background-color: rgb(31, 33, 51);
-}
+/* HEADER */
 
-/***** HEADER *****/
 
-/***** LOGIN *****/
-.loginHeader {
-  text-align: center;
-  color: white;
-}
 
-/***** ADMIN *****/
-
+/* ADMIN */
 .adminSelectCategory ul li {
   list-style: none;
 } 
@@ -127,18 +85,11 @@
   margin-top: 5vh;
   padding: 10px;
 }
+/* ADMIN */
 
-/****** NavigationBar ******/
-.navigationBar {
-  margin-top:2vh;
-}
-.purpleButton {
-  outline:1px solid white;
-  background-image: url('./media/purpleBackground.png');
-  width: 100%;
-}
 
-/****** Specials ******/
+
+/* SPECIALS */
 .specialImage {
   height: 35vh;
   border-radius: 8px;
@@ -162,44 +113,8 @@
   width: 80px;
   background-color:rgb(red, green, rgb(126, 78, 240));
 }
+/* SPECIALS */
 
-/****** ORDER FORM ******/
-.orderItemsButton {
-  border:none;
-  color:white;
-  text-align: center;
-}
-.baseDropdown span {
-  color:white;
-}
-
-.orderItemsDiv {
-  max-height: 500px;
-  overflow: scroll;
-}
-.orderItem {
-  font-size: 2vh;
-  text-align: left;
-}
-.orderTotal {
-  margin-left:3.2vw;
-}
-.orderDetailsCard {
-  min-height:300px;
-}
-.orderDetails {
-  font-size:1.5vh;
-}
-.orderDetailsTitle {
-  height:20px;
-  text-align: center;
-  font-size:3vh;
-  margin-top:2vh;
-}
-.orderDetailsBodyDiv {
-  overflow: scroll;
-  height:250px;
-}
 
 .navList {
   text-align:right;
@@ -209,13 +124,7 @@
   font-size: 2.5vh;
   font-family: 'Mate SC', serif;
 }
-.orderModal {
-  list-style: square;
-}
-.modalDark {
-  background-color:rgb(31, 33, 51);
-  color:white;
-}
+
 
 /****** PROFILE ******/
 .profileSelectCard {
@@ -224,7 +133,6 @@
   background-color: rgb(31, 33, 51);
   color:white;
 }
-
 .profileSelectTitle {
   height:20px;
   text-align: center;
@@ -237,14 +145,15 @@
   background-color: rgb(31, 33, 51);
   color:white;
 }
-
 .profileViewTitle {
   height:20px;
   text-align: center;
   font-size:3vh;
   margin-top:2vh;
 }
+/* PROFILE */
 
+/* LOGIN */
 .loginWrapper {
   display: grid;
   grid-template-columns: repeat(6, 1fr);
@@ -261,3 +170,53 @@
 .loginJumbo {
   grid-area: main
 }
+/* LOGIN */
+
+/* ORDER FORM */
+.orderFormWrapper {
+  display: grid;
+  grid-template-columns: repeat(9, 1fr);
+  grid-template-rows: repeat(6, 1fr);
+  grid-template-areas: 
+    'hd hd hd hd hd hd hd hd hd'
+    '... ... ... ... ... ... ... ... ...'
+    '... main main main main ... deets deets ...'
+    '... main main main main ... deets deets ...'
+    '... main main main main ... deets deets ...'
+    '... main main main main ... deets deets ...'
+    '... main main main main ... deets deets ...'
+}
+.orderFormHeader {
+  grid-area: hd;
+}
+.orderForm {
+  grid-area: main;
+  outline: 2px solid red;
+}
+.orderFormDetails {
+  grid-area: deets;
+  outline: 2px solid blue;
+}
+.formWrapper {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  grid-template-rows: repeat(6, 1fr);
+  grid-template-areas:
+    'sc sc sc sc sc sc sc'
+    'form form form form form form form'
+    'form form form form form form form'
+    'form form form form form form form'
+    'form form form form form form form'
+    'form form form form form form form'
+    
+}
+.selectCategory {
+  grid-area: sc;
+}
+.actualForm {
+  grid-area: form;
+  overflow:scroll;
+  height: 400px;
+}
+
+/* ORDER FORM */

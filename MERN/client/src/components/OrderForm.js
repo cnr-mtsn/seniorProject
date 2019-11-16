@@ -10,8 +10,6 @@ import {
 	Button, 
 	Jumbotron, 
 	Container, 
-	Row, 
-	Col, 
 	Form, 
 	Table,
 	Input,
@@ -95,58 +93,12 @@ function OrderForm(props) {
 			.catch(err => console.error(err));
 	};
 
-	const tableCategorySelect = (
-		<div>
-			<ButtonGroup>
-				<ButtonDropdown isOpen={dropdownOpen} toggle={toggleDropdown}>
-					<DropdownToggle caret>
-						Base
-					</DropdownToggle>
-					<DropdownMenu>
-						<DropdownItem header>Choose One</DropdownItem>
-						<DropdownItem 
-							value='bread' 
-							onClick={handleCategorySelection.bind(this, 'bread')}
-						><span>Bread</span>
-						</DropdownItem>
-						<DropdownItem
-							value='tortilla' 
-							onClick={handleCategorySelection.bind(this, 'tortilla')}
-						><span>Tortillas</span>
-						</DropdownItem>
-					</DropdownMenu>
-				</ButtonDropdown> 
-				<Button 
-					value='protein' 
-					onClick={handleCategorySelection.bind(this, 'protein')}
-				>Protein
-				</Button>
-				<Button 
-					value='cheese' 
-					onClick={handleCategorySelection.bind(this, 'cheese')}
-				>Cheese
-				</Button>
-				<Button 
-					value='veggie' 
-					onClick={handleCategorySelection.bind(this, 'veggie')}
-				>Veggies
-				</Button>
-				<Button 
-					value='condiment' 
-					onClick={handleCategorySelection.bind(this, 'condiment')}
-				>Condiments
-				</Button>
-				<Button 
-					value='extra' 
-					onClick={handleCategorySelection.bind(this, 'extra')}
-				>Extras
-				</Button>
-			</ButtonGroup>
-		</div>
-	)
 	const submitButtonText = (order.length < 1 ? 'Build Order' : 'Submit Order');
-	
+	const getItem = (item) => {
+		return <h5>{item.name}</h5>
+	}
 	const renderItem = (item) => {
+
 		const fixedPrice = '$' + item.price.toFixed(2);
 		const buttonId = `add${item.name}`;
 		const handleItemClick = (buttonId, disabled) => {
@@ -165,31 +117,19 @@ function OrderForm(props) {
 			}
 			setHealthPoints(healthPoints + item.health_points);
 		};
+		const addButton = (
+			<Button outline id={buttonId} color='primary' onClick={handleItemClick}>
+				<FaPlus />
+			</Button>
+		);
+		
 		return (
-			<tr key={item.name}>
-				<td className="orderItem">
-					{item.name}
-				</td>
-				<td className="orderItem">
-					{fixedPrice}
-				</td>
-				<td className="orderItem">
-					{item.health_points}
-				</td>
-				<td>
-					<Button 
-						outline 
-						id={buttonId}
-						color="primary" 
-						onClick={handleItemClick} 
-						className="orderItemsButton"
-					><FaPlus/>
-					</Button>
-				</td>
-			
-			</tr>
-		)
-	}
+			<div key={item.name}>
+				<h4>{item.name}</h4>
+				<p>{item.price}</p>
+			</div>
+		);
+	};
 	const renderOrder = (orderItem) => {
 		const fixedPrice = '$' + orderItem.price.toFixed(2);
 		const deleteOrderItem = () => { 		
@@ -200,10 +140,10 @@ function OrderForm(props) {
 		}
 		return (
 			<tr key={orderItem.name}>
-				<td><span className="orderDetails">{orderItem.name}</span></td>
-				<td><span className="orderDetails">{fixedPrice}</span></td>
-				<td><Button className="orderItemsButton" outline color="danger" onClick={deleteOrderItem}><FaTimes/></Button></td>
-				<td><Button className="orderItemsButton" outline color="primary" onClick={addOrderItem}><FaPlus/></Button></td>
+				<td><span>{orderItem.name}</span></td>
+				<td><span>{fixedPrice}</span></td>
+				<td><Button outline color="danger" onClick={deleteOrderItem}><FaTimes/></Button></td>
+				<td><Button outline color="primary" onClick={addOrderItem}><FaPlus/></Button></td>
 			</tr>
 		);
 	};
@@ -244,130 +184,145 @@ function OrderForm(props) {
 	const orderDetailsHeader = (order.length < 1 ? 'Select a category to begin' : 'Order Details');
 
 	return (
-		<Container fluid>
-			<Row>
-				<Col>
-					<Header title='Fed Eats Deli Order Form' />
-				</Col>
-			</Row>
-			<Row>
-				<Col>
-					<Jumbotron className='myJumbotron'>
-						<Form>
-							<Row>
-								<Col>
-									{tableCategorySelect}
-								</Col>
-								<Col>
-									<div className="orderItemsDiv">
-										<Table className='itemTable' striped>
-											<tbody>
-												{tableBody}
-												{items.map(renderItem)}
-											</tbody>
-										</Table>
-									</div>
-								</Col>
-							</Row>
-						</Form>
-					</Jumbotron>
-				</Col>
-				<Col lg={1}></Col>
-				<Col>
-				<Jumbotron className="myJumbotron">
-					<Card className="orderDetailsCard">
-						<CardTitle className="orderDetailsTitle">{orderDetailsHeader}</CardTitle>
-						<CardBody>
-							<div className="orderDetailsBodyDiv">
-							<Table className="itemTable"  striped>
+		<div className='orderFormWrapper'>
+			<div className='orderFormHeader'>
+				<Header title='Fed Eats Deli Order Form' />
+			</div>
+
+			<div className='orderForm'>
+				{/* <Form>
+					{tableCategorySelect}
+					<div>
+						<Table className='itemTable' striped>
 							<tbody>
-								{order.map(renderOrder)}
+								{tableBody}
+								{items.map(renderItem)}
 							</tbody>
-							</Table>
-							</div>
-						</CardBody>
-						<CardSubtitle>
-							<Row>
-								<Col lg={10}>
-									<h5 className="orderTotal">Total: ${total.toFixed(2)}</h5>
-									<h5 className="orderTotal">Avg HP: {avgHP.toFixed(1)}</h5>
-								</Col>
-							</Row>
-						</CardSubtitle>
-						<Row>
-							<Col lg={1}></Col>
-							<Col lg={4}>
-								<Input
-								required
-								placeholder="User ID"
-								onChange={handleUserIdInput}
-								>
-								</Input>
-							</Col>
-							<Col lg={2}></Col>
-							<Col lg={4}>
-								<Input type='select' onChange={handleTimeSelection}>
-								{times.map(renderTimes)}
-								<option disabled defaultValue='Pickup Time'></option>
-								</Input>
-							</Col>
-							<Col lg={1}></Col>
-						</Row>
-						<br></br>
-						<Row>
-							<Col></Col>
-							<Col lg={10}>
-								<Input
-									type='textarea'
-									placeholder='Special instructions for the kitchen...'
-									onChange={handleCommentsInput}
-								/>
-							</Col>
-							<Col></Col>
-						</Row>
-						<br></br>
+						</Table>
+					</div>
+				</Form> */}
+				<div className='formWrapper'>
+					<div className='selectCategory'>
 						<Button
-							type="button"
-							outline
-							color="danger"
-							onClick={handleClearOrderClick}
-							style={{width:'40%', margin:'auto'}}
-							>Clear Order
+							value='bread'
+							onClick={handleCategorySelection.bind(this, "bread")}>
+							Bread
 						</Button>
-						<Button 
-							type="button"
-							outline
-							color="primary"
-							onClick={toggleModal}
-							style={{width:'40%', margin:'auto'}}
-							>{submitButtonText}
+						<Button
+							value='tortilla'
+							onClick={handleCategorySelection.bind(this, "tortilla")}>
+							Tortilla
 						</Button>
-						<br></br>
-					</Card>
-					</Jumbotron>
-				</Col>
-			</Row>
-			<Modal className="orderModal" isOpen={modal} toggle={toggleModal}>
-				<div>
-					<ModalHeader toggle={toggleModal}>Order Confirmation</ModalHeader>
-					<ModalBody>
-						{confirmBody}
-					</ModalBody>
-					<ModalFooter>
-						<Button color="primary" onClick={handlePlaceOrderClick}>Place Order</Button>
-					</ModalFooter>
+						<Button
+							value='protein'
+							onClick={handleCategorySelection.bind(this, "protein")}>
+							Protein
+						</Button>
+						<Button
+							value='cheese'
+							onClick={handleCategorySelection.bind(this, "cheese")}>
+							Cheese
+						</Button>
+						<Button
+							value='veggie'
+							onClick={handleCategorySelection.bind(this, "veggie")}>
+							Veggies
+						</Button>
+						<Button
+							value='condiment'
+							onClick={handleCategorySelection.bind(this, "condiment")}>
+							Condiments
+						</Button>
+						<Button
+							value='extra'
+							onClick={handleCategorySelection.bind(this, "extra")}>
+							Extras
+						</Button>
+					</div>
+
+					<div className='actualForm'>
+						{items.map(renderItem)}
+					</div>
 				</div>
-			</Modal>
-			<Modal className="orderModal" isOpen={thanks} toggle={toggleThanks}>
-				<div>
-					<ModalHeader toggle={toggleThanks}>Thank You!</ModalHeader>
-					<ModalBody>{thanksBody}</ModalBody>
-					<ModalFooter>
-						<Button color="primary" value="Close" onClick={handleThanksClick}>Close</Button>
-					</ModalFooter>
-				</div>
-			</Modal>
-		</Container>
+			</div>
+
+			<div className='orderFormDetails'>
+				items
+				{/* <Card>
+					<CardTitle>
+						{orderDetailsHeader}
+					</CardTitle>
+					<CardBody>
+						<div>
+							<Table className='itemTable' striped>
+								<tbody>{order.map(renderOrder)}</tbody>
+							</Table>
+						</div>
+					</CardBody>
+					<CardSubtitle>
+						<h5>Total: ${total.toFixed(2)}</h5>
+						<h5>Avg HP: {avgHP.toFixed(1)}</h5>
+					</CardSubtitle>
+					<Input
+						required
+						placeholder='User ID'
+						onChange={handleUserIdInput}></Input>
+					<Input type='select' onChange={handleTimeSelection}>
+						{times.map(renderTimes)}
+						<option disabled defaultValue='Pickup Time'></option>
+					</Input>
+					<Input
+						type='textarea'
+						placeholder='Special instructions for the kitchen...'
+						onChange={handleCommentsInput}
+					/>
+					<Button
+						type='button'
+						outline
+						color='danger'
+						onClick={handleClearOrderClick}
+						style={{ width: "40%", margin: "auto" }}>
+						Clear Order
+					</Button>
+					<Button
+						type='button'
+						outline
+						color='primary'
+						onClick={toggleModal}
+						style={{ width: "40%", margin: "auto" }}>
+						{submitButtonText}
+					</Button>
+				</Card> */}
+			</div>
+
+			{/* <div>
+				<Modal className='orderModal' isOpen={modal} toggle={toggleModal}>
+					<div>
+						<ModalHeader toggle={toggleModal}>Order Confirmation</ModalHeader>
+						<ModalBody>{confirmBody}</ModalBody>
+						<ModalFooter>
+							<Button color='primary' onClick={handlePlaceOrderClick}>
+								Place Order
+							</Button>
+						</ModalFooter>
+					</div>
+				</Modal>
+			</div>
+
+			<div>
+				<Modal className='orderModal' isOpen={thanks} toggle={toggleThanks}>
+					<div>
+						<ModalHeader toggle={toggleThanks}>Thank You!</ModalHeader>
+						<ModalBody>{thanksBody}</ModalBody>
+						<ModalFooter>
+							<Button color='primary' value='Close' onClick={handleThanksClick}>
+								Close
+							</Button>
+						</ModalFooter>
+					</div>
+				</Modal>
+			</div> */}
+		</div>
 	);
 }
 
