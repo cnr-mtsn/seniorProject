@@ -39,7 +39,6 @@ const AdminSpecials = () => {
       .catch(err => console.error(err));
   };
 
-
   const clearNewItem = () => {
 	  setNewName();
 	  setNewHP();
@@ -49,20 +48,20 @@ const AdminSpecials = () => {
 
   const renderCards = (special) => {
 	
-	const fixedPrice = `$${special.price.toFixed(2)}`;
+	  const fixedPrice = `$${special.price.toFixed(2)}`;
 
-	const updateSpecial = async () => {
-		fetch(`http://localhost:5000/specials/update?name=${special.name}&newName=${newName}&price=${newPrice}&description=${newDesc}&healthPoints=${newHP}`)
-		.then(getSpecials)
-		.then(console.log(`updated: ${special.name}`))
-		.catch(err => console.error(err))
-	};
+    const updateSpecial = async () => {
+      fetch(`http://localhost:5000/specials/update?name=${special.name}&newName=${newName}&price=${newPrice}&description=${newDesc}&healthPoints=${newHP}`)
+      .then(getSpecials)
+      .then(console.log(`updated: ${special.name}`))
+      .catch(err => console.error(err))
+    };
 
-	const handleSpecialUpdate = () => {
-		updateSpecial();
-		console.log(`edited ${special.name}`);
-		clearNewItem();
-	};
+    const handleSpecialUpdate = () => {
+      updateSpecial();
+      console.log(`edited ${special.name}`);
+      clearNewItem();
+    };
 
     return (
       <div key={special.main_id} style={{ height: "200" }}>
@@ -137,7 +136,7 @@ const AdminSpecials = () => {
                   onChange={e => {
                     setNewDesc(e.target.value);
                   }}
-                >{special.description}</Input>
+                ></Input>
               </Col>
             </Row>
           </CardBody>

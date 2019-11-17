@@ -13,6 +13,8 @@ import {
 } from "reactstrap";
 
 function OrderForm(props) {
+
+	/****** STATE  ******/
 	const [items, setItems] = useState([]);
 	const [order, setOrder] = useState([]);
 	const [category, setCategory] = useState("");
@@ -27,16 +29,28 @@ function OrderForm(props) {
 	const [thanks, setThanks] = useState(false);
 	const [routing, setRouting] = useState(false);
 	const [confirmed, setConfirmed] = useState(false);
+	/****** STATE  ******/
 
 	useEffect(() => {
 		getTimes();
 	}, []);
 
+	/****** TOGGLES  ******/
 	const toggleModal = () => setModal(!modal);
 	const toggleThanks = () => setThanks(!thanks);
 	const toggleRouting = () => setRouting(!routing);
 	const toggleConfirmed = () => setConfirmed(!confirmed);
+	/****** TOGGLES  ******/
 
+	/****** FUNCTIONS ******/
+	//get all pickup times from database
+	const getTimes = async () => {
+		fetch(`http://localhost:5000/pickupTimes`)
+			.then(response => response.json())
+			.then(response => setTimes(response.data))
+			.catch(err => console.error(err));
+	};
+	//set the category of items === selection 
 	const handleCategorySelection = selection => {
 		fetch(`http://localhost:5000/${selection}`)
 			.then(response => response.json())
@@ -44,44 +58,33 @@ function OrderForm(props) {
 			.then(setCategory(selection))
 			.then(console.log("selected " + category));
 	};
+	//set comments for kitchen
 	const handleCommentsInput = e => {
 		setComments(e.target.value);
 		console.log(comments);
 	};
-
+	//set desired pickupTime
 	const handleTimeSelection = e => {
 		setPickupTime(e.target.value);
 		console.log(pickupTime);
 	};
+	//set user ID
 	const handleUserIdInput = e => {
 		setUserId(e.target.value);
 	};
-
+	//clear order items, health points, total
 	const handleClearOrderClick = () => {
 		setOrder([]);
 		setHealthPoints(0);
 		setTotal(0);
 	};
-
-	// const submitOrder = async () => {
-	// 	fetch(`http://localhost:5000/newOrder?userId=${userId}&total=${total}`)
-	// 	.then(setOrder([]))
-	// 	.then(setTotal(0))
-	// 	.catch(err => console.log(err))
-	// };
-
-	const getTimes = async () => {
-		fetch(`http://localhost:5000/pickupTimes`)
-			.then(response => response.json())
-			.then(response => setTimes(response.data))
-			.catch(err => console.error(err));
-	};
-
-	const submitdivText = order.length < 1 ? "Build" : "Submit";
+	//render each item in desired category with button for adding to order.
 	const renderItem = item => {
-		
+
 		const fixedPrice = "$" + item.price.toFixed(2);
+		//add button text
 		const divId = `add${item.name}`;
+		//add item to order || increment price/health points if already in order
 		const handleItemClick = (divId, disabled) => {
 			let found = false;
 			for (let i = 0; i < order.length; i++) {
@@ -91,7 +94,7 @@ function OrderForm(props) {
 			}
 			if (found === true) {
 				setTotal(total + item.price);
-				setDuplicates(duplicates+1);
+				setDuplicates(duplicates + 1);
 			} else if (found === false) {
 				setOrder(order.concat(item));
 				setTotal(total + item.price);
@@ -103,7 +106,7 @@ function OrderForm(props) {
 				<FaPlus />
 			</Button>
 		);
-
+		
 		return (
 			<div key={item.name} className='renderItemWrapper'>
 				<div className='renderItemName'>{item.name}</div>
@@ -113,7 +116,7 @@ function OrderForm(props) {
 			</div>
 		);
 	};
-	
+	//render each item in order
 	const renderOrderItems = item => {
 		return (
 			<div key={item.name} className='orderDetailsWrapper'>
@@ -123,13 +126,15 @@ function OrderForm(props) {
 			</div>
 		);
 	};
-	const renderTimes = time => {
-		return <option key={time.time_id}>{time.pickupTime}</option>;
-	};
-
+	//render each item in order on confirmation modal
 	const renderConfirmItems = item => {
 		return <li key={item.name}>{item.name}</li>;
 	};
+	//render each pickup time as <option/>
+	const renderTimes = time => {
+		return <option key={time.time_id}>{time.pickupTime}</option>;
+	};
+	//when order is placed from confirmation modal => 	
 	const handlePlaceOrderClick = () => {
 		toggleConfirmed();
 		setTimeout(toggleModal, 300);
@@ -146,6 +151,12 @@ function OrderForm(props) {
 	const routeHome = () => {
 		props.history.push("/home");
 	};
+	/****** FUNCTIONS ******/
+	
+
+	/****** CONDITIONAL INNER HTML ******/
+	const submitdivText = order.length < 1 ? "Build" : "Submit";
+
 	const thanksBody = routing ? (
 		<Spinner color='dark' />
 	) : (
@@ -173,12 +184,13 @@ function OrderForm(props) {
 		</div>
 	);
 	const avgHP = healthPoints / (order.length + duplicates) || 0;
-	console.log(healthPoints);
-	console.log(order.length);
-	console.log(duplicates);
+	
 	const orderDetailsHeader =
 		order.length < 1 ? "Select a category to begin..." : "Order Details";
 	console.log(userId);
+	/****** CONDITIONAL INNER HTML ******/
+
+	/****** RENDER THIS ******/
 	return (
 		<div className='orderFormWrapper'>
 			<div className='orderFormHeader'>
@@ -303,6 +315,7 @@ function OrderForm(props) {
 			</div>
 		</div>
 	);
+	/****** RENDER THIS ******/
 	
 }
 

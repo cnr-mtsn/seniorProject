@@ -1,8 +1,6 @@
 import React from "react";
 import Header from "../components/Header";
-import SpecialsSlideshow from "../components/SpecialsSlideshow";
 
-import { Jumbotron } from "reactstrap";
 
 function Home() {
 
@@ -13,10 +11,8 @@ function Home() {
 			<div className="homeHeader">
 				<Header title='Fed Eats Home' />
 			</div>
-			<div className="homeSlideshow">
-				<Jumbotron className='myJumbotron'>
-					<SpecialsSlideshow />
-				</Jumbotron>
+			<div className="homeBody">
+				Welcome to Fed Eats
 			</div>
 			
 		</div>

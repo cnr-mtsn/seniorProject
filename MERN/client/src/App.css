@@ -33,8 +33,8 @@ manageItemButton {
 .homeHeader {
   grid-area: hd;
 }
-.homeSlideshow {
-  grid-area: sld;
+.homeBody {
+  grid-area: bd;
 }
 .homeWrapper {
   display: grid;
@@ -42,7 +42,7 @@ manageItemButton {
   grid-auto-rows: minmax(100px, auto);
   grid-template-areas: 
     'hd hd hd hd hd hd hd hd'
-    '... ... sld sld sld sld ... ...';
+    '... ... ... bd bd ... ... ...';
 }
 /* HOME */
 
@@ -50,23 +50,37 @@ manageItemButton {
 
 /* HEADER */
 .mainHeader {
-  background-image: url('./media/darkPurpleBackground.png');
+  display:grid;
+  background-color:#978DAF;
+  grid-template-columns: repeat(8, 1fr);
+  grid-template-areas: 
+  'logo logo ... ... ... ... ... ...'
+  'logo logo ... ... hl ol pl al '
+  ;
 }
 .fedEatsLogo {
-  height: 8vh;
+  grid-area: logo;
+}
+.fedEatsLogoImg {
+  height:10vh;
   width: auto;
-  float: left;
 }
-.mainHeaderText {
-  color: white;
-  font-size: 4.5vh;
-  font-family: 'Mate SC', serif;
-  text-align: center;
+.homeLink {
+  grid-area: hl;
 }
-.ckLogo {
-  height: 10vh;
-  width:  auto;
-  float: right;
+.orderFormLink {
+  grid-area: ol;
+}
+.profileLink {
+  grid-area: pl;
+}
+.adminLink {
+  grid-area: al;
+} 
+.navLinks {
+  color:black;
+  float:right;
+  padding:15px;
 }
 /* HEADER */
 

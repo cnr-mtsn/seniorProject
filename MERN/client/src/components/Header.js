@@ -13,29 +13,31 @@ function Header(props) {
 	const [collapsed, setCollapsed] = useState(true);
 	const toggleNavbar = () => setCollapsed(!collapsed);
 
-	const homeLink = <Link to='/home'><span>Home</span></Link>;
+	const homeLink = <Link to='/home'><span className="navLinks">Home</span></Link>;
 	// const loginLink = <Link to='/login'><span>Login</span></Link>;
-	const orderFormLink = <Link to='/orderForm'><span>Order Form</span></Link>;
-	const profileLink = <Link to='/profile'><span>View Profile</span></Link>;
-	const adminLink = <Link to='/admin'><span>Admin</span></Link>;
+	const orderFormLink = (
+		<Link to='/orderForm'>
+			<span className='navLinks'>Order Form</span>
+		</Link>
+	);
+	const profileLink = (
+		<Link to='/profile'>
+			<span className='navLinks'>View Profile</span>
+		</Link>
+	);
+	const adminLink = (
+		<Link to='/admin'>
+			<span className='navLinks'>Admin</span>
+		</Link>
+	);
 
 	return (
 		<div className="mainHeader">
-			<Navbar color="faded" dark>
-				<NavbarBrand className="mr-auto">{logo1}</NavbarBrand>
-				<NavbarBrand>{title}</NavbarBrand>
-				<NavbarBrand className="ml-auto">{logo2}</NavbarBrand>
-				<NavbarToggler onClick={toggleNavbar} className="mr-2"/>
-				<Collapse isOpen={!collapsed} navbar>
-					<Nav navbar>
-						<NavItem className="navList">{homeLink}</NavItem>
-						{/* <NavItem className="navList">{loginLink}</NavItem> */}
-						<NavItem className="navList">{orderFormLink}</NavItem>
-						<NavItem className="navList">{profileLink}</NavItem>
-						<NavItem className="navList">{adminLink}</NavItem>
-					</Nav>
-				</Collapse>
-			</Navbar>
+			<div className="fedEatsLogo"><Image className="fedEatsLogoImg" src={fedEatsLogo}></Image></div>
+			<div className="homeLink">{homeLink}</div>
+			<div className="orderFormLink">{orderFormLink}</div>
+			<div className="profileLink">{profileLink}</div>
+			<div className="adminLink">{adminLink}</div>
 		</div>
 	);
 }
