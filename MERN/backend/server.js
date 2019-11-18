@@ -342,6 +342,13 @@ app.get('/userStats', (req, res) => {
         err ? res.send(err) : res.json({ data: results })
     });
 });
+app.get('/userById', (req, res) => {
+    const {id} = req.query;
+    const GET_USER_VIEW = `SELECT name, view FROM users WHERE user_id = ${id}`;
+    db.query(GET_USER_VIEW, (err, results) => {
+        err ? res.send(err) : res.json({data:results})
+    });
+});
 
 /************ ORDERS ************/
 //Add order

@@ -33,16 +33,43 @@ manageItemButton {
 .homeHeader {
   grid-area: hd;
 }
-.homeBody {
-  grid-area: bd;
+.homeInput {
+  grid-area: hi;  
+}
+.homeButton {
+  grid-area: hb;
+  margin-top: 20px;
+}
+.hb {
+  width:100%;
+  background-color:#FFFFFF;
+  color:#4F4856;
+}
+.hb:hover {
+  background-color:#978DAF;
+  color:black;
+  border:1px solid white;
 }
 .homeWrapper {
   display: grid;
-  grid-template-columns: repeat(8, 1fr);
+  grid-template-columns: repeat(9, 1fr);
   grid-auto-rows: minmax(100px, auto);
   grid-template-areas: 
-    'hd hd hd hd hd hd hd hd'
-    '... ... ... bd bd ... ... ...';
+    'hd hd hd hd hd hd hd hd hd'
+    '... ... ... ... ... ... ... ... ...'
+    '... ... ... hc hc hc ... ... ...'
+   ;
+}
+.homeContainer {
+  border-radius: 20px;
+  background-color: #4F4856;
+  grid-area: hc;
+  display:grid;
+  grid-template-areas:
+   '... ... hi hi hi ... ...'
+   '... ... ... hb ... ... ...'
+  ;
+  padding:30px;
 }
 /* HOME */
 
