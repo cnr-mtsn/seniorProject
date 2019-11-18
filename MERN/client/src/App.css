@@ -46,8 +46,6 @@ manageItemButton {
 }
 /* HOME */
 
-
-
 /* HEADER */
 .mainHeader {
   display:grid;
@@ -55,7 +53,7 @@ manageItemButton {
   grid-template-columns: repeat(8, 1fr);
   grid-template-areas: 
   'logo logo ... ... ... ... ... ...'
-  'logo logo ... ... hl ol pl al '
+  'logo logo  hl ol pl al ... usr'
   ;
 }
 .fedEatsLogo {
@@ -77,10 +75,14 @@ manageItemButton {
 .adminLink {
   grid-area: al;
 } 
+.user {
+  grid-area: usr;
+}
 .navLinks {
   color:black;
-  float:right;
+  float:left;
   padding:15px;
+  bottom: 50%;
 }
 /* HEADER */
 

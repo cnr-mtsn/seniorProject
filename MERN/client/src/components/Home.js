@@ -11,10 +11,10 @@ function Home() {
 			<div className="homeHeader">
 				<Header title='Fed Eats Home' />
 			</div>
+			
 			<div className="homeBody">
 				Welcome to Fed Eats
 			</div>
-			
 		</div>
 	);
 }

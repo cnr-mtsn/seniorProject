@@ -11,15 +11,16 @@ import {
   CardFooter,
   Button,
 } from "reactstrap";
-
 import ItemsCarousel from "react-items-carousel";
+
+/* image imports */
 import pastrami from "../media/pastrami.png";
-// import chickenBaconRanch from "./media/chickenBaconRanch.png";
-// import southwestWrap from "./media/southwestChickenWrap.png";
 import shrimpWrap from "../media/shrimpWrap.png";
 import roastBeef from '../media/roastBeef.png';
 import chickenBaconRanch from '../media/chickenBaconRanch.png';
 import southwestChickenWrap from '../media/southwestChickenWrap.png';
+/* image imports */
+
 import "../App.css";
 
 const AdminSpecials = () => {
@@ -35,7 +36,7 @@ const AdminSpecials = () => {
   }, []);
 
   const getSpecials = async () => {
-    fetch(`http://localhost:5000/specials`)
+    await fetch(`http://localhost:5000/specials`)
       .then(response => response.json())
       .then(response => setSpecials(response.data))
       .catch(err => console.error(err));
@@ -53,17 +54,6 @@ const AdminSpecials = () => {
     const fixedPrice = `$${special.price.toFixed(2)}`;
     var imgImport;
 
-    // if(special.imageName === 'roastBeef') {
-    //   imgImport = roastBeef;
-    // } else if(special.imageName === 'shrimpWrap') {
-    //   imgImport = shrimpWrap;
-    // } else if(special.imageName === 'chickenBaconRanch') {
-    //   imgImport = chickenBaconRanch;
-    // } else if(special.imageName === 'southwestChickenWrap') {
-    //   imgImport = southwestChickenWrap;
-    // } else {
-    //   img
-    // }
     switch (special.imageName) {
 			case "roastBeef":
 				imgImport = roastBeef;
@@ -83,7 +73,7 @@ const AdminSpecials = () => {
     
 
     const updateSpecial = async () => {
-      fetch(`http://localhost:5000/specials/update?name=${special.name}&newName=${newName}&price=${newPrice}&description=${newDesc}&healthPoints=${newHP}`)
+      await fetch(`http://localhost:5000/specials/update?name=${special.name}&newName=${newName}&price=${newPrice}&description=${newDesc}&healthPoints=${newHP}`)
       .then(getSpecials)
       .then(console.log(`updated: ${special.name}`))
       .catch(err => console.error(err))
