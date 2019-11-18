@@ -55,20 +55,20 @@ const AdminSpecials = () => {
     var imgImport;
 
     switch (special.imageName) {
-			case "roastBeef":
-				imgImport = roastBeef;
-				break;
-			case "shrimpWrap":
-				imgImport = shrimpWrap;
-				break;
-			case "chickenBaconRanch":
-				imgImport = chickenBaconRanch;
-				break;
-			case "southwestChickenWrap":
-				imgImport = southwestChickenWrap;
-				break;
-      default:
-        imgImport = pastrami;
+		case "roastBeef":
+			imgImport = roastBeef;
+			break;
+		case "shrimpWrap":
+			imgImport = shrimpWrap;
+			break;
+		case "chickenBaconRanch":
+			imgImport = chickenBaconRanch;
+			break;
+		case "southwestChickenWrap":
+			imgImport = southwestChickenWrap;
+			break;
+      	default:
+        	imgImport = pastrami;
 		}
     
 
@@ -86,12 +86,11 @@ const AdminSpecials = () => {
     };
 
     return (
-			<div key={special.main_id} style={{ height: "200" }}>
+			<div key={special.main_id}>
 				<Card>
 					<CardImg
+						height="320px"
 						top
-						width='100%'
-						// src={`../media/${special.imageName}.png`}
 						src={imgImport}
 						alt={special.name}
 					/>
@@ -175,34 +174,32 @@ const AdminSpecials = () => {
   };
 
   return (
-    <div style={{ backgroundColor: "rgb(222,200,247)", padding: "30px" }}>
-      <div
-        style={{
-          width: "600px",
-          margin: "auto",
-          height: "800",
-          borderRadius: "3px"
-        }}
-      >
-        <ItemsCarousel
-          infiniteLoop={true}
-          activePosition={"center"}
-          chevronWidth={40}
-          disableSwipe={true}
-          alwaysShowChevrons={false}
-          numberOfCards={1}
-          slidesToScroll={1}
-          outsideChevron={true}
-          activeItemIndex={activeIndex}
-          requestToChangeActive={value => setActiveIndex(value)}
-          rightChevron={">"}
-          leftChevron={"<"}
-        >
-          {specials.map(renderCards)}
-        </ItemsCarousel>
-      </div>
-    </div>
-  );
+		<div style={{ backgroundColor: "#696278", padding: "30px" }}>
+			<div
+				style={{
+					width: "600px",
+					margin: "auto",
+					height: "800",
+					borderRadius: "3px"
+				}}>
+				<ItemsCarousel
+					infiniteLoop={true}
+					activePosition={"center"}
+					chevronWidth={40}
+					disableSwipe={true}
+					alwaysShowChevrons={false}
+					numberOfCards={1}
+					slidesToScroll={1}
+					outsideChevron={true}
+					activeItemIndex={activeIndex}
+					requestToChangeActive={value => setActiveIndex(value)}
+					rightChevron={">"}
+					leftChevron={"<"}>
+					{specials.map(renderCards)}
+				</ItemsCarousel>
+			</div>
+		</div>
+	);
 };
 
 export default AdminSpecials;
