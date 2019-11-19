@@ -22,15 +22,19 @@ function Home(props) {
 			case 3:
 				//route to admin page
 				break;
+			default:
+				//route home
 		}
 	};
+
 	const getUserData = async () => {
 		await fetch(`http://localhost:5000/userById?id=${userID}`)
 		.then(response => response.json())
 		.then(response => setUser(response.data))
 		.catch(err => console.log(err));
 	}
-	const userName = (user ? user[0].name : '');
+	
+	const userName = (user ? user[0].firstName : '');
 	const userView = (user ? user[0].view : 0);
 
 	return (

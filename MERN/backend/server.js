@@ -344,7 +344,7 @@ app.get('/userStats', (req, res) => {
 });
 app.get('/userById', (req, res) => {
     const {id} = req.query;
-    const GET_USER_VIEW = `SELECT name, view FROM users WHERE user_id = ${id}`;
+    const GET_USER_VIEW = `SELECT firstName, lastName, view FROM users WHERE user_id = ${id} LIMIT 1`;
     db.query(GET_USER_VIEW, (err, results) => {
         err ? res.send(err) : res.json({data:results})
     });
@@ -359,4 +359,3 @@ app.get('/newOrder', (req, res) => {
         err ? res.send(err) : res.json({ data: results });
     });
 });
-

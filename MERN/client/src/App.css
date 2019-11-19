@@ -80,9 +80,14 @@ manageItemButton {
   grid-template-columns: repeat(8, 1fr);
   grid-template-areas: 
   'logo logo ... ... ... ... ... ...'
-  'logo logo  hl ol pl al ... usr'
+  'logo logo  hl ol pl al icn grt'
+  'logo logo ... ... ... ... ... ...'
   ;
 }
+/* .mainHeader div {
+  outline:1px solid blue;
+} */
+
 .fedEatsLogo {
   grid-area: logo;
 }
@@ -92,24 +97,30 @@ manageItemButton {
 }
 .homeLink {
   grid-area: hl;
+  height:36px;
+  text-align: center;
 }
 .orderFormLink {
   grid-area: ol;
+  text-align: center;
 }
 .profileLink {
   grid-area: pl;
+  text-align: center;
 }
 .adminLink {
   grid-area: al;
+  text-align: center;
 } 
-.user {
-  grid-area: usr;
+.userIcon {
+  grid-area: icn;
+}
+.userGreeting {
+  grid-area: grt;
 }
 .navLinks {
   color:black;
-  float:left;
-  padding:15px;
-  bottom: 50%;
+  text-align:center;
 }
 /* HEADER */
 
