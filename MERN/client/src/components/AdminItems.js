@@ -277,23 +277,18 @@ function AdminItems(props) {
 				<div className='adminSelectCategory'>{selectCategory}</div>
 
 				<div className='adminTable'>
-					<div
-						style={{visibility: labelVis	}}
-						className='adminItemHeaderName'>
+					<div style={{ visibility: labelVis }} className='adminItemHeaderName'>
 						Name
 					</div>
 					<div
-						style={{visibility: labelVis}}
+						style={{ visibility: labelVis }}
 						className='adminItemHeaderPrice'>
 						Price
 					</div>
-					<div
-						style={{visibility: labelVis}}
-						className='adminItemHeaderHP'>
+					<div style={{ visibility: labelVis }} className='adminItemHeaderHP'>
 						HP
 					</div>
-					<div
-						className='adminItemHeaderDesc'>
+					<div style={{ visibility: labelVis }} className='adminItemHeaderDesc'>
 						{calOrDesc}
 					</div>
 					<div className='adminTableBody'>{items.map(renderItem)}</div>
