@@ -2,10 +2,17 @@ const express = require('express');
 const mysql = require('mysql');
 const cors = require('cors');
 const PORT = 5000;
+const bodyParser = require('body-parser');
 const app = express();
-app.use(cors());
 const host = 'www.math-cs.ucmo.edu';
 const user = 'F19fedres2';
+var Users = require("./routes/Users");
+
+app.use(cors());
+// app.use(bodyParser.json());
+// app.use(bodyParser.urlencoded({extended: false}));
+// app.use('/users', Users);
+
 
 //DATABASE CONNECTION
 const db = mysql.createConnection( {
@@ -19,6 +26,10 @@ db.connect((err) => {
     err ? console.log(`ERROR: ${err}`) : console.log(`Connected to MySQL: { host: ${host}, user: ${user}`);
 })
 
+//Listen for requests on given port
+app.listen(process.env.PORT || PORT, () => {
+    console.log(`Listening on port: ${PORT}`)
+});
 
 /************   QUERIES   ************/
 const SELECT_ALL_CHEESES = 'SELECT * FROM cheese';
@@ -33,7 +44,7 @@ const SELECT_ALL_SPECIALS = 'SELECT * FROM main ORDER BY main_id';
 // const SELECT_USER_PASSWORDS = `SELECT user_id FROM users WHERE name = '${name}' AND email = '${email}' AND pass = AES_ENCRYPT('${pass}', UNHEX(SHA2(CONCAT('${pass}', salt), 512)))`;
 
 
-                    /**********   GET ROUTES   ************/
+/**********   GET ROUTES   ************/
 //Home Route
 app.get('/', (req, res) => {
     res.send(`Home`);
@@ -47,7 +58,7 @@ app.get('/user/login', (req, res) => {
     });
 });
 
-        /************   CHEESE ROUTES   ************/
+/************   CHEESE ROUTES   ************/
 //Add cheese
 app.get('/cheese/add', (req, res) => {
     const {name, price, healthPoints} = req.query;
@@ -80,7 +91,7 @@ app.get('/cheese/update', (req, res) => {
 });
 
 
-        /************   VEGGIES ROUTES   ************/
+/************   VEGGIES ROUTES   ************/
 //Add veggie
 app.get('/veggie/add', (req, res) => {
     const {name, price, healthPoints} = req.query;
@@ -111,7 +122,8 @@ app.get('/veggie/update', (req, res) => {
         err ? res.send(err) : res.send(`Successfully Updated ${name} to ${newName}`);
     });
 });
-        /************   BREADS ROUTES   ************/
+
+/************   BREADS ROUTES   ************/
 //Add bread
 app.get('/bread/add', (req, res) => {
     const {name, price, healthPoints} = req.query;
@@ -143,7 +155,7 @@ app.get('/bread/update', (req, res) => {
     });
 });
 
-        /************   PROTEIN ROUTES   ************/
+/************   PROTEIN ROUTES   ************/
 //Add protein
 app.get('/protein/add', (req, res) => {
     const {name, price, healthPoints} = req.query;
@@ -174,7 +186,8 @@ app.get('/protein/update', (req, res) => {
         err ? res.send(err) : res.send(`Successfully Updated ${name} to ${newName}`);
     });
 });
-        /************   CONDIMENTS ROUTES   ************/
+
+/************   CONDIMENTS ROUTES   ************/
 //Add condiment
 app.get('/condiment/add', (req, res) => {
     const {name, price, healthPoints} = req.query;
@@ -205,7 +218,8 @@ app.get('/condiment/update', (req, res) => {
         err ? res.send(err) : res.send(`Successfully Updated ${name} to ${newName}`);
     });
 });
-        /************   EXTRAS ROUTES   ************/
+
+/************   EXTRAS ROUTES   ************/
 //Add extra
 app.get('/extra/add', (req, res) => {
     const {name, price, healthPoints} = req.query;
@@ -236,7 +250,8 @@ app.get('/extra/update', (req, res) => {
         err ? res.send(err) : res.send(`Successfully Updated ${name} to ${newName}`);
     });
 });
-        /************   TORTILLAS ROUTES   ************/
+
+/************   TORTILLAS ROUTES   ************/
 //Add tortilla
 app.get('/tortilla/add', (req, res) => {
     const {name, price, healthPoints} = req.query;
@@ -274,7 +289,8 @@ app.get('/pickupTimes', (req, res) => {
         err ? res.send(err) : res.json({ data: results });
     });
 });
-/************ SPECIALS ROUTES ************/
+
+/**** SPECIALS ROUTES ************/
 //All Deli Specials
 app.get('/specials', (req, res) => {
     db.query(SELECT_ALL_SPECIALS, (err, results) => {
@@ -299,19 +315,19 @@ app.get('/specials/delete', (req, res) => {
 });
 //UPDATE Special
 app.get('/specials/update', (req, res) => {
-    const {name, newName, price, healthPoints, description} = req.query;
-    const UPDATE_SPECIAL = `UPDATE main SET name='${newName}', price=${price}, health_points=${healthPoints}, description='${description}' WHERE name='${name}'`;
+    const {name, newName, price, hp, desc} = req.query;
+    const UPDATE_SPECIAL = `UPDATE main SET name='${newName}', price=${price}, health_points=${hp}, description='${desc}' WHERE name='${name}'`;
     db.query(UPDATE_SPECIAL, (err, results) => {
         err ? res.send(err) : res.send(`Successfully updated ${name} to ${newName}`);
     });
 });
 
 /************   USER ROUTES    ************/
-app.get('/userPassword', (req, res) => {
-    db.query(SELECT_USER_PASSWORDS, (err, results) => {
-        err ? res.send(err) : res.json({ data: results });
-    });
-});
+// app.get('/userPassword', (req, res) => {
+//     db.query(SELECT_USER_PASSWORDS, (err, results) => {  //This really shouldn't be a thing, for security's sake. 
+//         err ? res.send(err) : res.json({ data: results });
+//     });
+// });
 
 app.get('/userStats', (req, res) => {
     const {userID} = req.query;
@@ -326,6 +342,20 @@ app.get('/userStats', (req, res) => {
         err ? res.send(err) : res.json({ data: results })
     });
 });
+app.get('/userById', (req, res) => {
+    const {id} = req.query;
+    const GET_USER_VIEW = `SELECT firstName, lastName, user_id, view FROM users WHERE user_id = ${id} LIMIT 1`;
+    db.query(GET_USER_VIEW, (err, results) => {
+        err ? res.send(err) : res.json({data:results})
+    });
+});
+app.get('/userByIdAll', (req, res) => {
+    const {id} = req.query;
+    const GET_USER_VIEW = `SELECT * FROM users WHERE user_id = ${id} LIMIT 1`;
+    db.query(GET_USER_VIEW, (err, results) => {
+        err ? res.send(err) : res.json({data:results})
+    });
+});
 
 /************ ORDERS ************/
 //Add order
@@ -335,9 +365,4 @@ app.get('/newOrder', (req, res) => {
     db.query(ADD_ORDER, (err, results) => {
         err ? res.send(err) : res.json({ data: results });
     });
-});
-
-//Listen for requests on given port
-app.listen(process.env.PORT || PORT, () => {
-    console.log(`Listening on port: ${PORT}`)
 });

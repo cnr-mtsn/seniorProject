@@ -6,125 +6,299 @@
   min-height: 100vh;
 }
 
-.items {
-  padding: 2vh;
+/* ADMIN */
+.adminWrapper {
+  display: grid;
+  grid-template-columns: repeat(8, 1fr);
+  grid-template-areas:
+    'hd hd hd hd hd hd hd hd'
+    'mn mn mn mn mn mn mn mn'
+  ;
 }
-.myJumbotron {
-  /* background-image: url('./media/darkPurpleBackground.png'); */
-  background-color:transparent; 
-  margin-top: 2vh;
-  padding: 4vh;
+.adminHeader {
+  grid-area: hd;
 }
-.loginJumbo {
-  margin-top: 15vh;
-  padding: 4vh;
+.adminMainContent {
+  grid-area: mn;
 }
-.orderForm {
-  background-color:white;
-  margin-top: 2vh;
-  padding:4vh;
-}
-.orderItems {
-  background-color:white;
+/* ADMIN */
+
+/* ADMINSPECIALS */
+/* ADMINSPECIALS */
+
+/* ADMINITEMS */
+.adminItemsWrapper {
+  display:grid;
+  gap:10px;
+  grid-template-columns: repeat(5, 1fr);
+  grid-template-areas: 
+    'sd mn mn mn mn'
+    ;
 }
 
-.clear {
-  background-color: transparent;
+.adminSelectCategory {
+  grid-area: sd;
+  height:100vh;
+  background-color:#4F4856;
+  color:white;
+}
+.adminTable {
+  grid-area: mn;
+  overflow:scroll;
+  max-height:80vh;
+  display:grid;
+  grid-template-rows: repeat(10, 1fr);
+  grid-template-areas:
+  'hn ... ... hpr ... ... hhp ... ... hds ... ... ...'
+  'bd bd bd bd bd bd bd bd bd bd bd bd bd'
+  'bd bd bd bd bd bd bd bd bd bd bd bd bd'
+  'bd bd bd bd bd bd bd bd bd bd bd bd bd'
+  'bd bd bd bd bd bd bd bd bd bd bd bd bd'
+  'bd bd bd bd bd bd bd bd bd bd bd bd bd'
+  'bd bd bd bd bd bd bd bd bd bd bd bd bd'
+  'bd bd bd bd bd bd bd bd bd bd bd bd bd'
+  'bd bd bd bd bd bd bd bd bd bd bd bd bd'
+  'bd bd bd bd bd bd bd bd bd bd bd bd bd'
+  ;
+}
+.adminItemHeaderName {
+  grid-area: hn;
+}
+.adminItemHeaderPrice {
+  grid-area: hpr;
+}
+.adminItemHeaderHP {
+  grid-area: hhp;
+}
+.adminItemHeaderDesc {
+  grid-area: hds;
+}
+.adminTableBody {
+  grid-area: bd;
+}
+.selectWrapper {
+  display:grid;
+  grid-template-rows: repeat(10, 1fr);
+  grid-template-areas: 
+  'br'
+  'tr'
+  'pr'
+  'ch'
+  'vg'
+  'cd'
+  'xt'
+  '...'
+  'sp'
+  'in'
+;
+}
+.selectWrapper div {
+  height:6vh;
+  cursor:pointer;
+}
+.selectWrapper div span{
+  font-size: 24px;
+  transition: all 1s;
+}
+.selectWrapper div:hover {
+  border-top:1px solid grey;
+  border-bottom:1px solid grey;
+  font-size:25px;
+}
+.selectWrapper div:hover span{
+  font-size:25px;
+  margin-left:10%;
+}
+  
+
+.selectBreadButton {
+  grid-area: br;
+}
+.selectTortillaButton {
+  grid-area: tr;
+}
+.selectProteinButton {
+  grid-area: pr;
+}
+.selectCheeseButton {
+  grid-area: ch;
+}
+.selectVeggieButton {
+  grid-area: vg;
+}
+.selectCondimentButton {
+  grid-area: cd;
+}
+.selectExtraButton {
+  grid-area: xt;
+}
+.selectSpecial {
+  grid-area: sp;
+}
+.adminInput {
+  grid-area: in;
 }
 
-.manageItemButton {
-  font-size: 1.8vh;
-}
-.manageItemPrice {
-  width: 100%;
-  height: 5vh;
-}
-
-.itemTable thead tr th {
-  font-size: 2vh;
-  font-family: Georgia;
-}
-.itemTable tbody tr td {
-  font-size: 2vh;
-  vertical-align: middle;
-}
-.manageItemHeader {
-  text-align: left;
+/* ADMINITEMS */
+.adminItemsInnerWrapper {
+  display:grid;
+  grid-template-columns:repeat(10, 1fr);
+  grid-template-areas: 
+  'nm nm pr pr hp hp ds ds up dl';
 }
 
-/***** HEADER *****/
+.adminItemName {
+  grid-area: nm;
+}
+.adminItemPrice {
+  grid-area: pr;
+}
+.adminItemHP {
+  grid-area: hp;
+}
+.adminItemDesc {
+  grid-area: ds;
+}
+.adminItemUpdate {
+  grid-area: up;
+}
+.adminItemDelete {
+  grid-area: dl;
+}
+
+
+/* HOME */
+.homeHeader {
+  grid-area: hd;
+}
+.homeInput {
+  grid-area: hi;  
+}
+.homeButton {
+  grid-area: hb;
+  margin-top: 20px;
+}
+.hb {
+  width:100%;
+  background-color:#FFFFFF;
+  color:#4F4856;
+}
+.hb:hover {
+  background-color:#978DAF;
+  color:black;
+  border:1px solid white;
+}
+.homeWrapper {
+  display: grid;
+  grid-template-columns: repeat(9, 1fr);
+  grid-auto-rows: minmax(100px, auto);
+  grid-template-areas: 
+    'hd hd hd hd hd hd hd hd hd'
+    '... ... ... ... ... ... ... ... ...'
+    '... ... ... hc hc hc ... ... ...'
+   ;
+}
+.homeContainer {
+  border-radius: 20px;
+  background-color: #4F4856;
+  grid-area: hc;
+  display:grid;
+  grid-template-areas:
+   '... ... hi hi hi ... ...'
+   '... ... ... hb ... ... ...'
+  ;
+  padding:30px;
+}
+/* HOME */
+
+/* HEADER */
 .mainHeader {
-  background-image: url('./media/darkPurpleBackground.png');
+  display:grid;
+  background-color:#978DAF;
+  grid-template-columns: repeat(8, 1fr);
+  grid-template-areas: 
+  'logo logo ... ... ... ... ... ...'
+  'logo logo  hl ol pl al icn grt'
+  'logo logo ... ... ... ... ... ...'
+  ;
 }
+/* .mainHeader div {
+  outline:1px solid blue;
+} */
+
 .fedEatsLogo {
-  margin-top:1vh;
-  height: 8vh;
+  grid-area: logo;
+}
+.fedEatsLogoImg {
+  height:10vh;
   width: auto;
-  float: left;
 }
-.ckLogo {
-  margin-top:.5vh;
-  height: 10vh;
-  width:  auto;
-  float: right;
-}
-.formTitle {
-  color: white;
-  font-size: 4vh;
-  text-align: left;
-  background-image: url('./media/purpleBackground.png');
-  padding:1vh;
-}
-.mainHeaderText {
-  color: white;
-  font-size: 4.5vh;
-  font-family: 'Mate SC', serif;
+.homeLink {
+  grid-area: hl;
+  height:36px;
   text-align: center;
-  margin-top:2vh;
-  margin-bottom:2vh;
 }
-
-.white {
-  color: white;
-}
-.darkGrey {
-  background-color: rgb(31, 33, 51);
-}
-
-/***** HEADER *****/
-
-/***** LOGIN *****/
-.loginHeader {
+.orderFormLink {
+  grid-area: ol;
   text-align: center;
-  color: white;
 }
+.profileLink {
+  grid-area: pl;
+  text-align: center;
+}
+.adminLink {
+  grid-area: al;
+  text-align: center;
+} 
+.userIcon {
+  grid-area: icn;
+}
+.userGreeting {
+  grid-area: grt;
+}
+.navLinks {
+  color:black;
+  text-align:center;
+}
+/* HEADER */
 
-/***** ADMIN *****/
 
+
+/* ADMIN */
 .adminSelectCategory ul li {
   list-style: none;
 } 
-.adminTable {
-  overflow:scroll;
-  max-height:410px;
-  padding:10px;
+.modalWrapper {
+  display:grid;
+  grid-template-areas: 
+  'ct ct ct'
+  'nm nm nm'
+  'pr pr pr'
+  'hp hp hp'
+  '... btn ...'
+;
 }
-.addItemInput {
-  margin-top: 5vh;
-  padding: 10px;
+.modalCategory {
+  grid-area: ct;
+}
+.modalName {
+  grid-area: nm;
+}
+.modalPrice {
+  grid-area: pr;
+}
+.modalHP {
+  grid-area: hp;
+}
+.modalButton {
+  grid-area:btn;
 }
 
-/****** NavigationBar ******/
-.navigationBar {
-  margin-top:2vh;
-}
-.purpleButton {
-  outline:1px solid white;
-  background-image: url('./media/purpleBackground.png');
-  width: 100%;
-}
+/* ADMIN */
 
-/****** Specials ******/
+
+
+/* SPECIALS */
 .specialImage {
   height: 35vh;
   border-radius: 8px;
@@ -148,44 +322,8 @@
   width: 80px;
   background-color:rgb(red, green, rgb(126, 78, 240));
 }
+/* SPECIALS */
 
-/****** ORDER FORM ******/
-.orderItemsButton {
-  border:none;
-  color:white;
-  text-align: center;
-}
-.baseDropdown span {
-  color:white;
-}
-
-.orderItemsDiv {
-  max-height: 500px;
-  overflow: scroll;
-}
-.orderItem {
-  font-size: 2vh;
-  text-align: left;
-}
-.orderTotal {
-  margin-left:3.2vw;
-}
-.orderDetailsCard {
-  min-height:300px;
-}
-.orderDetails {
-  font-size:1.5vh;
-}
-.orderDetailsTitle {
-  height:20px;
-  text-align: center;
-  font-size:3vh;
-  margin-top:2vh;
-}
-.orderDetailsBodyDiv {
-  overflow: scroll;
-  height:250px;
-}
 
 .navList {
   text-align:right;
@@ -195,13 +333,7 @@
   font-size: 2.5vh;
   font-family: 'Mate SC', serif;
 }
-.orderModal {
-  list-style: square;
-}
-.modalDark {
-  background-color:rgb(31, 33, 51);
-  color:white;
-}
+
 
 /****** PROFILE ******/
 .profileSelectCard {
@@ -210,7 +342,6 @@
   background-color: rgb(31, 33, 51);
   color:white;
 }
-
 .profileSelectTitle {
   height:20px;
   text-align: center;
@@ -223,10 +354,216 @@
   background-color: rgb(31, 33, 51);
   color:white;
 }
-
 .profileViewTitle {
   height:20px;
   text-align: center;
   font-size:3vh;
   margin-top:2vh;
 }
+/* PROFILE */
+
+/* LOGIN */
+.loginWrapper {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  grid-auto-rows: minmax(100px, auto);
+  grid-template-areas: 
+    'hd hd hd hd hd hd'
+    '... ... main main ... ...'
+  ;
+
+}
+.loginHeader {
+  grid-area: hd;
+}
+.loginJumbo {
+  grid-area: main
+}
+/* LOGIN */
+
+/* ORDER FORM */
+.orderFormWrapper {
+  display: grid;
+  grid-template-columns: repeat(9, 1fr);
+  grid-template-rows: repeat(6, 1fr);
+  grid-template-areas: 
+    'hd hd hd hd hd hd hd hd hd'
+    '... ... ... ... ... ... ... ... ...'
+    '... main main main main ... deets deets ...'
+    '... main main main main ... deets deets ...'
+    '... main main main main ... deets deets ...'
+    '... main main main main ... deets deets ...'
+    '... main main main main ... deets deets ...'
+}
+.orderFormHeader {
+  grid-area: hd;
+}
+.orderForm {
+  grid-area: main;
+  border: 2px solid red;
+  border-radius: 15px;
+}
+.orderFormDetails {
+  grid-area: deets;
+  border: 2px solid blue;
+  border-radius: 15px;
+}
+.orderDetailsInner {
+  display:grid;
+  grid-template-columns: 1fr;
+  grid-template-areas:
+    'hd'
+    'itm'
+    'ftr'
+  ;
+}
+
+.orderDetailsTitle {
+  grid-area: hd;
+}
+.renderOrderItemsDiv {
+  grid-area: itm;
+  height: 300px;
+  overflow:scroll;
+  outline: 1px dotted purple;
+}
+.orderDetailsFooter {
+  grid-area: ftr;
+}
+.detailsFooterWrapper {
+  display:grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+  max-height:5px;
+  grid-template-areas: 
+  'ttl ttl ttl ttl ttl'
+  '... ... ... ... ...'
+    '... clr... cfrm ...'
+    ;
+}
+.detailsClearButton {
+  grid-area: clr;
+}
+.detailsConfirmButton {
+  grid-area: cfrm;
+}
+.detailsTotal {
+  grid-area: ttl;
+}
+.detailsButton {
+  width: 80px;
+}
+.formWrapper {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  grid-template-rows: repeat(6, 1fr);
+  grid-template-areas:
+    'sc sc sc sc sc sc sc'
+    'form form form form form form form'
+    'form form form form form form form'
+    'form form form form form form form'
+    'form form form form form form form'
+    'form form form form form form form'
+    
+}
+.selectCategory {
+  grid-area: sc;
+  width:100%;
+}
+
+.actualForm {
+  grid-area: form;
+  overflow:scroll;
+  height: 400px;
+}
+.selectCategoryWrapper {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  grid-template-areas:
+  'brd trt ptn chs veg cdmt xtr'
+}
+.selectBreadButton {
+  text-align:left;
+  grid-area: brd;
+  cursor: pointer;
+  background-color:grey;
+}
+.selectTortillaButton {
+  text-align:left;
+  grid-area: trt;
+  cursor: pointer;
+   background-color:grey;
+}
+.selectProteinButton {
+  text-align:left;
+  grid-area: ptn;
+  cursor: pointer;
+   background-color:grey;
+}
+.selectCheeseButton {
+  text-align:left;
+  grid-area: chs;
+  cursor: pointer;
+   background-color:grey;
+}
+.selectVeggieButton {
+  text-align:left;
+  grid-area: veg;
+  cursor: pointer;
+   background-color:grey;
+}
+.selectCondimentButton {
+  text-align:center;
+  grid-area: cdmt;
+  cursor: pointer;
+   background-color:grey;
+}
+.selectExtraButton {
+  text-align:right;
+  grid-area: xtr;
+  cursor: pointer;
+   background-color:grey;
+}
+
+.renderItemWrapper {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr 1fr;
+  grid-template-areas: 
+  'nm nm prc hp btn'
+  ;
+  padding: 10px;
+}
+.actualForm > div:nth-child(odd) {
+  background-color:grey;
+}
+
+.renderItemName {
+  grid-area: nm;
+}
+.renderItemPrice {
+  grid-area: prc;
+}
+.renderItemHP {
+  grid-area: hp;
+}
+.renderItemAddButton {
+  grid-area: btn;
+}
+
+.orderDetailsWrapper {
+  display:grid;
+  grid-template-columns: 2fr 1fr 1fr;
+  grid-template-areas: 
+  'nm nm prc hp'
+  ;
+  padding: 10px;
+}
+.detailsName {
+  grid-area: nm;
+}
+.detailsPrice {
+  grid-area: prc;
+}
+.detailsHP {
+  grid-area: hp;
+}
+/* ORDER FORM */
