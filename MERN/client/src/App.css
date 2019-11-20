@@ -336,29 +336,86 @@
 
 
 /****** PROFILE ******/
-.profileSelectCard {
-  min-height: 150px;
-  min-width: 500px;
-  background-color: rgb(31, 33, 51);
-  color:white;
+.profileWrapper {
+  display:grid;
+  grid-template-columns: repeat(9, 1fr);
+  grid-template-areas:
+  'hd hd hd hd hd hd hd hd hd'
+  'sd sd bd bd bd bd bd bd bd'
+  ;
 }
-.profileSelectTitle {
-  height:20px;
-  text-align: center;
-  font-size:3vh;
-  margin-top:2vh;
+.profileHeader {
+  grid-area: hd;
 }
-.profileViewCard {
-  min-height: 150px;
-  min-width: 500px;
-  background-color: rgb(31, 33, 51);
-  color:white;
+.profileSide {
+  grid-area: sd;
 }
-.profileViewTitle {
-  height:20px;
-  text-align: center;
-  font-size:3vh;
-  margin-top:2vh;
+.profileBody {
+  grid-area: bd;
+  height:90vh;
+  padding: 50px;
+  outline:2px solid black;
+  display:grid;
+  grid-auto-rows: minmax(80px, auto);
+  grid-template-areas: 
+  'bl'
+  'bd'
+  ;
+}
+.profileBodyLabels {
+  grid-area: bl;
+  outline:2px solid black;
+  height: 80px;
+}
+.profileBodyData {
+  grid-area: bd;
+  outline:2px solid orangered;
+  height:4px;
+
+}
+.profileSide {
+  display: grid;
+  grid-template-rows: repeat(9, 1fr);
+  height: 90vh;
+  grid-template-areas:
+  'pp'
+  'pp'
+  'pp'
+  'pp'
+  '...'
+  '...'
+  'pl'
+  '...'
+  '...'
+  'pf'
+  ;
+}
+.profileSidePicAndStars {
+  grid-area: pp;
+  outline:1px solid red;
+  height:350px;
+  display: grid;
+  grid-template-areas:
+    'psp'
+    'pss'
+}
+.profileSidePic {
+  grid-area: psp;
+  height: 35vh;
+  outline: 1px solid black;
+}
+.profileSideStars {
+  grid-area: pss;
+}
+.profileSideLinks {
+  grid-area: pl;
+  outline:1px solid blue;
+   height:80px;
+}
+.profileSideFooter {
+  grid-area: pf;
+  outline:1px solid green;
+   height:40px;
 }
 /* PROFILE */
 

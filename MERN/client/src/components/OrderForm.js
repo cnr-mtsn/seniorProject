@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import "../App.css";
 import Header from "../components/Header";
 import { FaPlus } from "react-icons/fa";
+import { Redirect } from 'react-router-dom';
 import {
 	Button,
 	Input,
@@ -17,6 +18,7 @@ function OrderForm(props) {
 	/****** STATE  ******/
 	const [items, setItems] = useState([]);
 	const [order, setOrder] = useState([]);
+	const [redirect, setRedirect] = useState(false);
 	const [category, setCategory] = useState("");
 	const [total, setTotal] = useState(0);
 	const [duplicates, setDuplicates] = useState(0);
@@ -75,6 +77,7 @@ function OrderForm(props) {
 		setOrder([]);
 		setHealthPoints(0);
 		setTotal(0);
+		setDuplicates(0);
 	};
 	//render each item in desired category with button for adding to order.
 	const renderItem = item => {
@@ -135,7 +138,6 @@ function OrderForm(props) {
 		toggleConfirmed();
 		setTimeout(toggleModal, 300);
 		setOrder([]);
-		setUser(null);
 		setTotal(0);
 		setComments(null);
 		setTimeout(toggleThanks, 300);
@@ -145,7 +147,7 @@ function OrderForm(props) {
 		setTimeout(routeHome, 800);
 	};
 	const routeHome = () => {
-		props.history.push("/home");
+		setRedirect(true);
 	};
 	/****** FUNCTIONS ******/
 	
@@ -187,130 +189,139 @@ function OrderForm(props) {
 	/****** CONDITIONAL INNER HTML ******/
 
 	/****** RENDER THIS ******/
-	return (
-		<div className='orderFormWrapper'>
-			<div className='orderFormHeader'>
-				<Header user={user} view={user.view}/>
-			</div>
+	if(redirect) {
+		return ( <Redirect to="/"/>);
+	} else {
+		return (
+			<div className='orderFormWrapper'>
+				<div className='orderFormHeader'>
+					<Header user={user} view={user.view} />
+				</div>
 
-			<div className='orderForm'>
-				<div className='formWrapper'>
-					<div className='selectCategory'>
-						<div className='selectCategoryWrapper'>
-							<div
-								className='selectBreadButton'
-								value='bread'
-								onClick={handleCategorySelection.bind(this, "bread")}>
-								Bread
+				<div className='orderForm'>
+					<div className='formWrapper'>
+						<div className='selectCategory'>
+							<div className='selectCategoryWrapper'>
+								<div
+									className='selectBreadButton'
+									value='bread'
+									onClick={handleCategorySelection.bind(this, "bread")}>
+									Bread
+								</div>
+								<div
+									className='selectTortillaButton'
+									value='tortilla'
+									onClick={handleCategorySelection.bind(this, "tortilla")}>
+									Tortilla
+								</div>
+								<div
+									className='selectProteinButton'
+									value='protein'
+									onClick={handleCategorySelection.bind(this, "protein")}>
+									Protein
+								</div>
+								<div
+									className='selectCheeseButton'
+									value='cheese'
+									onClick={handleCategorySelection.bind(this, "cheese")}>
+									Cheese
+								</div>
+								<div
+									className='selectVeggieButton'
+									value='veggie'
+									onClick={handleCategorySelection.bind(this, "veggie")}>
+									Veggies
+								</div>
+								<div
+									className='selectCondimentButton'
+									value='condiment'
+									onClick={handleCategorySelection.bind(this, "condiment")}>
+									Condiments
+								</div>
+								<div
+									className='selectExtraButton'
+									value='extra'
+									onClick={handleCategorySelection.bind(this, "extra")}>
+									Extras
+								</div>
 							</div>
-							<div
-								className='selectTortillaButton'
-								value='tortilla'
-								onClick={handleCategorySelection.bind(this, "tortilla")}>
-								Tortilla
-							</div>
-							<div
-								className='selectProteinButton'
-								value='protein'
-								onClick={handleCategorySelection.bind(this, "protein")}>
-								Protein
-							</div>
-							<div
-								className='selectCheeseButton'
-								value='cheese'
-								onClick={handleCategorySelection.bind(this, "cheese")}>
-								Cheese
-							</div>
-							<div
-								className='selectVeggieButton'
-								value='veggie'
-								onClick={handleCategorySelection.bind(this, "veggie")}>
-								Veggies
-							</div>
-							<div
-								className='selectCondimentButton'
-								value='condiment'
-								onClick={handleCategorySelection.bind(this, "condiment")}>
-								Condiments
-							</div>
-							<div
-								className='selectExtraButton'
-								value='extra'
-								onClick={handleCategorySelection.bind(this, "extra")}>
-								Extras
+						</div>
+						<div className='actualForm'>{items.map(renderItem)}</div>
+					</div>
+				</div>
+
+				<div className='orderFormDetails'>
+					<div className='orderFormDetailsInner'>
+						<div className='orderDetailsTitle'>{orderDetailsHeader}</div>
+						<div className='renderOrderItemsDiv'>
+							{order.map(renderOrderItems)}
+						</div>
+
+						<div className='orderDetailsFooter'>
+							<div className='detailsFooterWrapper'>
+								<div className='detailsTotal'>
+									<h6>Total: ${total.toFixed(2)}</h6>
+									<h6>Avg HP: {avgHP.toFixed(1)}</h6>
+								</div>
+								<div className='detailsClearButton'>
+									<Button
+										className='detailsdiv'
+										type='div'
+										color='danger'
+										onClick={handleClearOrderClick}>
+										Clear
+									</Button>
+								</div>
+
+								<div className='detailsConfirmButton'>
+									<Button
+										className='detailsdiv'
+										type='div'
+										color='primary'
+										onClick={toggleModal}>
+										{submitdivText}
+									</Button>
+								</div>
 							</div>
 						</div>
 					</div>
-					<div className='actualForm'>{items.map(renderItem)}</div>
 				</div>
-			</div>
 
-			<div className='orderFormDetails'>
-				<div className='orderFormDetailsInner'>
-					<div className='orderDetailsTitle'>{orderDetailsHeader}</div>
-					<div className='renderOrderItemsDiv'>
-						{order.map(renderOrderItems)}
-					</div>
-
-					<div className='orderDetailsFooter'>
-						<div className='detailsFooterWrapper'>
-							<div className='detailsTotal'>
-								<h6>Total: ${total.toFixed(2)}</h6>
-								<h6>Avg HP: {avgHP.toFixed(1)}</h6>
-							</div>
-							<div className='detailsClearButton'>
-								<Button
-									className='detailsdiv'
-									type='div'
-									color='danger'
-									onClick={handleClearOrderClick}>
-									Clear
+				<div>
+					<Modal className='orderModal' isOpen={modal} toggle={toggleModal}>
+						<div>
+							<ModalHeader toggle={toggleModal}>Order Confirmation</ModalHeader>
+							<ModalBody>{confirmBody}</ModalBody>
+							<ModalFooter>
+								<Button color='primary' onClick={handlePlaceOrderClick}>
+									Place Order
 								</Button>
-							</div>
+							</ModalFooter>
+						</div>
+					</Modal>
+				</div>
 
-							<div className='detailsConfirmButton'>
+				<div>
+					<Modal className='orderModal' isOpen={thanks} toggle={toggleThanks}>
+						<div>
+							<ModalHeader toggle={toggleThanks}>Thank You!</ModalHeader>
+							<ModalBody>{thanksBody}</ModalBody>
+							<ModalFooter>
 								<Button
-									className='detailsdiv'
-									type='div'
 									color='primary'
-									onClick={toggleModal}>
-									{submitdivText}
+									value='Close'
+									onClick={handleThanksClick}>
+									Close
 								</Button>
-							</div>
+							</ModalFooter>
 						</div>
-					</div>
+					</Modal>
 				</div>
 			</div>
+		);
 
-			<div>
-				<Modal className='orderModal' isOpen={modal} toggle={toggleModal}>
-					<div>
-						<ModalHeader toggle={toggleModal}>Order Confirmation</ModalHeader>
-						<ModalBody>{confirmBody}</ModalBody>
-						<ModalFooter>
-							<Button color='primary' onClick={handlePlaceOrderClick}>
-								Place Order
-							</Button>
-						</ModalFooter>
-					</div>
-				</Modal>
-			</div>
-
-			<div>
-				<Modal className='orderModal' isOpen={thanks} toggle={toggleThanks}>
-					<div>
-						<ModalHeader toggle={toggleThanks}>Thank You!</ModalHeader>
-						<ModalBody>{thanksBody}</ModalBody>
-						<ModalFooter>
-							<Button color='primary' value='Close' onClick={handleThanksClick}>
-								Close
-							</Button>
-						</ModalFooter>
-					</div>
-				</Modal>
-			</div>
-		</div>
-	);
+	}
+	
 	/****** RENDER THIS ******/
 	
 }

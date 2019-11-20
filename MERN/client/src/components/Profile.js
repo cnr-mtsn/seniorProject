@@ -16,9 +16,6 @@ function Profile(props) {
 	const [user] = useState(props.user);
 	const [userData, setUserData] = useState(getUserStats());
 
-
-	
-		
     return (
 		<div className="profileWrapper">
 
@@ -26,14 +23,18 @@ function Profile(props) {
 				<Header user={user} view={userData.view}/>
 			</div>
 
+			<div className="profileSide">
+				<div className="profileSidePicAndStars">
+					<div className="profileSidePic">pic</div>
+					<div className="profileSideStars">stars</div>
+				</div>
+				<div className="profileSideLinks">Links</div>
+				<div className="profileSideFooter">Email, ID</div>
+			</div>
+
 			<div className="profileBody">
-				<h6>First Name: {userData.firstName}</h6>
-				<h6>Last Name: {userData.lastName}</h6>
-				<h6>Email: {userData.email}</h6>
-				<h6>Admin: {userData.isAdmin}</h6>
-				<h6>Total Spent: <FaCoins/>${userData.total_spent}</h6>
-				<h6>Total Health Points: {userData.total_health_points}</h6>
-				<h6>View: {userData.view}</h6>
+				<div className="profileBodyLabels">Labels</div>
+				<div className="profileBodyData">BodyData</div>
 			</div>
 
 		</div>
