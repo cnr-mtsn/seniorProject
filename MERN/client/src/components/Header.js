@@ -1,49 +1,97 @@
 import React from "react";
 import fedEatsLogo from "../media/fedEatsLogo.jpeg";
 import Image from "react-bootstrap/Image";
-import { Link } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import { FaUserCircle } from 'react-icons/fa';
 
 function Header(props) {
-	
-	const homeLink = <Link to='/home'><span className="navLinks">Home</span></Link>;
+	const linkStyle = {color:'black'}
+	const activeLinkStyle = {color:'white'}
 
+	const homeLink = (
+		<NavLink 
+			exact
+			style={linkStyle}
+			activeStyle={activeLinkStyle} 
+			to='/'>
+		Home
+		</NavLink>
+	);
 	const orderFormLink = (
-		<Link to='/orderForm'>
-			<span className='navLinks'>Order Form</span>
-		</Link>
+		<NavLink 
+			exact
+			style={linkStyle} 
+			activeStyle={activeLinkStyle} 
+			to='/orderForm'>
+		Order
+		</NavLink>
 	);
 	const profileLink = (
-		<Link to='/profile'>
-			<span className='navLinks'>View Profile</span>
-		</Link>
+		<NavLink 
+			exact
+			style={linkStyle} 
+			activeStyle={activeLinkStyle} 
+			to='/profile'>
+		My Profile
+		</NavLink>
 	);
 	const adminLink = (
-		<Link to='/admin'>
-			<span className='navLinks'>Admin</span>
-		</Link>
+		<NavLink 
+			exact
+			style={linkStyle} 
+			activeStyle={activeLinkStyle}
+			to='/admin'>
+		Admin
+		</NavLink>
 	);
+
 	const welcomeText = props.user ? (
-		`Welcome, ${props.user}`
+		`Welcome, ${props.user.firstName}`
 	) : null;
 
-	const icon = props.user ? 
-		( <FaUserCircle size={36} style={{marginLeft:'75%'}}/> ) : null;
+	var adminVis;
+	var userVis;
+	switch(props.view) {
+		case 1:
+			userVis = 'visible';
+			adminVis= 'hidden';
+			break;
+		case 2:
+			userVis = 'visible';
+			adminVis= 'hidden';
+			break;
+		case 3:
+			adminVis = 'visible';
+			userVis = "visible";
+			break;
+		default:
+			adminVis = 'hidden';
+			userVis = 'hidden';
+	}
+
+	const icon = props.user ? ( <FaUserCircle size={36} style={{marginLeft:'75%'}}/> ) : null;
+
 
 	return (
 		<div className='mainHeader'>
 			<div className='fedEatsLogo'>
 				<Image className='fedEatsLogoImg' src={fedEatsLogo}></Image>
 			</div>
-			<div className='homeLink'>{homeLink}</div>
-			<div className='orderFormLink'>{orderFormLink}</div>
-			<div className='profileLink'>{profileLink}</div>
-			<div className='adminLink'>{adminLink}</div>
-			<div className='userIcon'>
-				{icon}
+			<div style={{ visibility: `${userVis}` }} className='homeLink'>
+				{homeLink}
 			</div>
+			<div style={{ visibility: `${userVis}` }} className='orderFormLink'>
+				{orderFormLink}
+			</div>
+			<div style={{ visibility: `${userVis}` }} className='profileLink'>
+				{profileLink}
+			</div>
+			<div style={{ visibility: `${adminVis}` }} className='adminLink'>
+				{adminLink}
+			</div>
+			<div className='userIcon'>{icon}</div>
 			<div className='userGreeting'>
-				<span className="grtng">{welcomeText}</span>
+				<span className='grtng'>{welcomeText}</span>
 			</div>
 		</div>
 	);

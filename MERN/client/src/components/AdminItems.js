@@ -1,13 +1,5 @@
 import React, { useState, useEffect } from "react";
-import {
-	Table,
-	Button,
-	Input,
-	Row,
-	Col,
-	InputGroup,
-	InputGroupAddon
-} from "reactstrap";
+import { Button,	Input, Modal } from "reactstrap";
 import "../App.css";
 
 function AdminItems(props) {
@@ -29,13 +21,19 @@ function AdminItems(props) {
     price: 0, 
     healthPoints: 0
   });
-
+  const[adminModal, setAdminModal] = useState(false);
+  const calOrDesc = (category === 'specials' ? 'Description' : 'Calories');
+  const labelVis = (category ? 'visible' : 'hidden');
   useEffect(() => {
-    getItems(); //eslint-disable-next-line
+    getItems();//eslint-disable-next-line
   }, []);
 /************ END STATE MANAGEMENT ************/
 
   /************ FUNCTIONS ************/
+  //Toggle modal to add item
+  const toggleAdminModal = () => {
+    setAdminModal(!adminModal)
+  };
   //fetch all items of current category and load into state items
   const getItems = async () => {
     fetch(`http://localhost:5000/${category}`)
@@ -56,6 +54,12 @@ function AdminItems(props) {
     .then(getItems)
     .catch(err => console.err(err))
   };
+  const updateSpecial = async () => {
+    await fetch(`http://localhost:5000/${category}/update?name=${itemToChange.name}&newName=${newItem.name}&price=${newItem.price}&hp=${newItem.healthPoints}&desc=${newItem.description}`)
+    .then(getItems)
+    .catch(err => console.err(err))
+    console.log(`updated ${itemToChange.name} to ${newItem.name}`);
+  }
   //delete item of current category with name == item.name
   const deleteItem = async (name) => {
     await fetch(`http://localhost:5000/${category}/delete?name=${name}`)
@@ -68,12 +72,14 @@ function AdminItems(props) {
     setItemToChange( {
       name: e.target.placeholder,
       price: itemToChange.price, 
-      healthPoints: itemToChange.healthPoints
+      healthPoints: itemToChange.healthPoints, 
+      description: itemToChange.description
     });
     setNewItem( {
       name: e.target.value,
       price: newItem.price, 
-      healthPoints: newItem.healthPoints
+      healthPoints: newItem.healthPoints, 
+      description: newItem.description
     })
   };
   //set price of ItemToChange&&NewItem when input box edited
@@ -81,12 +87,14 @@ function AdminItems(props) {
     setItemToChange( {
       name: itemToChange.name,
      price: e.target.placeholder, 
-     healthPoints: itemToChange.healthPoints
+     healthPoints: itemToChange.healthPoints, 
+     description: itemToChange.description
     });
     setNewItem( {
       name: newItem.name,
       price: e.target.value, 
-      healthPoints: itemToChange.healthPoints
+      healthPoints: newItem.healthPoints, 
+      description: newItem.description
     });
   };
   //set healthPoints of ItemToChange && NewItem when input box edited
@@ -94,13 +102,29 @@ function AdminItems(props) {
     setItemToChange({
       name: itemToChange.name,
       price: itemToChange.price,
-      healthPoints: e.target.placeholder
+      healthPoints: e.target.placeholder, 
+      description: itemToChange.description
     });
     setNewItem({
       name: newItem.name,
       price: newItem.price,
-      healthPoints: e.target.value
+      healthPoints: e.target.value, 
+      description:newItem.description
     })
+  };
+  const handleDescriptionChange = (e) => {
+    setItemToChange({
+			name: itemToChange.name,
+			price: itemToChange.price,
+			healthPoints: itemToChange.healthPoints,
+			description: e.target.placeholder
+    });
+    setNewItem({
+      name: newItem.name,
+      price: newItem.price,
+      healthPoints: newItem.healthPoints,
+      description: e.target.value
+    });
   };
   const handleCategorySelection = async (selection) => {
     await fetch(`http://localhost:5000/${selection}`)
@@ -113,118 +137,230 @@ function AdminItems(props) {
     addItem();
   }
   const handleUpdateClick = () => {
-    updateItem();
+    if(category === 'specials') {
+      updateSpecial();
+    } else {
+      updateItem();
+    }
   }
+
   //render items as table of editable input boxes with buttons for updating/deleting data
   const renderItem = (item) => {
     //convert price in database to string preceded by $ and fixed to 2 decimals
     const fixedPrice ='$' + item.price.toFixed(2);
+
+    var descriptionInput = (category === 'specials' ? 
+        <Input 
+          className="adminDescription" 
+          onChange={handleDescriptionChange}
+          defaultValue={item.description}>
+        </Input> : 
+        <Input
+          className="adminDescription"
+          onChange={(e) => console.log(e.target.value)}
+          defaultValue="50kcal">
+          </Input>);
+
     return (
-    <tr key={item.name}>
-      <td>
-        <Input placeholder={item.name} onChange={handleNameChange} className="manageItemPrice"></Input></td>
-      <td>
-        <Input placeholder={fixedPrice} onChange={handlePriceChange} className="manageItemPrice"></Input>
-      </td>
-      <td>
-        <Input placeholder={item.health_points} onChange={handleHealthPointsChange} className="manageItemPrice"></Input>
-      </td>
-      <td>
-        <InputGroupAddon addonType="append">
-          <Button block outline color="primary" type="button" onClick={handleUpdateClick}className="manageItemButton manageItemPrice">Update</Button>
-        </InputGroupAddon>
-      </td>
-      <td>
-        <InputGroupAddon addonType="append">
-          <Button block outline color="danger" type="button" className="manageItemButton manageItemPrice" onClick={(e) => { deleteItem(item.name)}}>Delete
-          </Button>
-        </InputGroupAddon>
-      </td>
-    </tr>
-    );
+			<div className='adminItemsInnerWrapper' key={item.name}>
+				<div className='adminItemName'>
+					<Input placeholder={item.name} onChange={handleNameChange}></Input>
+				</div>
+
+				<div className='adminItemPrice'>
+					<Input placeholder={fixedPrice} onChange={handlePriceChange}></Input>
+				</div>
+
+				<div className='adminItemHP'>
+					<Input
+						placeholder={item.health_points}
+						onChange={handleHealthPointsChange}></Input>
+				</div>
+
+				<div className='adminItemDesc'>{descriptionInput}</div>
+
+				<div className='adminItemUpdate'>
+					<Button
+						block
+						outline
+						color='primary'
+						type='button'
+						onClick={handleUpdateClick}>
+						Update
+					</Button>
+				</div>
+
+				<div className='adminItemDelete'>
+					<Button
+						block
+						outline
+						color='danger'
+						type='button'
+						onClick={e => {
+							deleteItem(item.name);
+						}}>
+						Delete
+					</Button>
+				</div>
+			</div>
+		);
   };
   /************ END FUNCTIONS ************/
   /************ HTML ELEMENTS ************/
-    const nameInput = <Input placeholder="Name" onChange={e => setNewItem({
-      name: e.target.value,
-      price: null
-    })}/>;
-    const priceInput = <Input placeholder="Price" onChange={e => setNewItem({
-      name: newItem.name,
-      price: e.target.value
-    })}/>;
-    const healthPointsInput = <Input placeholder="Health Points" onChange={e => setNewItem({
-      name: newItem.name,
-      price: newItem.price,
-      healthPoints: e.target.value
-    })}/>;
-    const addItemButton = ( 
-      <InputGroupAddon addonType="append">
-        <Button block className="purpleButton" style={{outline:'none', width:'150px'}} onClick={handleAddClick}
-        >Submit
-        </Button>
-      </InputGroupAddon>
-    );
-  
+  const addNamePlaceholder = (newItem.name ? newItem.name : 'Name');
+  const addPricePlaceholder = (newItem.price ? newItem.price : 'Price');
+  const addHealthPointsPlaceholder = (newItem.healthPoints ? newItem.healthPoints : 'Health Points');
+
     const selectCategory = (
-      <div className="adminSelectCategory">
-        <ul className="bg-light list-group">
-          <span className="text-muted">Choose a Category...</span>
-          <li className="list-group-item list-group-item-action" value='bread' onClick={handleCategorySelection.bind(this, 'bread')}>Bread</li>
-          <li className="list-group-item list-group-item-action" value='tortilla' onClick={handleCategorySelection.bind(this, 'tortilla')}>Tortillas</li>
-          <li className="list-group-item list-group-item-action" value='protein' onClick={handleCategorySelection.bind(this, 'protein')}>Protein</li>
-          <li className="list-group-item list-group-item-action" value='cheese' onClick={handleCategorySelection.bind(this, 'cheese')}>Cheese</li>
-          <li className="list-group-item list-group-item-action" value='veggie' onClick={handleCategorySelection.bind(this, 'veggie')}>Veggies</li>
-          <li className="list-group-item list-group-item-action" value='condiment' onClick={handleCategorySelection.bind(this, 'condiment')}>Condiments</li>
-          <li className="list-group-item list-group-item-action" value='extra' onClick={handleCategorySelection.bind(this, 'extra')}>Extras</li>
-        </ul>
-      </div>
-    );
-    const addItemInputGroup = category ? (
-			<InputGroup className='addItemInput'>
-				{nameInput}
-				{priceInput}
-				{healthPointsInput}
-				{addItemButton}
-			</InputGroup>
-		) : null;
-		const tableHeader = category ? (
-			<tr className='manageItemHeader'>
-				<td>Name</td>
-				<td>Price</td>
-				<td>Health Points</td>
-				<td></td>
-				<td></td>
-			</tr>
-		) : null;
+			<div className='selectWrapper'>
+				<div
+					className='selectBread'
+					value='bread'
+					onClick={handleCategorySelection.bind(this, "bread")}>
+					<span>Bread</span>
+				</div>
+				<div
+					className='selectTortilla'
+					value='tortilla'
+					onClick={handleCategorySelection.bind(this, "tortilla")}>
+					<span>Tortillas</span>
+				</div>
+				<div
+					className='selectProtein'
+					value='protein'
+					onClick={handleCategorySelection.bind(this, "protein")}>
+					<span>Protein</span>
+				</div>
+				<div
+					className='selectCheese'
+					value='cheese'
+					onClick={handleCategorySelection.bind(this, "cheese")}>
+					<span>Cheese</span>
+				</div>
+				<div
+					className='selectVeggie'
+					value='veggie'
+					onClick={handleCategorySelection.bind(this, "veggie")}>
+					<span>Veggies</span>
+				</div>
+				<div
+					className='selectCondiment'
+					value='condiment'
+					onClick={handleCategorySelection.bind(this, "condiment")}>
+					<span>Condiments</span>
+				</div>
+				<div
+					className='selectExtra'
+					value='extra'
+					onClick={handleCategorySelection.bind(this, "extra")}>
+					<span>Extras</span>
+				</div>
+        <div
+          className='selectSpecial'
+          value='specials'
+          onClick={handleCategorySelection.bind(this, 'specials')}>
+          <span>Specials</span>
+        </div>
+        <div 
+          className='adminInput'
+          onClick={toggleAdminModal}>
+					<span>Add Ingredient</span>
+				</div>
+			</div>
+		);
+   
     /************ END HTML ELEMENTS ************/
+  
     /************ DATA TO RENDER VIA COMPONENT ************/
-    return ( 
-      <div className="items">
-        <Row>
-          <Col lg={2}>{selectCategory}</Col>
-          <Col lg={1}></Col>
-          <Col>
-            <div className="adminTable">
-              <Table className="itemTable itemDetailsTable bg-light">
-                <thead>
-                  {tableHeader}
-                </thead>
-                <tbody>
-                  {items.map(renderItem)}
-                </tbody>
-              </Table>
-            </div>
-          </Col>
-        </Row>
-        <Row>
-          <Col lg={3}></Col>
-          <Col>
-            {addItemInputGroup}
-          </Col>
-        </Row>
-      </div>
-    );
+    return (
+			<div className='adminItemsWrapper'>
+				<div className='adminSelectCategory'>{selectCategory}</div>
+
+				<div className='adminTable'>
+					<div
+						style={{visibility: labelVis	}}
+						className='adminItemHeaderName'>
+						Name
+					</div>
+					<div
+						style={{visibility: labelVis}}
+						className='adminItemHeaderPrice'>
+						Price
+					</div>
+					<div
+						style={{visibility: labelVis}}
+						className='adminItemHeaderHP'>
+						HP
+					</div>
+					<div
+						className='adminItemHeaderDesc'>
+						{calOrDesc}
+					</div>
+					<div className='adminTableBody'>{items.map(renderItem)}</div>
+				</div>
+
+				<Modal
+					className='adminModal'
+					isOpen={adminModal}
+					toggle={toggleAdminModal}>
+					<div className='modalWrapper'>
+						<div className='modalCategory'>
+							<Input
+								placeholder='Category'
+								onChange={e => {
+									setCategory(e.target.value);
+								}}
+							/>
+						</div>
+						<div className='modalName'>
+							<Input
+								placeholder={addNamePlaceholder}
+								onChange={e =>
+									setNewItem({
+										name: e.target.value,
+										price: newItem.price,
+										healthPoints: newItem.healthPoints
+									})
+								}
+							/>
+						</div>
+						<div className='modalPrice'>
+							<Input
+								placeholder={addPricePlaceholder}
+								onChange={e =>
+									setNewItem({
+										name: newItem.name,
+										price: e.target.value,
+										healthPoints: newItem.healthPoints
+									})
+								}
+							/>
+						</div>
+						<div className='modalHP'>
+							<Input
+								placeholder={addHealthPointsPlaceholder}
+								onChange={e =>
+									setNewItem({
+										name: newItem.name,
+										price: newItem.price,
+										healthPoints: e.target.value
+									})
+								}
+							/>
+						</div>
+						<div className='modalButton'>
+							<Button
+								block
+								className='purpleButton'
+								style={{ outline: "none", width: "150px" }}
+								onClick={handleAddClick}>
+								Submit
+							</Button>
+						</div>
+					</div>
+				</Modal>
+			</div>
+		);
 }
 
 export default AdminItems;

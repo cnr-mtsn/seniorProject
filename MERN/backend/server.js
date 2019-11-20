@@ -315,8 +315,8 @@ app.get('/specials/delete', (req, res) => {
 });
 //UPDATE Special
 app.get('/specials/update', (req, res) => {
-    const {name, newName, price, healthPoints, description} = req.query;
-    const UPDATE_SPECIAL = `UPDATE main SET name='${newName}', price=${price}, health_points=${healthPoints}, description='${description}' WHERE name='${name}'`;
+    const {name, newName, price, hp, desc} = req.query;
+    const UPDATE_SPECIAL = `UPDATE main SET name='${newName}', price=${price}, health_points=${hp}, description='${desc}' WHERE name='${name}'`;
     db.query(UPDATE_SPECIAL, (err, results) => {
         err ? res.send(err) : res.send(`Successfully updated ${name} to ${newName}`);
     });
@@ -344,7 +344,14 @@ app.get('/userStats', (req, res) => {
 });
 app.get('/userById', (req, res) => {
     const {id} = req.query;
-    const GET_USER_VIEW = `SELECT firstName, lastName, view FROM users WHERE user_id = ${id} LIMIT 1`;
+    const GET_USER_VIEW = `SELECT firstName, lastName, user_id, view FROM users WHERE user_id = ${id} LIMIT 1`;
+    db.query(GET_USER_VIEW, (err, results) => {
+        err ? res.send(err) : res.json({data:results})
+    });
+});
+app.get('/userByIdAll', (req, res) => {
+    const {id} = req.query;
+    const GET_USER_VIEW = `SELECT * FROM users WHERE user_id = ${id} LIMIT 1`;
     db.query(GET_USER_VIEW, (err, results) => {
         err ? res.send(err) : res.json({data:results})
     });

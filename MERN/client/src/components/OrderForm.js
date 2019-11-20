@@ -24,7 +24,7 @@ function OrderForm(props) {
 	const [times, setTimes] = useState([]);
 	const [pickupTime, setPickupTime] = useState();
 	const [comments, setComments] = useState();
-	const [userId, setUserId] = useState();
+	const [user, setUser] = useState(props.user);
 	const [modal, setModal] = useState(false);
 	const [thanks, setThanks] = useState(false);
 	const [routing, setRouting] = useState(false);
@@ -68,10 +68,8 @@ function OrderForm(props) {
 		setPickupTime(e.target.value);
 		console.log(pickupTime);
 	};
-	//set user ID
-	const handleUserIdInput = e => {
-		setUserId(e.target.value);
-	};
+	
+
 	//clear order items, health points, total
 	const handleClearOrderClick = () => {
 		setOrder([]);
@@ -82,8 +80,6 @@ function OrderForm(props) {
 	const renderItem = item => {
 
 		const fixedPrice = "$" + item.price.toFixed(2);
-		//add button text
-		const divId = `add${item.name}`;
 		//add item to order || increment price/health points if already in order
 		const handleItemClick = (divId, disabled) => {
 			let found = false;
@@ -102,7 +98,7 @@ function OrderForm(props) {
 			setHealthPoints(healthPoints + item.health_points);
 		};
 		const addButton = (
-			<Button outline id={divId} color='primary' onClick={handleItemClick}>
+			<Button outline color='primary' onClick={handleItemClick}>
 				<FaPlus />
 			</Button>
 		);
@@ -139,7 +135,7 @@ function OrderForm(props) {
 		toggleConfirmed();
 		setTimeout(toggleModal, 300);
 		setOrder([]);
-		setUserId(null);
+		setUser(null);
 		setTotal(0);
 		setComments(null);
 		setTimeout(toggleThanks, 300);
@@ -162,15 +158,15 @@ function OrderForm(props) {
 	) : (
 		<p>Thanks for skipping the line and placing your order online!</p>
 	);
+
 	const confirmBody = confirmed ? (
 		<Spinner color='dark' />
 	) : (
 		<div>
 			<ul style={{ marginLeft: "0" }}>{order.map(renderConfirmItems)}</ul>
-			<Input
-				required
-				placeholder='User ID'
-				onChange={handleUserIdInput}></Input>
+			<h5>Name: {user.firstName} {user.lastName}</h5>
+			<h5>User ID: {user.user_id}</h5>
+			<h5>Total: ${total.toFixed(2)}</h5>
 			<Input type='select' onChange={handleTimeSelection}>
 				{times.map(renderTimes)}
 				<option disabled defaultValue='Pickup Time'></option>
@@ -180,21 +176,21 @@ function OrderForm(props) {
 				placeholder='Special instructions for the kitchen...'
 				onChange={handleCommentsInput}
 			/>
-			<h6>Total: ${total.toFixed(2)}</h6>
 		</div>
 	);
+
 	const avgHP = healthPoints / (order.length + duplicates) || 0;
 	
 	const orderDetailsHeader =
 		order.length < 1 ? "Select a category to begin..." : "Order Details";
-	console.log(userId);
+	
 	/****** CONDITIONAL INNER HTML ******/
 
 	/****** RENDER THIS ******/
 	return (
 		<div className='orderFormWrapper'>
 			<div className='orderFormHeader'>
-				<Header title='Fed Eats Deli Order Form' />
+				<Header user={user} view={user.view}/>
 			</div>
 
 			<div className='orderForm'>

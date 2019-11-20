@@ -1,98 +1,44 @@
 import React, {useState} from 'react';
 import Header from '../components/Header';
-import { 
-	Button,
-	Card,
-	CardTitle,
-	Input,
-	Container, 
-	Row, 
-	Col 
-} from 'reactstrap';
+
 import { FaCoins } from 'react-icons/fa';
 
 
 function Profile(props) {
 
-		const [userID, setUserId] = useState();
-		const [profile, setProfile] = useState();
-		const [userStats, setUserStats] = useState([]);
-		const profileToView = (userStats.length > 0 && profile) ? ProfileView(userStats) : undefined
-		
-		const handleUserIdInput = (e) => {
-			setUserId(e.target.value);
-		}
-
-		const handleViewProfileClick = () => {
-			fetch(`http://localhost:5000/userStats?userID=${userID}`)
+	const getUserStats = async () => {
+		await fetch(`http://localhost:5000/userByIdAll?id=${user.user_id}`)
 			.then(response => response.json())
-			.then(response => setUserStats(response.data))
-			setProfile(true);
-		}
+			.then(response => setUserData(response.data[0]))
+			.catch(err => console.log(err));
+	};
 
+	const [user] = useState(props.user);
+	const [userData, setUserData] = useState(getUserStats());
+
+
+	
+		
     return (
-			<Container fluid>
-				<Row>
-					<Col>
-						<Header title='Fed Eats Profile' />
-					</Col>
-				</Row>
-				<Row>
-					<Col></Col>
-					<Col>
-						<Card className="profileSelectCard">
-							<CardTitle className="profileSelectTitle">Input User ID to View Profile</CardTitle>
-							<br></br>
-							<Row>
-								<Col lg={1}></Col>
-								<Col lg={7}>
-									<Input
-									required
-									placeholder="User ID"
-									onChange={handleUserIdInput}
-									></Input>
-								</Col>
-								<Col lg={3}>
-									<Button
-										type="button"
-										outline
-										color="primary"
-										style={{width:'100%'}}
-										onClick={handleViewProfileClick}
-										>Go
-									</Button>
-								</Col>
-								<Col lg={1}></Col>
-							</Row>
-							{profileToView}
-						</Card>
-					</Col>
-					<Col></Col>
-				</Row>
-			</Container>
-		);
-}
+		<div className="profileWrapper">
 
-function ProfileView(userStats) {
-	console.log(userStats[0])
+			<div className="profileHeader">
+				<Header user={user} view={userData.view}/>
+			</div>
 
-	return (
-		<Container fluid>
-			<br></br>
-			<Row>
-				<Col lg={2}>{userStats[0]["name"]}</Col>
-				<Col lg={5}>
-					<Col>Total Health Points:</Col>
-					<Col>{userStats[0]["total_health_points"]}</Col>
-				</Col>
-				<Col lg={5}>
-					<Col>Total Spent:</Col>
-					<Col><FaCoins/> ${userStats[0]["total_spent"]}</Col>
-				</Col>
-			</Row>
-			<br></br>
-		</Container>
+			<div className="profileBody">
+				<h6>First Name: {userData.firstName}</h6>
+				<h6>Last Name: {userData.lastName}</h6>
+				<h6>Email: {userData.email}</h6>
+				<h6>Admin: {userData.isAdmin}</h6>
+				<h6>Total Spent: <FaCoins/>${userData.total_spent}</h6>
+				<h6>Total Health Points: {userData.total_health_points}</h6>
+				<h6>View: {userData.view}</h6>
+			</div>
+
+		</div>
 	);
 }
+
 
 export default Profile;
