@@ -481,7 +481,7 @@ app.get('/newOrder', (req, res) => {
 app.get('/orderId', (req, res) => {
     const {userId, total} = req.query;
 
-    const GET_ORDER = `SELECT order_id FROM orders WHERE user_id = ${userId} AND total = ${total} AND order_date = NOW())`;
+    const GET_ORDER = `SELECT order_id FROM orders WHERE user_id = ${userId} AND total = ${total}`;
     db.query(GET_ORDER, (err, results) => {
         if(err) {
             return res.send(err);
@@ -503,9 +503,7 @@ app.get('/addCheese', (req, res) => {
             return res.send(err);
         }
         else {
-            return res.json({
-                data:results
-            })
+            return res.send(`Successfully Added to the Database`);
         }
     });
 });
@@ -513,8 +511,8 @@ app.get('/addCheese', (req, res) => {
 app.get('/getCheese', (req, res) => {
     const {cheeseName} = req.query;
 
-    const GET_ORDER = `SELECT cheese_id FROM cheese WHERE name = ${cheeseName}`;
-    db.query(GET_ORDER, (err, results) => {
+    const GET_CHEESE = `SELECT cheese_id FROM cheese WHERE name = '${cheeseName}'`;
+    db.query(GET_CHEESE, (err, results) => {
         if(err) {
             return res.send(err);
         }

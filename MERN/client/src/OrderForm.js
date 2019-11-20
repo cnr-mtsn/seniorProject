@@ -31,7 +31,7 @@ function OrderForm(props) {
 
 	const [items, setItems] = useState([]);
 	const [order, setOrder] = useState([]);
-	const [orderId, setOrderId] = useState();
+	const [orderId, setOrderId] = useState([]);
 	const [cheese, setCheese] = useState([]);
 	const [condiment, setCondiment] = useState([]);
 	const [extra, setExtra] = useState([]);
@@ -39,7 +39,7 @@ function OrderForm(props) {
 	const [sandwich, setSandwich] = useState([]);
 	const [tortilla, setTortilla] = useState([]);
 	const [veggie, setVeggie] = useState([]);
-	const [cheeseId, setCheeseId] = useState();
+	const [cheeseId, setCheeseId] = useState([]);
 	const [condimentId, setCondimentId] = useState();
 	const [extraId, setExtraId] = useState();
 	const [proteinId, setProteinId] = useState();
@@ -145,46 +145,47 @@ function OrderForm(props) {
 		.catch(err => console.error(err))
 	};
 
+	const addCheese = async () => {
+		console.log(cheeseId)
+		await fetch(`http://localhost:5000/addCheese?cheeseID=${cheeseId}&orderID=${orderId}`)
+		.catch(err => console.log(err))
+	}
+
 	const insertOrderItems = async () => {
-		var i = 0;
-		var x = 0;
-		for(i; i<order.length; i++)
+		for(let i = 0; i<order.length; i++)
 		{
-			for(x; x<cheese.length; x++) {
-				if(order[i].name == cheese[x].name)
+			for(let x = 0; x<cheese.length; x++) {
+				if(order[i].name === cheese[x].name)
 				{
 					await fetch(`http://localhost:5000/getCheese?cheeseName=${order[i].name}`)
 					.then(response => response.json())
 					.then(response => setCheeseId(response.data))
 					.catch(err => console.log(err))
-					.then(fetch(`http://localhost:5000/addCheese?cheeseID=${cheeseId}&orderID=${orderId}`))
-					.catch(err => console.log(err))
+
+					await addCheese()
 				}
 			}
 		}
 	}
 
-	const getOrderId = () => {
-		fetch(`http://localhost:5000/orderId?userId=${userId}&total=${total}`)
+	const getOrderId = async () => {
+		await fetch(`http://localhost:5000/orderId?userId=${userId}&total=${total}`)
 		.then(response => response.json())
 		.then(response => setOrderId(response.data))
 		.then(insertOrderItems())
 		.catch(err => console.log(err))
 	}
 
-	const submitOrder = async () => {
-		await fetch(`http://localhost:5000/newOrder?userId=${userId}&total=${total}`)
-		.then(getCheese())
-		.then(getCondiment())
-		.then(getExtra())
-		.then(getProtein())
-		.then(getSandwich()) 
-		.then(getTortilla())
-		.then(getVeggie())
-		.then(getOrderId())
-	 	.then(setOrder([]))
-	 	.then(setTotal(0))
-	 	.catch(err => console.log(err))
+	const submitOrder = () => {
+		fetch(`http://localhost:5000/newOrder?userId=${userId}&total=${total}`)
+		.catch(err => console.log(err))
+		
+		getOrderId()
+		console.log(orderId)
+		insertOrderItems()
+
+		setOrder([])
+	 	setTotal(0)
 	};
 
 	const getTimes = async () => {
@@ -258,6 +259,13 @@ function OrderForm(props) {
 		const fixedPrice = '$' + item.price.toFixed(2);
 		const buttonId = `add${item.name}`;
 		const handleItemClick = (buttonId, disabled) => {
+			getCheese()
+			getCondiment()
+			getExtra()
+			getProtein()
+			getSandwich() 
+			getTortilla()
+			getVeggie()
 			let found = false;
 			for (let i = 0; i < order.length; i++) {
 				if (order[i] === item) {
