@@ -6,13 +6,8 @@ const bodyParser = require('body-parser');
 const app = express();
 const host = 'www.math-cs.ucmo.edu';
 const user = 'F19fedres2';
-var Users = require("./routes/Users");
 
 app.use(cors());
-// app.use(bodyParser.json());
-// app.use(bodyParser.urlencoded({extended: false}));
-// app.use('/users', Users);
-
 
 //DATABASE CONNECTION
 const db = mysql.createConnection( {
