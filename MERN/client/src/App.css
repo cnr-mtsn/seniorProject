@@ -98,7 +98,7 @@
 }
 .selectWrapper div span{
   font-size: 24px;
-  transition: all 1s;
+  transition: all .5s;
 }
 .selectWrapper div:hover {
   border-top:1px solid grey;
@@ -354,8 +354,9 @@
   grid-area: bd;
   height:90vh;
   padding: 50px;
-  outline:2px solid black;
+  /* outline:1px solid black; */
   display:grid;
+  grid-template-rows: 1fr 7fr;
   grid-auto-rows: minmax(80px, auto);
   grid-template-areas: 
   'bl'
@@ -364,19 +365,56 @@
 }
 .profileBodyLabels {
   grid-area: bl;
-  outline:2px solid black;
-  height: 80px;
+  background-color:#4F4856;
+  outline:1px solid black;
+  height:6vh;
+  display:grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-template-rows: repeat(3, 1fr);
+  grid-template-areas: 
+    '... ... ... ...'
+    'ln lp ld li'
+    '... ... ... ...'
+  ;
 }
+.profileBodyLabels div {
+  text-align:center;
+  color:#C5C0D6;
+  height:100%;
+  width:100%;
+}
+.profileBodyLabelName {
+  grid-area:ln;
+}
+.profileBodyLabelPrice {
+  grid-area:lp;
+}
+.profileBodyLabelDate {
+  grid-area:ld;
+}
+.profileBodyLabelItems {
+  grid-area:li;
+}
+
 .profileBodyData {
   grid-area: bd;
-  outline:2px solid orangered;
-  height:4px;
-
+  outline:1px solid black;
+}
+.profileBodyData div {
+  text-align: center;
+  background-color:#847E90;
+}
+.profileBodyItem {
+  color:white;
+  display:grid;
+  grid-template-columns: repeat(4, 1fr);
 }
 .profileSide {
   display: grid;
   grid-template-rows: repeat(9, 1fr);
   height: 90vh;
+  background-color: #4F4856;
+  color: #C5C0D6;
   grid-template-areas:
   'pp'
   'pp'
@@ -392,7 +430,6 @@
 }
 .profileSidePicAndStars {
   grid-area: pp;
-  outline:1px solid red;
   height:350px;
   display: grid;
   grid-template-areas:
@@ -401,21 +438,85 @@
 }
 .profileSidePic {
   grid-area: psp;
-  height: 35vh;
-  outline: 1px solid black;
+  height: 37vh;
+  display:grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(3, 1fr);
+  grid-template-areas: 
+  '... ... ...'
+  '... pic ...'
+  '... ... ...';
+}
+.profileSidePicInner {
+  grid-area:pic;
 }
 .profileSideStars {
   grid-area: pss;
+  display:grid;
+  grid-template-areas: 
+  '... ... ...'
+  '... strs ...'
+  '... ... ...'
+  ;
+}
+.profileSideStarsInner {
+  grid-area:strs;
 }
 .profileSideLinks {
   grid-area: pl;
-  outline:1px solid blue;
-   height:80px;
+  height:80px;
+  display: grid;
+  grid-template-areas:
+    'ol'
+    'fl'
+  ;
+}
+.profileSideLinks div {
+  border-top: 1px solid #C5C0D6;
+  border-bottom: 1px solid #C5C0D6;
+}
+.profileSideLinksOrders {
+  grid-area: ol;
+}
+.profileSideLinksOrders h5{
+  margin-left: 30px;
+  cursor:pointer;
+  transition: all .5s;
+}
+.profileSideLinksOrders:hover h5{
+  margin-left: 50px;
+}
+.profileSideLinksFavs {
+  grid-area: fl;
+}
+.profileSideLinksFavs h5{
+  margin-left: 30px;
+  cursor:pointer;
+  transition: all .5s;
+}
+.profileSideLinksFavs:hover h5{
+  margin-left: 50px;
 }
 .profileSideFooter {
   grid-area: pf;
-  outline:1px solid green;
-   height:40px;
+  display: grid;
+  grid-template-areas: 
+  'pfe'
+  'pid'
+  ;
+  border-top: 1px solid #C5C0D6;
+}
+.profileSideFooterEmail {
+  grid-area: pfe;
+}
+.profileSideFooterEmail h6 {
+  margin-left: 30px;
+}
+.profileSideFooterID h6 {
+  margin-left: 30px;
+}
+.profileSideFooterID {
+  grid-area: pid;
 }
 /* PROFILE */
 
