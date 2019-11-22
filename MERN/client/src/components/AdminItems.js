@@ -255,15 +255,15 @@ function AdminItems(props) {
 					onClick={handleCategorySelection.bind(this, "extra")}>
 					<span>Extras</span>
 				</div>
-        <div
-          className='selectSpecial'
-          value='specials'
-          onClick={handleCategorySelection.bind(this, 'specials')}>
-          <span>Specials</span>
-        </div>
-        <div 
-          className='adminInput'
-          onClick={toggleAdminModal}>
+				<div
+				className='selectSpecial'
+				value='specials'
+				onClick={handleCategorySelection.bind(this, 'specials')}>
+					<span>Specials</span>
+				</div>
+				<div 
+				className='adminInput'
+				onClick={toggleAdminModal}>
 					<span>Add Ingredient</span>
 				</div>
 			</div>

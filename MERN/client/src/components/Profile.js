@@ -23,21 +23,22 @@ function Profile(props) {
 				</div>
 
 				<div className='profileSide'>
+
 					<div className='profileSidePicAndStars'>
 						<div className='profileSidePic'>
 							<div className='profileSidePicInner'>
-								<FaUserTie size={256} />
+								<FaUserTie size={200} />
 							</div>
-						</div>
-						<div className='profileSideStars'>
-							<div className='profileSideStarsInner'>
-								<FaStar size={48} />
-								<FaStar size={48} />
-								<FaStar size={48} />
-								<FaStarHalf size={48} />
+							<div className='profileSideStars'>
+								<FaStar size={32} />
+								<FaStar size={32} />
+								<FaStar size={32} />
+								<FaStar size={32} />
+								<FaStar size={32} />
 							</div>
 						</div>
 					</div>
+
 					<div className='profileSideLinks'>
 						<div className='profileSideLinksOrders'>
 							<h5>My Orders</h5>
