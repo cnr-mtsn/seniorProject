@@ -1,5 +1,6 @@
 import React, {useState} from 'react';
 import Header from '../components/Header';
+import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
 
 import { FaUserTie, FaStar, FaStarHalf } from 'react-icons/fa';
 
@@ -15,6 +16,9 @@ function Profile(props) {
 
 	const [user] = useState(props.user);
 	const [userData, setUserData] = useState(getUserStats());
+	const [orderDetails, setOrderDetails] = useState(false);
+
+	const toggleOrderDeets = () => { setOrderDetails(!orderDetails) };
 
     return (
 			<div className='profileWrapper'>
@@ -23,7 +27,6 @@ function Profile(props) {
 				</div>
 
 				<div className='profileSide'>
-
 					<div className='profileSidePicAndStars'>
 						<div className='profileSidePic'>
 							<div className='profileSidePicInner'>
@@ -70,10 +73,26 @@ function Profile(props) {
 							<div className='profileBodyDataName'>Roast Beef</div>
 							<div className='profileBodyDataPrice'>$4.20</div>
 							<div className='profileBodyDataDate'>11/20/2019</div>
-							<div className='profileBodyDataItems'>View Order</div>
+							<div className='profileBodyDataItems'>
+								<span onClick={toggleOrderDeets}>View Order</span>
+							</div>
 						</div>
 					</div>
 				</div>
+
+				<Modal className="ordersModal" isOpen={orderDetails} toggle={toggleOrderDeets}>
+					<ModalHeader>Order Details</ModalHeader>
+					<ModalBody>
+						<ul>
+							<li>bread</li>
+							<li>meat</li>
+							<li>cheese</li>
+							<li>veggies</li>
+							<li>sauce</li>
+						</ul>
+					</ModalBody>
+					<ModalFooter>Price</ModalFooter>
+				</Modal>
 			</div>
 		);
 }

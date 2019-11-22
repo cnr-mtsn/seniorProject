@@ -390,6 +390,9 @@
 	display: grid;
 	grid-template-columns: repeat(4, 1fr);
 }
+.profileBodyDataItems span{
+	cursor: pointer;
+}
 .profileSide {
 	display: grid;
 	grid-template-rows: repeat(9, 1fr);
