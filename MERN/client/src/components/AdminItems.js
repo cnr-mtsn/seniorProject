@@ -273,89 +273,89 @@ function AdminItems(props) {
   
     /************ DATA TO RENDER VIA COMPONENT ************/
     return (
-			<div className='adminItemsWrapper'>
-				<div className='adminSelectCategory'>{selectCategory}</div>
+		<div className='adminItemsWrapper'>
+			<div className='adminSelectCategory'>{selectCategory}</div>
 
-				<div className='adminTable'>
-					<div style={{ visibility: labelVis }} className='adminItemHeaderName'>
-						Name
-					</div>
-					<div
-						style={{ visibility: labelVis }}
-						className='adminItemHeaderPrice'>
-						Price
-					</div>
-					<div style={{ visibility: labelVis }} className='adminItemHeaderHP'>
-						HP
-					</div>
-					<div style={{ visibility: labelVis }} className='adminItemHeaderDesc'>
-						{calOrDesc}
-					</div>
-					<div className='adminTableBody'>{items.map(renderItem)}</div>
+			<div className='adminTable'>
+				<div style={{ visibility: labelVis }} className='adminItemHeaderName'>
+					Name
 				</div>
-
-				<Modal
-					className='adminModal'
-					isOpen={adminModal}
-					toggle={toggleAdminModal}>
-					<div className='modalWrapper'>
-						<div className='modalCategory'>
-							<Input
-								placeholder='Category'
-								onChange={e => {
-									setCategory(e.target.value);
-								}}
-							/>
-						</div>
-						<div className='modalName'>
-							<Input
-								placeholder={addNamePlaceholder}
-								onChange={e =>
-									setNewItem({
-										name: e.target.value,
-										price: newItem.price,
-										healthPoints: newItem.healthPoints
-									})
-								}
-							/>
-						</div>
-						<div className='modalPrice'>
-							<Input
-								placeholder={addPricePlaceholder}
-								onChange={e =>
-									setNewItem({
-										name: newItem.name,
-										price: e.target.value,
-										healthPoints: newItem.healthPoints
-									})
-								}
-							/>
-						</div>
-						<div className='modalHP'>
-							<Input
-								placeholder={addHealthPointsPlaceholder}
-								onChange={e =>
-									setNewItem({
-										name: newItem.name,
-										price: newItem.price,
-										healthPoints: e.target.value
-									})
-								}
-							/>
-						</div>
-						<div className='modalButton'>
-							<Button
-								block
-								className='purpleButton'
-								style={{ outline: "none", width: "150px" }}
-								onClick={handleAddClick}>
-								Submit
-							</Button>
-						</div>
-					</div>
-				</Modal>
+				<div
+					style={{ visibility: labelVis }}
+					className='adminItemHeaderPrice'>
+					Price
+				</div>
+				<div style={{ visibility: labelVis }} className='adminItemHeaderHP'>
+					HP
+				</div>
+				<div style={{ visibility: labelVis }} className='adminItemHeaderDesc'>
+					{calOrDesc}
+				</div>
+				<div className='adminTableBody'>{items.map(renderItem)}</div>
 			</div>
-		);
+
+			<Modal
+				className='adminModal'
+				isOpen={adminModal}
+				toggle={toggleAdminModal}>
+				<div className='modalWrapper'>
+					<div className='modalCategory'>
+						<Input
+							placeholder='Category'
+							onChange={e => {
+								setCategory(e.target.value);
+							}}
+						/>
+					</div>
+					<div className='modalName'>
+						<Input
+							placeholder={addNamePlaceholder}
+							onChange={e =>
+								setNewItem({
+									name: e.target.value,
+									price: newItem.price,
+									healthPoints: newItem.healthPoints
+								})
+							}
+						/>
+					</div>
+					<div className='modalPrice'>
+						<Input
+							placeholder={addPricePlaceholder}
+							onChange={e =>
+								setNewItem({
+									name: newItem.name,
+									price: e.target.value,
+									healthPoints: newItem.healthPoints
+								})
+							}
+						/>
+					</div>
+					<div className='modalHP'>
+						<Input
+							placeholder={addHealthPointsPlaceholder}
+							onChange={e =>
+								setNewItem({
+									name: newItem.name,
+									price: newItem.price,
+									healthPoints: e.target.value
+								})
+							}
+						/>
+					</div>
+					<div className='modalButton'>
+						<Button
+							block
+							className='purpleButton'
+							style={{ outline: "none", width: "150px" }}
+							onClick={handleAddClick}>
+							Submit
+						</Button>
+					</div>
+				</div>
+			</Modal>
+		</div>
+	);
 }
 
 export default AdminItems;
