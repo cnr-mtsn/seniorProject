@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import Header from '../components/Header';
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
 
@@ -13,12 +13,52 @@ function Profile(props) {
 			.then(response => setUserData(response.data[0]))
 			.catch(err => console.log(err));
 	};
+	const getUserOrders = async () => {
+		await fetch(`http://localhost:5000/orderById?userId=${user.user_id}`)
+			.then(response => response.json())
+			.then(response => setOrders(response.data))
+			.catch(err => console.log(err));
+	}
+	useEffect(() => {
+		getUserOrders();
+	}, []);
 
 	const [user] = useState(props.user);
 	const [userData, setUserData] = useState(getUserStats());
 	const [orderDetails, setOrderDetails] = useState(false);
+	const [orders, setOrders] = useState([]);
 
 	const toggleOrderDeets = () => { setOrderDetails(!orderDetails) };
+
+	const renderOrders = (order) => {
+		const fixedPrice = `$${order.total.toFixed(2)}`;
+		return (
+			<div className='profileBodyItem'>
+				<div className='profileBodyDataName'>{order.order_id}</div>
+				<div className='profileBodyDataPrice'>{fixedPrice}</div>
+				<div className='profileBodyDataDate'>{order.order_date}</div>
+				<div className='profileBodyDataItems'>
+					<span onClick={toggleOrderDeets}>View Order</span>
+				</div>
+				<Modal
+					className='ordersModal'
+					isOpen={orderDetails}
+					toggle={toggleOrderDeets}>
+					<ModalHeader>Order Details</ModalHeader>
+					<ModalBody>
+						<ul>
+							<li>bread</li>
+							<li>meat</li>
+							<li>cheese</li>
+							<li>veggies</li>
+							<li>sauce</li>
+						</ul>
+					</ModalBody>
+					<ModalFooter>Total: {fixedPrice}</ModalFooter>
+				</Modal>
+			</div>
+		);
+	}
 
     return (
 			<div className='profileWrapper'>
@@ -69,30 +109,11 @@ function Profile(props) {
 						<div className='profileBodyLabelItems'>Items</div>
 					</div>
 					<div className='profileBodyData'>
-						<div className='profileBodyItem'>
-							<div className='profileBodyDataName'>Roast Beef</div>
-							<div className='profileBodyDataPrice'>$4.20</div>
-							<div className='profileBodyDataDate'>11/20/2019</div>
-							<div className='profileBodyDataItems'>
-								<span onClick={toggleOrderDeets}>View Order</span>
-							</div>
-						</div>
+						{orders.map(renderOrders)}
 					</div>
 				</div>
 
-				<Modal className="ordersModal" isOpen={orderDetails} toggle={toggleOrderDeets}>
-					<ModalHeader>Order Details</ModalHeader>
-					<ModalBody>
-						<ul>
-							<li>bread</li>
-							<li>meat</li>
-							<li>cheese</li>
-							<li>veggies</li>
-							<li>sauce</li>
-						</ul>
-					</ModalBody>
-					<ModalFooter>Price</ModalFooter>
-				</Modal>
+			
 			</div>
 		);
 }

@@ -27,8 +27,11 @@ function App(props) {
 
 	const getUser = () => {
 		getUserData();
-	
 	};
+	const logoutUser = () => {
+		setUser();
+		setUserID();
+	}
 
 	const userView = user ? user.view : 0;
 	
@@ -74,6 +77,11 @@ function App(props) {
 										<Button className='hb' type='submit' onClick={getUser}>
 											Login
 										</Button>
+										{user ? (
+											<Button className='lo' type='submit' onClick={logoutUser}>
+												Logout
+											</Button>
+										) : null}
 									</div>
 								</div>
 							</div>

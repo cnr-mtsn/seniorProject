@@ -361,3 +361,11 @@ app.get('/newOrder', (req, res) => {
         err ? res.send(err) : res.json({ data: results });
     });
 });
+//all orders by user_ID
+app.get('/orderById', (req, res) => {
+    const {userId} = req.query;
+    const GET_ORDERS_BY_ID = `SELECT * FROM orders WHERE user_id = ${userId}`;
+    db.query(GET_ORDERS_BY_ID, (err, results) => {
+        err ? res.send(err) : res.json({ data: results });
+    });
+});

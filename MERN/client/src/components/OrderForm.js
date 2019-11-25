@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import "../App.css";
 import Header from "../components/Header";
-import { FaPlus } from "react-icons/fa";
+import { FaPlus, FaUserTie, FaStar } from "react-icons/fa";
 import { Redirect } from 'react-router-dom';
 import {
 	Button,
@@ -10,27 +10,38 @@ import {
 	ModalBody,
 	ModalHeader,
 	ModalFooter,
-	Spinner
+	Spinner, 
+	Progress
 } from "reactstrap";
 
 function OrderForm(props) {
 
+	//get info about the user for sending order
+	const getUserStats = async () => {
+		await fetch(`http://localhost:5000/userByIdAll?id=${props.user.user_id}`)
+			.then(response => response.json())
+			.then(response => setUserData(response.data[0]))
+			.catch(err => console.log(err));
+	};
+
 	/****** STATE  ******/
+	const [total, setTotal] = useState(0);
 	const [items, setItems] = useState([]);
 	const [order, setOrder] = useState([]);
-	const [redirect, setRedirect] = useState(false);
-	const [category, setCategory] = useState("");
-	const [total, setTotal] = useState(0);
-	const [duplicates, setDuplicates] = useState(0);
-	const [healthPoints, setHealthPoints] = useState(0);
 	const [times, setTimes] = useState([]);
-	const [pickupTime, setPickupTime] = useState();
 	const [comments, setComments] = useState();
 	const [user, setUser] = useState(props.user);
+	const [category, setCategory] = useState("");
+	const [pickupTime, setPickupTime] = useState();
+	const [duplicates, setDuplicates] = useState(0);
+	const [healthPoints, setHealthPoints] = useState(0);
+	const [userData, setUserData] = useState(getUserStats());
 	const [modal, setModal] = useState(false);
 	const [thanks, setThanks] = useState(false);
 	const [routing, setRouting] = useState(false);
+	const [redirect, setRedirect] = useState(false);
 	const [confirmed, setConfirmed] = useState(false);
+	const [redirectProfile, setRedirectProfile] = useState(false);
 	/****** STATE  ******/
 
 	useEffect(() => {
@@ -83,6 +94,7 @@ function OrderForm(props) {
 	const renderItem = item => {
 
 		const fixedPrice = "$" + item.price.toFixed(2);
+
 		//add item to order || increment price/health points if already in order
 		const handleItemClick = (divId, disabled) => {
 			let found = false;
@@ -115,16 +127,7 @@ function OrderForm(props) {
 			</div>
 		);
 	};
-	//render each item in order
-	const renderOrderItems = item => {
-		return (
-			<div key={item.name} className='orderDetailsWrapper'>
-				<div className='detailsName'>{item.name}</div>
-				<div className='detailsPrice'>{item.price}</div>
-				<div className='detailsHP'>{item.health_points}</div>
-			</div>
-		);
-	};
+
 	//render each item in order on confirmation modal
 	const renderConfirmItems = item => {
 		return <li key={item.name}>{item.name}</li>;
@@ -149,11 +152,13 @@ function OrderForm(props) {
 	const routeHome = () => {
 		setRedirect(true);
 	};
+	const routeToProfile = () => {
+		setRedirectProfile(true);
+	}
 	/****** FUNCTIONS ******/
 	
 
 	/****** CONDITIONAL INNER HTML ******/
-	const submitdivText = order.length < 1 ? "Build" : "Submit";
 
 	const thanksBody = routing ? (
 		<Spinner color='dark' />
@@ -183,108 +188,112 @@ function OrderForm(props) {
 
 	const avgHP = healthPoints / (order.length + duplicates) || 0;
 	
-	const orderDetailsHeader =
-		order.length < 1 ? "Select a category to begin..." : "Order Details";
-	
 	/****** CONDITIONAL INNER HTML ******/
 
 	/****** RENDER THIS ******/
 	if(redirect) {
 		return ( <Redirect to="/"/>);
-	} else {
+	} else if(redirectProfile) {
+		return ( <Redirect to="/profile"/>);
+	}
+	else {
 		return (
 			<div className='orderFormWrapper'>
+				
 				<div className='orderFormHeader'>
 					<Header user={user} view={user.view} />
 				</div>
 
-				<div className='orderForm'>
-					<div className='formWrapper'>
-						<div className='selectCategory'>
-							<div className='selectCategoryWrapper'>
-								<div
-									className='selectBreadButton'
-									value='bread'
-									onClick={handleCategorySelection.bind(this, "bread")}>
-									Bread
-								</div>
-								<div
-									className='selectTortillaButton'
-									value='tortilla'
-									onClick={handleCategorySelection.bind(this, "tortilla")}>
-									Tortilla
-								</div>
-								<div
-									className='selectProteinButton'
-									value='protein'
-									onClick={handleCategorySelection.bind(this, "protein")}>
-									Protein
-								</div>
-								<div
-									className='selectCheeseButton'
-									value='cheese'
-									onClick={handleCategorySelection.bind(this, "cheese")}>
-									Cheese
-								</div>
-								<div
-									className='selectVeggieButton'
-									value='veggie'
-									onClick={handleCategorySelection.bind(this, "veggie")}>
-									Veggies
-								</div>
-								<div
-									className='selectCondimentButton'
-									value='condiment'
-									onClick={handleCategorySelection.bind(this, "condiment")}>
-									Condiments
-								</div>
-								<div
-									className='selectExtraButton'
-									value='extra'
-									onClick={handleCategorySelection.bind(this, "extra")}>
-									Extras
-								</div>
+				<div className='orderFormSide'>
+					<div className='profileSidePicAndStars'>
+						<div className='profileSidePic'>
+							<div className='profileSidePicInner'>
+								<FaUserTie size={200} />
+							</div>
+							<div className='profileSideStars'>
+								<FaStar size={32} />
+								<FaStar size={32} />
+								<FaStar size={32} />
+								<FaStar size={32} />
+								<FaStar size={32} />
 							</div>
 						</div>
-						<div className='actualForm'>{items.map(renderItem)}</div>
+					</div>
+
+					<div className='profileSideLinks'>
+						<div className='profileSideLinksOrders' onClick={routeToProfile}>
+							<h5>My Orders</h5>
+						</div>
+						<div className='profileSideLinksFavs'>
+							<h5>Favorites</h5>
+						</div>
+					</div>
+
+					<div className='profileSideFooter'>
+						<div className='profileSideFooterEmail'>
+							<h6>{userData.email}</h6>
+						</div>
+						<div className='profileSideFooterID'>
+							<h6>ID: {userData.user_id}</h6>
+						</div>
 					</div>
 				</div>
 
-				<div className='orderFormDetails'>
-					<div className='orderFormDetailsInner'>
-						<div className='orderDetailsTitle'>{orderDetailsHeader}</div>
-						<div className='renderOrderItemsDiv'>
-							{order.map(renderOrderItems)}
+				<div className='orderFormBody'>
+					<div className='selectCategory'>
+						<div
+							className='selectBreadButton'
+							value='bread'
+							onClick={handleCategorySelection.bind(this, "bread")}>
+
+							Bread
 						</div>
-
-						<div className='orderDetailsFooter'>
-							<div className='detailsFooterWrapper'>
-								<div className='detailsTotal'>
-									<h6>Total: ${total.toFixed(2)}</h6>
-									<h6>Avg HP: {avgHP.toFixed(1)}</h6>
-								</div>
-								<div className='detailsClearButton'>
-									<Button
-										className='detailsdiv'
-										type='div'
-										color='danger'
-										onClick={handleClearOrderClick}>
-										Clear
-									</Button>
-								</div>
-
-								<div className='detailsConfirmButton'>
-									<Button
-										className='detailsdiv'
-										type='div'
-										color='primary'
-										onClick={toggleModal}>
-										{submitdivText}
-									</Button>
-								</div>
-							</div>
+						<div
+							className='selectTortillaButton'
+							value='tortilla'
+							onClick={handleCategorySelection.bind(this, "tortilla")}>
+							Tortilla
+						</div>
+						<div
+							className='selectProteinButton'
+							value='protein'
+							onClick={handleCategorySelection.bind(this, "protein")}>
+							Protein
+						</div>
+						<div
+							className='selectCheeseButton'
+							value='cheese'
+							onClick={handleCategorySelection.bind(this, "cheese")}>
+							Cheese
+						</div>
+						<div
+							className='selectVeggieButton'
+							value='veggie'
+							onClick={handleCategorySelection.bind(this, "veggie")}>
+							Veggies
+						</div>
+						<div
+							className='selectCondimentButton'
+							value='condiment'
+							onClick={handleCategorySelection.bind(this, "condiment")}>
+							Condiments
+						</div>
+						<div
+							className='selectExtraButton'
+							value='extra'
+							onClick={handleCategorySelection.bind(this, "extra")}>
+							Extras
 						</div>
 					</div>
+
+					<div className='actualForm'>
+						{items.map(renderItem)}
+					</div>
+
+					<div className="orderStatus">
+						<Progress value={75}/>
+					</div>
+
 				</div>
 
 				<div>
@@ -319,11 +328,7 @@ function OrderForm(props) {
 				</div>
 			</div>
 		);
-
 	}
-	
-	/****** RENDER THIS ******/
-	
 }
 
 export default OrderForm;
