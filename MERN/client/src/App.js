@@ -8,7 +8,7 @@ import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import { Input, Button } from "reactstrap";
 
 
-function App(props) {
+function App() {
 
 	const [userID, setUserID] = useState();
 	const [user, setUser] = useState();

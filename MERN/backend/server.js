@@ -355,8 +355,8 @@ app.get('/userByIdAll', (req, res) => {
 /************ ORDERS ************/
 //Add order
 app.get('/newOrder', (req, res) => {
-    const {userId, total} = req.query;
-    const ADD_ORDER = `INSERT INTO orders(user_id, total) VALUES(${userId}, ${total})`;
+    const {userId, total, orderId} = req.query;
+    const ADD_ORDER = `INSERT INTO orders(user_id, total, order_id) VALUES(${userId}, ${total}, ${orderId})`;
     db.query(ADD_ORDER, (err, results) => {
         err ? res.send(err) : res.json({ data: results });
     });
@@ -364,8 +364,24 @@ app.get('/newOrder', (req, res) => {
 //all orders by user_ID
 app.get('/orderById', (req, res) => {
     const {userId} = req.query;
-    const GET_ORDERS_BY_ID = `SELECT * FROM orders WHERE user_id = ${userId}`;
+    const GET_ORDERS_BY_ID = `SELECT order_id, user_id, total, DATE_FORMAT(order_date, '%m-%d-%Y') as order_date FROM orders WHERE user_id = ${userId}`;
     db.query(GET_ORDERS_BY_ID, (err, results) => {
         err ? res.send(err) : res.json({ data: results });
+    });
+});
+//maxOrderByUserID
+app.get('/maxOrderById', (req, res) => {
+    const {userId} = req.query;
+    const GET_MAX_ID = `SELECT MAX(order_id) as id FROM users NATURAL LEFT OUTER JOIN orders WHERE users.user_id=${userId}`;
+    db.query(GET_MAX_ID, (err, results) => {
+        err ? res.send(err) : res.json({ data: results });
+    });
+});
+//insert order item
+app.get('/insertOrderItem', (req, res) => {
+    const {itemId, attr, table, orderId} = req.query;
+    const INSERT_ORDER_ITEM = `INSERT INTO ${table}(order_id, ${attr}) VALUES(${orderId}, ${itemId})`;
+    db.query(INSERT_ORDER_ITEM, (err, results) => {
+        err ? res.send(err) : res.json({ data : results });
     });
 });

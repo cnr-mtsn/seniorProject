@@ -1,28 +1,29 @@
 import React, {useState, useEffect} from 'react';
 import Header from '../components/Header';
-import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
+import { Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
 
-import { FaUserTie, FaStar, FaStarHalf } from 'react-icons/fa';
+import { FaUserTie, FaStar } from 'react-icons/fa';
 
 
 function Profile(props) {
 
+	useEffect(() => {
+		getUserOrders();
+		getUserStats(); // eslint-disable-next-line
+	}, []);
+	
 	const getUserStats = async () => {
-		await fetch(`http://localhost:5000/userByIdAll?id=${user.user_id}`)
+		await fetch(`http://localhost:5000/userByIdAll?id=${props.user.user_id}`)
 			.then(response => response.json())
 			.then(response => setUserData(response.data[0]))
 			.catch(err => console.log(err));
 	};
-	const getUserOrders = async () => {
-		await fetch(`http://localhost:5000/orderById?userId=${user.user_id}`)
+	const getUserOrders =  () => {
+		fetch(`http://localhost:5000/orderById?userId=${props.user.user_id}`)
 			.then(response => response.json())
 			.then(response => setOrders(response.data))
 			.catch(err => console.log(err));
 	}
-	useEffect(() => {
-		getUserOrders();
-	}, []);
-
 	const [user] = useState(props.user);
 	const [userData, setUserData] = useState(getUserStats());
 	const [orderDetails, setOrderDetails] = useState(false);
@@ -33,7 +34,7 @@ function Profile(props) {
 	const renderOrders = (order) => {
 		const fixedPrice = `$${order.total.toFixed(2)}`;
 		return (
-			<div className='profileBodyItem'>
+			<div key={order.order_id} className='profileBodyItem'>
 				<div className='profileBodyDataName'>{order.order_id}</div>
 				<div className='profileBodyDataPrice'>{fixedPrice}</div>
 				<div className='profileBodyDataDate'>{order.order_date}</div>

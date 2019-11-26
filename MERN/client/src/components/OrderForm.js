@@ -28,9 +28,10 @@ function OrderForm(props) {
 	const [total, setTotal] = useState(0);
 	const [items, setItems] = useState([]);
 	const [order, setOrder] = useState([]);
+	const [orderId, setOrderId] = useState();
 	const [times, setTimes] = useState([]);
 	const [comments, setComments] = useState();
-	const [user, setUser] = useState(props.user);
+	const [user] = useState(props.user);
 	const [category, setCategory] = useState("");
 	const [pickupTime, setPickupTime] = useState();
 	const [duplicates, setDuplicates] = useState(0);
@@ -42,20 +43,34 @@ function OrderForm(props) {
 	const [redirect, setRedirect] = useState(false);
 	const [confirmed, setConfirmed] = useState(false);
 	const [redirectProfile, setRedirectProfile] = useState(false);
+
+	const avgHP = healthPoints / (order.length + duplicates) || 0;
+
 	/****** STATE  ******/
 
 	useEffect(() => {
 		getTimes();
+		getUserStats();
+		getMaxId();// eslint-disable-next-line
 	}, []);
 
 	/****** TOGGLES  ******/
-	const toggleModal = () => setModal(!modal);
+	const toggleModal = () =>  { 
+		setModal(!modal);
+	}
 	const toggleThanks = () => setThanks(!thanks);
 	const toggleRouting = () => setRouting(!routing);
 	const toggleConfirmed = () => setConfirmed(!confirmed);
 	/****** TOGGLES  ******/
 
 	/****** FUNCTIONS ******/
+	//get max order_id from db
+	const getMaxId = async () => {
+		await fetch(`http://localhost:5000/maxOrderById?userId=${props.user.user_id}`)
+			.then(response => response.json())
+			.then(response => setOrderId(response.data[0].id + 1))
+			.catch(err => console.log(err));
+	};
 	//get all pickup times from database
 	const getTimes = async () => {
 		fetch(`http://localhost:5000/pickupTimes`)
@@ -137,13 +152,51 @@ function OrderForm(props) {
 		return <option key={time.time_id}>{time.pickupTime}</option>;
 	};
 	//when order is placed from confirmation modal => 	
-	const handlePlaceOrderClick = () => {
+	const handlePlaceOrderClick = async () => {
+		//submit order with user_id, total, order_id
+		await submitOrder();
+		//submit items in order
+		order.map(submitItems);
+		//trigger spinner in confirmation modal
 		toggleConfirmed();
+		//close confirmation modal after 1/3 second
 		setTimeout(toggleModal, 300);
+		//clear state values
 		setOrder([]);
 		setTotal(0);
 		setComments(null);
+		//toggle thanks modal
 		setTimeout(toggleThanks, 300);
+	};
+	//submit order total, user_id, generate order number
+	const submitOrder = () => {
+		fetch(`http://localhost:5000/newOrder?userId=${userData.user_id}&total=${total}&orderId=${orderId}`)
+		.catch(err => console.log(err));
+	}
+	
+	const submitItems = (item) => {
+		if(item.sandwich_id) {
+			insertOrderItem(item.sandwich_id, 'sandwich_id', 'orders_sandwich');
+		} else if (item.tortilla_id) {
+			insertOrderItem(item.tortilla_id, "tortilla_id", 'orders_tortilla');
+		} else if (item.protein_id) {
+			insertOrderItem(item.protein_id, "protein_id", 'orders_protein');
+		} else if (item.cheese_id) {
+			insertOrderItem(item.cheese_id, "cheese_id", 'orders_cheese');
+		} else if (item.veggie_id) {
+			insertOrderItem(item.veggie_id, "veggie_id", 'orders_veggies');
+		} else if (item.condiments_id) {
+			insertOrderItem(item.condiments_id, "condiments_id", 'orders_condiments');
+		} else if (item.extras_id) {
+			insertOrderItem(item.extras_id, "extras_id", 'orders_extras');
+		} else {
+			console.log('completed inserting items');
+		}
+	};
+	const insertOrderItem = async (itemId, attr, table) => {
+		await fetch(`http://localhost:5000/insertOrderItem?itemId=${itemId}&attr=${attr}&table=${table}&orderId=${orderId}`)
+		.then(console.log(`inserted ${itemId} into ${table}`))
+		.catch(err => console.log(err));
 	};
 	const handleThanksClick = () => {
 		toggleRouting();
@@ -174,6 +227,7 @@ function OrderForm(props) {
 			<h5>Name: {user.firstName} {user.lastName}</h5>
 			<h5>User ID: {user.user_id}</h5>
 			<h5>Total: ${total.toFixed(2)}</h5>
+			<h5>Avg HP: ${avgHP}</h5>
 			<Input type='select' onChange={handleTimeSelection}>
 				{times.map(renderTimes)}
 				<option disabled defaultValue='Pickup Time'></option>
@@ -184,10 +238,7 @@ function OrderForm(props) {
 				onChange={handleCommentsInput}
 			/>
 		</div>
-	);
-
-	const avgHP = healthPoints / (order.length + duplicates) || 0;
-	
+	);	
 	/****** CONDITIONAL INNER HTML ******/
 
 	/****** RENDER THIS ******/
@@ -291,6 +342,8 @@ function OrderForm(props) {
 					</div>
 
 					<div className="orderStatus">
+						<Button onClick={toggleModal}>Submit</Button>
+						<Button onClick={handleClearOrderClick}>Clear</Button>
 						<Progress value={75}/>
 					</div>
 
