@@ -162,14 +162,14 @@ function OrderForm(props) {
 					.then(response => setCheeseId(response.data))
 					.catch(err => console.log(err))
 
-					await addCheese()
+					addCheese()
 				}
 			}
 		}
 	}
 
 	const getOrderId = async () => {
-		await fetch(`http://localhost:5000/orderId?userId=${userId}&total=${total}`)
+		await fetch(`http://localhost:5000/orderId?userId=${userId}&total=0.00`)
 		.then(response => response.json())
 		.then(response => setOrderId(response.data))
 		.then(insertOrderItems())

@@ -463,9 +463,9 @@ app.get('/userPassword', (req, res) => {
 /************ ORDERS ************/
 //Add order
 app.get('/newOrder', (req, res) => {
-    const {userId, total} = req.query;
+    const {userId} = req.query;
 
-    const ADD_ORDER = `INSERT INTO orders(user_id, total) VALUES(${userId}, ${total})`;
+    const ADD_ORDER = `INSERT INTO orders(user_id, total) VALUES(${userId}, 0.00)`;
     db.query(ADD_ORDER, (err, results) => {
         if(err) {
             return res.send(err);
