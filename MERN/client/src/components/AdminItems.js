@@ -36,7 +36,7 @@ function AdminItems(props) {
   };
   //fetch all items of current category and load into state items
   const getItems = async () => {
-    fetch(`http://localhost:5000/${category}`)
+    await fetch(`http://localhost:5000/${category}`)
     .then(response => response.json())
     .then(response => setItems(response.data))
     .catch(err => console.error(err))
