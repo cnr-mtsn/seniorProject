@@ -356,7 +356,7 @@ app.get('/userByIdAll', (req, res) => {
 //Add order
 app.get('/newOrder', (req, res) => {
     const {userId, total, orderId} = req.query;
-    const ADD_ORDER = `INSERT INTO orders(user_id, total, order_id) VALUES(${userId}, ${total}, ${orderId})`;
+    const ADD_ORDER = `INSERT INTO orders(user_id, total) VALUES(${userId}, ${total})`;
     db.query(ADD_ORDER, (err, results) => {
         err ? res.send(err) : res.json({ data: results });
     });
@@ -372,7 +372,7 @@ app.get('/orderById', (req, res) => {
 //maxOrderByUserID
 app.get('/maxOrderById', (req, res) => {
     const {userId} = req.query;
-    const GET_MAX_ID = `SELECT MAX(order_id) as id FROM users NATURAL LEFT OUTER JOIN orders WHERE users.user_id=${userId}`;
+    const GET_MAX_ID = `SELECT MAX(order_id) as id FROM orders`;
     db.query(GET_MAX_ID, (err, results) => {
         err ? res.send(err) : res.json({ data: results });
     });

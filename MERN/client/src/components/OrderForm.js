@@ -170,7 +170,7 @@ function OrderForm(props) {
 	};
 	//submit order total, user_id, generate order number
 	const submitOrder = () => {
-		fetch(`http://localhost:5000/newOrder?userId=${userData.user_id}&total=${total}&orderId=${orderId}`)
+		fetch(`http://localhost:5000/newOrder?userId=${userData.user_id}&total=${total}`)
 		.catch(err => console.log(err));
 	}
 	
