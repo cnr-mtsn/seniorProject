@@ -17,7 +17,7 @@ function App() {
 		setUserID(e.target.value);
 	};
 	const getUserData = async () => {
-		await fetch(`http://localhost:5000/userById?id=${userID}`)
+		await fetch(`http://localhost:5000/userByIdAll?id=${userID}`)
 			.then(response => response.json())
 			.then(response => setUser(response.data[0]))
 			.catch(err => console.log(err));
@@ -51,13 +51,13 @@ function App() {
 
 					<Route path='/orderForm' exact render={() => {
 						return (
-							<OrderForm user={user}/>
+							<OrderForm user={user.user_id}/>
 						);
 					}} />
 
 					<Route path='/profile' exact render={() => {
 						return (
-							<Profile user={user}/>
+							<Profile user={user.user_id}/>
 						)
 					}} />
 
@@ -65,7 +65,7 @@ function App() {
 						return (
 							<div className='homeWrapper'>
 								<div className='homeHeader'>
-									<Header user={user} view={userView} />
+									<Header user={user ? user.firstName : null} view={userView} />
 								</div>
 								<div className='homeContainer'>
 									<div className='homeInput'>

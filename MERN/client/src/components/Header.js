@@ -46,7 +46,7 @@ function Header(props) {
 	);
 
 	const welcomeText = props.user ? (
-		`Welcome, ${props.user.firstName}`
+		`Welcome, ${props.user}`
 	) : null;
 
 	var adminVis;

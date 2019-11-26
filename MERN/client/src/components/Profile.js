@@ -8,26 +8,26 @@ import { FaUserTie, FaStar } from 'react-icons/fa';
 function Profile(props) {
 
 	useEffect(() => {
-		getUserOrders();
-		getUserStats(); // eslint-disable-next-line
+		getUserStats();
+		getUserOrders(); // eslint-disable-next-line
 	}, []);
-	
+
 	const getUserStats = async () => {
-		await fetch(`http://localhost:5000/userByIdAll?id=${props.user.user_id}`)
+		await fetch(`http://localhost:5000/userByIdAll?id=${props.user}`)
 			.then(response => response.json())
 			.then(response => setUserData(response.data[0]))
 			.catch(err => console.log(err));
 	};
-	const getUserOrders =  () => {
-		fetch(`http://localhost:5000/orderById?userId=${props.user.user_id}`)
+	const getUserOrders =  async () => {
+		await fetch(`http://localhost:5000/orderById?userId=${props.user}`)
 			.then(response => response.json())
 			.then(response => setOrders(response.data))
 			.catch(err => console.log(err));
 	}
-	const [user] = useState(props.user);
-	const [userData, setUserData] = useState(getUserStats());
-	const [orderDetails, setOrderDetails] = useState(false);
+
+	const [userData, setUserData] = useState([]);
 	const [orders, setOrders] = useState([]);
+	const [orderDetails, setOrderDetails] = useState(false);
 
 	const toggleOrderDeets = () => { setOrderDetails(!orderDetails) };
 
@@ -64,7 +64,7 @@ function Profile(props) {
     return (
 			<div className='profileWrapper'>
 				<div className='profileHeader'>
-					<Header user={user} view={userData.view} />
+					<Header user={userData.firstName} view={userData.view} />
 				</div>
 
 				<div className='profileSide'>
@@ -110,7 +110,7 @@ function Profile(props) {
 						<div className='profileBodyLabelItems'>Items</div>
 					</div>
 					<div className='profileBodyData'>
-						{orders.map(renderOrders)}
+						{ orders ? orders.map(renderOrders) : null}
 					</div>
 				</div>
 

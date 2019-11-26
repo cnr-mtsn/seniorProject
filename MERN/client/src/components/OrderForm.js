@@ -18,7 +18,7 @@ function OrderForm(props) {
 
 	//get info about the user for sending order
 	const getUserStats = async () => {
-		await fetch(`http://localhost:5000/userByIdAll?id=${props.user.user_id}`)
+		await fetch(`http://localhost:5000/userByIdAll?id=${props.user}`)
 			.then(response => response.json())
 			.then(response => setUserData(response.data[0]))
 			.catch(err => console.log(err));
@@ -31,12 +31,11 @@ function OrderForm(props) {
 	const [orderId, setOrderId] = useState();
 	const [times, setTimes] = useState([]);
 	const [comments, setComments] = useState();
-	const [user] = useState(props.user);
 	const [category, setCategory] = useState("");
 	const [pickupTime, setPickupTime] = useState();
 	const [duplicates, setDuplicates] = useState(0);
 	const [healthPoints, setHealthPoints] = useState(0);
-	const [userData, setUserData] = useState(getUserStats());
+	const [userData, setUserData] = useState(getUserStats);
 	const [modal, setModal] = useState(false);
 	const [thanks, setThanks] = useState(false);
 	const [routing, setRouting] = useState(false);
@@ -50,7 +49,6 @@ function OrderForm(props) {
 
 	useEffect(() => {
 		getTimes();
-		getUserStats();
 		getMaxId();// eslint-disable-next-line
 	}, []);
 
@@ -224,8 +222,8 @@ function OrderForm(props) {
 	) : (
 		<div>
 			<ul style={{ marginLeft: "0" }}>{order.map(renderConfirmItems)}</ul>
-			<h5>Name: {user.firstName} {user.lastName}</h5>
-			<h5>User ID: {user.user_id}</h5>
+			<h5>Name: {userData.firstName} {userData.lastName}</h5>
+			<h5>User ID: {userData.user_id}</h5>
 			<h5>Total: ${total.toFixed(2)}</h5>
 			<h5>Avg HP: ${avgHP}</h5>
 			<Input type='select' onChange={handleTimeSelection}>
@@ -252,7 +250,7 @@ function OrderForm(props) {
 			<div className='orderFormWrapper'>
 				
 				<div className='orderFormHeader'>
-					<Header user={user} view={user.view} />
+					<Header user={userData.firstName} view={userData.view} />
 				</div>
 
 				<div className='orderFormSide'>
