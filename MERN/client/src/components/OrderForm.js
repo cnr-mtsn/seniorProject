@@ -68,7 +68,7 @@ function OrderForm(props) {
 	const getMaxId = async () => {
 		await fetch(`http://localhost:5000/maxOrderById?userId=${props.user.user_id}`)
 			.then(response => response.json())
-			.then(response => setOrderId(response.data[0].id + 1))
+			.then(response => setOrderId(response.data[0].id ? response.data[0].id + 1 : 1))
 			.catch(err => console.log(err));
 	};
 	//get all pickup times from database
@@ -184,7 +184,7 @@ function OrderForm(props) {
 		} else if (item.cheese_id) {
 			insertOrderItem(item.cheese_id, "cheese_id", 'orders_cheese');
 		} else if (item.veggie_id) {
-			insertOrderItem(item.veggie_id, "veggie_id", 'orders_veggies');
+			insertOrderItem(item.veggie_id, "veggies_id", 'orders_veggies');
 		} else if (item.condiments_id) {
 			insertOrderItem(item.condiments_id, "condiments_id", 'orders_condiments');
 		} else if (item.extras_id) {
