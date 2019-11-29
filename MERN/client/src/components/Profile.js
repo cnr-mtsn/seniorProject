@@ -19,20 +19,38 @@ function Profile(props) {
 			.catch(err => console.log(err));
 	};
 	const getUserOrders =  async () => {
-		await fetch(`http://localhost:5000/orderById?userId=${props.user}`)
+		await fetch(`http://localhost:5000/ordersById?userId=${props.user}`)
 			.then(response => response.json())
 			.then(response => setOrders(response.data))
 			.catch(err => console.log(err));
-	}
-
-	const [userData, setUserData] = useState([]);
+	};
+	
+	
 	const [orders, setOrders] = useState([]);
+	const [userData, setUserData] = useState([]);
 	const [orderDetails, setOrderDetails] = useState(false);
 
 	const toggleOrderDeets = () => { setOrderDetails(!orderDetails) };
 
+
 	const renderOrders = (order) => {
+		console.log(order.order_id);
+	
 		const fixedPrice = `$${order.total.toFixed(2)}`;
+		const orderModal = (
+			<Modal
+				className='ordersModal'
+				isOpen={orderDetails}
+				toggle={toggleOrderDeets}>
+				<ModalHeader>Order Details</ModalHeader>
+				<ModalBody>
+					<ul>
+						<li>Order ID: {order.order_id}</li>
+					</ul>
+				</ModalBody>
+				<ModalFooter>Total: {fixedPrice}</ModalFooter>
+			</Modal>
+		)
 		return (
 			<div key={order.order_id} className='profileBodyItem'>
 				<div className='profileBodyDataName'>{order.order_id}</div>
@@ -41,22 +59,7 @@ function Profile(props) {
 				<div className='profileBodyDataItems'>
 					<span onClick={toggleOrderDeets}>View Order</span>
 				</div>
-				<Modal
-					className='ordersModal'
-					isOpen={orderDetails}
-					toggle={toggleOrderDeets}>
-					<ModalHeader>Order Details</ModalHeader>
-					<ModalBody>
-						<ul>
-							<li>bread</li>
-							<li>meat</li>
-							<li>cheese</li>
-							<li>veggies</li>
-							<li>sauce</li>
-						</ul>
-					</ModalBody>
-					<ModalFooter>Total: {fixedPrice}</ModalFooter>
-				</Modal>
+				{orderModal}
 			</div>
 		);
 	}

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import "../App.css";
 import Header from "../components/Header";
-import { FaPlus, FaUserTie, FaStar } from "react-icons/fa";
+import { FaPlus, FaUserTie, FaStar, FaMinus } from "react-icons/fa";
 import { Redirect } from 'react-router-dom';
 import {
 	Button,
@@ -43,7 +43,7 @@ function OrderForm(props) {
 	const [confirmed, setConfirmed] = useState(false);
 	const [redirectProfile, setRedirectProfile] = useState(false);
 
-	const avgHP = healthPoints / (order.length + duplicates) || 0;
+	const avgHP = (healthPoints / (order.length + duplicates)).toFixed(1) || 0;
 
 	/****** STATE  ******/
 
@@ -64,7 +64,7 @@ function OrderForm(props) {
 	/****** FUNCTIONS ******/
 	//get max order_id from db
 	const getMaxId = async () => {
-		await fetch(`http://localhost:5000/maxOrderById?userId=${props.user.user_id}`)
+		await fetch(`http://localhost:5000/maxOrderById`)
 			.then(response => response.json())
 			.then(response => setOrderId(response.data[0].id ? response.data[0].id + 1 : 1))
 			.catch(err => console.log(err));
@@ -103,11 +103,22 @@ function OrderForm(props) {
 		setTotal(0);
 		setDuplicates(0);
 	};
+	const renderOrderItems = item => {
+		return (
+			<div key={item.name} className="orderDetailsItem">
+				<div className="orderDetailsItemName">{item.name}</div>
+				<div className="orderDetailsRemoveButton">
+					<Button>
+						<FaMinus size={10}/>
+					</Button>
+				</div>
+			</div>
+		)
+
+	}
 	//render each item in desired category with button for adding to order.
 	const renderItem = item => {
-
 		const fixedPrice = "$" + item.price.toFixed(2);
-
 		//add item to order || increment price/health points if already in order
 		const handleItemClick = (divId, disabled) => {
 			let found = false;
@@ -130,7 +141,6 @@ function OrderForm(props) {
 				<FaPlus />
 			</Button>
 		);
-		
 		return (
 			<div key={item.name} className='renderItemWrapper'>
 				<div className='renderItemName'>{item.name}</div>
@@ -225,7 +235,7 @@ function OrderForm(props) {
 			<h5>Name: {userData.firstName} {userData.lastName}</h5>
 			<h5>User ID: {userData.user_id}</h5>
 			<h5>Total: ${total.toFixed(2)}</h5>
-			<h5>Avg HP: ${avgHP}</h5>
+			<h5>Avg HP: {avgHP}</h5>
 			<Input type='select' onChange={handleTimeSelection}>
 				{times.map(renderTimes)}
 				<option disabled defaultValue='Pickup Time'></option>
@@ -248,7 +258,6 @@ function OrderForm(props) {
 	else {
 		return (
 			<div className='orderFormWrapper'>
-				
 				<div className='orderFormHeader'>
 					<Header user={userData.firstName} view={userData.view} />
 				</div>
@@ -294,7 +303,6 @@ function OrderForm(props) {
 							className='selectBreadButton'
 							value='bread'
 							onClick={handleCategorySelection.bind(this, "bread")}>
-
 							Bread
 						</div>
 						<div
@@ -335,16 +343,23 @@ function OrderForm(props) {
 						</div>
 					</div>
 
-					<div className='actualForm'>
-						{items.map(renderItem)}
-					</div>
+					<div className='actualForm'>{items.map(renderItem)}</div>
 
-					<div className="orderStatus">
-						<Button onClick={toggleModal}>Submit</Button>
-						<Button onClick={handleClearOrderClick}>Clear</Button>
-						<Progress value={75}/>
-					</div>
+					<div style={{ color: "white" }} className='orderDetails'>
+						<div className='detailsHeader'>
+							<h6>Order Details</h6>
+						</div>
 
+						<div className='detailsBody'>
+							{order.map(renderOrderItems)}
+						</div>
+
+						<div className='detailsFooter'>
+							<Button onClick={toggleModal}>Submit</Button>
+							<Button onClick={handleClearOrderClick}>Clear</Button>
+							<Progress value={75} />
+						</div>
+					</div>
 				</div>
 
 				<div>

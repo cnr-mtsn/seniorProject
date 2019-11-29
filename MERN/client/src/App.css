@@ -1,7 +1,7 @@
 .App {
 	/* background-image: url(./media/background.jpg); */
 	/* background-color: rgb(230, 220, 242); */
-	background-color:#241F1F;
+	background-color:#c5c0d6;
 	background-size: cover;
 	background-attachment: fixed;
 	min-height: 100vh;
@@ -341,7 +341,7 @@
 	grid-area: hd;
 }
 .profileBody {
-	background: #241F1F;
+	background-color:#c5c0d6;
 	grid-area: bd;
 	height: 90vh;
 	padding: 50px;
@@ -556,24 +556,23 @@
 		"pf";
 }
 .orderFormBody {
-background: #241F1F;
+background-color:#c5c0d6;
 grid-area:bd;
-height:90vh;
+max-height:90vh;
 padding:50px;
 display:grid;
 grid-template-rows: 1fr 7fr 1fr;
 grid-auto-rows: minmax(80px, auto);
-grid-template-columns: repeat(6, 1fr);
+grid-template-columns: repeat(12, 1fr);
 grid-template-areas: 
-	'... sc sc sc sc ...'
-	'... of of of of ...'
-	'... os os os os ...'
+	'... sc sc sc sc sc sc sc sc sc sc  ...'
+	'... of of of of of of ... od od od ...'
+	'... os os os os os os ... ... ... ... ...'
 }
 .selectCategory {
 	border-radius: 5px;
 	grid-area: sc;
 	height: 6vh;
-	background-color: #4f4856;
 	outline: 1px solid black;
 	display:grid;
 	grid-template-columns: repeat(7, 1fr);
@@ -583,21 +582,69 @@ grid-template-areas:
 	'... ... ... ... ... ... ...'
 	;
 }
+.orderDetails {
+	grid-area: od;
+	display:flex;
+	flex-direction: column;
+	justify-content: space-around;
+	background-color: #4f4856;
+}
+.orderDetailsItem {
+	display:Flex;
+	flex-direction:row;
+	justify-content: space-between;
+}
+.detailsHeader {
+	display:flex;
+	justify-content: center;
+	align-items: center;
+}
+.detailsBody {
+	display:flex;
+	flex-direction: column;
+	max-height: 30vh;
+	overflow:scroll;
+}
+
+.detailsBody ul li {
+	list-style: none;
+}
+
+.detailsFooter {
+	display: flex;
+	flex-direction: row;
+	justify-content: space-evenly;
+}
+.detailsFooter Button {
+	width: 90px;
+}
 .orderStatus {
 	grid-area: os;
 }
 .actualForm {
 	grid-area: of;
+	max-height: 80vh;
+	overflow: scroll;
 }
 .actualForm div {
 	text-align: left;
-	background-color:#847e90;
+	background-color:#4F4856;
 }
+
 .selectCategory div {
 	text-align: center;
-	color: #c5c0d6;
-	height: 100%;
+	color:#847e90;
+	background-color: #4f4856;
+	height: 6vh;
 	width: 100%;
+	display:flex;
+	justify-content: center;
+	align-items: center;
+}
+.selectCategory div:hover {
+	background-color: #847e90;
+	color: #241F1F;
+
 }
 .selectBreadButton {
 	grid-area: brd;
@@ -634,7 +681,6 @@ grid-template-areas:
 	grid-template-areas: "nm nm prc hp btn";
 }
 .renderItemWrapper div {
-	background:#4F4856;
 	color:#C5C0D6;
 	padding: 5px;
 }

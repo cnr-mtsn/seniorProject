@@ -362,7 +362,7 @@ app.get('/newOrder', (req, res) => {
     });
 });
 //all orders by user_ID
-app.get('/orderById', (req, res) => {
+app.get('/ordersById', (req, res) => {
     const {userId} = req.query;
     const GET_ORDERS_BY_ID = `SELECT order_id, user_id, total, DATE_FORMAT(order_date, '%m-%d-%Y') as order_date FROM orders WHERE user_id = ${userId}`;
     db.query(GET_ORDERS_BY_ID, (err, results) => {
@@ -371,7 +371,6 @@ app.get('/orderById', (req, res) => {
 });
 //maxOrderByUserID
 app.get('/maxOrderById', (req, res) => {
-    const {userId} = req.query;
     const GET_MAX_ID = `SELECT MAX(order_id) as id FROM orders`;
     db.query(GET_MAX_ID, (err, results) => {
         err ? res.send(err) : res.json({ data: results });
@@ -383,5 +382,13 @@ app.get('/insertOrderItem', (req, res) => {
     const INSERT_ORDER_ITEM = `INSERT INTO ${table}(order_id, ${attr}) VALUES(${orderId}, ${itemId})`;
     db.query(INSERT_ORDER_ITEM, (err, results) => {
         err ? res.send(err) : res.json({ data : results });
+    });
+});
+//get name, price, health_points of each item in order
+app.get('/getItemNames', (req, res) => {
+    const {orderId, category, orders_category} = req.query;
+    const GET_ITEM_NAME = `SELECT name, price, health_points FROM ${category} NATURAL LEFT OUTER JOIN ${orders_category} where ${orders_category}.order_id=${orderId}`;
+    db.query(GET_ITEM_NAME, (err, results) => {
+        err ? res.send(err) : res.json( {data: results });
     });
 });

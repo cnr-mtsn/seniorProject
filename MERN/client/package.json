@@ -5,6 +5,7 @@
   "dependencies": {
     "axios": "^0.19.0",
     "bootstrap": "^4.3.1",
+    "formik": "^2.0.6",
     "jwt-decode": "^2.2.0",
     "react": "^16.9.0",
     "react-bootstrap": "^1.0.0-beta.12",
@@ -14,7 +15,8 @@
     "react-items-carousel": "^2.8.0",
     "react-router-dom": "^5.1.2",
     "react-scripts": "3.1.2",
-    "reactstrap": "^8.0.1"
+    "reactstrap": "^8.0.1",
+    "yup": "^0.27.0"
   },
   "scripts": {
     "start": "react-scripts start",
