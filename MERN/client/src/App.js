@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import "./App.css";
+import Kitchen from './components/Kitchen';
 import Admin from "./components/Admin";
 import OrderForm from "./components/OrderForm";
 import Header from "./components/Header";
@@ -58,6 +59,12 @@ function App() {
 					<Route path='/profile' exact render={() => {
 						return (
 							<Profile user={user.user_id}/>
+						)
+					}} />
+
+					<Route path="/kitchen" exact render={() => {
+						return (
+							<Kitchen user={user.user_id}/>
 						)
 					}} />
 

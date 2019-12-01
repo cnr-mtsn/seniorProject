@@ -165,8 +165,9 @@ function OrderForm(props) {
 		await submitOrder();
 		//submit items in order
 		order.map(submitItems);
+		pickupTime ? submitPickUp() : alert("select a pickup time");
+		comments ? submitComments() : toggleConfirmed();
 		//trigger spinner in confirmation modal
-		toggleConfirmed();
 		//close confirmation modal after 1/3 second
 		setTimeout(toggleModal, 300);
 		//clear state values
@@ -206,6 +207,12 @@ function OrderForm(props) {
 		.then(console.log(`inserted ${itemId} into ${table}`))
 		.catch(err => console.log(err));
 	};
+	const submitComments = () => {
+		insertOrderItem(`'${comments}'`, "order_comments", "orders_comments");
+	}
+	const submitPickUp = () => {
+		insertOrderItem(`'${pickupTime}'`, "order_pickupTime", 'orders_pickupTimes');
+	}
 	const handleThanksClick = () => {
 		toggleRouting();
 		setTimeout(routeHome, 800);
@@ -237,8 +244,8 @@ function OrderForm(props) {
 			<h5>Total: ${total.toFixed(2)}</h5>
 			<h5>Avg HP: {avgHP}</h5>
 			<Input type='select' onChange={handleTimeSelection}>
+				<option defaultValue='Pickup Time'>Pickup Time</option>
 				{times.map(renderTimes)}
-				<option disabled defaultValue='Pickup Time'></option>
 			</Input>
 			<Input
 				type='textarea'

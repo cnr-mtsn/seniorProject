@@ -218,11 +218,11 @@
 .mainHeader {
 	display: grid;
 	background-color: #978daf;
-	grid-template-columns: repeat(8, 1fr);
+	grid-template-columns: repeat(9, 1fr);
 	grid-template-areas:
-		"logo logo ... ... ... ... ... ..."
-		"logo logo  hl ol pl al icn grt"
-		"logo logo ... ... ... ... ... ...";
+		"logo logo ... ... ... .... .. ... ..."
+		"logo logo  hl ol pl kl al icn grt"
+		"logo logo ... ... ... ... ... ... ...";
 }
 /* .mainHeader div {
   outline:1px solid blue;
@@ -247,6 +247,10 @@
 .profileLink {
 	grid-area: pl;
 	text-align: center;
+}
+.kitchenLink {
+	grid-area: kl;
+	text-align:center;
 }
 .adminLink {
 	grid-area: al;
@@ -699,3 +703,133 @@ grid-template-areas:
 }
 
 /* ORDER FORM */
+
+/* Kitchen */
+.kitchenWrapper {
+	display: grid;
+	grid-template-columns: repeat(9, 1fr);
+	grid-template-areas:
+		"hd hd hd hd hd hd hd hd hd"
+		"sd sd bd bd bd bd bd bd bd"
+	;
+}
+
+.kitchenHeader {
+	grid-area: hd;
+}
+.kitchenSide {
+	grid-area: sd;
+	display: grid;
+	grid-template-rows: repeat(9, 1fr);
+	height: 90vh;
+	background-color: #4f4856;
+	color: #c5c0d6;
+	grid-template-areas:
+		"pp"
+		"pp"
+		"pp"
+		"pp"
+		"..."
+		"..."
+		"pl"
+		"..."
+		"..."
+		"pf";
+}
+.kitchenSidePicAndStars {
+	grid-area: pp;
+	height: 350px;
+	display: grid;
+	grid-template-rows: 3fr 1fr;
+	grid-template-areas:
+		"psp"
+		"pss";
+}
+.kitchenSidePic {
+	grid-area: psp;
+	height: 40vh;
+	display: grid;
+	grid-template-columns: 1fr 1fr 1fr;
+	grid-template-rows: 1fr 1fr;
+	grid-template-areas:
+		"... pic ..."
+		"... pss ...";
+}
+.kitchenSidePicInner {
+	grid-area: pic;
+	margin-top: 30px;
+}
+.kitchenSideStars {
+	grid-area: pss;
+	width: 160px;
+	margin-left: 18px;
+	margin-top: 15px;
+	grid-template-areas: "... strs ...";
+}
+.kitchenSideLinks {
+	grid-area: pl;
+	height: 80px;
+	display: grid;
+	grid-template-areas:
+		"ol"
+		"fl";
+}
+.kitchenSideLinks div {
+	border-top: 1px solid #c5c0d6;
+	border-bottom: 1px solid #c5c0d6;
+}
+.kitchenSideLinksOrders {
+	grid-area: ol;
+}
+.kitchenSideLinksOrders h5 {
+	margin-left: 30px;
+	cursor: pointer;
+	transition: all 0.5s;
+}
+.kitchenSideLinksOrders:hover h5 {
+	margin-left: 45px;
+	color: white;
+}
+.kitchenSideLinksFavs {
+	grid-area: fl;
+}
+.kitchenSideLinksFavs h5 {
+	margin-left: 30px;
+	cursor: pointer;
+	transition: all 0.5s;
+}
+.kitchenSideLinksFavs:hover h5 {
+	margin-left: 45px;
+	color: white;
+}
+.kitchenSideFooter {
+	grid-area: pf;
+	display: grid;
+	grid-template-areas:
+		"pfe"
+		"pid";
+	border-top: 1px solid #c5c0d6;
+}
+.kitchenSideFooterEmail {
+	grid-area: pfe;
+}
+.kitchenSideFooterEmail h6 {
+	margin-left: 30px;
+}
+.kitchenSideFooterID h6 {
+	margin-left: 30px;
+}
+.kitchenSideFooterID {
+	grid-area: pid;
+}
+
+.kitchenBody {
+	grid-area: bd;
+	display:flex;
+	flex-direction: column;
+}
+.kitchenOrder {
+	display: flex;
+	flex-direction: row;
+	justify-content: space-around;
+}

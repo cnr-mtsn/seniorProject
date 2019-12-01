@@ -392,3 +392,10 @@ app.get('/getItemNames', (req, res) => {
         err ? res.send(err) : res.json( {data: results });
     });
 });
+//get all orders
+app.get('/allOrders', (req, res) => {
+    const GET_ALL_ORDERS = `SELECT * FROM orders`;
+    db.query(GET_ALL_ORDERS, (err, results) => {
+        err ? res.send(err) : res.json( { data: results });
+    });
+});

@@ -44,29 +44,42 @@ function Header(props) {
 		Admin
 		</NavLink>
 	);
-
+	const kitchenLink = (
+		<NavLink	
+			exact 
+			style={linkStyle}
+			activeStyle={activeLinkStyle}
+			to="/kitchen">
+			Kitchen
+		</NavLink>
+	);
 	const welcomeText = props.user ? (
 		`Welcome, ${props.user}`
 	) : null;
 
 	var adminVis;
-	var userVis;
+	var userVis = 'visible';
+	var kitchenVis;
 	switch(props.view) {
 		case 1:
-			userVis = 'visible';
+			//users
 			adminVis= 'hidden';
+			kitchenVis= 'hidden';
 			break;
 		case 2:
-			userVis = 'visible';
+			//kitchen staff
 			adminVis= 'hidden';
+			kitchenVis = 'visible';
 			break;
 		case 3:
+			//admin
 			adminVis = 'visible';
-			userVis = "visible";
+			kitchenVis = 'hidden';
 			break;
 		default:
 			adminVis = 'hidden';
 			userVis = 'hidden';
+			kitchenVis = 'hidden';
 	}
 
 	const icon = props.user ? ( <FaUserCircle size={36} style={{marginLeft:'75%'}}/> ) : null;
@@ -86,6 +99,7 @@ function Header(props) {
 			<div style={{ visibility: `${userVis}` }} className='profileLink'>
 				{profileLink}
 			</div>
+			<div style={{ visibility: `${kitchenVis} `}} className="kitchenLink">{kitchenLink}</div>
 			<div style={{ visibility: `${adminVis}` }} className='adminLink'>
 				{adminLink}
 			</div>
