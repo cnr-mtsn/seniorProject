@@ -169,6 +169,9 @@
 }
 .homeInput {
 	grid-area: hi;
+	display:flex;
+	flex-direction:column;
+	justify-content: center;
 }
 .homeButton {
 	grid-area: hb;

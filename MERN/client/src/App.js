@@ -26,8 +26,8 @@ function App() {
 
 	var inputPlaceholder = user ? "Logged In" : "User ID";
 
-	const getUser = () => {
-		getUserData();
+	const getUser = async () => {
+		await getUserData(); 
 	};
 	const logoutUser = () => {
 		setUser();
@@ -35,6 +35,7 @@ function App() {
 	}
 
 	const userView = user ? user.view : 0;
+	const errorMsg = user ? null : 'invalid ID';
 	
 
 	return (
@@ -76,6 +77,7 @@ function App() {
 								</div>
 								<div className='homeContainer'>
 									<div className='homeInput'>
+										<span style={{color:'red'}}>{errorMsg}</span>
 										<Input
 											placeholder={inputPlaceholder}
 											onChange={handleIDInput}></Input>
