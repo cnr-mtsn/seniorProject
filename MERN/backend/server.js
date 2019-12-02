@@ -351,12 +351,19 @@ app.get('/userByIdAll', (req, res) => {
         err ? res.send(err) : res.json({data:results})
     });
 });
+app.get('/userHP', (req, res) => {
+    const {id} = req.query;
+    const GET_TOTAL_HP = `SELECT SUM(hp) as sum FROM orders WHERE user_id = ${id}`;
+    db.query(GET_TOTAL_HP, (err, results) => {
+        err ? res.send(err) : res.json({ data: results })
+    });
+});
 
 /************ ORDERS ************/
 //Add order
 app.get('/newOrder', (req, res) => {
-    const {userId, total, orderId} = req.query;
-    const ADD_ORDER = `INSERT INTO orders(user_id, total) VALUES(${userId}, ${total})`;
+    const {userId, orderId, total, hp, comments, pickupTime} = req.query;
+    const ADD_ORDER = `INSERT INTO orders(user_id, order_id, total, hp, comments, pickupTime) VALUES(${userId}, ${orderId}, ${total}, ${hp}, '${comments}', '${pickupTime}')`;
     db.query(ADD_ORDER, (err, results) => {
         err ? res.send(err) : res.json({ data: results });
     });
@@ -364,7 +371,7 @@ app.get('/newOrder', (req, res) => {
 //all orders by user_ID
 app.get('/ordersById', (req, res) => {
     const {userId} = req.query;
-    const GET_ORDERS_BY_ID = `SELECT order_id, user_id, total, DATE_FORMAT(order_date, '%m-%d-%Y') as order_date FROM orders WHERE user_id = ${userId}`;
+    const GET_ORDERS_BY_ID = `SELECT hp, order_id, user_id, total, DATE_FORMAT(order_date, '%m-%d-%Y') as order_date FROM orders WHERE user_id = ${userId}`;
     db.query(GET_ORDERS_BY_ID, (err, results) => {
         err ? res.send(err) : res.json({ data: results });
     });
@@ -394,7 +401,7 @@ app.get('/getItemNames', (req, res) => {
 });
 //get all orders
 app.get('/allOrders', (req, res) => {
-    const GET_ALL_ORDERS = `SELECT * FROM orders`;
+    const GET_ALL_ORDERS = `SELECT * FROM orders ORDER BY pickupTime`;
     db.query(GET_ALL_ORDERS, (err, results) => {
         err ? res.send(err) : res.json( { data: results });
     });

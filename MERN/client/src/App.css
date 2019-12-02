@@ -173,8 +173,10 @@
 .homeButton {
 	grid-area: hb;
 	margin-top: 20px;
-	display:grid;
-	grid-template-areas: '... hb ... lo ...'
+	display:flex;
+	flex-direction:column;
+	justify-content: center;
+	align-items: center;
 }
 .homeButton Button:hover {
 	background-color: #978daf;
@@ -182,17 +184,10 @@
 	border: 1px solid white;
 }
 .hb {
-	grid-area: hb;
-	width: 100%;
 	background-color: #ffffff;
 	color: #4f4856;
 }
-.lo {
-	grid-area: lo;
-	width: 100%;
-	background-color: #ffffff;
-	color: #4f4856;
-}
+
 .homeWrapper {
 	display: grid;
 	grid-template-columns: repeat(9, 1fr);
@@ -350,60 +345,37 @@
 	height: 90vh;
 	padding: 50px;
 	/* outline:1px solid black; */
-	display: grid;
-	grid-template-rows: 1fr 7fr;
-	grid-auto-rows: minmax(80px, auto);
-	grid-template-areas:
-		"bl"
-		"bd";
+	display: flex;
+	flex-direction:column;
 }
-.profileBodyLabels {
-	grid-area: bl;
-	background-color: #4f4856;
-	outline: 1px solid black;
+.profileBodyHeaders {
+	display:flex;
+	flex-direction: row;
+	justify-content:space-around;
+	text-align:center;
 	height: 6vh;
-	display: grid;
-	grid-template-columns: repeat(4, 1fr);
-	grid-template-areas:
-		"... ... ... ..."
-		"ln lp ld li"
-		"... ... ... ...";
 }
-.profileBodyLabels div {
-	text-align: center;
-	color: #c5c0d6;
-	height: 100%;
+.profileBodyHeaders h5 {
 	width: 100%;
-}
-.profileBodyLabelName {
-	grid-area: ln;
-}
-.profileBodyLabelPrice {
-	grid-area: lp;
-}
-.profileBodyLabelDate {
-	grid-area: ld;
-}
-.profileBodyLabelItems {
-	grid-area: li;
+	outline: 1px solid black;
+	text-align:center;
 }
 
 .profileBodyData {
-	grid-area: bd;
 	outline: 1px solid black;
 }
-.profileBodyData div {
-	text-align: center;
-	background-color: #4f4856;
-;
+
+.clickable:hover {
+	cursor:pointer;
 }
-.profileBodyItem {
-	color: white;
-	display: grid;
-	grid-template-columns: repeat(4, 1fr);
+.profileOrder {
+	display: flex;
+	flex-direction:row;
+	justify-content:space-around;
 }
-.profileBodyDataItems span{
-	cursor: pointer;
+.profileOrder div {
+	width:100%;
+	text-align:center;
 }
 .profileSide {
 	grid-area: sd;
@@ -825,11 +797,30 @@ grid-template-areas:
 
 .kitchenBody {
 	grid-area: bd;
+	padding: 50px;
 	display:flex;
 	flex-direction: column;
+}
+.kitchenBodyHeaders {
+	display:flex;
+	flex-direction: row;
+	justify-content:space-around;
+	text-align:center;
+	height: 6vh;
+}
+.kitchenBodyHeaders h5 {
+	width: 100%;
+	outline: 1px solid black;
+}
+.kitchenBodyData {
+	outline: 1px solid black;
 }
 .kitchenOrder {
 	display: flex;
 	flex-direction: row;
 	justify-content: space-around;
+}
+.kitchenOrder div {
+	width:100%;
+	text-align:center;
 }

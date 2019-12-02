@@ -10,6 +10,7 @@ function Profile(props) {
 	useEffect(() => {
 		getUserStats();
 		getUserOrders(); // eslint-disable-next-line
+		getTotalHP();
 	}, []);
 
 	const getUserStats = async () => {
@@ -24,18 +25,23 @@ function Profile(props) {
 			.then(response => setOrders(response.data))
 			.catch(err => console.log(err));
 	};
-	
-	
+	const getTotalHP = async () => {
+		await fetch(`http://localhost:5000/userHP?id=${props.user}`)
+		.then(response => response.json())
+		.then(response => setTotalHP(response.data[0]))
+		.catch(err => console.log(err));
+	}
+	const [totalHP, setTotalHP] = useState();
 	const [orders, setOrders] = useState([]);
 	const [userData, setUserData] = useState([]);
 	const [orderDetails, setOrderDetails] = useState(false);
+	const [avgHP] = useState(totalHP/orders);
 
 	const toggleOrderDeets = () => { setOrderDetails(!orderDetails) };
-
-
-	const renderOrders = (order) => {
-		console.log(order.order_id);
+	var ordersCount = orders.length;
 	
+	const renderOrders = (order) => {
+		console.log(ordersCount);
 		const fixedPrice = `$${order.total.toFixed(2)}`;
 		const orderModal = (
 			<Modal
@@ -52,13 +58,11 @@ function Profile(props) {
 			</Modal>
 		)
 		return (
-			<div key={order.order_id} className='profileBodyItem'>
-				<div className='profileBodyDataName'>{order.order_id}</div>
-				<div className='profileBodyDataPrice'>{fixedPrice}</div>
-				<div className='profileBodyDataDate'>{order.order_date}</div>
-				<div className='profileBodyDataItems'>
-					<span onClick={toggleOrderDeets}>View Order</span>
-				</div>
+			<div key={order.order_id} className='profileOrder'>
+				<div>{order.hp}</div>
+				<div>{fixedPrice}</div>
+				<div>{order.order_date}</div>
+				<div onClick={toggleOrderDeets} className="clickable">View Order</div>
 				{orderModal}
 			</div>
 		);
@@ -106,11 +110,11 @@ function Profile(props) {
 				</div>
 
 				<div className='profileBody'>
-					<div className='profileBodyLabels'>
-						<div className='profileBodyLabelName'>Name</div>
-						<div className='profileBodyLabelPrice'>Price</div>
-						<div className='profileBodyLabelDate'>Date</div>
-						<div className='profileBodyLabelItems'>Items</div>
+					<div className='profileBodyHeaders'>
+						<h5>Name</h5>
+						<h5>Price</h5>
+						<h5>Data</h5>
+						<h5>Items</h5>
 					</div>
 					<div className='profileBodyData'>
 						{ orders ? orders.map(renderOrders) : null}

@@ -24,7 +24,7 @@ function App() {
 			.catch(err => console.log(err));
 	};
 
-	var inputPlaceholder = user ? user.user_id : "User ID";
+	var inputPlaceholder = user ? "Logged In" : "User ID";
 
 	const getUser = () => {
 		getUserData();
@@ -46,7 +46,7 @@ function App() {
 
 					<Route path='/admin' exact render={() => {
 						return (
-							<Admin user={user}/>
+							<Admin user={user.user_id}/>
 						);
 					}} />
 
@@ -81,14 +81,15 @@ function App() {
 											onChange={handleIDInput}></Input>
 									</div>
 									<div className='homeButton'>
-										<Button className='hb' type='submit' onClick={getUser}>
-											Login
-										</Button>
 										{user ? (
-											<Button className='lo' type='submit' onClick={logoutUser}>
+											<Button className='hb' type='submit' onClick={logoutUser}>
 												Logout
 											</Button>
-										) : null}
+										) : (
+											<Button className='hb' type='submit' onClick={getUser}>
+												Login
+											</Button>
+										)}
 									</div>
 								</div>
 							</div>

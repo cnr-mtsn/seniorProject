@@ -165,8 +165,7 @@ function OrderForm(props) {
 		await submitOrder();
 		//submit items in order
 		order.map(submitItems);
-		pickupTime ? submitPickUp() : alert("select a pickup time");
-		comments ? submitComments() : toggleConfirmed();
+		toggleConfirmed();
 		//trigger spinner in confirmation modal
 		//close confirmation modal after 1/3 second
 		setTimeout(toggleModal, 300);
@@ -179,7 +178,7 @@ function OrderForm(props) {
 	};
 	//submit order total, user_id, generate order number
 	const submitOrder = () => {
-		fetch(`http://localhost:5000/newOrder?userId=${userData.user_id}&total=${total}`)
+		fetch(`http://localhost:5000/newOrder?orderId=${orderId}&userId=${userData.user_id}&total=${total}&hp=${healthPoints.toFixed(2)}&comments=${comments}&pickupTime=${pickupTime}`)
 		.catch(err => console.log(err));
 	}
 	
@@ -207,12 +206,6 @@ function OrderForm(props) {
 		.then(console.log(`inserted ${itemId} into ${table}`))
 		.catch(err => console.log(err));
 	};
-	const submitComments = () => {
-		insertOrderItem(`'${comments}'`, "order_comments", "orders_comments");
-	}
-	const submitPickUp = () => {
-		insertOrderItem(`'${pickupTime}'`, "order_pickupTime", 'orders_pickupTimes');
-	}
 	const handleThanksClick = () => {
 		toggleRouting();
 		setTimeout(routeHome, 800);
