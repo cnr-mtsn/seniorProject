@@ -60,78 +60,13 @@ function AdminItems(props) {
     .catch(err => console.err(err))
     console.log(`updated ${itemToChange.name} to ${newItem.name}`);
   }
-  //delete item of current category with name == item.name
-  const deleteItem = async (name) => {
-    await fetch(`http://localhost:5000/${category}/delete?name=${name}`)
-    .then(getItems)
-    .then(console.log(`removed: ${name}`))
-    .catch(err => console.error(err))
-  };
-  //set name of ItemToChange&&NewItem when input box edited
-  const handleNameChange = (e) => {
-    setItemToChange( {
-      name: e.target.placeholder,
-      price: itemToChange.price, 
-      healthPoints: itemToChange.healthPoints, 
-      description: itemToChange.description
-    });
-    setNewItem( {
-      name: e.target.value,
-      price: newItem.price, 
-      healthPoints: newItem.healthPoints, 
-      description: newItem.description
-    })
-  };
-  //set price of ItemToChange&&NewItem when input box edited
-  const handlePriceChange = (e) => {
-    setItemToChange( {
-      name: itemToChange.name,
-     price: e.target.placeholder, 
-     healthPoints: itemToChange.healthPoints, 
-     description: itemToChange.description
-    });
-    setNewItem( {
-      name: newItem.name,
-      price: e.target.value, 
-      healthPoints: newItem.healthPoints, 
-      description: newItem.description
-    });
-  };
-  //set healthPoints of ItemToChange && NewItem when input box edited
-  const handleHealthPointsChange = (e) => {
-    setItemToChange({
-      name: itemToChange.name,
-      price: itemToChange.price,
-      healthPoints: e.target.placeholder, 
-      description: itemToChange.description
-    });
-    setNewItem({
-      name: newItem.name,
-      price: newItem.price,
-      healthPoints: e.target.value, 
-      description:newItem.description
-    })
-  };
-  const handleDescriptionChange = (e) => {
-    setItemToChange({
-			name: itemToChange.name,
-			price: itemToChange.price,
-			healthPoints: itemToChange.healthPoints,
-			description: e.target.placeholder
-    });
-    setNewItem({
-      name: newItem.name,
-      price: newItem.price,
-      healthPoints: newItem.healthPoints,
-      description: e.target.value
-    });
-  };
+ 
   const handleCategorySelection = async (selection) => {
     await fetch(`http://localhost:5000/${selection}`)
     .then(response => response.json())
     .then(response => setItems(response.data))
-    .then(setCategory(selection))
-    .then(console.log("selected"))
+	.then(setCategory(selection))
+	.catch(err => console.log(err))
   }
   const handleAddClick = () => {
     addItem();
@@ -147,7 +82,12 @@ function AdminItems(props) {
   //render items as table of editable input boxes with buttons for updating/deleting data
   const renderItem = (item) => {
     //convert price in database to string preceded by $ and fixed to 2 decimals
-    const fixedPrice ='$' + item.price.toFixed(2);
+	const fixedPrice ='$' + item.price.toFixed(2);
+	
+	const handleDescriptionChange = () => {
+		console.log("changed description");
+	};
+
 
     var descriptionInput = (category === 'specials' ? 
         <Input 
@@ -159,7 +99,46 @@ function AdminItems(props) {
           className="adminDescription"
           onChange={(e) => console.log(e.target.value)}
           defaultValue="50kcal">
-          </Input>);
+		  </Input>);
+
+	const handleNameChange = (e) => {
+		setItemToChange({
+			name: item.name, 
+			price: item.price,
+			healthPoints: item.health_points
+		});
+		setNewItem({
+			name: e.target.value,
+			price: newItem.price === item.price ? newItem.price : item.price,
+			healthPoints: newItem.healthPoints === item.health_points
+				? newItem.healthPoints
+				: item.health_points
+		});
+	};
+	const handlePriceChange = (e) => {
+		setItemToChange({
+			name: item.name,
+			price: item.price,
+			healthPoints: item.health_points
+		});
+		setNewItem({
+			name: newItem.name === item.name ? newItem.name : item.name,
+			price: e.target.value,
+			healthPoints: newItem.healthPoints  === item.health_points ? newItem.healthPoints : item.health_points
+		});
+	}
+	const handleHealthPointsChange = (e) => {
+		setItemToChange({
+			name: item.name,
+			price: item.price,
+			healthPoints: item.health_points
+		});
+		setNewItem({
+			name: newItem.name === item.name ? newItem.name : item.name,
+			price: newItem.price === item.price ? newItem.price : item.price,
+			healthPoints: e.target.value
+		});
+	}
 
     return (
 			<div className='adminItemsInnerWrapper' key={item.name}>
@@ -196,8 +175,11 @@ function AdminItems(props) {
 						outline
 						color='danger'
 						type='button'
-						onClick={e => {
-							deleteItem(item.name);
+						onClick={(name) => {
+								fetch(`http://localhost:5000/${category}/delete?name=${name}`)
+								.then(getItems)
+								.then(console.log(`removed: ${name}`))
+								.catch(err => console.error(err));
 						}}>
 						Delete
 					</Button>

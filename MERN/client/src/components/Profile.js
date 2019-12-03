@@ -28,7 +28,7 @@ function Profile(props) {
 	const getTotalHP = async () => {
 		await fetch(`http://localhost:5000/userHP?id=${props.user}`)
 		.then(response => response.json())
-		.then(response => setTotalHP(response.data))
+		.then(response => setTotalHP(response.data[0].sum))
 		.catch(err => console.log(err));
 	}
 	const [totalHP, setTotalHP] = useState();
@@ -37,10 +37,8 @@ function Profile(props) {
 	const [orderDetails, setOrderDetails] = useState(false);
 
 	const toggleOrderDeets = () => { setOrderDetails(!orderDetails) };
-	var ordersCount = orders.length;
 	
 	const renderOrders = (order) => {
-		console.log(ordersCount);
 		const fixedPrice = `$${order.total.toFixed(2)}`;
 		const orderModal = (
 			<Modal
@@ -66,9 +64,7 @@ function Profile(props) {
 			</div>
 		);
 	}
-	const avgHP = totalHP / orders.length;
-	console.log('total hp: ' + totalHP);
-	// console.log('average:' + avgHP);
+
     return (
 			<div className='profileWrapper'>
 				<div className='profileHeader'>

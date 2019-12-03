@@ -33,10 +33,7 @@ function App() {
 		setUser();
 		setUserID();
 	}
-
 	const userView = user ? user.view : 0;
-	const errorMsg = user ? null : 'invalid ID';
-	
 
 	return (
 		<Router>
@@ -77,7 +74,6 @@ function App() {
 								</div>
 								<div className='homeContainer'>
 									<div className='homeInput'>
-										<span style={{color:'red'}}>{errorMsg}</span>
 										<Input
 											placeholder={inputPlaceholder}
 											onChange={handleIDInput}></Input>
