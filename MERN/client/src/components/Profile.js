@@ -10,7 +10,7 @@ function Profile(props) {
 	useEffect(() => {
 		getUserStats();
 		getUserOrders(); // eslint-disable-next-line
-		getTotalHP();
+		getTotalHP(); // eslint-disable-next-line
 	}, []);
 
 	const getUserStats = async () => {
@@ -31,6 +31,7 @@ function Profile(props) {
 		.then(response => setTotalHP(response.data[0].sum))
 		.catch(err => console.log(err));
 	}
+	// eslint-disable-next-line
 	const [totalHP, setTotalHP] = useState();
 	const [orders, setOrders] = useState([]);
 	const [userData, setUserData] = useState([]);

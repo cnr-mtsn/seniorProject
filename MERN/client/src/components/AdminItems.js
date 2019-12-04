@@ -1,66 +1,88 @@
-import React, { useState, useEffect } from "react";
-import { Button,	Input, Modal } from "reactstrap";
+import React, { useState } from "react";
+import { Modal } from "reactstrap";
+import { FaEdit, FaTrash, FaArrowRight } from 'react-icons/fa';
 import "../App.css";
 
-function AdminItems(props) {
+function AdminItems() {
 
-/************ STATE MANAGEMENT ************/
-  //current category of admin_items
-  const [category, setCategory] = useState(props.category);
-  //all items of current category
+
+  const [category, setCategory] = useState();
   const [items, setItems] = useState([]);
-  //name && price of item to add/update
-  const [newItem, setNewItem] = useState( {
-    name: '', 
-    price: 0, 
-    healthPoints: 0
+  const[addModalOpen, setAddModalOpen] = useState(false);
+  const[editModalOpen, setEditModalOpen] = useState(false);
+  const[newDescription, setNewDescription] = useState();
+  const[newName, setNewName] = useState();
+  const[newPrice, setNewPrice] = useState();
+  const[newHP, setNewHP] = useState();
+  const[newCals, setNewCals] = useState();
+  const[itemToChange, setItemToChange] = useState({
+	  name: '',
+	  price: '',
+	  healthPoints: ''
   });
-  //name && price of item being updated
-  const [itemToChange, setItemToChange] = useState( {
-    name: '', 
-    price: 0, 
-    healthPoints: 0
+  const[newItem, setNewItem] = useState({
+	  name: '',
+	  price: '',
+	  healthPoints: ''
   });
-  const[adminModal, setAdminModal] = useState(false);
-  const calOrDesc = (category === 'specials' ? 'Description' : 'Calories');
-  const labelVis = (category ? 'visible' : 'hidden');
-  useEffect(() => {
-    getItems();//eslint-disable-next-line
-  }, []);
-/************ END STATE MANAGEMENT ************/
 
-  /************ FUNCTIONS ************/
-  //Toggle modal to add item
-  const toggleAdminModal = () => {
-    setAdminModal(!adminModal)
+
+
+  const toggleAddModalOpen = () => {
+    setAddModalOpen(!addModalOpen);
   };
-  //fetch all items of current category and load into state items
-  const getItems = async () => {
-    await fetch(`http://localhost:5000/${category}`)
+
+  const toggleEditModalOpen = () => {
+	  setEditModalOpen(!editModalOpen);
+  };
+  
+  const getItems = () => {
+	fetch(`http://localhost:5000/${category}`)
     .then(response => response.json())
     .then(response => setItems(response.data))
     .catch(err => console.error(err))
   };
-  //add item to current category with name && price == newItem{name, price}
+  
   const addItem = async () => {
-    await fetch(`http://localhost:5000/${category}/add?name=${newItem.name}&price=${newItem.price}&healthPoints=${newItem.healthPoints}`)
-    .then(getItems)
-    .then(setNewItem({name: null, price: null, healthPoints: null}))
-    .catch(err => console.error(err))
-  };
-  //update item in current category to newItem.[name || price]
+
+	category === 'special' ||'specials' ? setCategory('main') : setCategory(category);
+
+	(newDescription ? (await fetch(`http://localhost:5000/${category}/add?name=${newName}&desc='${newDescription}'&price=${newPrice}&healthPoints=${newHP}&newCals=${newCals}`)
+		.then(getItems)
+		.then(toggleAddModalOpen)
+		.then(setCategory(category))
+		.then(setNewName(null))
+		.then(setNewPrice(null))
+		.then(setNewHP(null))
+		.then(setNewCals(null))
+		.catch(err => console.error(err))
+		) : (await fetch(`http://localhost:5000/${category}/add?name=${newName}&price=${newPrice}&healthPoints=${newHP}&newCals=${newCals}`)
+		.then(getItems)
+		.then(toggleAddModalOpen)
+		.then(setCategory(category))
+		.then(setNewName(null))
+		.then(setNewPrice(null))
+		.then(setNewHP(null))
+		.then(setNewCals(null))
+		.catch(err => console.error(err))))
+  }
+ 
   const updateItem = async () => {
-    await fetch(`http://localhost:5000/${category}/update?name=${itemToChange.name}&newName=${newItem.name}&newPrice=${newItem.price}&newHP=${newItem.healthPoints}`)
+    await fetch(`http://localhost:5000/${category}/update?name=${itemToChange.name}&newName=${newItem.name}&newPrice=${newItem.price}&newHP=${newItem.healthPoints}&newCals=${newCals}`)
     .then(getItems)
-    .catch(err => console.err(err))
+	.catch(err => console.err(err))
+	
   };
+
   const updateSpecial = async () => {
-    await fetch(`http://localhost:5000/${category}/update?name=${itemToChange.name}&newName=${newItem.name}&price=${newItem.price}&hp=${newItem.healthPoints}&desc=${newItem.description}`)
-    .then(getItems)
+    await fetch(`http://localhost:5000/${category}/update?name=${itemToChange.name}&newName=${newName}&price=${newPrice}&hp=${newHP}&desc=${newDescription}&newCals=${newCals}`)
+	.then(getItems)
+	.then(setItemToChange(null))
+	.then(setNewItem(null))
     .catch(err => console.err(err))
     console.log(`updated ${itemToChange.name} to ${newItem.name}`);
   }
- 
+
   const handleCategorySelection = async (selection) => {
     await fetch(`http://localhost:5000/${selection}`)
     .then(response => response.json())
@@ -68,273 +90,186 @@ function AdminItems(props) {
 	.then(setCategory(selection))
 	.catch(err => console.log(err))
   }
-  const handleAddClick = () => {
-    addItem();
-  }
+	const handleDeleteClick = async item => {
+	await fetch(`http://localhost:5000/${category}/delete?name=${item}`)
+	.then(getItems)
+	.then(console.log(`removed: ${item}`))
+	.catch(err => console.error(err));
+	};
+
+	const handleAddClick = () => {
+	addItem();
+	}
   const handleUpdateClick = () => {
-    if(category === 'specials') {
+    if(category === 'specials' || 'special') {
       updateSpecial();
     } else {
       updateItem();
     }
   }
+  const addDescriptionVis = category === 'specials' ? {display:'inline'} : {display:'none'};
 
   //render items as table of editable input boxes with buttons for updating/deleting data
   const renderItem = (item) => {
-    //convert price in database to string preceded by $ and fixed to 2 decimals
-	const fixedPrice ='$' + item.price.toFixed(2);
-	
-	const handleDescriptionChange = () => {
-		console.log("changed description");
-	};
-
-
-    var descriptionInput = (category === 'specials' ? 
-        <Input 
-          className="adminDescription" 
-          onChange={handleDescriptionChange}
-          defaultValue={item.description}>
-        </Input> : 
-        <Input
-          className="adminDescription"
-          onChange={(e) => console.log(e.target.value)}
-          defaultValue="50kcal">
-		  </Input>);
-
+   
 	const handleNameChange = (e) => {
-		setItemToChange({
-			name: item.name, 
-			price: item.price,
-			healthPoints: item.health_points
-		});
-		setNewItem({
-			name: e.target.value,
-			price: newItem.price === item.price ? newItem.price : item.price,
-			healthPoints: newItem.healthPoints === item.health_points
-				? newItem.healthPoints
-				: item.health_points
-		});
+		setItemToChange({ name: item.name, price: item.price, healthPoints: item.health_points });
+		setNewItem({ name: e.target.value, price: newItem.price, healthPoints: newItem.healthPoints });
 	};
 	const handlePriceChange = (e) => {
-		setItemToChange({
-			name: item.name,
-			price: item.price,
-			healthPoints: item.health_points
-		});
-		setNewItem({
-			name: newItem.name === item.name ? newItem.name : item.name,
-			price: e.target.value,
-			healthPoints: newItem.healthPoints  === item.health_points ? newItem.healthPoints : item.health_points
-		});
+		setItemToChange({ name: item.name, price: item.price, healthPoints: item.health_points });
+		setNewItem({ name: newItem.name, price: e.target.value, healthPoints: newItem.healthPoints });
 	}
 	const handleHealthPointsChange = (e) => {
-		setItemToChange({
-			name: item.name,
-			price: item.price,
-			healthPoints: item.health_points
-		});
-		setNewItem({
-			name: newItem.name === item.name ? newItem.name : item.name,
-			price: newItem.price === item.price ? newItem.price : item.price,
-			healthPoints: e.target.value
-		});
+		setItemToChange({ name: item.name, price: item.price, healthPoints: item.health_points });
+		setNewItem({ name: newItem.name,price: newItem.price, healthPoints: e.target.value });
+	}
+	const handleDescriptionChange = (e) => {
+		setNewDescription(e.target.value);
 	}
 
+
+	
+	var description = item.description ? item.description : null;
+	var descriptionVis = item.description ? 'inline' : 'none';
+
     return (
-			<div className='adminItemsInnerWrapper' key={item.name}>
-				<div className='adminItemName'>
-					<Input placeholder={item.name} onChange={handleNameChange}></Input>
+			<div className='adminItemsContainer' key={item.name}>
+				<div className='adminItemInfo'>
+					<input className="adminItemName" placeholder={item.name} onChange={handleNameChange}></input>
+					<input
+						placeholder={`$${item.price.toFixed(2)}`}
+						onChange={handlePriceChange}></input>
+					<span>{item.health_points} cal.</span>
+					<input
+						placeholder={`Health Points: ${item.health_points}`}
+						onChange={handleHealthPointsChange}
+					/>
 				</div>
 
-				<div className='adminItemPrice'>
-					<Input placeholder={fixedPrice} onChange={handlePriceChange}></Input>
+				<textarea
+					style={{ display: `${descriptionVis}`}}
+					className='adminItemDescription'
+					defaultValue={description}
+					onChange={handleDescriptionChange}>
+				</textarea>
+
+				<div className='adminButtons'>
+					<button type='button' onClick={toggleEditModalOpen}>
+						<FaEdit size={20}/>
+					</button>
+					<button type='button' onClick={handleDeleteClick.bind(this, `${item.name}`)}>
+						<FaTrash size={20}/>
+					</button>
 				</div>
 
-				<div className='adminItemHP'>
-					<Input
-						placeholder={item.health_points}
-						onChange={handleHealthPointsChange}></Input>
-				</div>
+				<Modal
+					style={{ background: "transparent" }}
+					isOpen={editModalOpen}
+					toggle={toggleEditModalOpen}>
+					<div className='editModalWrapper'>
+						<div className='editModalHeader'>
+							<h5>Review changes before submitting...</h5>
+						</div>
+						<div className='editModalBody'>
+							<ul>
+								<li>{itemToChange.name}</li>
+								<li>{itemToChange.price}</li>
+								<li>{itemToChange.healthPoints}</li>
+							</ul>
 
-				<div className='adminItemDesc'>{descriptionInput}</div>
+							<FaArrowRight size={48}/>
 
-				<div className='adminItemUpdate'>
-					<Button
-						block
-						outline
-						color='primary'
-						type='button'
-						onClick={handleUpdateClick}>
-						Update
-					</Button>
-				</div>
+							<ul>
+								<li>{newItem.name}</li>
+								<li>{newItem.price}</li>
+								<li>{newItem.healthPoints}</li>
+							</ul>
 
-				<div className='adminItemDelete'>
-					<Button
-						block
-						outline
-						color='danger'
-						type='button'
-						onClick={(name) => {
-								fetch(`http://localhost:5000/${category}/delete?name=${name}`)
-								.then(getItems)
-								.then(console.log(`removed: ${name}`))
-								.catch(err => console.error(err));
-						}}>
-						Delete
-					</Button>
-				</div>
+						</div>
+
+						<span style={{ visibility: `${descriptionVis}` }}>{`"${newDescription}"`}</span>
+						<button onClick={handleUpdateClick}>Submit Changes</button>
+					</div>
+				</Modal>
 			</div>
 		);
   };
-  /************ END FUNCTIONS ************/
-  /************ HTML ELEMENTS ************/
-  const addNamePlaceholder = (newItem.name ? newItem.name : 'Name');
-  const addPricePlaceholder = (newItem.price ? newItem.price : 'Price');
-  const addHealthPointsPlaceholder = (newItem.healthPoints ? newItem.healthPoints : 'Health Points');
+ 
 
     const selectCategory = (
 			<div className='selectWrapper'>
 				<div
-					className='selectBread'
 					value='bread'
 					onClick={handleCategorySelection.bind(this, "bread")}>
 					<span>Bread</span>
 				</div>
 				<div
-					className='selectTortilla'
 					value='tortilla'
 					onClick={handleCategorySelection.bind(this, "tortilla")}>
 					<span>Tortillas</span>
 				</div>
 				<div
-					className='selectProtein'
 					value='protein'
 					onClick={handleCategorySelection.bind(this, "protein")}>
 					<span>Protein</span>
 				</div>
 				<div
-					className='selectCheese'
 					value='cheese'
 					onClick={handleCategorySelection.bind(this, "cheese")}>
 					<span>Cheese</span>
 				</div>
 				<div
-					className='selectVeggie'
 					value='veggie'
 					onClick={handleCategorySelection.bind(this, "veggie")}>
 					<span>Veggies</span>
 				</div>
 				<div
-					className='selectCondiment'
 					value='condiment'
 					onClick={handleCategorySelection.bind(this, "condiment")}>
 					<span>Condiments</span>
 				</div>
 				<div
-					className='selectExtra'
 					value='extra'
 					onClick={handleCategorySelection.bind(this, "extra")}>
 					<span>Extras</span>
 				</div>
 				<div
-				className='selectSpecial'
-				value='specials'
-				onClick={handleCategorySelection.bind(this, 'specials')}>
+					value='specials'
+					onClick={handleCategorySelection.bind(this, 'specials')}>
 					<span>Specials</span>
 				</div>
 				<div 
-				className='adminInput'
-				onClick={toggleAdminModal}>
+					onClick={toggleAddModalOpen}>
 					<span>Add Ingredient</span>
 				</div>
+
 			</div>
 		);
    
-    /************ END HTML ELEMENTS ************/
+    
   
-    /************ DATA TO RENDER VIA COMPONENT ************/
     return (
 		<div className='adminItemsWrapper'>
 			<div className='adminSelectCategory'>{selectCategory}</div>
 
-			<div className='adminTable'>
-				<div style={{ visibility: labelVis }} className='adminItemHeaderName'>
-					Name
-				</div>
-				<div
-					style={{ visibility: labelVis }}
-					className='adminItemHeaderPrice'>
-					Price
-				</div>
-				<div style={{ visibility: labelVis }} className='adminItemHeaderHP'>
-					HP
-				</div>
-				<div style={{ visibility: labelVis }} className='adminItemHeaderDesc'>
-					{calOrDesc}
-				</div>
-				<div className='adminTableBody'>{items.map(renderItem)}</div>
-			</div>
+			<div className='adminTable'>{items.map(renderItem)}</div>
 
 			<Modal
-				className='adminModal'
-				isOpen={adminModal}
-				toggle={toggleAdminModal}>
-				<div className='modalWrapper'>
-					<div className='modalCategory'>
-						<Input
-							placeholder='Category'
-							onChange={e => {
-								setCategory(e.target.value);
-							}}
+				isOpen={addModalOpen}
+				toggle={toggleAddModalOpen}>
+				<div className='addModalWrapper'>
+						<input placeholder='Category' onChange={e => setCategory(e.target.value)} />
+						<input placeholder='Name' onChange={e => setNewName(e.target.value)} />
+						<input placeholder='Price' onChange={e => setNewPrice(e.target.value)} />
+						<input placeholder='Health Points' onChange={e => setNewHP(e.target.value)} />
+						<input placeholder='Calories' onChange={e => setNewCals(e.target.value)} />
+						<input placeholder='Description' onChange={e => setNewDescription(e.target.value)}
+								style={addDescriptionVis}
 						/>
-					</div>
-					<div className='modalName'>
-						<Input
-							placeholder={addNamePlaceholder}
-							onChange={e =>
-								setNewItem({
-									name: e.target.value,
-									price: newItem.price,
-									healthPoints: newItem.healthPoints
-								})
-							}
-						/>
-					</div>
-					<div className='modalPrice'>
-						<Input
-							placeholder={addPricePlaceholder}
-							onChange={e =>
-								setNewItem({
-									name: newItem.name,
-									price: e.target.value,
-									healthPoints: newItem.healthPoints
-								})
-							}
-						/>
-					</div>
-					<div className='modalHP'>
-						<Input
-							placeholder={addHealthPointsPlaceholder}
-							onChange={e =>
-								setNewItem({
-									name: newItem.name,
-									price: newItem.price,
-									healthPoints: e.target.value
-								})
-							}
-						/>
-					</div>
-					<div className='modalButton'>
-						<Button
-							block
-							className='purpleButton'
-							style={{ outline: "none", width: "150px" }}
-							onClick={handleAddClick}>
-							Submit
-						</Button>
-					</div>
+						<button block className='purpleButton' onClick={handleAddClick}>Add Item</button>
 				</div>
+
 			</Modal>
 		</div>
 	);

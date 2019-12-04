@@ -1,3 +1,6 @@
+.html {
+	font-size: 10px;
+}
 .App {
 	/* background-image: url(./media/background.jpg); */
 	/* background-color: rgb(230, 220, 242); */
@@ -9,17 +12,10 @@
 
 /* ADMIN */
 .adminWrapper {
-	display: grid;
-	grid-template-columns: repeat(8, 1fr);
-	grid-template-areas:
-		"hd hd hd hd hd hd hd hd"
-		"mn mn mn mn mn mn mn mn";
-}
-.adminHeader {
-	grid-area: hd;
-}
-.adminMainContent {
-	grid-area: mn;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-evenly;
+	align-items:center;
 }
 /* ADMIN */
 
@@ -28,65 +24,87 @@
 
 /* ADMINITEMS */
 .adminItemsWrapper {
-	display: grid;
-	gap: 10px;
-	grid-template-columns: repeat(5, 1fr);
-	grid-template-areas: "sd mn mn mn mn";
+	display: flex;
+	width:100vw;
 }
 
 .adminSelectCategory {
-	grid-area: sd;
+	justify-self:flex-start;
 	height: 100vh;
-	background-color: #4f4856;
+	width: 20vw;
+	background: #4f4856;
 	color: white;
 }
 .adminTable {
-	grid-area: mn;
-	overflow: scroll;
-	max-height: 80vh;
-	display: grid;
-	grid-template-rows: repeat(10, 1fr);
-	grid-template-areas:
-		"hn ... ... hpr ... ... hhp ... ... hds ... ... ..."
-		"bd bd bd bd bd bd bd bd bd bd bd bd bd"
-		"bd bd bd bd bd bd bd bd bd bd bd bd bd"
-		"bd bd bd bd bd bd bd bd bd bd bd bd bd"
-		"bd bd bd bd bd bd bd bd bd bd bd bd bd"
-		"bd bd bd bd bd bd bd bd bd bd bd bd bd"
-		"bd bd bd bd bd bd bd bd bd bd bd bd bd"
-		"bd bd bd bd bd bd bd bd bd bd bd bd bd"
-		"bd bd bd bd bd bd bd bd bd bd bd bd bd"
-		"bd bd bd bd bd bd bd bd bd bd bd bd bd";
+	display: flex;
+	flex-wrap: wrap;
+	overflow: auto;
+	max-height: 90vh;
+	width: 80vw;
 }
-.adminItemHeaderName {
-	grid-area: hn;
+.adminItemsContainer {
+	min-height: 25vh;
+	width: calc(33.33333% - 2vw);
+	margin: 1vw;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+	border-radius: 10px;
+	background: rgba(105, 98, 120, .5);
+	color:#241F1F;
 }
-.adminItemHeaderPrice {
-	grid-area: hpr;
+.adminItemInfo {
+	display: flex;
+	flex-direction: column;
+	padding: 1vw;
 }
-.adminItemHeaderHP {
-	grid-area: hhp;
+.adminItemInfo > * {
+	background:transparent;
+	border: none;
+	border-bottom: 1px solid black;
+	cursor: text;
 }
-.adminItemHeaderDesc {
-	grid-area: hds;
+
+.adminItemInfo > *, input::placeholder {
+	text-indent: 10px;
+	color: #241F1F;
 }
-.adminTableBody {
-	grid-area: bd;
+.adminItemName {
+	margin-bottom: 1vh;
+}
+.adminItemName::placeholder {
+	text-align: center;
+}
+.adminItemDescription {
+	display:flex;
+	flex-direction: column;
+	justify-content: flex-start;
+	min-height: 30vh;
+	overflow: auto;
+	background:transparent;
+	border:none;
+	cursor: text;
+	padding: 2vw;
+	text-align:center;
+}
+
+.adminButtons {
+	display: flex;
+	justify-content: center;
+}
+.adminButtons button {
+	background: rgb(105, 98, 120);
+	border:none;
+	margin: 1vw;
+	transition: all .2s;
+}
+.adminButtons button:hover {
+	background: #c5c0d6;
 }
 .selectWrapper {
-	display: grid;
-	grid-template-rows: repeat(10, 1fr);
-	grid-template-areas:
-		"br"
-		"tr"
-		"pr"
-		"ch"
-		"vg"
-		"cd"
-		"xt"
-		"..."
-		"sp"
-		"in";
+	display: flex;
+	flex-direction: column;
+	padding-top:4vh;
 }
 .selectWrapper div {
 	height: 6vh;
@@ -108,191 +126,103 @@
 	margin-left: 45px;
 	color: white;
 }
-
-.selectBreadButton {
-	grid-area: br;
-}
-.selectTortillaButton {
-	grid-area: tr;
-}
-.selectProteinButton {
-	grid-area: pr;
-}
-.selectCheeseButton {
-	grid-area: ch;
-}
-.selectVeggieButton {
-	grid-area: vg;
-}
-.selectCondimentButton {
-	grid-area: cd;
-}
-.selectExtraButton {
-	grid-area: xt;
-}
-.selectSpecial {
-	grid-area: sp;
-}
-.adminInput {
-	grid-area: in;
-}
-
 /* ADMINITEMS */
-.adminItemsInnerWrapper {
-	display: grid;
-	grid-template-columns: repeat(10, 1fr);
-	grid-template-areas: "nm nm pr pr hp hp ds ds up dl";
+.editModalWrapper {
+	display:flex;
+	flex-direction:column;
+	justify-content:space-between;
+	text-align:center;
 }
-
-.adminItemName {
-	grid-area: nm;
+.editModalHeader {
+	text-align: center;
 }
-.adminItemPrice {
-	grid-area: pr;
+.editModalBody {
+	display: flex;
+	align-items:center;
+	justify-content:center;
 }
-.adminItemHP {
-	grid-area: hp;
+.editModalBody ul {
+	list-style: none;
+	display:flex;
+	flex-direction: column;
+	text-align:center;
+	flex: 1 1 33.33333%;
 }
-.adminItemDesc {
-	grid-area: ds;
+.addModalWrapper {
+	display:flex;
+	flex-direction: column;
 }
-.adminItemUpdate {
-	grid-area: up;
-}
-.adminItemDelete {
-	grid-area: dl;
+.addModalWrapper input {
+	text-indent: 10px;
 }
 
 /* HOME */
+.homeWrapper {
+	display:flex;
+	flex-direction: column;
+	height: 100vh;
+	align-items:center;
+}
 .homeHeader {
-	grid-area: hd;
+	justify-self: flex-start;
 }
 .homeInput {
-	grid-area: hi;
-	display:flex;
+	display: flex;
 	flex-direction:column;
-	justify-content: center;
+	align-items:center;
+	justify-content: space-around;
+	width: 30vw;
+	height: 24vh;
+	background: #4f4856;
+	padding: 40px;
+	border-radius: 15px;
+	margin-top: 20vh;
 }
-.homeButton {
-	grid-area: hb;
-	margin-top: 20px;
-	display:flex;
-	flex-direction:column;
-	justify-content: center;
-	align-items: center;
-}
-.homeButton Button:hover {
-	background-color: #978daf;
-	color: black;
-	border: 1px solid white;
+.homeInput Input {
+	width: 60%;
 }
 .hb {
 	background-color: #ffffff;
 	color: #4f4856;
-}
+	width: 30%;
 
-.homeWrapper {
-	display: grid;
-	grid-template-columns: repeat(9, 1fr);
-	grid-auto-rows: minmax(100px, auto);
-	grid-template-areas:
-		"hd hd hd hd hd hd hd hd hd"
-		"... ... ... ... ... ... ... ... ..."
-		"... ... ... hc hc hc ... ... ...";
-}
-.homeContainer {
-	border-radius: 20px;
-	background-color: #4f4856;
-	grid-area: hc;
-	display: grid;
-	grid-template-areas:
-		"... ... hi hi hi ... ..."
-		"... ... ... hb ... ... ...";
-	padding: 30px;
 }
 /* HOME */
 
 /* HEADER */
 .mainHeader {
-	display: grid;
-	background-color: #978daf;
-	grid-template-columns: repeat(9, 1fr);
-	grid-template-areas:
-		"logo logo ... ... ... .... .. ... ..."
-		"logo logo  hl ol pl kl al icn grt"
-		"logo logo ... ... ... ... ... ... ...";
-}
-/* .mainHeader div {
-  outline:1px solid blue;
-} */
-
-.fedEatsLogo {
-	grid-area: logo;
-}
-.fedEatsLogoImg {
+	background: #978daf;
+	display:flex;
+	align-items:center;
+	justify-content: space-between;
 	height: 10vh;
-	width: auto;
 }
-.homeLink {
-	grid-area: hl;
-	height: 36px;
-	text-align: center;
+.headerImg {
+	justify-self:flex-start;
+	width: 25vw;
 }
-.orderFormLink {
-	grid-area: ol;
-	text-align: center;
-}
-.profileLink {
-	grid-area: pl;
-	text-align: center;
-}
-.kitchenLink {
-	grid-area: kl;
-	text-align:center;
-}
-.adminLink {
-	grid-area: al;
-	text-align: center;
-}
-.userIcon {
-	grid-area: icn;
+.headerLinks {
+	display:flex;
+	justify-self: center;
+	justify-content:space-evenly;
+	width: 50vw;
 }
 .userGreeting {
-	grid-area: grt;
+	justify-self:flex-end;
+	width:25vw;
+	padding: 50px;
+	display:flex;
+
 }
-.navLinks {
-	color: black;
-	text-align: center;
-}
+
+
+
+
 /* HEADER */
 
 /* ADMIN */
 .adminSelectCategory ul li {
 	list-style: none;
-}
-.modalWrapper {
-	display: grid;
-	grid-template-areas:
-		"ct ct ct"
-		"nm nm nm"
-		"pr pr pr"
-		"hp hp hp"
-		"... btn ...";
-}
-.modalCategory {
-	grid-area: ct;
-}
-.modalName {
-	grid-area: nm;
-}
-.modalPrice {
-	grid-area: pr;
-}
-.modalHP {
-	grid-area: hp;
-}
-.modalButton {
-	grid-area: btn;
 }
 
 /* ADMIN */
@@ -353,7 +283,6 @@
 }
 .profileBodyHeaders {
 	display:flex;
-	flex-direction: row;
 	justify-content:space-around;
 	text-align:center;
 	height: 6vh;
@@ -373,7 +302,6 @@
 }
 .profileOrder {
 	display: flex;
-	flex-direction:row;
 	justify-content:space-around;
 }
 .profileOrder div {
@@ -570,7 +498,6 @@ grid-template-areas:
 }
 .orderDetailsItem {
 	display:Flex;
-	flex-direction:row;
 	justify-content: space-between;
 }
 .detailsHeader {
@@ -591,7 +518,6 @@ grid-template-areas:
 
 .detailsFooter {
 	display: flex;
-	flex-direction: row;
 	justify-content: space-evenly;
 }
 .detailsFooter Button {
@@ -806,7 +732,6 @@ grid-template-areas:
 }
 .kitchenBodyHeaders {
 	display:flex;
-	flex-direction: row;
 	justify-content:space-around;
 	text-align:center;
 	height: 6vh;
@@ -820,7 +745,6 @@ grid-template-areas:
 }
 .kitchenOrder {
 	display: flex;
-	flex-direction: row;
 	justify-content: space-around;
 }
 .kitchenOrder div {

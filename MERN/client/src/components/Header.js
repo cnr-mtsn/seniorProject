@@ -5,106 +5,104 @@ import { NavLink } from "react-router-dom";
 import { FaUserCircle } from 'react-icons/fa';
 
 function Header(props) {
-	const linkStyle = {color:'black'}
 	const activeLinkStyle = {color:'white'}
 
-	const homeLink = (
-		<NavLink 
-			exact
-			style={linkStyle}
-			activeStyle={activeLinkStyle} 
-			to='/'>
-		Home
-		</NavLink>
-	);
-	const orderFormLink = (
-		<NavLink 
-			exact
-			style={linkStyle} 
-			activeStyle={activeLinkStyle} 
-			to='/orderForm'>
-		Order
-		</NavLink>
-	);
-	const profileLink = (
-		<NavLink 
-			exact
-			style={linkStyle} 
-			activeStyle={activeLinkStyle} 
-			to='/profile'>
-		My Profile
-		</NavLink>
-	);
-	const adminLink = (
-		<NavLink 
-			exact
-			style={linkStyle} 
-			activeStyle={activeLinkStyle}
-			to='/admin'>
-		Admin
-		</NavLink>
-	);
-	const kitchenLink = (
-		<NavLink	
-			exact 
-			style={linkStyle}
-			activeStyle={activeLinkStyle}
-			to="/kitchen">
-			Kitchen
-		</NavLink>
-	);
 	const welcomeText = props.user ? (
 		`Welcome, ${props.user}`
 	) : null;
 
 	var adminVis;
-	var userVis = 'visible';
+	var userVis;
 	var kitchenVis;
+	
 	switch(props.view) {
 		case 1:
 			//users
-			adminVis= 'hidden';
-			kitchenVis= 'hidden';
+			userVis='inline';
 			break;
 		case 2:
 			//kitchen staff
-			adminVis= 'hidden';
-			kitchenVis = 'visible';
+			userVis = 'inline';
+			kitchenVis = 'inline';
 			break;
 		case 3:
 			//admin
-			adminVis = 'visible';
-			kitchenVis = 'hidden';
+			adminVis = 'inline';
+			kitchenVis = 'inline';
+			userVis = 'inline';
 			break;
 		default:
-			adminVis = 'hidden';
-			userVis = 'hidden';
-			kitchenVis = 'hidden';
+			adminVis = 'none';
+			userVis = 'none';
+			kitchenVis = 'none';
 	}
 
-	const icon = props.user ? ( <FaUserCircle size={36} style={{marginLeft:'75%'}}/> ) : null;
+	const icon = props.user ? ( 
+		<FaUserCircle size={36} /> 
+	) : null;
+
+	const userView = {
+		display: `${userVis}`,
+		color: 'black'
+	};
+	const kitchenView = {
+		display: `${kitchenVis}`,
+		color: 'black'
+	}
+	const adminView = {
+		display: `${adminVis}`,
+		color: 'black'
+	}
 
 
 	return (
 		<div className='mainHeader'>
-			<div className='fedEatsLogo'>
-				<Image className='fedEatsLogoImg' src={fedEatsLogo}></Image>
+			<div className='headerImg'>
+				<Image style={{ height: "10vh" }} src={fedEatsLogo}></Image>
 			</div>
-			<div style={{ visibility: `${userVis}` }} className='homeLink'>
-				{homeLink}
+
+			<div className='headerLinks'>
+				
+					<NavLink exact style={userView} activeStyle={activeLinkStyle} to='/'>
+						Home
+					</NavLink>
+				
+					<NavLink
+						exact
+						style={userView}
+						activeStyle={activeLinkStyle}
+						to='/orderForm'>
+						Order
+					</NavLink>
+				
+					<NavLink
+						exact
+						style={userView}
+						activeStyle={activeLinkStyle}
+						to='/profile'>
+						My Profile
+					</NavLink>
+			
+					<NavLink
+						exact
+						style={kitchenView}
+						activeStyle={activeLinkStyle}
+						to='/kitchen'>
+						Kitchen
+					</NavLink>
+				
+					<NavLink
+						exact
+						style={adminView}
+						activeStyle={activeLinkStyle}
+						to='/admin'>
+						Admin
+					</NavLink>
+				
 			</div>
-			<div style={{ visibility: `${userVis}` }} className='orderFormLink'>
-				{orderFormLink}
-			</div>
-			<div style={{ visibility: `${userVis}` }} className='profileLink'>
-				{profileLink}
-			</div>
-			<div style={{ visibility: `${kitchenVis} `}} className="kitchenLink">{kitchenLink}</div>
-			<div style={{ visibility: `${adminVis}` }} className='adminLink'>
-				{adminLink}
-			</div>
-			<div className='userIcon'>{icon}</div>
+
 			<div className='userGreeting'>
+				{icon}
 				<span className='grtng'>{welcomeText}</span>
 			</div>
 		</div>

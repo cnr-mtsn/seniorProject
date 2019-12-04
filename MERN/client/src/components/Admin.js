@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import AdminItems from '../components/AdminItems';
 import Header from '../components/Header';
 
@@ -12,18 +12,22 @@ function Admin(props) {
 			.catch(err => console.log(err));
 	};
 
-	const [userData, setUserData] = useState(getUserStats);
+	const [userData, setUserData] = useState();
+
+	useEffect(() => {
+		getUserStats(); // eslint-disable-next-line
+	}, []);
 
 	
     return (
 		<div className="adminWrapper">
 
 			<div className="adminHeader">
-				<Header user={userData.firstName} view={userData.view}/>
+				<Header user={userData ? userData.firstName : null} view={userData ? userData.view : null}/>
 			</div>
 
 			<div className="adminMainContent">
-				<AdminItems category=''/>
+				<AdminItems/>
 			</div>
 
 		</div>

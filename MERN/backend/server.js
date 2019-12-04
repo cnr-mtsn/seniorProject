@@ -56,8 +56,8 @@ app.get('/user/login', (req, res) => {
 /************   CHEESE ROUTES   ************/
 //Add cheese
 app.get('/cheese/add', (req, res) => {
-    const {name, price, healthPoints} = req.query;
-    const ADD_CHEESE = `INSERT INTO cheese(name, price, health_points) VALUES('${name}', ${price}, ${healthPoints})`;
+    const {name, price, healthPoints, newCals} = req.query;
+    const ADD_CHEESE = `INSERT INTO cheese(name, price, health_points, calories) VALUES('${name}', ${price}, ${healthPoints}, ${newCals})`;
     db.query(ADD_CHEESE, (err, results) => {
         err ? res.send(err) : res.send(`Successfully Added ${name} Price: ${price}`);
     });
@@ -67,7 +67,7 @@ app.get('/cheese/delete', (req, res) => {
     const {name} = req.query;
     const REMOVE_CHEESE = `DELETE FROM cheese WHERE name='${name}'`;
     db.query(REMOVE_CHEESE, (err, results) => {
-        err ? res.send(err) : res.send(`Successfully Removed ${name} Price: ${price}`);
+        err ? res.send(err) : res.send(`Successfully Removed ${name}`);
     });
 });
 //All Cheeses
@@ -78,8 +78,8 @@ app.get('/cheese', (req, res) => {
 });
 //Update Cheese
 app.get('/cheese/update', (req, res) => {
-    const {name, newName, newPrice, newHP} = req.query;
-    const UPDATE_CHEESE = `UPDATE cheese SET name='${newName}', price=${newPrice}, health_points=${newHP} WHERE name='${name}'`;
+    const {name, newName, newPrice, newHP, newCals} = req.query;
+    const UPDATE_CHEESE = `UPDATE cheese SET name='${newName}', price=${newPrice}, health_points=${newHP}, calories=${newCals} WHERE name='${name}'`;
     db.query(UPDATE_CHEESE, (err, results) => {
         err ? res.send(err) : res.send(`Successfully Updated ${name} to ${newName}`);
     });
@@ -89,8 +89,8 @@ app.get('/cheese/update', (req, res) => {
 /************   VEGGIES ROUTES   ************/
 //Add veggie
 app.get('/veggie/add', (req, res) => {
-    const {name, price, healthPoints} = req.query;
-    const ADD_VEGGIE = `INSERT INTO veggies(name, price, health_points) VALUES('${name}', ${price}, ${healthPoints})`;
+    const {name, price, healthPoints, newCals} = req.query;
+    const ADD_VEGGIE = `INSERT INTO veggies(name, price, health_points, calories) VALUES('${name}', ${price}, ${healthPoints}, ${newCals})`;
     db.query(ADD_VEGGIE, (err, results) => {
        err ? res.send(err) : res.send(`Successfully Added ${name} Price: ${price}`);
     });
@@ -100,7 +100,7 @@ app.get('/veggie/delete', (req, res) => {
     const {name} = req.query;
     const REMOVE_VEGGIE = `DELETE FROM veggies WHERE name='${name}'`;
     db.query(REMOVE_VEGGIE, (err, results) => {
-        err ? res.send(err) : res.send(`Successfully Removed ${name} Price: ${price}`);
+        err ? res.send(err) : res.send(`Successfully Removed ${name}`);
     });
 });
 //All Veggies
@@ -111,8 +111,8 @@ app.get('/veggie', (req, res) => {
 });
 //Update Veggie
 app.get('/veggie/update', (req, res) => {
-    const {name, newName, newPrice, newHP} = req.query;
-    const UPDATE_VEGGIE = `UPDATE veggies SET name='${newName}', price=${newPrice}, health_points=${newHP} WHERE name='${name}'`;
+    const {name, newName, newPrice, newHP, newCals} = req.query;
+    const UPDATE_VEGGIE = `UPDATE veggies SET name='${newName}', price=${newPrice}, health_points=${newHP}, calories=${newCals} WHERE name='${name}'`;
     db.query(UPDATE_VEGGIE, (err, results) => {
         err ? res.send(err) : res.send(`Successfully Updated ${name} to ${newName}`);
     });
@@ -121,8 +121,8 @@ app.get('/veggie/update', (req, res) => {
 /************   BREADS ROUTES   ************/
 //Add bread
 app.get('/bread/add', (req, res) => {
-    const {name, price, healthPoints} = req.query;
-    const ADD_BREAD = `INSERT INTO sandwichBase(name, price, health_points) VALUES('${name}', ${price}, ${healthPoints})`;
+    const {name, price, healthPoints, newCals} = req.query;
+    const ADD_BREAD = `INSERT INTO sandwichBase(name, price, health_points, calories) VALUES('${name}', ${price}, ${healthPoints}, ${newCals})`;
     db.query(ADD_BREAD, (err, results) => {
         err ? res.send(err) : res.send(`Successfully Added ${name} Price: ${price}`);
     });
@@ -132,7 +132,7 @@ app.get('/bread/delete', (req, res) => {
     const {name} = req.query;
     const REMOVE_BREAD = `DELETE FROM sandwichBase WHERE name='${name}'`;
     db.query(REMOVE_BREAD, (err, results) => {
-        err ? res.send(err) : res.send(`Successfully Removed ${name} Price: ${price}`);
+        err ? res.send(err) : res.send(`Successfully Removed ${name}`);
     });
 });
 //All Breads
@@ -143,8 +143,8 @@ app.get('/bread', (req, res) => {
 });
 //Update Bread
 app.get('/bread/update', (req, res) => {
-    const {name, newName, newPrice, newHP} = req.query;
-    const UPDATE_BREAD = `UPDATE sandwichBase SET name='${newName}', price=${newPrice}, health_points=${newHP} WHERE name='${name}'`;
+    const {name, newName, newPrice, newHP, newCals} = req.query;
+    const UPDATE_BREAD = `UPDATE sandwichBase SET name='${newName}', price=${newPrice}, health_points=${newHP}, calories=${newCals} WHERE name='${name}'`;
     db.query(UPDATE_BREAD, (err, results) => {
         err ? res.send(err) : res.send(`Successfully Updated ${name} to ${newName}`);
     });
@@ -153,8 +153,8 @@ app.get('/bread/update', (req, res) => {
 /************   PROTEIN ROUTES   ************/
 //Add protein
 app.get('/protein/add', (req, res) => {
-    const {name, price, healthPoints} = req.query;
-    const ADD_PROTEIN = `INSERT INTO proteins(name, price, health_points) VALUES('${name}', ${price}, ${healthPoints})`;
+    const {name, price, healthPoints, newCals} = req.query;
+    const ADD_PROTEIN = `INSERT INTO proteins(name, price, health_points, calories) VALUES('${name}', ${price}, ${healthPoints}, ${newCals})`;
     db.query(ADD_PROTEIN, (err, results) => {
         err ? res.send(err) : res.send(`Successfully Added ${name} Price: ${price}`);
     });
@@ -164,7 +164,7 @@ app.get('/protein/delete', (req, res) => {
     const {name} = req.query;
     const REMOVE_PROTEIN = `DELETE FROM proteins WHERE name='${name}'`;
     db.query(REMOVE_PROTEIN, (err, results) => {
-        err ? res.send(err) : res.send(`Successfully Removed ${name} Price: ${price}`);
+        err ? res.send(err) : res.send(`Successfully Removed ${name}`);
     });
 });
 //All proteins
@@ -175,8 +175,8 @@ app.get('/protein', (req, res) => {
 });
 //Update Protein
 app.get('/protein/update', (req, res) => {
-    const {name, newName, newPrice, newHP} = req.query;
-    const UPDATE_PROTEIN = `UPDATE proteins SET name='${newName}', price=${newPrice}, health_points=${newHP} WHERE name='${name}'`;
+    const {name, newName, newPrice, newHP, newCals} = req.query;
+    const UPDATE_PROTEIN = `UPDATE proteins SET name='${newName}', price=${newPrice}, health_points=${newHP}, calories=${newCals} WHERE name='${name}'`;
     db.query(UPDATE_PROTEIN, (err, results) => {
         err ? res.send(err) : res.send(`Successfully Updated ${name} to ${newName}`);
     });
@@ -185,8 +185,8 @@ app.get('/protein/update', (req, res) => {
 /************   CONDIMENTS ROUTES   ************/
 //Add condiment
 app.get('/condiment/add', (req, res) => {
-    const {name, price, healthPoints} = req.query;
-    const ADD_CONDIMENT = `INSERT INTO condiments(name, price, health_points) VALUES('${name}', ${price}, ${healthPoints})`;
+    const {name, price, healthPoints, newCals} = req.query;
+    const ADD_CONDIMENT = `INSERT INTO condiments(name, price, health_points, calories) VALUES('${name}', ${price}, ${healthPoints}, ${newCals})`;
     db.query(ADD_CONDIMENT, (err, results) => {
         err ? res.send(err) : res.send(`Successfully Added ${name} Price: ${price}`);
     });
@@ -196,7 +196,7 @@ app.get('/condiment/delete', (req, res) => {
     const {name} = req.query;
     const REMOVE_CONDIMENT = `DELETE FROM condiments WHERE name='${name}'`;
     db.query(REMOVE_CONDIMENT, (err, results) => {
-        err ? res.send(err) : res.send(`Successfully Removed ${name} Price: ${price}`);
+        err ? res.send(err) : res.send(`Successfully Removed ${name}`);
     });
 });
 //All Condiments
@@ -207,8 +207,8 @@ app.get('/condiment', (req, res) => {
 });
 //Update Condiment
 app.get('/condiment/update', (req, res) => {
-    const {name, newName, newPrice, newHP} = req.query;
-    const UPDATE_CONDIMENT = `UPDATE condiments SET name='${newName}', price=${newPrice}, health_points=${newHP} WHERE name='${name}'`;
+    const {name, newName, newPrice, newHP, newCals} = req.query;
+    const UPDATE_CONDIMENT = `UPDATE condiments SET name='${newName}', price=${newPrice}, health_points=${newHP}, calories=${newCals} WHERE name='${name}'`;
     db.query(UPDATE_CONDIMENT, (err, results) => {
         err ? res.send(err) : res.send(`Successfully Updated ${name} to ${newName}`);
     });
@@ -217,8 +217,8 @@ app.get('/condiment/update', (req, res) => {
 /************   EXTRAS ROUTES   ************/
 //Add extra
 app.get('/extra/add', (req, res) => {
-    const {name, price, healthPoints} = req.query;
-    const ADD_EXTRA = `INSERT INTO extras(name, price, health_points) VALUES('${name}', ${price}, ${healthPoints})`;
+    const {name, price, healthPoints, newCals} = req.query;
+    const ADD_EXTRA = `INSERT INTO extras(name, price, health_points, calories) VALUES('${name}', ${price}, ${healthPoints}, ${newCals})`;
     db.query(ADD_EXTRA, (err, results) => {
         err ? res.send(err) : res.send(`Successfully Added ${name} Price: ${price}`);
     });
@@ -228,7 +228,7 @@ app.get('/extra/delete', (req, res) => {
     const {name} = req.query;
     const REMOVE_EXTRA = `DELETE FROM extras WHERE name='${name}'`;
     db.query(REMOVE_EXTRA, (err, results) => {
-        err ? res.send(err) : res.send(`Successfully Removed ${name} Price: ${price}`);
+        err ? res.send(err) : res.send(`Successfully Removed ${name}`);
     });
 });
 //All extras
@@ -239,8 +239,8 @@ app.get('/extra', (req, res) => {
 });
 //Update Extra
 app.get('/extra/update', (req, res) => {
-    const {name, newName, newPrice, newHP} = req.query;
-    const UPDATE_EXTRA = `UPDATE extras SET name='${newName}', price=${newPrice}, health_points=${newHP} WHERE name='${name}'`;
+    const {name, newName, newPrice, newHP, newCals} = req.query;
+    const UPDATE_EXTRA = `UPDATE extras SET name='${newName}', price=${newPrice}, health_points=${newHP}, calories=${newCals} WHERE name='${name}'`;
     db.query(UPDATE_EXTRA, (err, results) => {
         err ? res.send(err) : res.send(`Successfully Updated ${name} to ${newName}`);
     });
@@ -249,8 +249,8 @@ app.get('/extra/update', (req, res) => {
 /************   TORTILLAS ROUTES   ************/
 //Add tortilla
 app.get('/tortilla/add', (req, res) => {
-    const {name, price, healthPoints} = req.query;
-    const ADD_TORTILLA = `INSERT INTO tortillaBase(name, price, health_points) VALUES('${name}', ${price}, ${healthPoints})`;
+    const {name, price, healthPoints, newCals} = req.query;
+    const ADD_TORTILLA = `INSERT INTO tortillaBase(name, price, health_points, calories) VALUES('${name}', ${price}, ${healthPoints}, ${newCals})`;
     db.query(ADD_TORTILLA, (err, results) => {
         err ? res.send(err) : res.send(`Successfully Added ${name} Price: ${price}`);
     });
@@ -260,7 +260,7 @@ app.get('/tortilla/delete', (req, res) => {
     const {name} = req.query;
     const REMOVE_TORTILLA = `DELETE FROM tortillaBase WHERE name='${name}'`;
     db.query(REMOVE_TORTILLA, (err, results) => {
-        err ? res.send(err) : res.send(`Successfully Removed ${name} Price: ${price}`);
+        err ? res.send(err) : res.send(`Successfully Removed ${name}`);
     });
 });
 //All Tortillas
@@ -271,8 +271,8 @@ app.get('/tortilla', (req, res) => {
 });
 //Update Tortilla
 app.get('/tortilla/update', (req, res) => {
-    const {name, newName, newPrice, newHP} = req.query;
-    const UPDATE_TORTILLA = `UPDATE tortillaBase SET name='${newName}', price=${newPrice}, health_points=${newHP} WHERE name='${name}'`;
+    const {name, newName, newPrice, newHP, newCals} = req.query;
+    const UPDATE_TORTILLA = `UPDATE tortillaBase SET name='${newName}', price=${newPrice}, health_points=${newHP}, calories=${newCals} WHERE name='${name}'`;
     db.query(UPDATE_TORTILLA, (err, results) => {
         err ? res.send(err) : res.send(`Successfully Updated ${name} to ${newName}`);
     });
@@ -294,8 +294,8 @@ app.get('/specials', (req, res) => {
 });
 //add Special
 app.get('/specials/add', (req, res) => {
-    const {id, name, desc, price, hp} = req.query;
-    const ADD_SPECIAL = `INSERT INTO main(main_id, name, description, price, health_points) VALUES(${id}, '${name}', '${desc}', ${price}, ${hp})`;
+    const {name, desc, price, healthPoints, newCals} = req.query;
+    const ADD_SPECIAL = `INSERT INTO main(name, description, price, health_points, calories) VALUES('${name}', ${desc}, ${price}, ${healthPoints}, ${newCals})`;
     db.query(ADD_SPECIAL, (err, results) => {
         err ? res.send(err) : res.send(`Successfully added ${name}`);
     });
@@ -310,19 +310,12 @@ app.get('/specials/delete', (req, res) => {
 });
 //UPDATE Special
 app.get('/specials/update', (req, res) => {
-    const {name, newName, price, hp, desc} = req.query;
-    const UPDATE_SPECIAL = `UPDATE main SET name='${newName}', price=${price}, health_points=${hp}, description='${desc}' WHERE name='${name}'`;
+    const {name, newName, price, hp, desc, newCals} = req.query;
+    const UPDATE_SPECIAL = `UPDATE main SET name='${newName}', price=${price}, health_points=${hp}, calories=${newCals}, description='${desc}' WHERE name='${name}'`;
     db.query(UPDATE_SPECIAL, (err, results) => {
         err ? res.send(err) : res.send(`Successfully updated ${name} to ${newName}`);
     });
 });
-
-/************   USER ROUTES    ************/
-// app.get('/userPassword', (req, res) => {
-//     db.query(SELECT_USER_PASSWORDS, (err, results) => {  //This really shouldn't be a thing, for security's sake. 
-//         err ? res.send(err) : res.json({ data: results });
-//     });
-// });
 
 app.get('/userStats', (req, res) => {
     const {userID} = req.query;

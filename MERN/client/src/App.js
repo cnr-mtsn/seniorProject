@@ -33,8 +33,7 @@ function App() {
 		setUser();
 		setUserID();
 	}
-	const userView = user ? user.view : 0;
-
+	
 	return (
 		<Router>
 
@@ -69,27 +68,30 @@ function App() {
 					<Route path='/' exact render={() => {
 						return (
 							<div className='homeWrapper'>
+
 								<div className='homeHeader'>
-									<Header user={user ? user.firstName : null} view={userView} />
+									<Header
+										user={user ? user.firstName : null}
+										view={user ? user.view : 0}
+									/>
 								</div>
-								<div className='homeContainer'>
-									<div className='homeInput'>
-										<Input
-											placeholder={inputPlaceholder}
-											onChange={handleIDInput}></Input>
-									</div>
-									<div className='homeButton'>
-										{user ? (
-											<Button className='hb' type='submit' onClick={logoutUser}>
-												Logout
-											</Button>
-										) : (
-											<Button className='hb' type='submit' onClick={getUser}>
-												Login
-											</Button>
-										)}
-									</div>
+
+								<div className='homeInput'>
+									<Input
+										placeholder={inputPlaceholder}
+										onChange={handleIDInput}
+									/>
+									{user ? (
+										<Button className='hb' type='submit' onClick={logoutUser}>
+											Logout
+										</Button>
+									) : (
+										<Button className='hb' type='submit' onClick={getUser}>
+											Login
+										</Button>
+									)}
 								</div>
+
 							</div>
 						);
 					}} />
