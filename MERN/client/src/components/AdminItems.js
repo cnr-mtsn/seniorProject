@@ -130,14 +130,19 @@ function AdminItems() {
 
 
 	
-	var description = item.description ? item.description : null;
-	var descriptionVis = item.description ? 'inline' : 'none';
+	var description = item.description ? item.description : '';
+
+	var adminItemsContainer = item.description ? 'adminItemsContainerSpecial' : 'adminItemsContainerItem'
 
     return (
-			<div className='adminItemsContainer' key={item.name}>
+			<div className={adminItemsContainer} key={item.name}>
 				<div className='adminItemInfo'>
-					<input className="adminItemName" placeholder={item.name} onChange={handleNameChange}></input>
 					<input
+						className='adminItemName'
+						placeholder={item.name}
+						onChange={handleNameChange}></input>
+					<input
+						className='adminItemPrice'
 						placeholder={`$${item.price.toFixed(2)}`}
 						onChange={handlePriceChange}></input>
 					<span>{item.health_points} cal.</span>
@@ -146,20 +151,23 @@ function AdminItems() {
 						onChange={handleHealthPointsChange}
 					/>
 				</div>
-
-				<textarea
-					style={{ display: `${descriptionVis}`}}
-					className='adminItemDescription'
-					defaultValue={description}
-					onChange={handleDescriptionChange}>
-				</textarea>
+				
+				<div className='adminItemDesc'>
+					<textarea
+						style={addDescriptionVis}
+						className='adminItemDescription'
+						onChange={handleDescriptionChange}
+						defaultValue={description}></textarea>
+				</div>
 
 				<div className='adminButtons'>
 					<button type='button' onClick={toggleEditModalOpen}>
-						<FaEdit size={20}/>
+						<FaEdit size={20} />
 					</button>
-					<button type='button' onClick={handleDeleteClick.bind(this, `${item.name}`)}>
-						<FaTrash size={20}/>
+					<button
+						type='button'
+						onClick={handleDeleteClick.bind(this, `${item.name}`)}>
+						<FaTrash size={20} />
 					</button>
 				</div>
 
@@ -178,18 +186,21 @@ function AdminItems() {
 								<li>{itemToChange.healthPoints}</li>
 							</ul>
 
-							<FaArrowRight size={48}/>
+							<FaArrowRight size={48} />
 
 							<ul>
 								<li>{newItem.name}</li>
 								<li>{newItem.price}</li>
 								<li>{newItem.healthPoints}</li>
 							</ul>
-
+						</div>
+						<div className='editModalDesc' style={addDescriptionVis}>
+							<span>{newDescription ? `"${newDescription}"` : ""}</span>
 						</div>
 
-						<span style={{ visibility: `${descriptionVis}` }}>{`"${newDescription}"`}</span>
-						<button onClick={handleUpdateClick}>Submit Changes</button>
+						<button type='button' onClick={handleUpdateClick}>
+							Submit
+						</button>
 					</div>
 				</Modal>
 			</div>

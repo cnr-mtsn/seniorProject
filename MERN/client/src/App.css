@@ -36,13 +36,26 @@
 	color: white;
 }
 .adminTable {
+	padding: 20px;
 	display: flex;
 	flex-wrap: wrap;
 	overflow: auto;
 	max-height: 90vh;
 	width: 80vw;
+	align-content: flex-start;
 }
-.adminItemsContainer {
+.adminItemsContainerItem {
+	min-height: 25vh;
+	width: calc(25% - 2vw);
+	margin: 1vw;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+	border-radius: 10px;
+	background: rgba(105, 98, 120, .5);
+	color:#241F1F;
+}
+.adminItemsContainerSpecial {
 	min-height: 25vh;
 	width: calc(33.33333% - 2vw);
 	margin: 1vw;
@@ -57,12 +70,24 @@
 	display: flex;
 	flex-direction: column;
 	padding: 1vw;
+	font-size: 14px;
+}
+.adminItemInfo input:focus {
+	background: rgb(105, 98, 120);
+	color: #c5c0d6;
+}
+.adminItemsContainerSpecial textarea:focus {
+	background: rgb(105, 98, 120);
+	color: #c5c0d6;
 }
 .adminItemInfo > * {
 	background:transparent;
 	border: none;
 	border-bottom: 1px solid black;
 	cursor: text;
+}
+.adminItemPrice {
+	border-top: 1px solid black;
 }
 
 .adminItemInfo > *, input::placeholder {
@@ -71,21 +96,26 @@
 }
 .adminItemName {
 	margin-bottom: 1vh;
+	font-size: 15px;
+	border:none;
 }
 .adminItemName::placeholder {
 	text-align: center;
 }
 .adminItemDescription {
-	display:flex;
-	flex-direction: column;
-	justify-content: flex-start;
 	min-height: 30vh;
 	overflow: auto;
 	background:transparent;
 	border:none;
 	cursor: text;
-	padding: 2vw;
-	text-align:center;
+	padding: 1vw;
+}
+.adminItemDesc {
+	padding: 1vw;
+	display:flex;
+	flex-direction: column;
+	justify-content: flex-start;
+	align-items:center;
 }
 
 .adminButtons {
@@ -133,6 +163,9 @@
 	justify-content:space-between;
 	text-align:center;
 }
+.editModalDesc span {
+	font-size: 10px;
+}
 .editModalHeader {
 	text-align: center;
 }
@@ -178,13 +211,24 @@
 	border-radius: 15px;
 	margin-top: 20vh;
 }
-.homeInput Input {
-	width: 60%;
+.homeInput input {
+	width: 40%;
+	height: 5vh;
+	border: none;
+	text-indent: 10px;
+	border-radius: 5px;
+	transition: all .5s;
 }
+.homeInput input:focus {
+	width: 50%;
+	border: none;
+}
+
 .hb {
 	background-color: #ffffff;
 	color: #4f4856;
 	width: 30%;
+	border-radius: 5px;
 
 }
 /* HOME */

@@ -77,18 +77,18 @@ function App() {
 								</div>
 
 								<div className='homeInput'>
-									<Input
+									<input
 										placeholder={inputPlaceholder}
 										onChange={handleIDInput}
 									/>
 									{user ? (
-										<Button className='hb' type='submit' onClick={logoutUser}>
+										<button className='hb' type='submit' onClick={logoutUser}>
 											Logout
-										</Button>
+										</button>
 									) : (
-										<Button className='hb' type='submit' onClick={getUser}>
+										<button className='hb' type='submit' onClick={getUser}>
 											Login
-										</Button>
+										</button>
 									)}
 								</div>
 
