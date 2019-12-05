@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Modal } from "reactstrap";
-import { FaEdit, FaTrash, FaArrowRight } from 'react-icons/fa';
+import { FaCheck, FaTrash, FaArrowRight } from 'react-icons/fa';
 import "../App.css";
 
 function AdminItems() {
@@ -33,6 +33,12 @@ function AdminItems() {
   };
 
   const toggleEditModalOpen = () => {
+	  if(newItem.name = '') {
+		  setNewItem({name: itemToChange.name,
+					price: newItem.price,
+					healthPoints: newItem.healthPoints
+			});
+	  } 
 	  setEditModalOpen(!editModalOpen);
   };
   
@@ -68,20 +74,19 @@ function AdminItems() {
   }
  
   const updateItem = async () => {
-    await fetch(`http://localhost:5000/${category}/update?name=${itemToChange.name}&newName=${newItem.name}&newPrice=${newItem.price}&newHP=${newItem.healthPoints}&newCals=${newCals}`)
+
+	category === 'special' || 'specials' ? setCategory('main') : setCategory(category);
+
+	(newDescription ? (  
+		await fetch(`http://localhost:5000/${category}/update?name=${itemToChange.name}&newName=${newItem.name}&newPrice=${newItem.price}&newHP=${newItem.healthPoints}`)
     .then(getItems)
 	.catch(err => console.err(err))
-	
+	) : (  
+		await fetch(`http://localhost:5000/${category}/update?name=${itemToChange.name}&newName=${newItem.name}&newPrice=${newItem.price}&newHP=${newItem.healthPoints}&newCals=${newCals}`)
+    .then(getItems)
+	.catch(err => console.err(err)))
+	);
   };
-
-  const updateSpecial = async () => {
-    await fetch(`http://localhost:5000/${category}/update?name=${itemToChange.name}&newName=${newName}&price=${newPrice}&hp=${newHP}&desc=${newDescription}&newCals=${newCals}`)
-	.then(getItems)
-	.then(setItemToChange(null))
-	.then(setNewItem(null))
-    .catch(err => console.err(err))
-    console.log(`updated ${itemToChange.name} to ${newItem.name}`);
-  }
 
   const handleCategorySelection = async (selection) => {
     await fetch(`http://localhost:5000/${selection}`)
@@ -101,11 +106,7 @@ function AdminItems() {
 	addItem();
 	}
   const handleUpdateClick = () => {
-    if(category === 'specials' || 'special') {
-      updateSpecial();
-    } else {
       updateItem();
-    }
   }
   const addDescriptionVis = category === 'specials' ? {display:'inline'} : {display:'none'};
 
@@ -122,7 +123,10 @@ function AdminItems() {
 	}
 	const handleHealthPointsChange = (e) => {
 		setItemToChange({ name: item.name, price: item.price, healthPoints: item.health_points });
-		setNewItem({ name: newItem.name,price: newItem.price, healthPoints: e.target.value });
+		setNewItem({ name: newItem.name, price: newItem.price, healthPoints: e.target.value });
+	}
+	const handleCaloriesChange = (e) => {
+		setNewCals(e.target.value);
 	}
 	const handleDescriptionChange = (e) => {
 		setNewDescription(e.target.value);
@@ -145,13 +149,14 @@ function AdminItems() {
 						className='adminItemPrice'
 						placeholder={`$${item.price.toFixed(2)}`}
 						onChange={handlePriceChange}></input>
-					<span>{item.health_points} cal.</span>
+					<input placeholder={`${item.calories}cal.`}
+					onChange={handleCaloriesChange}/>
 					<input
 						placeholder={`Health Points: ${item.health_points}`}
 						onChange={handleHealthPointsChange}
 					/>
 				</div>
-				
+
 				<div className='adminItemDesc'>
 					<textarea
 						style={addDescriptionVis}
@@ -161,13 +166,14 @@ function AdminItems() {
 				</div>
 
 				<div className='adminButtons'>
-					<button type='button' onClick={toggleEditModalOpen}>
-						<FaEdit size={20} />
+					<button className="checkButton" type='button' onClick={toggleEditModalOpen}>
+						<FaCheck size={24}/>
 					</button>
 					<button
+						className="trashButton"
 						type='button'
 						onClick={handleDeleteClick.bind(this, `${item.name}`)}>
-						<FaTrash size={20} />
+						<FaTrash size={24}/>
 					</button>
 				</div>
 
@@ -181,26 +187,33 @@ function AdminItems() {
 						</div>
 						<div className='editModalBody'>
 							<ul>
+								<li>
+									<h5>Original</h5>
+								</li>
 								<li>{itemToChange.name}</li>
-								<li>{itemToChange.price}</li>
-								<li>{itemToChange.healthPoints}</li>
+								<li>${itemToChange.price}</li>
+								<li>HP: {itemToChange.healthPoints}</li>
 							</ul>
 
-							<FaArrowRight size={48} />
+							<FaArrowRight size={36} />
 
 							<ul>
+								<li>
+									<h5>Updates</h5>
+								</li>
 								<li>{newItem.name}</li>
-								<li>{newItem.price}</li>
-								<li>{newItem.healthPoints}</li>
+								<li>${newItem.price}</li>
+								<li>HP: {newItem.healthPoints}</li>
 							</ul>
 						</div>
 						<div className='editModalDesc' style={addDescriptionVis}>
 							<span>{newDescription ? `"${newDescription}"` : ""}</span>
 						</div>
-
-						<button type='button' onClick={handleUpdateClick}>
-							Submit
-						</button>
+						<div className='editModalButton'>
+							<button type='button' onClick={handleUpdateClick}>
+								Submit
+							</button>
+						</div>
 					</div>
 				</Modal>
 			</div>
@@ -278,7 +291,7 @@ function AdminItems() {
 						<input placeholder='Description' onChange={e => setNewDescription(e.target.value)}
 								style={addDescriptionVis}
 						/>
-						<button block className='purpleButton' onClick={handleAddClick}>Add Item</button>
+						<button className='purpleButton' onClick={handleAddClick}>Add Item</button>
 				</div>
 
 			</Modal>

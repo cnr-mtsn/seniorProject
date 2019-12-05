@@ -72,19 +72,28 @@
 	padding: 1vw;
 	font-size: 14px;
 }
-.adminItemInfo input:focus {
-	background: rgb(105, 98, 120);
-	color: #c5c0d6;
+.adminItemInfo input {
+	background: #C5C0D6;
+	color: #241F1F;
+	height:4vh;
+	transition: all .3s;
 }
-.adminItemsContainerSpecial textarea:focus {
-	background: rgb(105, 98, 120);
-	color: #c5c0d6;
+.adminItemInfo input:focus, input:hover {
+	background:rgba(105, 98, 120, .3);
+	text-indent: 20px;
+}
+.adminItemInfo input:hover::placeholder {
+	text-indent: 20px;
+}
+.adminItemInfo input:focus::placeholder {
+	color:transparent;
 }
 .adminItemInfo > * {
 	background:transparent;
 	border: none;
 	border-bottom: 1px solid black;
 	cursor: text;
+	font-size: 2vh;
 }
 .adminItemPrice {
 	border-top: 1px solid black;
@@ -93,29 +102,43 @@
 .adminItemInfo > *, input::placeholder {
 	text-indent: 10px;
 	color: #241F1F;
+	transition: all .2s;
 }
 .adminItemName {
 	margin-bottom: 1vh;
-	font-size: 15px;
+	font-size: 2.5vh;
+	font-weight: bold;
 	border:none;
 }
 .adminItemName::placeholder {
 	text-align: center;
 }
-.adminItemDescription {
-	min-height: 30vh;
-	overflow: auto;
-	background:transparent;
+.adminItemDesc textarea {
+	background:#C5C0D6;
+	color: #241F1F;
+	height: 30vh;
+	overflow:auto;
+	padding:1vw;
+	font-size:2vh;
+	border-radius: 10px;
 	border:none;
-	cursor: text;
-	padding: 1vw;
+	transition: all .2s;
+	
+}
+.adminItemsContainerSpecial textarea:hover {
+	background:rgba(105, 98, 120, .3);
+}
+.adminItemsContainerSpecial textarea:focus::after {
+	color:transparent;
 }
 .adminItemDesc {
-	padding: 1vw;
+	background:transparent;
+	border: none;
+	cursor: text;
 	display:flex;
 	flex-direction: column;
-	justify-content: flex-start;
-	align-items:center;
+	justify-content: center;
+	padding:1vw;
 }
 
 .adminButtons {
@@ -123,13 +146,22 @@
 	justify-content: center;
 }
 .adminButtons button {
-	background: rgb(105, 98, 120);
 	border:none;
 	margin: 1vw;
 	transition: all .2s;
+	border-radius: 50px;
+	padding:1vw;
 }
 .adminButtons button:hover {
 	background: #c5c0d6;
+}
+.checkButton {
+	background:#4F4856;
+	color:rgb(89, 180, 119);
+}
+.trashButton {
+	background: #4F4856;
+	color: rgb(226, 104, 104);
 }
 .selectWrapper {
 	display: flex;
@@ -163,24 +195,56 @@
 	justify-content:space-between;
 	text-align:center;
 }
+.editModalWrapper button {
+	background:rgb(105, 98, 120);
+	color:#C5C0D6;
+	width: 10vw;
+	border-radius: 5px;
+	align-self:center;
+	transition: all .2s;
+}
+.editModalWrapper button:hover {
+	background:#C5C0D6;
+	color:#241F1F;
+	width:10.5vw;
+}
+.editModalButton {
+	padding: 1vw;
+}
+.editModalDesc {
+	padding:0;
+}
 .editModalDesc span {
-	font-size: 10px;
+	font-size: 16px;
 }
 .editModalHeader {
-	text-align: center;
+	display:flex;
+	justify-content: center;
+	align-items: center;
+	border-bottom:1px solid #4F4856;
+	padding:.5vw;
 }
 .editModalBody {
 	display: flex;
-	align-items:center;
-	justify-content:center;
+	align-items: center;
+	justify-content: space-around;
+	border-bottom: 1px solid #241F1F;
 }
 .editModalBody ul {
 	list-style: none;
+	padding: .8vw;
+	margin: 0;
 	display:flex;
 	flex-direction: column;
-	text-align:center;
-	flex: 1 1 33.33333%;
+	align-items:center;
 }
+
+.editModalBody ul li h5 {
+	border-bottom: 1px solid #241F1F;
+	margin:0;
+	padding:0;
+}
+
 .addModalWrapper {
 	display:flex;
 	flex-direction: column;
@@ -204,15 +268,14 @@
 	flex-direction:column;
 	align-items:center;
 	justify-content: space-around;
-	width: 30vw;
-	height: 24vh;
+	width: 20vw;
+	height: 30vh;
 	background: #4f4856;
 	padding: 40px;
 	border-radius: 15px;
 	margin-top: 20vh;
 }
 .homeInput input {
-	width: 40%;
 	height: 5vh;
 	border: none;
 	text-indent: 10px;
@@ -220,15 +283,14 @@
 	transition: all .5s;
 }
 .homeInput input:focus {
-	width: 50%;
 	border: none;
 }
 
 .hb {
 	background-color: #ffffff;
 	color: #4f4856;
-	width: 30%;
 	border-radius: 5px;
+	width: 100%;
 
 }
 /* HOME */

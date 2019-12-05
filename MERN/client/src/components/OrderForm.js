@@ -33,7 +33,6 @@ function OrderForm(props) {
 	const [comments, setComments] = useState();
 	const [category, setCategory] = useState("");
 	const [pickupTime, setPickupTime] = useState();
-	const [duplicates, setDuplicates] = useState(0);
 	const [healthPoints, setHealthPoints] = useState(0);
 	const [userData, setUserData] = useState(getUserStats);
 	const [modal, setModal] = useState(false);
@@ -43,7 +42,7 @@ function OrderForm(props) {
 	const [confirmed, setConfirmed] = useState(false);
 	const [redirectProfile, setRedirectProfile] = useState(false);
 
-	const avgHP = (healthPoints / (order.length + duplicates)).toFixed(1) || 0;
+	const avgHP = (healthPoints / (order.length)).toFixed(1) || 0;
 
 	/****** STATE  ******/
 
@@ -101,26 +100,25 @@ function OrderForm(props) {
 		setOrder([]);
 		setHealthPoints(0);
 		setTotal(0);
-		setDuplicates(0);
 	};
 	const renderOrderItems = item => {
 		return (
-			<div key={item.name} className="orderDetailsItem">
-				<div className="orderDetailsItemName">{item.name}</div>
-				<div className="orderDetailsRemoveButton">
+			<div key={`${item.name}${item.price}`} className='orderDetailsItem'>
+				<div className='orderDetailsItemName'>{item.name}</div>
+				<div className='orderDetailsRemoveButton'>
 					<Button>
-						<FaMinus size={10}/>
+						<FaMinus size={10} />
 					</Button>
 				</div>
 			</div>
-		)
+		);
 
 	}
 	//render each item in desired category with button for adding to order.
 	const renderItem = item => {
 		const fixedPrice = "$" + item.price.toFixed(2);
 		//add item to order || increment price/health points if already in order
-		const handleItemClick = (divId, disabled) => {
+		const handleItemClick = () => {
 			let found = false;
 			for (let i = 0; i < order.length; i++) {
 				if (order[i] === item) {
@@ -129,12 +127,11 @@ function OrderForm(props) {
 			}
 			if (found === true) {
 				setTotal(total + item.price);
-				setDuplicates(duplicates + 1);
 			} else if (found === false) {
 				setOrder(order.concat(item));
 				setTotal(total + item.price);
+				setHealthPoints(healthPoints + item.health_points);
 			}
-			setHealthPoints(healthPoints + item.health_points);
 		};
 		const addButton = (
 			<Button outline color='primary' onClick={handleItemClick}>
@@ -142,7 +139,7 @@ function OrderForm(props) {
 			</Button>
 		);
 		return (
-			<div key={item.name} className='renderItemWrapper'>
+			<div key={item.name + item.price} className='renderItemWrapper'>
 				<div className='renderItemName'>{item.name}</div>
 				<div className='renderItemPrice'>{fixedPrice}</div>
 				<div className='renderItemHP'>{item.health_points}</div>
@@ -153,7 +150,7 @@ function OrderForm(props) {
 
 	//render each item in order on confirmation modal
 	const renderConfirmItems = item => {
-		return <li key={item.name}>{item.name}</li>;
+		return <li key={`${item.name}${item.price}`}>{item.name}</li>;
 	};
 	//render each pickup time as <option/>
 	const renderTimes = time => {
@@ -176,9 +173,10 @@ function OrderForm(props) {
 		//toggle thanks modal
 		setTimeout(toggleThanks, 300);
 	};
+	console.log(avgHP);
 	//submit order total, user_id, generate order number
 	const submitOrder = () => {
-		fetch(`http://localhost:5000/newOrder?orderId=${orderId}&userId=${userData.user_id}&total=${total}&hp=${healthPoints.toFixed(2)}&comments=${comments}&pickupTime=${pickupTime}`)
+		fetch(`http://localhost:5000/newOrder?orderId=${orderId}&userId=${userData.user_id}&total=${total}&hp=${avgHP}&comments=${comments}&pickupTime=${pickupTime}`)
 		.catch(err => console.log(err));
 	}
 	
