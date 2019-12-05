@@ -33,7 +33,7 @@ function AdminItems() {
   };
 
   const toggleEditModalOpen = () => {
-	  if(newItem.name = '') {
+	  if(newItem.name === '') {
 		  setNewItem({name: itemToChange.name,
 					price: newItem.price,
 					healthPoints: newItem.healthPoints
@@ -79,7 +79,7 @@ function AdminItems() {
 
 	(newDescription ? (  
 		await fetch(`http://localhost:5000/${category}/update?name=${itemToChange.name}&newName=${newItem.name}&newPrice=${newItem.price}&newHP=${newItem.healthPoints}`)
-    .then(getItems)
+	.then(getItems)
 	.catch(err => console.err(err))
 	) : (  
 		await fetch(`http://localhost:5000/${category}/update?name=${itemToChange.name}&newName=${newItem.name}&newPrice=${newItem.price}&newHP=${newItem.healthPoints}&newCals=${newCals}`)
@@ -105,8 +105,9 @@ function AdminItems() {
 	const handleAddClick = () => {
 	addItem();
 	}
-  const handleUpdateClick = () => {
-      updateItem();
+  const handleUpdateClick = async () => {
+	  await updateItem();
+	  toggleEditModalOpen();
   }
   const addDescriptionVis = category === 'specials' ? {display:'inline'} : {display:'none'};
 
