@@ -63,7 +63,8 @@ function Header(props) {
 
 			<div className='headerLinks'>
 				
-					<NavLink exact style={userView} activeStyle={activeLinkStyle} to='/'>
+					<NavLink exact style={userView} activeStyle={activeLinkStyle} to={{pathname:'/',
+				view:props.view}}>
 						Home
 					</NavLink>
 				

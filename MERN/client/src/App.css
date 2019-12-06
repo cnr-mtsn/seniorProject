@@ -28,13 +28,6 @@
 	width:100vw;
 }
 
-.adminSelectCategory {
-	justify-self:flex-start;
-	height: 100vh;
-	width: 20vw;
-	background: #4f4856;
-	color: white;
-}
 .adminTable {
 	padding: 20px;
 	display: flex;
@@ -163,31 +156,7 @@
 	background: #4F4856;
 	color: rgb(226, 104, 104);
 }
-.selectWrapper {
-	display: flex;
-	flex-direction: column;
-	padding-top:4vh;
-}
-.selectWrapper div {
-	height: 6vh;
-	cursor: pointer;
-	color: #c5c0d6;
-}
-.selectWrapper div span {
-	font-size: 24px;
-	margin-left: 30px;
-	transition: all 0.5s;
-}
-.selectWrapper div:hover {
-	border-top: 1px solid grey;
-	border-bottom: 1px solid grey;
-	font-size: 25px;
-}
-.selectWrapper div:hover span {
-	font-size: 25px;
-	margin-left: 45px;
-	color: white;
-}
+
 /* ADMINITEMS */
 .editModalWrapper {
 	display:flex;
@@ -320,18 +289,7 @@
 	display:flex;
 
 }
-
-
-
-
 /* HEADER */
-
-/* ADMIN */
-.adminSelectCategory ul li {
-	list-style: none;
-}
-
-/* ADMIN */
 
 /* SPECIALS */
 .specialImage {
@@ -540,174 +498,167 @@
 
 /* ORDER FORM */
 .orderFormWrapper {
-	display: grid;
-	grid-template-columns: repeat(9, 1fr);
-	grid-template-areas:
-		"hd hd hd hd hd hd hd hd hd"
-		"sd sd bd bd bd bd bd bd bd";
-}
-.orderFormHeader {
-	grid-area: hd;
-}
-.orderFormSide {
-	grid-area: sd;
-	display: grid;
-	grid-template-rows: repeat(9, 1fr);
-	height: 90vh;
-	background-color: #4f4856;
-	color: #c5c0d6;
-	grid-template-areas:
-		"pp"
-		"pp"
-		"pp"
-		"pp"
-		"..."
-		"..."
-		"pl"
-		"..."
-		"..."
-		"pf";
+	display:flex;
+	flex-direction:column;
 }
 .orderFormBody {
-background-color:#c5c0d6;
-grid-area:bd;
-max-height:90vh;
-padding:50px;
-display:grid;
-grid-template-rows: 1fr 7fr 1fr;
-grid-auto-rows: minmax(80px, auto);
-grid-template-columns: repeat(12, 1fr);
-grid-template-areas: 
-	'... sc sc sc sc sc sc sc sc sc sc  ...'
-	'... of of of of of of ... od od od ...'
-	'... os os os os os os ... ... ... ... ...'
-}
-.selectCategory {
-	border-radius: 5px;
-	grid-area: sc;
-	height: 6vh;
-	outline: 1px solid black;
-	display:grid;
-	grid-template-columns: repeat(7, 1fr);
-	grid-template-areas: 
-	'... ... ... ... ... ... ...'
-	'brd trt ptn chs veg cdmt xtr'
-	'... ... ... ... ... ... ...'
-	;
-}
-.orderDetails {
-	grid-area: od;
 	display:flex;
-	flex-direction: column;
-	justify-content: space-around;
-	background-color: #4f4856;
-}
-.orderDetailsItem {
-	display:Flex;
 	justify-content: space-between;
 }
-.detailsHeader {
+.selectCategory {
+	padding-top:2vh;
+	background: #4F4856;
+	color: #C5C0D6;
+	width: 15vw;
+	height:90vh;
 	display:flex;
-	justify-content: center;
-	align-items: center;
+	flex-direction:column;
 }
-.detailsBody {
-	display:flex;
-	flex-direction: column;
-	max-height: 30vh;
-	overflow:scroll;
-}
-
-.detailsBody ul li {
-	list-style: none;
-}
-
-.detailsFooter {
-	display: flex;
-	justify-content: space-evenly;
-}
-.detailsFooter Button {
-	width: 90px;
-}
-.orderStatus {
-	grid-area: os;
-}
-.actualForm {
-	grid-area: of;
-	max-height: 80vh;
-	overflow: scroll;
-}
-.actualForm div {
-	text-align: left;
-	background-color:#4F4856;
-}
-
 .selectCategory div {
 	text-align: center;
-	color:#847e90;
-	background-color: #4f4856;
 	height: 6vh;
-	width: 100%;
 	display:flex;
-	justify-content: center;
-	align-items: center;
+	text-indent:1vw;
+	transition: all .4s ease-in-out;
+}
+.selectCategory .addIngredient {
+	margin-top: 4vh;
 }
 .selectCategory div:hover {
 	background-color: #847e90;
 	color: #241F1F;
+	text-indent: 2vw;
+	cursor:pointer;
+}
+.orderBody {
+	padding: 2vw;
+	display: flex;
+	flex-direction:column;
+	overflow: auto;
+	max-height: 90vh;
+	width: 60vw;
+}
+.orderItem {
+	padding:1vh;
+	margin:.5vw;
+	min-height: 5vh;
+	justify-content: space-between;
+	align-items:center;
+	display: flex;
+	border-radius: 5px;
+	color:#241F1F;
+	cursor: default;
+}
+.orderItemName {
+	width:30%;
+	display:flex;
+	justify-content: flex-start;
+	text-indent: 1vw;
+	align-items: center;
+	
+}
+.orderItemName h5 {
+	padding:0;
+	margin:0;
+}
+.orderItemInfo h6 {
+	padding:0;
+	margin:0;
+}
+.orderItemInfo {
+	width:60%;
+	display:flex;
+	justify-content: space-around;
+	align-items: center;
+}
+.orderItemAddButton button {
+	border-radius: 50px;
+	background: #4F4856;
+	color: #C5C0D6;
+	cursor:pointer;
+}
+.orderItem button:hover {
+	background: #C5C0D6;
+	color:#4F4856;
+	border: 1px solid #4F4856;
+}
 
-}
-.selectBreadButton {
-	grid-area: brd;
-	cursor: pointer;
-}
-.selectTortillaButton {
-	grid-area: trt;
-	cursor: pointer;
-}
-.selectProteinButton {
-	grid-area: ptn;
-	cursor: pointer;
-}
-.selectCheeseButton {
-	grid-area: chs;
-	cursor: pointer;
-}
-.selectVeggieButton {
-	grid-area: veg;
-	cursor: pointer;
-}
-.selectCondimentButton {
-	grid-area: cdmt;
-	cursor: pointer;
-}
-.selectExtraButton {
-	grid-area: xtr;
-	cursor: pointer;
-}
-
-.renderItemWrapper {
-	display: grid;
-	grid-template-columns: 2fr 1fr 1fr 1fr;
-	grid-template-areas: "nm nm prc hp btn";
-}
-.renderItemWrapper div {
+.orderDetails {
+	width: 25vw;
+	height:90vh;
+	display:flex;
+	flex-direction:column;
+	background:#4F4856;
 	color:#C5C0D6;
-	padding: 5px;
+}
+.detailsHeader {
+	height: 5vh;
+	display:flex;
+	justify-content: center;
+	align-items: center;
+	font-size: 3vh;
+	border-bottom: 1px solid #847e90;
+}
+.detailsBody {
+	height:75vh;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+.detailsBodyItems {
+	display:flex;
+	flex-direction: column;
+	justify-content: flex-start;
+	padding:2vh;
+	overflow:auto;
+}
+.detailsBodyInfo {
+	display:flex;
+	padding:1vh;
+	flex-direction: column;
+	justify-content: space-around;
+	text-indent: 2vw;
+	border-top: 1px solid #847e90;
+	border-bottom: 1px solid #847e90;
+}
+.orderDetailsItem {
+	display:flex;
+	justify-content:space-between;
+	align-items: baseline;
+}
+.detailsFooter {
+	height:10vh;
+	display:flex;
+	justify-content: space-evenly;
+	align-items: center;
+}
+.detailsFooter .orderSubmitButton {
+	color:rgb(17, 160, 12);
+}
+.detailsFooter .orderClearButton {
+	color: rgb(226, 85, 75);
+}
+.orderSubmitButton:hover {
+	background:#99E896;
+}
+.orderClearButton:hover {
+	background:#F1938D;
+}
+.detailsFooter div:hover {
+	color: #C5C0D6;
+}
+.detailsFooter div {
+	background: #C5C0D6;
+	color:#241F1F;
+	display:flex;
+	justify-content: center;
+	align-items: center;
+	height:6vh;
+	width:6vh;
+	border-radius:50%;
 }
 
-.renderItemName {
-	grid-area: nm;
-}
-.renderItemPrice {
-	grid-area: prc;
-}
-.renderItemHP {
-	grid-area: hp;
-}
-.renderItemAddButton {
-	grid-area: btn;
-}
+
 
 /* ORDER FORM */
 

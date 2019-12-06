@@ -34,6 +34,8 @@ function App() {
 		setUserID();
 	}
 	
+	const userView = user ? user.view : 0;
+	
 	return (
 		<Router>
 
@@ -72,7 +74,7 @@ function App() {
 								<div className='homeHeader'>
 									<Header
 										user={user ? user.firstName : null}
-										view={user ? user.view : 0}
+										view={userView}
 									/>
 								</div>
 

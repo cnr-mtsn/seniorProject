@@ -92,9 +92,6 @@ function Profile(props) {
 						<div className='profileSideLinksOrders'>
 							<h5>My Orders</h5>
 						</div>
-						<div className='profileSideLinksFavs'>
-							<h5>Favorites</h5>
-						</div>
 					</div>
 
 					<div className='profileSideFooter'>

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import "../App.css";
 import Header from "../components/Header";
-import { FaPlus, FaUserTie, FaStar, FaMinus } from "react-icons/fa";
+import { FaPlus, FaCheck, FaTimes } from "react-icons/fa";
 import { Redirect } from 'react-router-dom';
 import {
 	Button,
@@ -34,6 +34,7 @@ function OrderForm(props) {
 	const [category, setCategory] = useState("");
 	const [pickupTime, setPickupTime] = useState();
 	const [healthPoints, setHealthPoints] = useState(0);
+	const [calories, setCalories] = useState(0);
 	const [userData, setUserData] = useState(getUserStats);
 	const [modal, setModal] = useState(false);
 	const [thanks, setThanks] = useState(false);
@@ -99,24 +100,35 @@ function OrderForm(props) {
 	const handleClearOrderClick = () => {
 		setOrder([]);
 		setHealthPoints(0);
+		setCalories(0);
 		setTotal(0);
 	};
 	const renderOrderItems = item => {
 		return (
 			<div key={`${item.name}${item.price}`} className='orderDetailsItem'>
-				<div className='orderDetailsItemName'>{item.name}</div>
-				<div className='orderDetailsRemoveButton'>
-					<Button>
-						<FaMinus size={10} />
-					</Button>
-				</div>
+				<h5>{item.name}</h5>
+				<h6>{item.calories}cal.</h6>
 			</div>
 		);
 
 	}
 	//render each item in desired category with button for adding to order.
 	const renderItem = item => {
+		var orderItemColor; 
+		switch(item.health_points) {
+			case 1: orderItemColor = "#F1938D";
+					break;
+			case 2: orderItemColor = "#FFBD81";
+					break;
+			case 3: orderItemColor = "#FFFDA4";
+					break;
+			case 4: orderItemColor = "#E0EF94";
+					break;
+			case 5: orderItemColor = "#99E896";
+					break;
+		}
 		const fixedPrice = "$" + item.price.toFixed(2);
+		
 		//add item to order || increment price/health points if already in order
 		const handleItemClick = () => {
 			let found = false;
@@ -127,23 +139,30 @@ function OrderForm(props) {
 			}
 			if (found === true) {
 				setTotal(total + item.price);
+				setCalories(calories + item.calories);
 			} else if (found === false) {
 				setOrder(order.concat(item));
 				setTotal(total + item.price);
+				setCalories(calories + item.calories);
 				setHealthPoints(healthPoints + item.health_points);
 			}
 		};
-		const addButton = (
-			<Button outline color='primary' onClick={handleItemClick}>
-				<FaPlus />
-			</Button>
-		);
+	
 		return (
-			<div key={item.name + item.price} className='renderItemWrapper'>
-				<div className='renderItemName'>{item.name}</div>
-				<div className='renderItemPrice'>{fixedPrice}</div>
-				<div className='renderItemHP'>{item.health_points}</div>
-				<div className='renderItemAdddiv'>{addButton}</div>
+			<div style={{background:`${orderItemColor}`}} key={item.name + item.price} className='orderItem'>
+				<div className='orderItemName'>
+					<h5>{item.name}</h5>
+				</div>
+				<div className='orderItemInfo'>
+					<h6>{fixedPrice}</h6>
+					<h6>{item.calories}cal.</h6>
+				</div>
+
+				<div className='orderItemAddButton'>
+					<button onClick={handleItemClick}>
+						<FaPlus />
+					</button>
+				</div>
 			</div>
 		);
 	};
@@ -169,6 +188,7 @@ function OrderForm(props) {
 		//clear state values
 		setOrder([]);
 		setTotal(0);
+		setCalories(0);
 		setComments(null);
 		//toggle thanks modal
 		setTimeout(toggleThanks, 300);
@@ -260,119 +280,71 @@ function OrderForm(props) {
 					<Header user={userData.firstName} view={userData.view} />
 				</div>
 
-				<div className='orderFormSide'>
-					<div className='profileSidePicAndStars'>
-						<div className='profileSidePic'>
-							<div className='profileSidePicInner'>
-								<FaUserTie size={200} />
-							</div>
-							<div className='profileSideStars'>
-								<FaStar size={32} />
-								<FaStar size={32} />
-								<FaStar size={32} />
-								<FaStar size={32} />
-								<FaStar size={32} />
-							</div>
-						</div>
-					</div>
-
-					<div className='profileSideLinks'>
-						<div className='profileSideLinksOrders' onClick={routeToProfile}>
-							<h5>My Orders</h5>
-						</div>
-						<div className='profileSideLinksFavs'>
-							<h5>Favorites</h5>
-						</div>
-					</div>
-
-					<div className='profileSideFooter'>
-						<div className='profileSideFooterEmail'>
-							<h6>{userData.email}</h6>
-						</div>
-						<div className='profileSideFooterID'>
-							<h6>ID: {userData.user_id}</h6>
-						</div>
-					</div>
-				</div>
-
 				<div className='orderFormBody'>
 					<div className='selectCategory'>
-						<div
-							className='selectBreadButton'
-							value='bread'
-							onClick={handleCategorySelection.bind(this, "bread")}>
+						<div onClick={handleCategorySelection.bind(this, "bread")}>
 							Bread
 						</div>
-						<div
-							className='selectTortillaButton'
-							value='tortilla'
-							onClick={handleCategorySelection.bind(this, "tortilla")}>
+						<div onClick={handleCategorySelection.bind(this, "tortilla")}>
 							Tortilla
 						</div>
-						<div
-							className='selectProteinButton'
-							value='protein'
-							onClick={handleCategorySelection.bind(this, "protein")}>
+						<div onClick={handleCategorySelection.bind(this, "protein")}>
 							Protein
 						</div>
-						<div
-							className='selectCheeseButton'
-							value='cheese'
-							onClick={handleCategorySelection.bind(this, "cheese")}>
+						<div onClick={handleCategorySelection.bind(this, "cheese")}>
 							Cheese
 						</div>
-						<div
-							className='selectVeggieButton'
-							value='veggie'
-							onClick={handleCategorySelection.bind(this, "veggie")}>
+						<div onClick={handleCategorySelection.bind(this, "veggie")}>
 							Veggies
 						</div>
-						<div
-							className='selectCondimentButton'
-							value='condiment'
-							onClick={handleCategorySelection.bind(this, "condiment")}>
+						<div onClick={handleCategorySelection.bind(this, "condiment")}>
 							Condiments
 						</div>
-						<div
-							className='selectExtraButton'
-							value='extra'
-							onClick={handleCategorySelection.bind(this, "extra")}>
+						<div onClick={handleCategorySelection.bind(this, "extra")}>
 							Extras
 						</div>
 					</div>
 
-					<div className='actualForm'>{items.map(renderItem)}</div>
+					<div className='orderBody'>{items.map(renderItem)}</div>
 
-					<div style={{ color: "white" }} className='orderDetails'>
+					<div className='orderDetails'>
 						<div className='detailsHeader'>
-							<h6>Order Details</h6>
+							Order Details
 						</div>
 
 						<div className='detailsBody'>
-							{order.map(renderOrderItems)}
+							<div className='detailsBodyItems'>
+								{order.map(renderOrderItems)}
+							</div>
+							<div className='detailsBodyInfo'>
+								<h6>${total.toFixed(2)}</h6>
+								<h6>{calories}cal.</h6>
+								<h6>HP: {healthPoints ? (healthPoints / order.length).toFixed(1) : 0}</h6>
+							</div>
 						</div>
 
 						<div className='detailsFooter'>
-							<Button onClick={toggleModal}>Submit</Button>
-							<Button onClick={handleClearOrderClick}>Clear</Button>
-							<Progress value={75} />
+							<div className='orderSubmitButton' onClick={toggleModal}>
+								<FaCheck/>
+							</div>
+							<div className='orderClearButton' onClick={handleClearOrderClick}>
+								<FaTimes/>
+							</div>
 						</div>
 					</div>
 				</div>
 
-				<div>
-					<Modal className='orderModal' isOpen={modal} toggle={toggleModal}>
-						<div>
-							<ModalHeader toggle={toggleModal}>Order Confirmation</ModalHeader>
-							<ModalBody>{confirmBody}</ModalBody>
-							<ModalFooter>
-								<Button color='primary' onClick={handlePlaceOrderClick}>
-									Place Order
-								</Button>
-							</ModalFooter>
-						</div>
-					</Modal>
-				</div>
+				<Modal className='orderModal' isOpen={modal} toggle={toggleModal}>
+					<div>
+						<ModalHeader toggle={toggleModal}>Order Confirmation</ModalHeader>
+						<ModalBody>{confirmBody}</ModalBody>
+						<ModalFooter>
+							<Button color='primary' onClick={handlePlaceOrderClick}>
+								Place Order
+							</Button>
+						</ModalFooter>
+					</div>
+				</Modal>
 
 				<div>
 					<Modal className='orderModal' isOpen={thanks} toggle={toggleThanks}>

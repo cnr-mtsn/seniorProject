@@ -222,82 +222,77 @@ function AdminItems() {
   };
  
 
-    const selectCategory = (
-			<div className='selectWrapper'>
-				<div
-					value='bread'
-					onClick={handleCategorySelection.bind(this, "bread")}>
-					<span>Bread</span>
-				</div>
-				<div
-					value='tortilla'
-					onClick={handleCategorySelection.bind(this, "tortilla")}>
-					<span>Tortillas</span>
-				</div>
-				<div
-					value='protein'
-					onClick={handleCategorySelection.bind(this, "protein")}>
-					<span>Protein</span>
-				</div>
-				<div
-					value='cheese'
-					onClick={handleCategorySelection.bind(this, "cheese")}>
-					<span>Cheese</span>
-				</div>
-				<div
-					value='veggie'
-					onClick={handleCategorySelection.bind(this, "veggie")}>
-					<span>Veggies</span>
-				</div>
-				<div
-					value='condiment'
-					onClick={handleCategorySelection.bind(this, "condiment")}>
-					<span>Condiments</span>
-				</div>
-				<div
-					value='extra'
-					onClick={handleCategorySelection.bind(this, "extra")}>
-					<span>Extras</span>
-				</div>
-				<div
-					value='specials'
-					onClick={handleCategorySelection.bind(this, 'specials')}>
-					<span>Specials</span>
-				</div>
-				<div 
-					onClick={toggleAddModalOpen}>
-					<span>Add Ingredient</span>
-				</div>
 
-			</div>
-		);
-   
+	const categoryCap = category ? category.charAt(0).toUpperCase() + category.slice(1) : '';
+	const categoryPlaceholder = category ? categoryCap : 'Category';
     
   
     return (
-		<div className='adminItemsWrapper'>
-			<div className='adminSelectCategory'>{selectCategory}</div>
-
-			<div className='adminTable'>{items.map(renderItem)}</div>
-
-			<Modal
-				isOpen={addModalOpen}
-				toggle={toggleAddModalOpen}>
-				<div className='addModalWrapper'>
-						<input placeholder='Category' onChange={e => setCategory(e.target.value)} />
-						<input placeholder='Name' onChange={e => setNewName(e.target.value)} />
-						<input placeholder='Price' onChange={e => setNewPrice(e.target.value)} />
-						<input placeholder='Health Points' onChange={e => setNewHP(e.target.value)} />
-						<input placeholder='Calories' onChange={e => setNewCals(e.target.value)} />
-						<input placeholder='Description' onChange={e => setNewDescription(e.target.value)}
-								style={addDescriptionVis}
-						/>
-						<button className='purpleButton' onClick={handleAddClick}>Add Item</button>
+			<div className='adminItemsWrapper'>
+				<div className='selectCategory'>
+					<div onClick={handleCategorySelection.bind(this, "bread")}>
+						Bread
+					</div>
+					<div onClick={handleCategorySelection.bind(this, "tortilla")}>
+						Tortillas
+					</div>
+					<div onClick={handleCategorySelection.bind(this, "protein")}>
+						Protein
+					</div>
+					<div onClick={handleCategorySelection.bind(this, "cheese")}>
+						Cheese
+					</div>
+					<div onClick={handleCategorySelection.bind(this, "veggie")}>
+						Veggies
+					</div>
+					<div onClick={handleCategorySelection.bind(this, "condiment")}>
+						Condiments
+					</div>
+					<div onClick={handleCategorySelection.bind(this, "extra")}>
+						Extras
+					</div>
+					<div onClick={handleCategorySelection.bind(this, "specials")}>
+						<span>Specials</span>
+					</div>
+					<div className="addIngredient" onClick={toggleAddModalOpen}>Add Ingredient</div>
 				</div>
 
-			</Modal>
-		</div>
-	);
+				<div className='adminTable'>{items.map(renderItem)}</div>
+
+				<Modal isOpen={addModalOpen} toggle={toggleAddModalOpen}>
+					<div className='addModalWrapper'>
+						<input
+							placeholder={categoryPlaceholder}
+							onChange={e => setCategory(e.target.value)}
+						/>
+						<input
+							placeholder='Name'
+							onChange={e => setNewName(e.target.value)}
+						/>
+						<input
+							placeholder='Price'
+							onChange={e => setNewPrice(e.target.value)}
+						/>
+						<input
+							placeholder='Health Points'
+							onChange={e => setNewHP(e.target.value)}
+						/>
+						<input
+							placeholder='Calories'
+							onChange={e => setNewCals(e.target.value)}
+						/>
+						<input
+							placeholder='Description'
+							onChange={e => setNewDescription(e.target.value)}
+							style={addDescriptionVis}
+						/>
+						<button
+							className='purpleButton'
+							onClick={handleAddClick}>{`Add ${categoryCap}`}</button>
+					</div>
+				</Modal>
+			</div>
+		);
 }
 
 export default AdminItems;
