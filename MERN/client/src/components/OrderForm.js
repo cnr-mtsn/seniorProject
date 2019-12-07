@@ -255,7 +255,7 @@ function OrderForm(props) {
 	const thanksBody = routing ? (
 		<Spinner color='dark' />
 	) : (
-		<p>Thanks for skipping the line and placing your order online!</p>
+		`Your order will be ready at ${pickupTime}`
 	);
 
 	let conf_hp_color;
@@ -392,10 +392,10 @@ function OrderForm(props) {
 				</Modal>
 
 				<Modal className='orderModal' isOpen={thanks} toggle={toggleThanks}>
-					<div>
-						<div>Thank You!</div>
-						<div>{thanksBody}</div>
-						<div>
+					<div className="thanksModalWrapper">
+						<div className="thanksModalHeader">Thanks, {userData.firstName}!</div>
+						<div className="thanksModalBody">{thanksBody}</div>
+						<div className="thanksModalButton">
 							<button
 								color='primary'
 								value='Close'
