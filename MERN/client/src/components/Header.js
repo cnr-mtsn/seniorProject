@@ -19,11 +19,14 @@ function Header(props) {
 		case 1:
 			//users
 			userVis='inline';
+			kitchenVis='none';
+			adminVis='none';
 			break;
 		case 2:
 			//kitchen staff
 			userVis = 'inline';
 			kitchenVis = 'inline';
+			adminVis='none';
 			break;
 		case 3:
 			//admin

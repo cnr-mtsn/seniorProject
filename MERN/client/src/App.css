@@ -284,10 +284,15 @@
 }
 .userGreeting {
 	justify-self:flex-end;
+	height:100%;
 	width:25vw;
-	padding: 50px;
 	display:flex;
-
+	justify-content:center;
+	align-items:center;
+	outline:1px solid black;
+}
+.grtng {
+	padding: 1vw;
 }
 /* HEADER */
 
@@ -479,23 +484,6 @@
 }
 /* PROFILE */
 
-/* LOGIN */
-.loginWrapper {
-	display: grid;
-	grid-template-columns: repeat(6, 1fr);
-	grid-auto-rows: minmax(100px, auto);
-	grid-template-areas:
-		"hd hd hd hd hd hd"
-		"... ... main main ... ...";
-}
-.loginHeader {
-	grid-area: hd;
-}
-.loginJumbo {
-	grid-area: main;
-}
-/* LOGIN */
-
 /* ORDER FORM */
 .orderFormWrapper {
 	display:flex;
@@ -657,8 +645,97 @@
 	width:6vh;
 	border-radius:50%;
 }
+.confirmModalWrapper {
+	background:rgba(105, 98, 120, .3);
+	min-height:40vh;
+	display:flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+.orderConfirmHeader {
+	display:flex;
+	justify-content: center;
+	align-items: center;
+	padding:1vh;
+	border-bottom:1px solid #4F4856;
+	font-size: 3vh;
+	font-weight: bold;
+}
+.confirmationBody {
+	display:flex;
+	flex-direction:column;
+}
+.confirmOrderInfo {
+	display:flex;
+}
+.confirmOrderInfo div {
+	width:100%;
+	padding:1vw;
+}
+.confirmItems {
+	text-indent: 1vw;
+}
+.confirmHealthPoints {
+	display:flex;
+	flex-direction: column;
+	align-items:center;
+}
+.chpHeader {
+	display:flex;
+	justify-content: center;
+	align-items: center;
+	font-weight: 500;
+}
+.chpHeader span {
+	border-bottom: 1px solid black;
+}
+.chpNumber {
+	display:flex;
+	justify-content: center;
+	align-items: center;
+}
+.chpNumber div {
+	display:flex;
+	justify-content: center;
+	align-items: center;
+	width:4vw;
+	height:4vw;
+	border: 2px solid black;
+}
+.chpMessage {
+	display:flex;
+	justify-content:center;
+	align-items: center;
+	font-size: 2.5vh;
+	text-align:center;
+}
+.confirmOrderInputs {
+	display:flex;
+	flex-direction:column;
+	height:20vh;
+	justify-content: space-around;
+	padding: 1vw;
+}
 
-
+.orderConfirmButton {
+	display:flex;
+	justify-content: center;
+	align-items: center;
+	padding:1vw;
+}
+.orderConfirmButton button {
+	background:rgba(64, 134, 226, 1);
+	color:white;
+	display:flex;
+	justify-content: center;
+	align-items: center;
+	padding:1vh;
+	border-radius:50%;
+	transition: all .3s;
+}
+.orderConfirmButton button:hover {
+	background: rgba(64, 134, 226, .8);
+}
 
 /* ORDER FORM */
 

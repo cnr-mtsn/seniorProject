@@ -2,17 +2,9 @@ import React, { useState, useEffect } from "react";
 import "../App.css";
 import Header from "../components/Header";
 import { FaPlus, FaCheck, FaTimes } from "react-icons/fa";
+import { MdSend } from 'react-icons/md';
 import { Redirect } from 'react-router-dom';
-import {
-	Button,
-	Input,
-	Modal,
-	ModalBody,
-	ModalHeader,
-	ModalFooter,
-	Spinner, 
-	Progress
-} from "reactstrap";
+import { Input, Modal, Spinner } from "reactstrap";
 
 function OrderForm(props) {
 
@@ -41,7 +33,6 @@ function OrderForm(props) {
 	const [routing, setRouting] = useState(false);
 	const [redirect, setRedirect] = useState(false);
 	const [confirmed, setConfirmed] = useState(false);
-	const [redirectProfile, setRedirectProfile] = useState(false);
 
 	const avgHP = (healthPoints / (order.length)).toFixed(1) || 0;
 
@@ -114,7 +105,7 @@ function OrderForm(props) {
 	}
 	//render each item in desired category with button for adding to order.
 	const renderItem = item => {
-		var orderItemColor; 
+		let orderItemColor; 
 		switch(item.health_points) {
 			case 1: orderItemColor = "#F1938D";
 					break;
@@ -126,6 +117,7 @@ function OrderForm(props) {
 					break;
 			case 5: orderItemColor = "#99E896";
 					break;
+			default: orderItemColor = "white"
 		}
 		const fixedPrice = "$" + item.price.toFixed(2);
 		
@@ -147,15 +139,17 @@ function OrderForm(props) {
 				setHealthPoints(healthPoints + item.health_points);
 			}
 		};
+		
 	
 		return (
-			<div style={{background:`${orderItemColor}`}} key={item.name + item.price} className='orderItem'>
-				<div className='orderItemName'>
-					<h5>{item.name}</h5>
-				</div>
+			<div
+				style={{ background: `${orderItemColor}` }}
+				key={item.name + item.price}
+				className='orderItem'>
+				<div className='orderItemName'>{item.name}</div>
 				<div className='orderItemInfo'>
-					<h6>{fixedPrice}</h6>
-					<h6>{item.calories}cal.</h6>
+					<div>{fixedPrice}</div>
+					<div>{item.calories}cal.</div>
 				</div>
 
 				<div className='orderItemAddButton'>
@@ -169,7 +163,28 @@ function OrderForm(props) {
 
 	//render each item in order on confirmation modal
 	const renderConfirmItems = item => {
-		return <li key={`${item.name}${item.price}`}>{item.name}</li>;
+
+		let orderConfItemColor;
+		switch (item.health_points) {
+			case 1:
+				orderConfItemColor = "#F1938D";
+				break;
+			case 2:
+				orderConfItemColor = "#FFBD81";
+				break;
+			case 3:
+				orderConfItemColor = "#FFFDA4";
+				break;
+			case 4:
+				orderConfItemColor = "#E0EF94";
+				break;
+			case 5:
+				orderConfItemColor = "#99E896";
+				break;
+			default:
+				orderConfItemColor = 'white';
+		}
+		return <div style={{background: `${orderConfItemColor}`}} className="confirmItems" key={`${item.name}${item.price}`}>{item.name}</div>;
 	};
 	//render each pickup time as <option/>
 	const renderTimes = time => {
@@ -184,7 +199,7 @@ function OrderForm(props) {
 		toggleConfirmed();
 		//trigger spinner in confirmation modal
 		//close confirmation modal after 1/3 second
-		setTimeout(toggleModal, 300);
+		setTimeout(toggleModal, 500);
 		//clear state values
 		setOrder([]);
 		setTotal(0);
@@ -231,9 +246,7 @@ function OrderForm(props) {
 	const routeHome = () => {
 		setRedirect(true);
 	};
-	const routeToProfile = () => {
-		setRedirectProfile(true);
-	}
+
 	/****** FUNCTIONS ******/
 	
 
@@ -245,24 +258,58 @@ function OrderForm(props) {
 		<p>Thanks for skipping the line and placing your order online!</p>
 	);
 
+	let conf_hp_color;
+	let conf_hp_message;
+	
+	if(avgHP < 2) {
+		conf_hp_color = "#F1938D";
+		conf_hp_message = `The average health point value of the items in your order is ${avgHP} 😬\n Consider making healthier choices in the future!`;
+	} else if(avgHP < 2.8) {
+		conf_hp_color = "#FFBD81";
+		conf_hp_message = `The average health point value of the items in your order is ${avgHP} 🤔\n Consider making healthier choices in the future!`;
+	} else if(avgHP < 3.6) {
+		conf_hp_color = "#FFFDA4";
+		conf_hp_message = `The average health point value of the items in your order is ${avgHP}. 👍🏼\n You're right in the middle. Try to stay at or above this threshold!`;
+	} else if(avgHP < 4.4) {
+		conf_hp_color = "#E0EF94";
+		conf_hp_message = `The average health point value of the items in your order is ${avgHP} 😀\n You're doing great! Keep it up!`;
+	} else if(avgHP > 4.4) {
+		conf_hp_color = "#99E896";
+		conf_hp_message = `WOW! 👀 The average health point value of the items in your order is ${avgHP} 😄\n Go ${userData.firstName}!`;
+	}
+			
 	const confirmBody = confirmed ? (
 		<Spinner color='dark' />
 	) : (
-		<div>
-			<ul style={{ marginLeft: "0" }}>{order.map(renderConfirmItems)}</ul>
-			<h5>Name: {userData.firstName} {userData.lastName}</h5>
-			<h5>User ID: {userData.user_id}</h5>
-			<h5>Total: ${total.toFixed(2)}</h5>
-			<h5>Avg HP: {avgHP}</h5>
-			<Input type='select' onChange={handleTimeSelection}>
-				<option defaultValue='Pickup Time'>Pickup Time</option>
-				{times.map(renderTimes)}
-			</Input>
-			<Input
-				type='textarea'
-				placeholder='Special instructions for the kitchen...'
-				onChange={handleCommentsInput}
-			/>
+		<div className='confirmationBody'>
+			<div className='confirmOrderInfo'>
+				<div>{order.map(renderConfirmItems)}</div>
+				<div className='confirmHealthPoints'>
+					<div className='chpHeader'>
+						<span>Avg Health Points</span>
+					</div>
+					<div className='chpNumber'>
+						<div style={{background:`${conf_hp_color}`}}>{avgHP}</div>
+					</div>
+					<div className='chpMessage'>{conf_hp_message}</div>
+				</div>
+			</div>
+
+			<div className='confirmOrderInputs'>
+				<Input type='select' onChange={handleTimeSelection}>
+					<option
+						className='pickupTimeSelect'
+						defaultValue='Select Your Pickup Time'>
+						Pickup Time
+					</option>
+					{times.map(renderTimes)}
+				</Input>
+				<Input
+					type='textarea'
+					placeholder='Special instructions for the kitchen...'
+					onChange={handleCommentsInput}
+				/>
+			</div>
 		</div>
 	);	
 	/****** CONDITIONAL INNER HTML ******/
@@ -270,9 +317,7 @@ function OrderForm(props) {
 	/****** RENDER THIS ******/
 	if(redirect) {
 		return ( <Redirect to="/"/>);
-	} else if(redirectProfile) {
-		return ( <Redirect to="/profile"/>);
-	}
+	} 
 	else {
 		return (
 			<div className='orderFormWrapper'>
@@ -335,33 +380,32 @@ function OrderForm(props) {
 				</div>
 
 				<Modal className='orderModal' isOpen={modal} toggle={toggleModal}>
-					<div>
-						<ModalHeader toggle={toggleModal}>Order Confirmation</ModalHeader>
-						<ModalBody>{confirmBody}</ModalBody>
-						<ModalFooter>
-							<Button color='primary' onClick={handlePlaceOrderClick}>
-								Place Order
-							</Button>
-						</ModalFooter>
+					<div className="confirmModalWrapper">
+						<div className="orderConfirmHeader">Order Confirmation</div>
+						{confirmBody}
+						<div className="orderConfirmButton">
+							<button onClick={handlePlaceOrderClick}>
+								<MdSend size={32}/>
+							</button>
+						</div>
 					</div>
 				</Modal>
 
-				<div>
-					<Modal className='orderModal' isOpen={thanks} toggle={toggleThanks}>
+				<Modal className='orderModal' isOpen={thanks} toggle={toggleThanks}>
+					<div>
+						<div>Thank You!</div>
+						<div>{thanksBody}</div>
 						<div>
-							<ModalHeader toggle={toggleThanks}>Thank You!</ModalHeader>
-							<ModalBody>{thanksBody}</ModalBody>
-							<ModalFooter>
-								<Button
-									color='primary'
-									value='Close'
-									onClick={handleThanksClick}>
-									Close
-								</Button>
-							</ModalFooter>
+							<button
+								color='primary'
+								value='Close'
+								onClick={handleThanksClick}>
+								Close
+							</button>
 						</div>
-					</Modal>
-				</div>
+					</div>
+				</Modal>
+			
 			</div>
 		);
 	}
