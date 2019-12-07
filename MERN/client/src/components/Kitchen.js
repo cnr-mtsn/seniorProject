@@ -22,13 +22,13 @@ function Kitchen(props) {
         .then(response => response.json())
         .then(response => setOrders(response.data))
         .catch(err => console.log(err));
-    }
+	}
     
     const [userData, setUserData] = useState(getUserStats);
     const [orders, setOrders] = useState(getOrders);
-
+	
     const renderOrders = (order) => {
-
+		
         return (
 					<div key={order.order_id} className='kitchenOrder'>
 
