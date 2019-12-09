@@ -95,11 +95,11 @@ function AdminItems() {
 	.then(setCategory(selection))
 	.catch(err => console.log(err))
   }
-	const handleDeleteClick = async item => {
-	await fetch(`http://localhost:5000/${category}/delete?name=${item}`)
-	.then(getItems)
-	.then(console.log(`removed: ${item}`))
-	.catch(err => console.error(err));
+	const handleDeleteClick = async (item) => {
+		await fetch(`http://localhost:5000/${category}/delete?name=${item}`)
+		.then(getItems)
+		.then(console.log(`removed: ${item}`))
+		.catch(err => console.error(err));
 	};
 
 	const handleAddClick = () => {

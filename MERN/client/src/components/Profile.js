@@ -1,5 +1,6 @@
 import React, {useState, useEffect} from 'react';
 import Header from '../components/Header';
+import OrderItem from '../components/OrderItem';
 import { Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
 
 import { FaUserTie, FaStar } from 'react-icons/fa';
@@ -41,27 +42,28 @@ function Profile(props) {
 	
 	const renderOrders = (order) => {
 		const fixedPrice = `$${order.total.toFixed(2)}`;
-		const orderModal = (
-			<Modal
-				className='ordersModal'
-				isOpen={orderDetails}
-				toggle={toggleOrderDeets}>
-				<ModalHeader>Order Details</ModalHeader>
-				<ModalBody>
-					<ul>
-						<li>Order ID: {order.order_id}</li>
-					</ul>
-				</ModalBody>
-				<ModalFooter>Total: {fixedPrice}</ModalFooter>
-			</Modal>
-		)
+	
 		return (
-			<div key={order.order_id} className='profileOrder'>
-				<div>{order.hp}</div>
-				<div>{fixedPrice}</div>
-				<div>{order.order_date}</div>
-				<div onClick={toggleOrderDeets} className="clickable">View Order</div>
-				{orderModal}
+			<div key={order.order_id} className='kitchenOrder'>
+				<div className='orderTop'>
+					<div className='kOrderUserId'>
+						<div className='ticketLabel'>Date</div>
+						<div className='paddingOne ticketData'>{order.order_date}</div>
+					</div>
+					<div className='kOrderUserId'>
+						<div className='ticketLabel'>Health Points</div>
+						<div className='paddingOne ticketData'>{order.hp}</div>
+					</div>
+					<div className='kOrderTime'>
+						<div className='ticketLabel'>Price</div>
+						<div className='paddingOne ticketData'>{fixedPrice}</div>
+					</div>
+				</div>
+				<div className='orderBody'>
+					<div className='kOrderItems'>
+						<OrderItem style={{background:'red'}}orderId={order.order_id} />
+					</div>
+				</div>
 			</div>
 		);
 	}
@@ -72,45 +74,27 @@ function Profile(props) {
 					<Header user={userData.firstName} view={userData.view} />
 				</div>
 
-				<div className='profileSide'>
-					<div className='profileSidePicAndStars'>
-						<div className='profileSidePic'>
-							<div className='profileSidePicInner'>
-								<FaUserTie size={200} />
+				<div className='profileBody'>
+
+					{/* <div className='profileSide'>
+						<div className='profileSidePicAndStars'>
+							<div className='profileSidePic'>
+								<FaUserTie size={100}/>
 							</div>
 							<div className='profileSideStars'>
-								<FaStar size={32} />
-								<FaStar size={32} />
-								<FaStar size={32} />
-								<FaStar size={32} />
-								<FaStar size={32} />
+								<div className="avgHP">
+									Average HP
+								</div>
+								<div className="avgHPText">{totalHP / orders.length}</div>
 							</div>
 						</div>
-					</div>
 
-					<div className='profileSideLinks'>
-						<div className='profileSideLinksOrders'>
-							<h5>My Orders</h5>
-						</div>
-					</div>
-
-					<div className='profileSideFooter'>
-						<div className='profileSideFooterEmail'>
+						<div className='profileSideFooter'>
 							<h6>{userData.email}</h6>
-						</div>
-						<div className='profileSideFooterID'>
 							<h6>ID: {userData.user_id}</h6>
 						</div>
-					</div>
-				</div>
+					</div> */}
 
-				<div className='profileBody'>
-					<div className='profileBodyHeaders'>
-						<h5>Name</h5>
-						<h5>Price</h5>
-						<h5>Data</h5>
-						<h5>Items</h5>
-					</div>
 					<div className='profileBodyData'>
 						{orders ? orders.map(renderOrders) : null}
 					</div>

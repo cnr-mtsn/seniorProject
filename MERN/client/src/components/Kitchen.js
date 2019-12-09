@@ -26,7 +26,12 @@ function Kitchen(props) {
         .then(response => setOrders(response.data))
         .catch(err => console.log(err));
 	}
-  
+  	const handleCompleteClick = async id => {
+		await fetch(`http://localhost:5000/orderComplete?id=${id}`)
+			.then(console.log(`Order ${id} is complete!`))
+			.then(getOrders)
+			.catch(err => console.log);
+	};
     const [userData, setUserData] = useState(getUserStats);
     const [orders, setOrders] = useState(getOrders);
 	
@@ -35,39 +40,33 @@ function Kitchen(props) {
 			return null;
 		} else {
 			return (
-				<div key={order.order_id} className='kitchenOrder'>
+				<div key={`${order.order_id}${Math.random() * 10}`} className='kitchenOrder'>
 
 					<div className='orderTop'>
-
 						<div className='kOrderUserId'>
 							<div className='ticketLabel'>User ID</div>
 							<div className='paddingOne ticketData'>{order.user_id}</div>
 						</div>
-
 						<div className='kOrderTime'>
 							<div className='ticketLabel'>Pickup Time:</div>
 							<div className='ticketData'>{order.pickupTime}</div>
 						</div>
-
 					</div>
 
 					<div className='orderBody'>
-
 						<div className='kOrderItems'>
 							<OrderItem orderId={order.order_id}/>
 						</div>
-
 						<div className='kOrderComments'>
 							<div className="commentsHeader">Comments</div>
 							<div className="commentsBody">
 								{order.comments === "undefined" ? "---" : `"${order.comments}"`}
 							</div>
 						</div>
-
 					</div>
 
 					<div className="kOrderFooter">
-						<div value={order.order_id}><FaCheckCircle size={32}/></div>
+						<div onClick={handleCompleteClick.bind(this, `${order.order_id}`)}><FaCheckCircle size={32}/></div>
 					</div>
 
 				</div>

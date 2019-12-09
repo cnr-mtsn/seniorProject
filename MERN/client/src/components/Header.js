@@ -5,6 +5,7 @@ import { NavLink } from "react-router-dom";
 import { FaUserCircle } from 'react-icons/fa';
 
 function Header(props) {
+	
 	const activeLinkStyle = {color:'white'}
 
 	const welcomeText = props.user ? (
@@ -66,41 +67,41 @@ function Header(props) {
 
 			<div className='headerLinks'>
 				
-					<NavLink exact style={userView} activeStyle={activeLinkStyle} to='/'>
-						Home
-					</NavLink>
-				
-					<NavLink
-						exact
-						style={userView}
-						activeStyle={activeLinkStyle}
-						to='/orderForm'>
-						Order
-					</NavLink>
-				
-					{/* <NavLink
-						exact
-						style={userView}
-						activeStyle={activeLinkStyle}
-						to='/profile'>
-						My Profile
-					</NavLink> */}
+				<NavLink exact style={userView} activeStyle={activeLinkStyle} to='/'>
+					Home
+				</NavLink>
 			
-					<NavLink
-						exact
-						style={kitchenView}
-						activeStyle={activeLinkStyle}
-						to='/kitchen'>
-						Kitchen
-					</NavLink>
-				
-					<NavLink
-						exact
-						style={adminView}
-						activeStyle={activeLinkStyle}
-						to='/admin'>
-						Admin
-					</NavLink>
+				<NavLink
+					exact
+					style={userView}
+					activeStyle={activeLinkStyle}
+					to='/orderForm'>
+					Order
+				</NavLink>
+			
+				<NavLink
+					exact
+					style={userView}
+					activeStyle={activeLinkStyle}
+					to='/profile'>
+					My Profile
+				</NavLink>
+		
+				<NavLink
+					exact
+					style={kitchenView}
+					activeStyle={activeLinkStyle}
+					to='/kitchen'>
+					Kitchen
+				</NavLink>
+			
+				<NavLink
+					exact
+					style={adminView}
+					activeStyle={activeLinkStyle}
+					to='/admin'>
+					Admin
+				</NavLink>
 				
 			</div>
 

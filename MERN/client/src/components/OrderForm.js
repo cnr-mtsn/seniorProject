@@ -96,7 +96,7 @@ function OrderForm(props) {
 	};
 	const renderOrderItems = item => {
 		return (
-			<div key={`${item.name}${item.price}`} className='orderDetailsItem'>
+			<div key={`${item.name}${Math.random() * 10}`} className='orderDetailsItem'>
 				<h5>{item.name}</h5>
 				<h6>{item.calories}cal.</h6>
 			</div>
@@ -139,7 +139,6 @@ function OrderForm(props) {
 				setHealthPoints(healthPoints + item.health_points);
 			}
 		};
-		
 	
 		return (
 			<div
@@ -224,7 +223,7 @@ function OrderForm(props) {
 		} else if (item.cheese_id) {
 			insertOrderItem(item.cheese_id, "cheese_id", 'orders_cheese');
 		} else if (item.veggie_id) {
-			insertOrderItem(item.veggie_id, "veggies_id", 'orders_veggies');
+			insertOrderItem(item.veggie_id, "veggie_id", 'orders_veggies');
 		} else if (item.condiments_id) {
 			insertOrderItem(item.condiments_id, "condiments_id", 'orders_condiments');
 		} else if (item.extras_id) {

@@ -39,7 +39,7 @@ const OrderItem = (props) => {
 
    const renderNames = (item) => {
        return (
-           <div key={item + orderId}className="kOrderItemName">{item}</div>
+           <div key={Math.random() * 1000}className="kOrderItemName">{item}</div>
        );
    }
 

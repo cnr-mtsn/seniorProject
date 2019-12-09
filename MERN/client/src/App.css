@@ -347,38 +347,19 @@
 
 /****** PROFILE ******/
 .profileWrapper {
-	display: grid;
-	grid-template-columns: repeat(9, 1fr);
-	grid-template-areas:
-		"hd hd hd hd hd hd hd hd hd"
-		"sd sd bd bd bd bd bd bd bd";
-}
-.profileHeader {
-	grid-area: hd;
-}
-.profileBody {
-	background-color:#c5c0d6;
-	grid-area: bd;
-	height: 90vh;
-	padding: 50px;
-	/* outline:1px solid black; */
 	display: flex;
 	flex-direction:column;
-}
-.profileBodyHeaders {
-	display:flex;
-	justify-content:space-around;
-	text-align:center;
-	height: 6vh;
-}
-.profileBodyHeaders h5 {
-	width: 100%;
-	outline: 1px solid black;
-	text-align:center;
-}
+	justify-content: space-between;
 
-.profileBodyData {
-	outline: 1px solid black;
+}
+.profileBody {
+	height:90vh;
+	display: flex;
+}
+.profileSide {
+	width:15vw;
+	display:flex;
+	flex-direction:column;
 }
 
 .clickable:hover {
@@ -393,109 +374,50 @@
 	text-align:center;
 }
 .profileSide {
-	grid-area: sd;
-	display: grid;
-	grid-template-rows: repeat(9, 1fr);
-	height: 90vh;
-	background-color: #4f4856;
-	color: #c5c0d6;
-	grid-template-areas:
-		"pp"
-		"pp"
-		"pp"
-		"pp"
-		"..."
-		"..."
-		"pl"
-		"..."
-		"..."
-		"pf";
+	display:flex;
+	flex-direction:column;
+	justify-content: space-between;
+	background:#4F4856;
+	color:#C5C0D6;
 }
 .profileSidePicAndStars {
-	grid-area: pp;
-	height: 350px;
-	display: grid;
-	grid-template-rows: 3fr 1fr;
-	grid-template-areas:
-		"psp"
-		"pss";
+	display:flex;
+	flex-direction:column;
+	justify-content: space-around;
 }
 .profileSidePic {
-	grid-area: psp;
-	height: 40vh;
-	display: grid;
-	grid-template-columns: 1fr 1fr 1fr;
-	grid-template-rows: 1fr 1fr;
-	grid-template-areas:
-		"... pic ..."
-		"... pss ...";
+	height: 20vh;
+	display: flex;
+	justify-content: center;
+	align-items: center;
 }
-.profileSidePicInner {
-	grid-area: pic;
-	margin-top: 30px;
-}
+
 .profileSideStars {
-	grid-area: pss;
-	width: 160px;
-	margin-left: 18px;
-	margin-top: 15px;
-	grid-template-areas: "... strs ...";
-}
-.profileSideLinks {
-	grid-area: pl;
-	height: 80px;
-	display: grid;
-	grid-template-areas:
-		"ol"
-		"fl";
-}
-.profileSideLinks div {
-	border-top: 1px solid #c5c0d6;
-	border-bottom: 1px solid #c5c0d6;
-}
-.profileSideLinksOrders {
-	grid-area: ol;
-}
-.profileSideLinksOrders h5 {
-	margin-left: 30px;
-	cursor: pointer;
-	transition: all 0.5s;
-}
-.profileSideLinksOrders:hover h5 {
-	margin-left: 45px;
-	color: white;
-}
-.profileSideLinksFavs {
-	grid-area: fl;
-}
-.profileSideLinksFavs h5 {
-	margin-left: 30px;
-	cursor: pointer;
-	transition: all 0.5s;
-}
-.profileSideLinksFavs:hover h5 {
-	margin-left: 45px;
-	color: white;
+	display: flex;
+	padding:1vw;
+	justify-content: center;
+	align-items: center;
 }
 .profileSideFooter {
-	grid-area: pf;
-	display: grid;
-	grid-template-areas:
-		"pfe"
-		"pid";
-	border-top: 1px solid #c5c0d6;
+	display:flex;
+	flex-direction:column;
+	justify-content: space-around;
 }
-.profileSideFooterEmail {
-	grid-area: pfe;
+.profileBodyData {
+	width:100vw;
+	display:flex;
+	flex-wrap:wrap;
+	padding:2vw;
+	overflow:auto;
 }
-.profileSideFooterEmail h6 {
-	margin-left: 30px;
-}
-.profileSideFooterID h6 {
-	margin-left: 30px;
-}
-.profileSideFooterID {
-	grid-area: pid;
+.profileOrder {
+	background:rgba(105, 98, 120, .5);
+	border-radius:10px;
+	margin:.5vw;
+	width:calc(25% - 2vw);
+	display:flex;
+	flex-direction: column;
+
 }
 /* PROFILE */
 
@@ -807,16 +729,13 @@
 	height:90vh;
 	overflow:auto;
 }
-.kitchenSide {
-	width:15vw;
-	background: #4F4856;
-	color: #C5C0D6;
-}
+
 .kitchenBody {
 	display:flex;
 	flex-wrap:wrap;
 	padding: 2vw;
 	overflow:auto;
+	justify-content: center;
 }
 .kitchenOrder {
 	padding:1vh;
@@ -828,7 +747,7 @@
 	border-radius: 5px;
 	color:#241F1F;
 	cursor: default;
-	background: rgba(105, 98, 120, .5);
+	background: rgba(105, 98, 120, 0.5);
 }
 .orderTop {
 	display:flex;
@@ -870,10 +789,12 @@
 .kOrderItemsWrapper {
 	display:flex;
 	flex-direction: column;
-	flex-wrap:wrap;
+	overflow:auto;
+	width:100%;
 }
 .kOrderItemName {
 	padding:.5vh;
+	font-size:1.5vw;
 }
 .kOrderComments {
 	padding:.5vw;
