@@ -1,6 +1,9 @@
 import React, {useState, useEffect} from 'react';
 import Header from '../components/Header';
 import OrderItem from '../components/OrderItem';
+import { Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
+
+import { FaUserTie, FaStar } from 'react-icons/fa';
 
 
 function Profile(props) {
@@ -33,8 +36,9 @@ function Profile(props) {
 	const [totalHP, setTotalHP] = useState();
 	const [orders, setOrders] = useState([]);
 	const [userData, setUserData] = useState([]);
+	const [orderDetails, setOrderDetails] = useState(false);
 
-
+	const toggleOrderDeets = () => { setOrderDetails(!orderDetails) };
 	
 	const renderOrders = (order) => {
 		const fixedPrice = `$${order.total.toFixed(2)}`;
