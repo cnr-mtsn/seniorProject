@@ -78,13 +78,13 @@ function Header(props) {
 						Order
 					</NavLink>
 				
-					<NavLink
+					{/* <NavLink
 						exact
 						style={userView}
 						activeStyle={activeLinkStyle}
 						to='/profile'>
 						My Profile
-					</NavLink>
+					</NavLink> */}
 			
 					<NavLink
 						exact

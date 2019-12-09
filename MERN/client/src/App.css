@@ -99,7 +99,7 @@
 }
 .adminItemName {
 	margin-bottom: 1vh;
-	font-size: 2.5vh;
+	font-size: 2vh;
 	font-weight: bold;
 	border:none;
 }
@@ -256,6 +256,9 @@
 	color: #241F1F;
 	width: 12vw;
 }
+.homeInput input::placeholder {
+	font-size:2vh;
+}
 .homeInput input:focus::placeholder {
 	color:transparent;
 }
@@ -266,6 +269,7 @@
 	color: #4f4856;
 	border-radius: 5px;
 	border:none;
+	font-size: 2.5vh;
 }
 .hb:hover {
 	background: rgba(197, 192, 214, .8);
@@ -290,6 +294,9 @@
 	justify-self: center;
 	justify-content:space-evenly;
 	width: 50vw;
+}
+.headerLinks > * {
+	font-size:2.4vh;
 }
 .userGreeting {
 	justify-self:flex-end;
@@ -527,16 +534,21 @@
 	cursor:pointer;
 }
 .orderBody {
-	padding: 2vw;
+	padding: 1vw;
 	display: flex;
 	flex-direction:column;
-	overflow: auto;
-	max-height: 90vh;
-	width: 60vw;
+	justify-content: space-between;
+}
+.orderFormOrderBody {
+	padding:1vh;
+	display:flex;
+	flex-direction:column;
+	align-items: center;
 }
 .orderItem {
 	padding:1vh;
 	margin:.5vw;
+	width: 50vw;
 	min-height: 5vh;
 	justify-content: space-between;
 	align-items:center;
@@ -792,8 +804,8 @@
 	height:10vh;
 }
 .kitchenMain {
-	display:flex;
 	height:90vh;
+	overflow:auto;
 }
 .kitchenSide {
 	width:15vw;
@@ -801,7 +813,6 @@
 	color: #C5C0D6;
 }
 .kitchenBody {
-	width:85vw;
 	display:flex;
 	flex-wrap:wrap;
 	padding: 2vw;
@@ -810,10 +821,10 @@
 .kitchenOrder {
 	padding:1vh;
 	margin:.5vw;
-	min-height: 4vh;
-	width: calc(50% - 2vw);
+	width: calc(33.33333% - 2vw);
 	display: flex;
 	flex-direction: column;
+	justify-content: space-between;
 	border-radius: 5px;
 	color:#241F1F;
 	cursor: default;
@@ -835,7 +846,6 @@
 	display:flex;
 	justify-content:center;
 	font-weight: bold;
-	height:auto;
 }
 .ticketLabel {
 	padding:.3vw;
@@ -850,18 +860,22 @@
 	align-items: center;
 	border-bottom:2px solid #241F1F;
 }
-.orderBottom {
-	display:flex;
-	justify-content: space-around;
-}
+
 .kOrderItems {
-	width: 50%;
 	padding:.5vw;
+	height:30vh;
+	display:flex;
+	border:1px solid black;
+}
+.kOrderItemsWrapper {
 	display:flex;
 	flex-direction: column;
+	flex-wrap:wrap;
+}
+.kOrderItemName {
+	padding:.5vh;
 }
 .kOrderComments {
-	width:50%;
 	padding:.5vw;
 	display:flex;
 	flex-direction: column;
@@ -869,26 +883,35 @@
 .commentsHeader {
 	display:flex;
 	justify-content: center;
-	align-items:center;
-	height:15%;
-	border-bottom:1px solid #241F1F;
+	align-items: center;
+	height: 15%;
+	border-bottom: 1px solid #241F1F;
 }
 .commentsBody {
-	padding:.8vh;
-	display:flex;
+	padding: .8vh;
+	display: flex;
 	justify-content: center;
-	align-items:center;
+	align-items: center;
 }
-.orderFooter {
+.kOrderFooter {
 	color:#C5C0D6;
-	display:flex;
+	display: flex;
 	justify-content: center;
-	align-items:center;
-	height:5vh;
+	align-items: center;
 }
-.orderFooter button {
+.kOrderFooter div {
 	border-radius: 50%;
-	background-color:rgba(105, 98, 120, .5);
-	border:none;
+	background-color:rgba(71, 100, 196, 0.8);
+	border: none;
 	color:#C5C0D6;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	padding: 1vh;
+	transition: all .3s;
+	cursor:pointer;
 }
+.kOrderFooter div:hover {
+	background-color:rgba(71, 100, 196, 1);
+}
+

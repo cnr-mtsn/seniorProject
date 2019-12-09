@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import '../App.css';
 import Header from '../components/Header';
+import OrderItem from '../components/OrderItem';
+import { FaCheckCircle } from 'react-icons/fa';
 // import { Redirect } from 'react-router';
 
 
@@ -8,6 +10,7 @@ import Header from '../components/Header';
 function Kitchen(props) {
 
     useEffect(() => {
+		// eslint-disable-next-line
        getOrders();
     }, [])
 
@@ -23,52 +26,53 @@ function Kitchen(props) {
         .then(response => setOrders(response.data))
         .catch(err => console.log(err));
 	}
-    
+  
     const [userData, setUserData] = useState(getUserStats);
     const [orders, setOrders] = useState(getOrders);
 	
     const renderOrders = (order) => {
-		
-        return (
-					<div key={order.order_id} className='kitchenOrder'>
+		if(order.complete === 1) {
+			return null;
+		} else {
+			return (
+				<div key={order.order_id} className='kitchenOrder'>
 
-						<div className='orderTop'>
+					<div className='orderTop'>
 
-							<div className='kOrderUserId'>
-								<div className='ticketLabel'>User ID</div>
-								<div className='paddingOne ticketData'>{order.user_id}</div>
-							</div>
-
-							<div className='kOrderTime'>
-								<div className='ticketLabel'>Pickup Time:</div>
-								<div className='ticketData'>{order.pickupTime}</div>
-							</div>
+						<div className='kOrderUserId'>
+							<div className='ticketLabel'>User ID</div>
+							<div className='paddingOne ticketData'>{order.user_id}</div>
 						</div>
 
-						<div className='orderBottom'>
-							<div className='kOrderItems'>
-								<div>item</div>
-								<div>item</div>
-								<div>item</div>
-								<div>item</div>
-								<div>item</div>
-								<div>item</div>
-								<div>item</div>
-							</div>
-							<div className='kOrderComments'>
-								<div className="commentsHeader">Comments</div>
-								<div className="commentsBody">
-									{order.comments === "undefined" ? "---" : order.comments}
-								</div>
-							</div>
-						</div>
-
-						<div className="orderFooter">
-							<button>X</button>
+						<div className='kOrderTime'>
+							<div className='ticketLabel'>Pickup Time:</div>
+							<div className='ticketData'>{order.pickupTime}</div>
 						</div>
 
 					</div>
-				);
+
+					<div className='orderBody'>
+
+						<div className='kOrderItems'>
+							<OrderItem orderId={order.order_id}/>
+						</div>
+
+						<div className='kOrderComments'>
+							<div className="commentsHeader">Comments</div>
+							<div className="commentsBody">
+								{order.comments === "undefined" ? "---" : `"${order.comments}"`}
+							</div>
+						</div>
+
+					</div>
+
+					<div className="kOrderFooter">
+						<div value={order.order_id}><FaCheckCircle size={32}/></div>
+					</div>
+
+				</div>
+			);
+		}
     }
 
     return (
@@ -77,12 +81,8 @@ function Kitchen(props) {
 					<Header user={userData.firstName} view={userData.view} />
 				</div>
 				<div className='kitchenMain'>
-					<div className='kitchenSide'>
-						Orders
-					</div>
-
 					<div className='kitchenBody'>
-						{orders ? orders.map(renderOrders) : null}
+						{ orders ? orders.map(renderOrders) : null}
 					</div>
 				</div>
 			</div>

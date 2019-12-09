@@ -387,15 +387,24 @@ app.get('/insertOrderItem', (req, res) => {
 //get name, price, health_points of each item in order
 app.get('/getItemNames', (req, res) => {
     const {orderId, category, orders_category} = req.query;
-    const GET_ITEM_NAME = `SELECT name, price, health_points FROM ${category} NATURAL LEFT OUTER JOIN ${orders_category} where ${orders_category}.order_id=${orderId}`;
+    const GET_ITEM_NAME = `SELECT name FROM ${category} NATURAL LEFT OUTER JOIN ${orders_category} where ${orders_category}.order_id=${orderId}`;
     db.query(GET_ITEM_NAME, (err, results) => {
         err ? res.send(err) : res.json( {data: results });
     });
 });
 //get all orders
 app.get('/allOrders', (req, res) => {
-    const GET_ALL_ORDERS = `SELECT * FROM orders ORDER BY pickupTime`;
+    const GET_ALL_ORDERS = `SELECT * FROM orders WHERE pickupTime > TIME_FORMAT(CURRENT_TIME(), "%h %i %s") ORDER BY pickupTime`;
     db.query(GET_ALL_ORDERS, (err, results) => {
         err ? res.send(err) : res.json( { data: results });
+    });
+});
+
+//mark order completed
+app.get('/orderComplete', (req, res) => {
+    const {id} = req.query;
+    const SET_COMPLETE = `UPDATE orders SET complete = 1 WHERE order_id = ${id}`;
+    db.query(SET_COMPLETE, (err, results) => {
+        err ? res.send(err) : res.json( {data: results });
     });
 });

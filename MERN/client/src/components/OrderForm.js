@@ -208,7 +208,6 @@ function OrderForm(props) {
 		//toggle thanks modal
 		setTimeout(toggleThanks, 300);
 	};
-	console.log(avgHP);
 	//submit order total, user_id, generate order number
 	const submitOrder = () => {
 		fetch(`http://localhost:5000/newOrder?orderId=${orderId}&userId=${userData.user_id}&total=${total}&hp=${avgHP}&comments=${comments}&pickupTime=${pickupTime}`)
@@ -350,7 +349,7 @@ function OrderForm(props) {
 						</div>
 					</div>
 
-					<div className='orderBody'>{items.map(renderItem)}</div>
+					<div className='orderFormOrderBody'>{items.map(renderItem)}</div>
 
 					<div className='orderDetails'>
 						<div className='detailsHeader'>
