@@ -308,6 +308,7 @@
 }
 .grtng {
 	padding: 1vw;
+	font-size:2vh;
 }
 /* HEADER */
 
@@ -349,12 +350,15 @@
 .profileWrapper {
 	display: flex;
 	flex-direction:column;
+	align-items: center;
 	justify-content: space-between;
 
 }
 .profileBody {
 	height:90vh;
 	display: flex;
+	justify-content: center;
+	
 }
 .profileSide {
 	width:15vw;
@@ -445,6 +449,7 @@
 	display:flex;
 	text-indent:1vw;
 	transition: all .4s ease-in-out;
+	font-size:2vh;
 }
 .selectCategory .addIngredient {
 	margin-top: 4vh;
@@ -565,13 +570,13 @@
 	align-items: center;
 }
 .detailsFooter .orderSubmitButton {
-	color:rgb(17, 160, 12);
+	color:rgba(15, 102, 12, .8);
 }
 .detailsFooter .orderClearButton {
 	color: rgb(226, 85, 75);
 }
 .orderSubmitButton:hover {
-	background:#99E896;
+	background:rgba(15, 102, 12, .5);
 }
 .orderClearButton:hover {
 	background:#F1938D;
@@ -796,7 +801,7 @@
 }
 .kOrderItemName {
 	padding:.5vh;
-	font-size:1.5vw;
+	font-size:1vw;
 }
 .kOrderComments {
 	padding:.5vw;

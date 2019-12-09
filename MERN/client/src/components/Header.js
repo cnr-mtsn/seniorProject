@@ -42,7 +42,7 @@ function Header(props) {
 	}
 
 	const icon = props.user ? ( 
-		<FaUserCircle size={36} /> 
+		<FaUserCircle size={54} /> 
 	) : null;
 
 	const userView = {

@@ -368,10 +368,10 @@ function OrderForm(props) {
 
 						<div className='detailsFooter'>
 							<div className='orderSubmitButton' onClick={toggleModal}>
-								<FaCheck/>
+								<FaCheck size={32}/>
 							</div>
 							<div className='orderClearButton' onClick={handleClearOrderClick}>
-								<FaTimes/>
+								<FaTimes size={32}/>
 							</div>
 						</div>
 					</div>
